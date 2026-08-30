@@ -1,0 +1,20 @@
+# Ignore source code and project build files (release/docs only repo)
+app/
+gradle/
+build/
+*.gradle.kts
+*.properties
+gradlew
+gradlew.bat
+mockups/
+*.iml
+.gradle
+.idea
+*.apk
+*.aab
+*.png
+*.xml
+*.json
+*.py
+*.txt
+.DS_Store
