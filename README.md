@@ -15,8 +15,8 @@
 | Attribute | Specification |
 |---|---|
 | **Package Name** | `com.neptools.app` |
-| **Current Version Name** | `1.0` (`v1.0`) |
-| **Current Version Code** | `1` |
+| **Current Version Name** | `1.1` (`v1.1`) |
+| **Current Version Code** | `2` |
 | **Minimum Android Version** | Android 8.0 Oreo (API Level 26) |
 | **Target Android Version** | Android 14 UpsideDownCake (API Level 34) |
 | **Design Language** | **Newari Ink** Material 3 Adaptive Theme (Light & OLED Dark) |
