@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nepal Patro — Newari Ink Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Instrument+Serif:ital@0;1&family=Karla:wght@300;400;500;600;700;800&family=Mukta:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   NEPAL PATRO · THEME "NEWARI INK"
+   Rice paper · ink charcoal · vermillion seal · teal ink
+   Editorial serif numerals · hairline rules · stamps · lattice
+   ================================================================ */
+:root{
+  --rice:#f6f1e6; --paper:#fffdf7; --chip:#efe9da;
+  --ink:#22201b; --ink-soft:#4a463d;
+  --vermilion:#c73e2e; --teal:#16697a;
+  --muted:#8d8574; --hairline:rgba(60,52,38,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;background:#131210;color:#e9e6de;
+  font-family:'Karla',sans-serif;padding:56px 32px 80px;
+  background-image:radial-gradient(1100px 500px at 12% -8%,rgba(255,255,255,.045),transparent 60%);
+}
+.page-head{max-width:1280px;margin:0 auto 40px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.35em;text-transform:uppercase;
+  color:#97917f;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.kicker::before{content:"";width:34px;height:1px;background:#97917f}
+.page-head h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(32px,4.5vw,54px);letter-spacing:-.01em;line-height:1.05}
+.page-head h1 em{color:var(--vermilion)}
+.page-head h1 span{font-family:'Tiro Devanagari Sanskrit',serif}
+.page-head p{color:#a39d8f;max-width:660px;margin-top:16px;font-size:15px;line-height:1.65}
+
+/* ---------- style guide strip ---------- */
+.guide{max-width:1400px;margin:0 auto 14px;display:flex;gap:14px;flex-wrap:wrap;align-items:stretch}
+.gcard{border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 22px;background:rgba(255,255,255,.02);min-width:230px;flex:1}
+.gcard h5{font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:#97917f;margin-bottom:14px}
+.swatches{display:flex;gap:8px}
+.sw{flex:1;text-align:center}
+.sw i{display:block;height:52px;border-radius:8px;border:1px solid rgba(255,255,255,.15)}
+.sw b{display:block;font-size:9.5px;margin-top:7px;color:#b6b0a1;font-weight:600;letter-spacing:.04em}
+.sw s{display:block;text-decoration:none;font-size:9px;color:#6f6a5c;margin-top:2px}
+.type-spec{font-family:'Instrument Serif',serif}
+.type-spec .big{font-size:44px;line-height:1;color:#f0ebdf}
+.type-spec .np{font-family:'Tiro Devanagari Sanskrit',serif;font-size:38px;color:var(--vermilion)}
+.type-spec small{display:block;color:#8f897b;font-family:'Karla';font-size:11px;margin-top:8px;line-height:1.5}
+.motifs{display:flex;gap:10px;align-items:center}
+.stamp-demo{width:54px;height:54px;background:var(--vermilion);color:#fdf3ec;border-radius:8px;
+  display:grid;place-items:center;font-family:'Tiro Devanagari Sanskrit',serif;font-size:11px;
+  transform:rotate(-3deg);box-shadow:3px 4px 0 rgba(0,0,0,.55);text-align:center;line-height:1.2}
+.lattice{height:12px;width:120px;background-image:linear-gradient(rgba(240,235,223,.25) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(240,235,223,.25) 1px,transparent 1px);background-size:8px 8px}
+.btn-demo{background:var(--ink);color:var(--rice);font-weight:800;font-size:11px;letter-spacing:.08em;
+  padding:10px 18px;border-radius:6px;display:inline-block;box-shadow:3px 3px 0 rgba(199,62,46,.85)}
+
+/* ---------- rail & frame ---------- */
+.rail{display:flex;gap:34px;overflow-x:auto;padding:26px 8px 40px;max-width:1400px;margin:0 auto;
+  scrollbar-width:thin;scrollbar-color:#3a382f transparent}
+.phone-wrap{flex:0 0 auto;width:346px}
+.phone{
+  width:346px;height:716px;border-radius:44px;padding:10px;background:#191713;
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 36px 80px -28px rgba(0,0,0,.9);
+  transition:transform .45s cubic-bezier(.2,.9,.25,1.2);
+  animation:rise .8s cubic-bezier(.2,.8,.25,1) backwards;
+}
+.phone-wrap:nth-child(2) .phone{animation-delay:.1s}
+.phone-wrap:nth-child(3) .phone{animation-delay:.18s}
+.phone-wrap:nth-child(4) .phone{animation-delay:.26s}
+.phone-wrap:nth-child(5) .phone{animation-delay:.34s}
+.phone-wrap:nth-child(6) .phone{animation-delay:.42s}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1}}
+.phone:hover{transform:translateY(-8px)}
+.meta{text-align:center;margin-top:16px}
+.meta h3{font-family:'Instrument Serif',serif;font-weight:400;font-size:17px;color:#efe9db}
+.meta p{color:#8f897b;font-size:12px;margin-top:5px;line-height:1.55}
+.screen{
+  width:100%;height:100%;border-radius:35px;overflow:hidden;position:relative;
+  background:var(--rice);color:var(--ink);font-family:'Mukta',sans-serif;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  display:flex;flex-direction:column;
+}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:40;
+  width:100px;height:25px;border-radius:99px;background:#141310}
+
+/* ---------- shared ---------- */
+.statusbar{height:42px;flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 3px;font-size:11px;font-weight:700;color:var(--ink-soft)}
+.appbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:8px 18px}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-mark{width:33px;height:33px;border-radius:9px;background:var(--ink);color:var(--rice);
+  display:grid;place-items:center;font-size:15px;font-family:'Tiro Devanagari Sanskrit',serif}
+.brand-name{font-family:'Instrument Serif',serif;font-size:18px}
+.icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--hairline);
+  background:var(--paper);display:grid;place-items:center;color:var(--ink-soft);font-size:12px}
+.hairlabel{font-size:9.5px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:9px}
+.hairlabel::after{content:"";flex:1;height:1px;background:var(--hairline)}
+.bottomnav{flex:0 0 auto;height:58px;margin:8px 12px 12px;border-radius:14px;background:var(--paper);
+  border:1px solid var(--hairline);display:flex;align-items:center;justify-content:space-around;
+  box-shadow:0 2px 0 rgba(60,52,38,.06)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);
+  font-size:8.5px;font-weight:800;letter-spacing:.04em}
+.nav-item.on{color:var(--vermilion)}
+.nav-item.on .ndot{width:14px;height:2.5px;border-radius:2px;background:var(--vermilion)}
+.stamp{position:absolute;z-index:6;background:var(--vermilion);color:#fdf3ec;border-radius:7px;
+  display:grid;place-items:center;text-align:center;font-family:'Tiro Devanagari Sanskrit',serif;
+  transform:rotate(4deg);box-shadow:3px 4px 0 rgba(34,32,27,.85)}
+.serif{font-family:'Instrument Serif',serif}
+.np-serif{font-family:'Tiro Devanagari Sanskrit',serif}
+
+/* ================= SCREEN A · HOME ================= */
+.hero{padding:4px 18px 0;position:relative}
+.hero-row{display:flex;align-items:baseline;gap:13px;margin-top:5px}
+.big-num{font-family:'Tiro Devanagari Sanskrit',serif;font-size:92px;line-height:.95;color:var(--ink)}
+.hero-cal{display:flex;flex-direction:column;gap:2px}
+.hero-cal .bs{font-family:'Instrument Serif',serif;font-size:21px}
+.hero-cal .ad{font-size:11.5px;color:var(--muted);font-weight:600}
+.hero-cal .day{font-size:12px;color:var(--vermilion);font-weight:800;margin-top:1px}
+.tithi-line{margin-top:9px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.tithi-line b{color:var(--ink);font-weight:700}
+.dotsep{width:3px;height:3px;border-radius:50%;background:var(--vermilion)}
+.festival-chip{margin-top:11px;display:inline-flex;align-items:center;gap:8px;background:var(--paper);
+  border:1px solid var(--hairline);border-left:3px solid var(--vermilion);border-radius:6px;
+  padding:7px 13px 7px 10px;font-size:11.5px;font-weight:700}
+.weekstrip{display:flex;gap:4px;padding:13px 16px 0}
+.wd{flex:1;border-radius:7px;padding:7px 0 6px;text-align:center;background:transparent;border:1px solid transparent}
+.wd .dn{font-size:8.5px;font-weight:800;color:var(--muted)}
+.wd .dd{font-family:'Instrument Serif',serif;font-size:15px;margin-top:2px}
+.wd.sat .dd{color:var(--vermilion)}
+.wd.active{background:var(--ink)}
+.wd.active .dn{color:#cfc9ba}.wd.active .dd{color:var(--rice)}
+.wd.fest .dd::after{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--vermilion);margin:2px auto 0}
+.panrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding:11px 18px 0}
+.pane{border-radius:7px;padding:9px 11px;background:var(--paper);border:1px solid var(--hairline)}
+.pane .pk{font-size:8.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pane .pv{font-family:'Instrument Serif',serif;font-size:15.5px;margin-top:4px}
+.pane .ps{font-size:9.5px;color:var(--muted);margin-top:1px}
+.tools{padding:13px 18px 0;flex:1}
+.tools-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.tools-head h4{font-family:'Instrument Serif',serif;font-size:14px}
+.tools-head span{font-size:10px;color:var(--vermilion);font-weight:800;letter-spacing:.06em}
+.toolgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.tool{border-radius:7px;background:var(--paper);border:1px solid var(--hairline);
+  padding:10px 5px 8px;text-align:center;transition:transform .3s}
+.tool:hover{transform:translateY(-2px)}
+.tool .ti{width:29px;height:29px;margin:0 auto;border-radius:7px;display:grid;place-items:center;
+  background:var(--chip);color:var(--ink);font-size:13px;border:1px solid var(--hairline)}
+.tool .tl{font-size:9px;font-weight:700;color:var(--ink-soft);margin-top:6px;line-height:1.3}
+.lattice-band{height:9px;margin:12px 18px 0;
+  background-image:linear-gradient(var(--hairline) 1px,transparent 1px),
+    linear-gradient(90deg,var(--hairline) 1px,transparent 1px);background-size:8px 8px;opacity:.7}
+
+/* ================= SCREEN B · MONTH ================= */
+.calhead{padding:6px 18px 0}
+.calhead .row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.cal-title{display:flex;align-items:baseline;gap:8px}
+.cal-title .m{font-family:'Tiro Devanagari Sanskrit',serif;font-size:26px}
+.cal-title .y{font-family:'Instrument Serif',serif;font-size:15px;color:var(--muted)}
+.arrows{display:flex;gap:6px}
+.arrow{width:30px;height:30px;border:1px solid var(--hairline);border-radius:7px;background:var(--paper);
+  display:grid;place-items:center;font-size:13px;color:var(--ink-soft)}
+.ad-strip{font-size:10.5px;color:var(--muted);font-weight:600;margin-top:2px}
+.wkrow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:12px 16px 4px}
+.wkrow div{text-align:center;font-size:8.5px;font-weight:800;color:var(--muted)}
+.wkrow div:last-child{color:var(--vermilion)}
+.month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:0 16px}
+.cell{aspect-ratio:1;border-radius:7px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;position:relative;border:1px solid transparent}
+.cell .n{font-family:'Instrument Serif',serif;font-size:14.5px;line-height:1}
+.cell .fdot{width:4px;height:4px;border-radius:50%;background:var(--vermilion);margin-top:3px}
+.cell.fest{background:#fbeae6;border-color:#efc8bf}
+.cell.fest .n{color:var(--vermilion)}
+.cell.sat .n{color:var(--vermilion)}
+.cell.today{background:var(--ink);box-shadow:3px 3px 0 rgba(199,62,46,.8)}
+.cell.today .n{color:var(--rice)}
+.legend{display:flex;gap:14px;padding:10px 20px 0;font-size:9.5px;color:var(--muted);font-weight:700}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--vermilion);margin-right:5px}
+.legend .sq{border-radius:2px;background:var(--ink)}
+.festlist{padding:12px 18px 0;flex:1}
+.festlist h4{font-family:'Instrument Serif',serif;font-size:13.5px;margin-bottom:8px}
+.frow{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--hairline);
+  border-radius:8px;padding:8px 11px;margin-bottom:6px}
+.fdate{font-family:'Tiro Devanagari Sanskrit',serif;font-size:16px;color:var(--vermilion);width:26px;text-align:center}
+.finfo{flex:1}.finfo b{font-size:12px;font-weight:700;display:block}.finfo span{font-size:9.5px;color:var(--muted)}
+.ftag{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);
+  border:1px solid rgba(22,105,122,.35);border-radius:99px;padding:3px 8px}
+
+/* ================= SCREEN C · DAY DETAIL ================= */
+.dd-hero{padding:2px 18px 0;display:flex;align-items:center;gap:13px}
+.dd-hero .big-num{font-size:74px}
+.dd-stamp{right:18px;top:52px;width:56px;height:56px;font-size:11.5px;line-height:1.25}
+.kv{margin:12px 18px 0;background:var(--paper);border:1px solid var(--hairline);border-radius:10px;overflow:hidden}
+.kv .krow{display:flex;justify-content:space-between;align-items:center;padding:8.5px 14px;
+  border-bottom:1px dashed var(--hairline)}
+.kv .krow:last-child{border-bottom:none}
+.kv .k{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kv .v{font-family:'Tiro Devanagari Sanskrit',serif;font-size:14px}
+.kv .v.en{font-family:'Instrument Serif',serif;font-size:14.5px}
+.ink-btn{margin:12px 18px 0;background:var(--ink);color:var(--rice);border:none;border-radius:8px;
+  padding:12px;width:calc(100% - 36px);font-family:'Karla',sans-serif;font-weight:800;font-size:12px;
+  letter-spacing:.06em;box-shadow:3px 3px 0 var(--vermilion);cursor:pointer}
+
+/* ================= SCREEN D · TOOLS HUB ================= */
+.tgroup{padding:10px 18px 0}
+.tgroup:first-of-type{padding-top:4px}
+.trow{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--hairline);
+  border-radius:9px;padding:9px 13px;margin-bottom:6px}
+.tico{width:34px;height:34px;border-radius:8px;background:var(--chip);border:1px solid var(--hairline);
+  display:grid;place-items:center;font-size:15px;color:var(--ink)}
+.tinfo{flex:1}.tinfo b{display:block;font-size:12.5px;font-weight:700}
+.tinfo span{font-size:9.5px;color:var(--muted);font-weight:600;letter-spacing:.03em}
+.badge-ai{font-size:7.5px;font-weight:800;letter-spacing:.12em;background:var(--teal);color:#fdfdf8;
+  border-radius:4px;padding:2.5px 6px;margin-left:7px;vertical-align:1px}
+.chev{color:var(--muted);font-size:13px}
+
+/* ================= SCREEN E · CONVERTER ================= */
+.conv-card{margin:8px 18px 0;background:var(--paper);border:1px solid var(--hairline);border-radius:12px;padding:14px 16px}
+.sys-tag{font-size:9px;font-weight:800;letter-spacing:.22em;color:var(--vermilion)}
+.pickers{display:flex;gap:8px;margin-top:9px}
+.pick{flex:1;border:1px solid var(--hairline);border-radius:8px;padding:7px 9px;background:var(--chip)}
+.pick small{display:block;font-size:8px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.pick b{font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;font-weight:400;display:block;margin-top:2px}
+.swap-row{display:flex;align-items:center;gap:10px;margin:10px 18px}
+.swap-line{flex:1;height:1px;background:var(--hairline)}
+.swap-btn{width:34px;height:34px;border-radius:50%;background:var(--vermilion);color:#fdf3ec;
+  display:grid;place-items:center;font-size:14px;box-shadow:2px 3px 0 rgba(34,32,27,.8)}
+.ad-result{text-align:center;padding:4px 0 2px}
+.ad-result .r1{font-family:'Instrument Serif',serif;font-size:34px;line-height:1.1}
+.ad-result .r2{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em;margin-top:3px}
+.recent{padding:13px 18px 0;flex:1}
+.recent h4{font-family:'Instrument Serif',serif;font-size:13.5px;margin-bottom:8px}
+.rchips{display:flex;gap:6px;flex-wrap:wrap}
+.rchip{font-size:10.5px;font-weight:700;background:var(--chip);border:1px solid var(--hairline);
+  border-radius:99px;padding:6px 12px;color:var(--ink-soft)}
+.rchip b{font-family:'Instrument Serif',serif;font-weight:400}
+
+/* ================= SCREEN F · RASHIFAL ================= */
+.rz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px 16px 0}
+.rz{border:1px solid var(--hairline);border-radius:8px;background:var(--paper);text-align:center;padding:8px 2px 7px}
+.rz .sym{font-size:15px;color:var(--teal)}
+.rz b{display:block;font-family:'Tiro Devanagari Sanskrit',serif;font-size:11.5px;font-weight:400;margin-top:2px}
+.rz.sel{background:var(--ink);border-color:var(--ink);box-shadow:3px 3px 0 var(--vermilion)}
+.rz.sel .sym{color:#e8c9c2}.rz.sel b{color:var(--rice)}
+.rz-detail{margin:12px 18px 0;background:var(--paper);border:1px solid var(--hairline);border-radius:12px;padding:14px 16px;flex:1}
+.rz-detail h4{font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px;display:flex;justify-content:space-between;align-items:center}
+.rz-detail h4 small{font-family:'Instrument Serif',serif;font-size:12px;color:var(--muted)}
+.rz-text{font-size:11.5px;line-height:1.75;color:var(--ink-soft);margin-top:8px}
+.bars{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:9px 14px}
+.bar small{display:block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.bar .track{height:5px;border-radius:3px;background:var(--chip)}
+.bar .fill{height:100%;border-radius:3px;background:var(--vermilion)}
+.bar:nth-child(even) .fill{background:var(--teal)}
+.lucky{display:flex;gap:8px;margin-top:12px}
+.luck-chip{flex:1;border:1px dashed var(--hairline);border-radius:8px;text-align:center;padding:7px 4px}
+.luck-chip small{display:block;font-size:8px;font-weight:800;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.luck-chip b{font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;font-weight:400}
+
+/* footer */
+.foot{max-width:1280px;margin:0 auto;text-align:center;color:#77725f;font-size:12px}
+.foot b{color:#cfc9ba}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <div class="kicker">Selected Direction · Locked</div>
+  <h1>Newari Ink <span>· नेवारी मसी</span> — <em>full design system</em></h1>
+  <p>Theme 03 applied across six core screens: home, month calendar, day/panchang detail,
+     tools hub, BS↔AD converter, and rashifal. Below is the palette, type system and signature motifs
+     that will translate directly into the Compose Material 3 theme.</p>
+</header>
+
+<!-- STYLE GUIDE -->
+<div class="guide">
+  <div class="gcard" style="flex:1.6">
+    <h5>Palette</h5>
+    <div class="swatches">
+      <div class="sw"><i style="background:#f6f1e6"></i><b>Rice Paper</b><s>#F6F1E6</s></div>
+      <div class="sw"><i style="background:#22201b"></i><b>Ink</b><s>#22201B</s></div>
+      <div class="sw"><i style="background:#c73e2e"></i><b>Vermillion</b><s>#C73E2E</s></div>
+      <div class="sw"><i style="background:#16697a"></i><b>Teal Ink</b><s>#16697A</s></div>
+      <div class="sw"><i style="background:#efe9da"></i><b>Parchment</b><s>#EFE9DA</s></div>
+      <div class="sw"><i style="background:#8d8574"></i><b>Faded</b><s>#8D8574</s></div>
+    </div>
+  </div>
+  <div class="gcard">
+    <h5>Type</h5>
+    <div class="type-spec">
+      <span class="np">पात्रो</span>&nbsp;&nbsp;<span class="big">Aa ७</span>
+      <small>Tiro Devanagari Sanskrit — display NP<br>Instrument Serif — display EN<br>Karla / Mukta — body</small>
+    </div>
+  </div>
+  <div class="gcard">
+    <h5>Motifs</h5>
+    <div class="motifs">
+      <div class="stamp-demo">अष्टमी<br><small style="font-size:6px;letter-spacing:.2em">TITHI</small></div>
+      <div class="lattice"></div>
+      <div class="btn-demo">INK BUTTON</div>
+    </div>
+    <small style="display:block;color:#8f897b;font-size:11px;margin-top:12px;line-height:1.6">
+      Vermillion seal stamps, ankhijhyal lattice bands,
+      offset hard shadows (ink + vermillion), dashed hairlines.</small>
+  </div>
+</div>
+
+<div class="rail">
+
+  <!-- ========== A · HOME ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="appbar">
+        <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">Nepal Patro</div></div>
+        <div style="display:flex;gap:6px"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+      </div>
+      <div class="hero">
+        <div class="hairlabel">आज · Today</div>
+        <div class="hero-row">
+          <div class="big-num">७</div>
+          <div class="hero-cal">
+            <span class="bs">भदौ २०८३</span>
+            <span class="ad">August 23, 2026 · Kathmandu</span>
+            <span class="day">आइतबार · Sunday</span>
+          </div>
+        </div>
+        <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ योग</div>
+        <div class="festival-chip">✦&nbsp; कृष्ण जन्माष्टमी — २ दिनमा</div>
+      </div>
+      <div class="weekstrip">
+        <div class="wd sat fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+        <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+        <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+        <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+        <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+        <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+        <div class="wd sat"><div class="dn">शनि</div><div class="dd">१२</div></div>
+      </div>
+      <div class="panrow">
+        <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">sunrise</div></div>
+        <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">sunset</div></div>
+        <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">avoid</div></div>
+      </div>
+      <div class="tools">
+        <div class="tools-head"><h4>उपयोगिता — Tools</h4><span>ALL ›</span></div>
+        <div class="toolgrid">
+          <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+          <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+          <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+          <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+          <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+          <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+          <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+          <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+        </div>
+      </div>
+      <div class="lattice-band"></div>
+      <div class="bottomnav">
+        <div class="nav-item on">⌂<span>गृह</span><span class="ndot"></span></div>
+        <div class="nav-item">▤<span>पात्रो</span></div>
+        <div class="nav-item">▦<span>औजार</span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>A · Home — गृह</h3><p>Serif numeral hero, vermillion festival rule, ink-block today, lattice footer band.</p></div>
+  </div>
+
+  <!-- ========== B · MONTH CALENDAR ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="calhead">
+        <div class="hairlabel">पात्रो · Month View</div>
+        <div class="row">
+          <div class="cal-title"><span class="m">भदौ</span><span class="y serif">2083 · Aug–Sep</span></div>
+          <div class="arrows"><div class="arrow">‹</div><div class="arrow">›</div></div>
+        </div>
+        <div class="ad-strip">Bikram Sambat 2083 · swipe months · tap day for detail</div>
+      </div>
+      <div class="wkrow"><div>आइत</div><div>सोम</div><div>मंगल</div><div>बुध</div><div>बिही</div><div>शुक्र</div><div>शनि</div></div>
+      <div class="month">
+        <div class="cell fest"><span class="n">१</span><span class="fdot"></span></div>
+        <div class="cell"><span class="n">२</span></div>
+        <div class="cell"><span class="n">३</span></div>
+        <div class="cell"><span class="n">४</span></div>
+        <div class="cell"><span class="n">५</span></div>
+        <div class="cell fest sat"><span class="n">६</span><span class="fdot"></span></div>
+        <div class="cell sat"><span class="n">७</span></div>
+        <div class="cell fest sat"><span class="n">८</span><span class="fdot"></span></div>
+        <div class="cell today"><span class="n">७</span></div>
+        <div class="cell"><span class="n">१०</span></div>
+        <div class="cell"><span class="n">११</span></div>
+        <div class="cell fest sat"><span class="n">१२</span><span class="fdot"></span></div>
+        <div class="cell sat"><span class="n">१३</span></div>
+        <div class="cell"><span class="n">१४</span></div>
+        <div class="cell"><span class="n">१५</span></div>
+        <div class="cell"><span class="n">१६</span></div>
+        <div class="cell"><span class="n">१७</span></div>
+        <div class="cell"><span class="n">१८</span></div>
+        <div class="cell fest"><span class="n">१९</span><span class="fdot"></span></div>
+        <div class="cell sat"><span class="n">२०</span></div>
+        <div class="cell fest"><span class="n">२१</span><span class="fdot"></span></div>
+        <div class="cell"><span class="n">२२</span></div>
+        <div class="cell"><span class="n">२३</span></div>
+        <div class="cell"><span class="n">२४</span></div>
+        <div class="cell sat"><span class="n">२५</span></div>
+        <div class="cell"><span class="n">२६</span></div>
+        <div class="cell"><span class="n">२७</span></div>
+        <div class="cell"><span class="n">२८</span></div>
+        <div class="cell"><span class="n">२९</span></div>
+        <div class="cell"><span class="n">३०</span></div>
+        <div class="cell"><span class="n">३१</span></div>
+        <div class="cell" style="opacity:.25"><span class="n">१</span></div>
+      </div>
+      <div class="legend"><span><i></i>पर्व / बिदा</span><span><i class="sq"></i>आज</span><span><i style="border-radius:0;background:transparent;border:1px solid var(--vermilion)"></i>शनिबार</span></div>
+      <div class="festlist">
+        <h4>यस महिनाका पर्वहरू</h4>
+        <div class="frow"><span class="fdate">८</span><div class="finfo"><b>कृष्ण जन्माष्टमी</b><span>Krishna Janmashtami · आइतबार</span></div><span class="ftag">Public</span></div>
+        <div class="frow"><span class="fdate">१९</span><div class="finfo"><b>हरितालिका तीज</b><span>Hartalika Teej · बिहीबार</span></div><span class="ftag">Public</span></div>
+        <div class="frow"><span class="fdate">२१</span><div class="finfo"><b>ऋषि पञ्चमी</b><span>Rishi Panchami · शनिबार</span></div><span class="ftag">Festival</span></div>
+      </div>
+      <div class="bottomnav">
+        <div class="nav-item">⌂<span>गृह</span></div>
+        <div class="nav-item on">▤<span>पात्रो</span><span class="ndot"></span></div>
+        <div class="nav-item">▦<span>औजार</span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>B · Month Grid — पात्रो</h3><p>Ink-block today w/ vermillion offset shadow, soft red festival cells, event ledger below.</p></div>
+  </div>
+
+  <!-- ========== C · DAY DETAIL ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="appbar">
+        <div class="brand"><div class="icon-btn">‹</div><div class="brand-name" style="margin-left:4px">दिन विवरण</div></div>
+        <div class="icon-btn">🔔</div>
+      </div>
+      <div class="dd-hero">
+        <div class="big-num">७</div>
+        <div class="hero-cal">
+          <span class="bs" style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:19px">भदौ ७, २०८३</span>
+          <span class="ad">August 23, 2026</span>
+          <span class="day">आइतबार · Sunday</span>
+        </div>
+      </div>
+      <div class="stamp dd-stamp">अष्टमी<br><small style="font-family:'Karla';font-size:6px;letter-spacing:.2em;font-weight:800">TITHI</small></div>
+      <div class="kv">
+        <div class="krow"><span class="k">तिथि</span><span class="v">कृष्ण अष्टमी · till १८:१२</span></div>
+        <div class="krow"><span class="k">नक्षत्र</span><span class="v">रोहिणी · till २१:०४</span></div>
+        <div class="krow"><span class="k">योग</span><span class="v">विष्कम्भ</span></div>
+        <div class="krow"><span class="k">करण</span><span class="v">बालव</span></div>
+        <div class="krow"><span class="k">सूर्योदय</span><span class="v en">05:54</span></div>
+        <div class="krow"><span class="k">सूर्यास्त</span><span class="v en">18:29</span></div>
+        <div class="krow"><span class="k">चन्द्रोदय</span><span class="v en">21:41</span></div>
+        <div class="krow"><span class="k">राहु काल</span><span class="v" style="color:var(--vermilion)">१६:१५ – १७:४८</span></div>
+      </div>
+      <button class="ink-btn">🔔 यो दिनको सम्झना राख्नुहोस् — SET REMINDER</button>
+      <div style="padding:12px 18px 0">
+        <div class="festival-chip" style="width:100%;justify-content:flex-start">✦&nbsp; कृष्ण जन्माष्टमी — मुख्य पर्व</div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="bottomnav">
+        <div class="nav-item">⌂<span>गृह</span></div>
+        <div class="nav-item on">▤<span>पात्रो</span><span class="ndot"></span></div>
+        <div class="nav-item">▦<span>औजार</span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>C · Day Detail — पञ्चाङ्ग</h3><p>Panchang ledger with dashed rules, rotated tithi seal, ink CTA with vermillion drop shadow.</p></div>
+  </div>
+
+  <!-- ========== D · TOOLS HUB ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="appbar">
+        <div class="brand"><div class="brand-mark">▦</div><div class="brand-name">उपयोगिता — Tools</div></div>
+        <div class="icon-btn">⚙</div>
+      </div>
+      <div class="tgroup">
+        <div class="hairlabel" style="margin-bottom:9px">दैनिक · Daily</div>
+        <div class="trow"><div class="tico">☁</div><div class="tinfo"><b>मौसम</b><span>WEATHER · OPEN-METEO</span></div><span class="chev">›</span></div>
+        <div class="trow"><div class="tico">✧</div><div class="tinfo"><b>आजको राशिफल</b><span>DAILY HOROSCOPE · LOCAL</span></div><span class="chev">›</span></div>
+      </div>
+      <div class="tgroup">
+        <div class="hairlabel" style="margin-bottom:9px">गणना · Calculators</div>
+        <div class="trow"><div class="tico">⇄</div><div class="tinfo"><b>मिति परिवर्तन</b><span>BS ↔ AD CONVERTER</span></div><span class="chev">›</span></div>
+        <div class="trow"><div class="tico">₨</div><div class="tinfo"><b>विनिमय दर</b><span>CURRENCY · NPR BASE</span></div><span class="chev">›</span></div>
+        <div class="trow"><div class="tico">◷</div><div class="tinfo"><b>उमेर गणना</b><span>AGE IN BS</span></div><span class="chev">›</span></div>
+        <div class="trow"><div class="tico">⤢</div><div class="tinfo"><b>इकाई मापन</b><span>UNITS · रोपनी–आना–दाम</span></div><span class="chev">›</span></div>
+      </div>
+      <div class="tgroup">
+        <div class="hairlabel" style="margin-bottom:9px">AI · अन-डिभाइस</div>
+        <div class="trow"><div class="tico">⛶</div><div class="tinfo"><b>OCR स्क्यान<span class="badge-ai">ONNX</span></b><span>SCAN MITI &amp; DOCUMENTS</span></div><span class="chev">›</span></div>
+        <div class="trow"><div class="tico">◉</div><div class="tinfo"><b>भ्वाइस नोट<span class="badge-ai">ONNX</span></b><span>NEPALI SPEECH-TO-TEXT</span></div><span class="chev">›</span></div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="lattice-band" style="margin-top:0"></div>
+      <div class="bottomnav">
+        <div class="nav-item">⌂<span>गृह</span></div>
+        <div class="nav-item">▤<span>पात्रो</span></div>
+        <div class="nav-item on">▦<span>औजार</span><span class="ndot"></span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>D · Tools Hub — औजार</h3><p>Editorial index rows, grouped ledgers, teal ONNX badges marking on-device AI features.</p></div>
+  </div>
+
+  <!-- ========== E · DATE CONVERTER ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="appbar">
+        <div class="brand"><div class="icon-btn">‹</div><div class="brand-name" style="margin-left:4px">मिति परिवर्तन</div></div>
+        <div class="icon-btn">⇄</div>
+      </div>
+      <div style="padding:4px 18px 0"><div class="hairlabel">बि.सं. · Bikram Sambat Input</div></div>
+      <div class="conv-card">
+        <div class="sys-tag">बि.सं. — NEPALI ERA</div>
+        <div class="pickers">
+          <div class="pick"><small>वर्ष Year</small><b>२०८३</b></div>
+          <div class="pick"><small>महिना Month</small><b>भदौ</b></div>
+          <div class="pick"><small>गते Day</small><b>७</b></div>
+        </div>
+      </div>
+      <div class="swap-row">
+        <div class="swap-line"></div>
+        <div class="swap-btn">⇅</div>
+        <div class="swap-line"></div>
+      </div>
+      <div class="conv-card" style="border-left:3px solid var(--vermilion)">
+        <div class="sys-tag" style="color:var(--teal)">ई.सं. — GREGORIAN RESULT</div>
+        <div class="ad-result">
+          <div class="r1">August 23, 2026</div>
+          <div class="r2">SUNDAY · SHRAWAN→BHANDRA MATCH ✓</div>
+        </div>
+      </div>
+      <div style="padding:10px 18px 0"><button class="ink-btn" style="margin:0;width:100%">▤ क्यालेन्डरमा हेर्नुहोस् — VIEW IN CALENDAR</button></div>
+      <div class="recent">
+        <h4>पछिल्ला रूपान्तरणहरू</h4>
+        <div class="rchips">
+          <span class="rchip"><b>२०८३·४·७</b> ⇄ Aug 23</span>
+          <span class="rchip"><b>२०८२·१२·१५</b> ⇄ Mar 28</span>
+          <span class="rchip"><b>२०६०·१·१</b> ⇄ Apr 14</span>
+          <span class="rchip"><b>२०४७·६·१</b> ⇄ Sep 17</span>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="bottomnav">
+        <div class="nav-item">⌂<span>गृह</span></div>
+        <div class="nav-item">▤<span>पात्रो</span></div>
+        <div class="nav-item on">▦<span>औजार</span><span class="ndot"></span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>E · Date Converter — मिति</h3><p>Dual-era ledger cards joined by vermillion swap dial, recent-conversion chips.</p></div>
+  </div>
+
+  <!-- ========== F · RASHIFAL ========== -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="statusbar"><span>११:४७</span><span>▮▮ ⌁ ▰</span></div>
+      <div class="appbar">
+        <div class="brand"><div class="icon-btn">‹</div><div class="brand-name" style="margin-left:4px">राशिफल</div></div>
+        <div class="icon-btn">⟳</div>
+      </div>
+      <div style="padding:2px 18px 0"><div class="hairlabel">भदौ ७ २०८३ · आजको फलाफल</div></div>
+      <div class="rz-grid">
+        <div class="rz sel"><span class="sym">♈</span><b>मेष</b></div>
+        <div class="rz"><span class="sym">♉</span><b>वृष</b></div>
+        <div class="rz"><span class="sym">♊</span><b>मिथुन</b></div>
+        <div class="rz"><span class="sym">♋</span><b>कर्कट</b></div>
+        <div class="rz"><span class="sym">♌</span><b>सिंह</b></div>
+        <div class="rz"><span class="sym">♍</span><b>कन्या</b></div>
+        <div class="rz"><span class="sym">♎</span><b>तुला</b></div>
+        <div class="rz"><span class="sym">♏</span><b>वृश्चिक</b></div>
+        <div class="rz"><span class="sym">♐</span><b>धनु</b></div>
+        <div class="rz"><span class="sym">♑</span><b>मकर</b></div>
+        <div class="rz"><span class="sym">♒</span><b>कुम्भ</b></div>
+        <div class="rz"><span class="sym">♓</span><b>मीन</b></div>
+      </div>
+      <div class="rz-detail">
+        <h4>मेष — Aries <small>generated locally · offline</small></h4>
+        <p class="rz-text">आज आत्मविश्वास उच्च रहनेछ। रोकिएका कामहरू अघि बढाउनु उत्तम हुनेछ।
+        पारिवारिक सहयोग मिल्ने योग छ; वरिष्ठसँगको सल्लाले फाइदा दिनेछ। खर्चमा नियन्त्रण राख्नुहोस्।</p>
+        <div class="bars">
+          <div class="bar"><small>प्रेम Love</small><div class="track"><div class="fill" style="width:72%"></div></div></div>
+          <div class="bar"><small>करियर Work</small><div class="track"><div class="fill" style="width:88%"></div></div></div>
+          <div class="bar"><small>स्वास्थ्य Health</small><div class="track"><div class="fill" style="width:61%"></div></div></div>
+          <div class="bar"><small>भाग्य Luck</small><div class="track"><div class="fill" style="width:79%"></div></div></div>
+        </div>
+        <div class="lucky">
+          <div class="luck-chip"><small>शुभ रङ</small><b>पिरो · Yellow</b></div>
+          <div class="luck-chip"><small>शुभ अङ्क</small><b>३</b></div>
+          <div class="luck-chip"><small>शुभ समय</small><b>११:१५–१२:३०</b></div>
+        </div>
+      </div>
+      <div class="bottomnav">
+        <div class="nav-item">⌂<span>गृह</span></div>
+        <div class="nav-item">▤<span>पात्रो</span></div>
+        <div class="nav-item on">▦<span>औजार</span><span class="ndot"></span></div>
+        <div class="nav-item">◎<span>सेटिङ</span></div>
+      </div>
+    </div></div>
+    <div class="meta"><h3>F · Rashifal — राशिफल</h3><p>12-rashi selector, offline-generated reading, vermillion/teal meter bars, lucky seals.</p></div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  <b>Newari Ink</b> locked as the design language — these 6 screens map 1:1 to Compose screens.
+  Ready to scaffold the Android project with this theme when you are.
+</footer>
+
+</body>
+</html>

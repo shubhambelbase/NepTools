@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Scoped subdirectories only: avoids exposing root internal files or caches -->
+    <cache-path name="update_apks" path="updates/" />
+    <cache-path name="converter_cache" path="converter/" />
+    <cache-path name="export_cache" path="exports/" />
+    <files-path name="export_docs" path="exports/" />
+    <external-path name="external_neptools" path="Download/NepTools/" />
+</paths>

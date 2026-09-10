@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NepTools</string>
+    <string name="widget_nepali_date_label">NepTools Daily Patro</string>
+    <string name="widget_nepali_date_desc">Displays today\'s Bikram Sambat date, tithi, and festive events</string>
+</resources>

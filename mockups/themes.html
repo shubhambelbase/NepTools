@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nepal Patro — Theme Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=Rozha+One&family=Tiro+Devanagari+Sanskrit&family=Instrument+Serif:ital@0;1&family=Karla:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Baloo+2:wght@400;500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NEPAL PATRO — THEME EXPLORER
+   5 distinct directions. Click any phone to select.
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  background:#101013;
+  background-image:
+    radial-gradient(1200px 600px at 15% -10%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, rgba(255,255,255,.04), transparent 60%);
+  font-family:'Karla',sans-serif;
+  color:#e9e9ee;
+  padding:56px 32px 80px;
+}
+.page-head{max-width:1280px;margin:0 auto 46px}
+.page-head .kicker{
+  font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.35em;text-transform:uppercase;color:#8b8b98;margin-bottom:14px;
+  display:flex;align-items:center;gap:14px;
+}
+.kicker::before{content:"";width:34px;height:1px;background:#8b8b98}
+.page-head h1{
+  font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,4.4vw,52px);
+  font-weight:800;line-height:1.02;letter-spacing:-.02em;
+}
+.page-head h1 em{font-family:'Rozha One',serif;font-style:normal;font-weight:400;
+  color:transparent;-webkit-text-stroke:1px #777;}
+.page-head p{color:#a2a2ae;max-width:640px;margin-top:16px;font-size:15px;line-height:1.6}
+.rail{
+  display:flex;gap:38px;overflow-x:auto;padding:30px 8px 42px;
+  max-width:1400px;margin:0 auto;
+  scrollbar-width:thin;scrollbar-color:#333 transparent;
+}
+
+/* ---------- phone frame ---------- */
+.phone-wrap{flex:0 0 auto;width:352px;display:flex;flex-direction:column;gap:18px}
+.phone{
+  width:352px;height:724px;border-radius:46px;padding:10px;
+  background:#17171c;border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(0,0,0,.6);
+  cursor:pointer;position:relative;
+  transition:transform .45s cubic-bezier(.2,.9,.25,1.2), box-shadow .45s ease;
+  animation:rise .9s cubic-bezier(.2,.8,.25,1) backwards;
+}
+.phone-wrap:nth-child(1) .phone{animation-delay:.05s}
+.phone-wrap:nth-child(2) .phone{animation-delay:.15s}
+.phone-wrap:nth-child(3) .phone{animation-delay:.25s}
+.phone-wrap:nth-child(4) .phone{animation-delay:.35s}
+.phone-wrap:nth-child(5) .phone{animation-delay:.45s}
+@keyframes rise{from{opacity:0;transform:translateY(46px) scale(.97)}to{opacity:1}}
+.phone:hover{transform:translateY(-10px)}
+.phone.selected{outline:3px solid #fff;outline-offset:5px}
+.pick-badge{
+  position:absolute;top:-13px;right:-13px;z-index:50;width:44px;height:44px;border-radius:50%;
+  background:#fff;color:#000;display:none;align-items:center;justify-content:center;
+  font-family:'Bricolage Grotesque';font-weight:800;font-size:11px;letter-spacing:.06em;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+.phone.selected .pick-badge{display:flex}
+.meta{text-align:center}
+.meta h3{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.meta p{color:#8f8f9c;font-size:12.5px;margin-top:5px;line-height:1.55}
+.tags{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 11px;border-radius:99px;border:1px solid rgba(255,255,255,.14);color:#b9b9c4}
+
+.screen{
+  width:100%;height:100%;border-radius:37px;overflow:hidden;position:relative;
+  background:var(--bg);
+  font-family:var(--f-body);color:var(--text);
+  display:flex;flex-direction:column;
+}
+.notch{
+  position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:40;
+  width:104px;height:26px;border-radius:99px;background:var(--bezel,#0b0b0f);
+}
+
+/* ---------- shared inner structure ---------- */
+.statusbar{
+  height:44px;flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 26px 4px;font-size:11.5px;font-weight:600;letter-spacing:.02em;position:relative;z-index:5;
+}
+.statusbar .sicons{display:flex;gap:5px;align-items:center}
+.appbar{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px 8px;position:relative;z-index:5;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  width:36px;height:36px;border-radius:var(--r-mark,12px);display:grid;place-items:center;
+  background:var(--mark-bg);color:var(--mark-fg);font-size:17px;
+  box-shadow:var(--mark-glow,none);
+}
+.brand-name{font-family:var(--f-disp);font-weight:var(--brand-w,800);font-size:17px;letter-spacing:var(--brand-ls,-.01em)}
+.appbar-actions{display:flex;gap:8px}
+.icon-btn{
+  width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+  background:var(--chip);border:1px solid var(--line);color:var(--muted);
+}
+.hero{padding:6px 20px 0;position:relative;z-index:5}
+.hero-label{
+  font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);display:flex;align-items:center;gap:8px;
+}
+.hero-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.hero-row{display:flex;align-items:baseline;gap:14px;margin-top:6px}
+.big-num{
+  font-family:var(--f-np-big);font-size:var(--np-size,88px);line-height:.95;font-weight:var(--np-w,700);
+  background:var(--num-fill);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(var(--num-shadow,none));
+}
+.hero-cal{display:flex;flex-direction:column;gap:3px}
+.hero-cal .bs{font-family:var(--f-disp);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.hero-cal .ad{font-size:12px;color:var(--muted);font-weight:500}
+.hero-cal .day{font-size:12.5px;color:var(--accent);font-weight:700;margin-top:2px}
+.tithi-line{margin-top:10px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.tithi-line b{color:var(--text);font-weight:600}
+.dotsep{width:3px;height:3px;border-radius:50%;background:var(--accent)}
+.festival-chip{
+  margin-top:12px;display:inline-flex;align-items:center;gap:8px;
+  background:var(--fest-bg);border:1px solid var(--fest-line);border-radius:99px;
+  padding:7px 14px 7px 9px;font-size:12px;font-weight:600;color:var(--fest-fg);
+  box-shadow:var(--fest-glow,none);
+  animation:floaty 5s ease-in-out infinite;
+}
+.fest-dot{
+  width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--fest-fg-on-accent,var(--bg));
+  display:grid;place-items:center;font-size:11px;
+}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.weekstrip{display:flex;gap:5px;padding:14px 18px 0;position:relative;z-index:5}
+.wd{
+  flex:1;border-radius:14px;padding:8px 0 7px;text-align:center;
+  background:var(--chip);border:1px solid transparent;
+}
+.wd .dn{font-size:9px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+.wd .dd{font-family:var(--f-disp);font-size:15.5px;font-weight:600;margin-top:3px}
+.wd.active{background:var(--wd-active-bg);border-color:var(--accent);box-shadow:var(--wd-glow,none)}
+.wd.active .dn{color:var(--accent)}
+.wd.fest .dd::after{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--fest-dot-c,var(--accent));margin:2px auto 0}
+
+.panrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:12px 20px 0;position:relative;z-index:5}
+.pane{
+  border-radius:var(--r-tile,16px);padding:10px 12px;background:var(--card);
+  border:1px solid var(--line);backdrop-filter:blur(var(--blur,0));
+}
+.pane .pk{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;gap:5px;align-items:center}
+.pane .pv{font-family:var(--f-disp);font-size:15px;font-weight:700;margin-top:5px}
+.pane .ps{font-size:10px;color:var(--muted);margin-top:1px}
+
+.tools{padding:14px 20px 0;flex:1;position:relative;z-index:5}
+.tools-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tools-head h4{font-family:var(--f-disp);font-size:13.5px;font-weight:800;letter-spacing:.02em}
+.tools-head span{font-size:10.5px;color:var(--muted);font-weight:600}
+.toolgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tool{
+  border-radius:var(--r-tile,16px);background:var(--card);border:1px solid var(--line);
+  backdrop-filter:blur(var(--blur,0));padding:11px 6px 9px;text-align:center;
+  transition:transform .3s ease;
+}
+.tool:hover{transform:translateY(-3px)}
+.tool .ti{
+  width:32px;height:32px;margin:0 auto;border-radius:10px;display:grid;place-items:center;
+  background:var(--ticon-bg);color:var(--ticon-fg,var(--accent));
+}
+.tool .tl{font-size:9.5px;font-weight:600;color:var(--muted);margin-top:7px;line-height:1.25}
+
+.bottomnav{
+  flex:0 0 auto;height:62px;margin:10px 14px 14px;border-radius:20px;
+  background:var(--nav-bg);border:1px solid var(--line);backdrop-filter:blur(var(--blur,0));
+  display:flex;align-items:center;justify-content:space-around;position:relative;z-index:5;
+  box-shadow:var(--nav-glow,none);
+}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--muted);font-size:9px;font-weight:700}
+.nav-item.on{color:var(--accent)}
+.nav-item.on .ndot{width:14px;height:2.5px;border-radius:2px;background:var(--accent)}
+
+/* ============ THEME 1 · KANCHENJUNGA DARK ============ */
+.t1{
+  --bg:#070b14;--text:#eef2fa;--muted:#8792ab;--line:rgba(148,163,199,.13);
+  --card:rgba(148,175,235,.06);--chip:rgba(148,175,235,.08);
+  --accent:#5eead4;--accent2:#818cf8;
+  --mark-bg:linear-gradient(135deg,#5eead4,#818cf8);--mark-fg:#071018;
+  --num-fill:linear-gradient(160deg,#fff 20%,#5eead4 65%,#818cf8 105%);
+  --num-shadow:0 0 34px rgba(94,234,212,.28);
+  --fest-bg:rgba(94,234,212,.1);--fest-line:rgba(94,234,212,.35);--fest-fg:#99f6e4;--fest-fg-on-accent:#071018;
+  --fest-glow:0 0 24px rgba(94,234,212,.18);
+  --wd-active-bg:rgba(129,140,248,.16);--wd-glow:0 0 20px rgba(129,140,248,.3);
+  --ticon-bg:rgba(94,234,212,.12);
+  --nav-bg:rgba(13,19,33,.82);--nav-glow:inset 0 1px 0 rgba(255,255,255,.05);
+  --blur:14px;
+  --f-body:'Mukta',sans-serif;--f-disp:'Bricolage Grotesque',sans-serif;--f-np-big:'Anek Devanagari',sans-serif;
+  --bezel:#05070d;
+}
+.t1 .screen{background:
+  radial-gradient(420px 300px at 85% -8%, rgba(129,140,248,.22), transparent 65%),
+  radial-gradient(380px 320px at -12% 30%, rgba(94,234,212,.13), transparent 60%),
+  radial-gradient(300px 240px at 70% 108%, rgba(56,189,248,.1), transparent 60%),
+  #070b14;}
+.t1 .notch{background:#02040a}
+.t1 .pane,.t1 .tool,.t1 .wd{box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.t1 .toolgrid .tool:nth-child(odd) .ti{color:#a5b4fc}
+
+/* ============ THEME 2 · DASHAIN CRIMSON ============ */
+.t2{
+  --bg:#200a10;--text:#f6ead8;--muted:#bd9d92;--line:rgba(216,178,106,.2);
+  --card:rgba(120,60,50,.16);--chip:rgba(216,178,106,.07);
+  --accent:#dcb35c;--accent2:#c0392b;
+  --mark-bg:linear-gradient(145deg,#e7c476,#9a6f24);--mark-fg:#2a0d12;
+  --num-fill:linear-gradient(165deg,#f7e3ae 5%,#dcb35c 45%,#8a5a1c 95%);
+  --num-shadow:0 4px 22px rgba(220,179,92,.3);
+  --fest-bg:linear-gradient(135deg,rgba(192,57,43,.28),rgba(220,179,92,.14));
+  --fest-line:rgba(220,179,92,.45);--fest-fg:#f2d894;--fest-fg-on-accent:#2a0d12;
+  --fest-glow:0 6px 22px rgba(192,57,43,.35);
+  --wd-active-bg:rgba(220,179,92,.14);
+  --ticon-bg:rgba(220,179,92,.13);
+  --nav-bg:rgba(46,15,21,.85);
+  --f-body:'Mukta',sans-serif;--f-disp:'Fraunces',serif;--f-np-big:'Rozha One',serif;
+  --np-size:92px;--np-w:400;
+  --bezel:#150609;
+}
+.t2 .screen::before{ /* ornament frame */
+  content:"";position:absolute;inset:9px;border:1px solid rgba(220,179,92,.28);border-radius:30px;
+  pointer-events:none;z-index:30;
+}
+.t2 .screen::after{ /* corner motifs */
+  content:"✦";position:absolute;color:rgba(220,179,92,.4);font-size:11px;top:16px;left:18px;z-index:31;
+  text-shadow:0 0 12px rgba(220,179,92,.5);
+  animation:shimmer 4s ease-in-out infinite;
+}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
+.t2 .big-num{filter:drop-shadow(0 6px 18px rgba(220,179,92,.35))}
+.t2 .brand-name{font-weight:700;font-style:italic}
+.t2 .hero-cal .bs{font-family:'Fraunces',serif;font-weight:900}
+.t2 .pane .pv{font-weight:500}
+
+/* ============ THEME 3 · NEWARI INK (light editorial) ============ */
+.t3{
+  --bg:#f6f1e6;--text:#22201b;--muted:#8d8574;--line:rgba(60,52,38,.16);
+  --card:#fffdf7;--chip:#efe9da;
+  --accent:#c73e2e;--accent2:#16697a;
+  --mark-bg:#22201b;--mark-fg:#f6f1e6;
+  --num-fill:#22201b;
+  --fest-bg:#fbe9e5;--fest-line:#eec2ba;--fest-fg:#a5311f;--fest-fg-on-accent:#fff;
+  --wd-active-bg:#22201b;
+  --ticon-bg:#efe9da;
+  --nav-bg:#fffdf7;
+  --f-body:'Karla',sans-serif;--f-disp:'Instrument Serif',serif;--f-np-big:'Tiro Devanagari Sanskrit',serif;
+  --np-size:96px;--np-w:400;--r-tile:6px;--r-mark:10px;
+  --bezel:#141310;
+}
+.t3 .screen{background-image:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");}
+.t3 .brand-name{font-family:'Instrument Serif',serif;font-weight:400;font-size:19px;letter-spacing:0}
+.t3 .hero-cal .bs{font-family:'Instrument Serif',serif;font-weight:400;font-size:21px}
+.t3 .wd.active{--x:0}
+.t3 .wd.active .dn{color:#efe9da}
+.t3 .wd.active .dd{color:#f6f1e6}
+.t3 .stamp{
+  position:absolute;right:20px;top:64px;z-index:6;width:58px;height:58px;border-radius:8px;
+  background:#c73e2e;color:#fdf3ec;display:grid;place-items:center;text-align:center;
+  font-family:'Tiro Devanagari Sanskrit',serif;font-size:12px;line-height:1.25;
+  transform:rotate(4deg);box-shadow:3px 4px 0 rgba(34,32,27,.9);
+}
+.t3 .stamp small{font-family:'Karla';font-size:7px;letter-spacing:.2em;font-weight:700}
+.t3 .pane,.t3 .tool,.t3 .wd{box-shadow:0 1px 0 rgba(60,52,38,.08)}
+.t3 .tool .ti{border-radius:6px}
+
+/* ============ THEME 4 · NEON THAMEL ============ */
+.t4{
+  --bg:#0b0514;--text:#f3eaff;--muted:#9a8bb5;--line:rgba(190,120,255,.18);
+  --card:rgba(190,120,255,.06);--chip:rgba(190,120,255,.09);
+  --accent:#ff3d81;--accent2:#00e5ff;
+  --mark-bg:linear-gradient(135deg,#ff3d81,#00e5ff);--mark-fg:#0b0514;
+  --num-fill:linear-gradient(160deg,#fff 15%,#ff3d81 55%,#00e5ff 100%);
+  --num-shadow:0 0 40px rgba(255,61,129,.45);
+  --fest-bg:rgba(255,61,129,.12);--fest-line:rgba(255,61,129,.5);--fest-fg:#ffa7c9;
+  --fest-fg-on-accent:#0b0514;
+  --fest-glow:0 0 26px rgba(255,61,129,.4);
+  --wd-active-bg:rgba(0,229,255,.13);--wd-glow:0 0 18px rgba(0,229,255,.35);
+  --ticon-bg:rgba(0,229,255,.1);
+  --nav-bg:rgba(20,8,36,.85);--nav-glow:0 -8px 30px rgba(255,61,129,.12);
+  --f-body:'Mukta',sans-serif;--f-disp:'Syne',sans-serif;--f-np-big:'Anek Devanagari',sans-serif;
+  --bezel:#060210;
+}
+.t4 .screen{background:
+  linear-gradient(rgba(0,229,255,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,229,255,.05) 1px,transparent 1px),
+  radial-gradient(360px 260px at 90% 0%, rgba(255,61,129,.2), transparent 60%),
+  radial-gradient(320px 280px at 0% 100%, rgba(0,229,255,.12), transparent 60%),
+  #0b0514;
+  background-size:34px 34px,34px 34px,auto,auto,auto;}
+.t4 .screen::after{
+  content:"";position:absolute;inset:0;z-index:35;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.12) 3px 4px);
+}
+.t4 .tool .ti{box-shadow:0 0 16px rgba(0,229,255,.25)}
+.t4 .toolgrid .tool:nth-child(even) .ti{color:#ff3d81;box-shadow:0 0 16px rgba(255,61,129,.25)}
+.t4 .brand-name{letter-spacing:.02em;text-transform:uppercase;font-size:15px}
+.t4 .hero-label{color:#00e5ff}
+
+/* ============ THEME 5 · PADDY LIGHT (soft organic) ============ */
+.t5{
+  --bg:#f2f7ef;--text:#1e3327;--muted:#7d9184;--line:rgba(30,80,50,.13);
+  --card:#ffffff;--chip:#e6f0e2;
+  --accent:#2f9e63;--accent2:#f4a83c;
+  --mark-bg:linear-gradient(140deg,#43c17e,#1f7a4a);--mark-fg:#f2f7ef;
+  --num-fill:linear-gradient(160deg,#1e3327 30%,#2f9e63 100%);
+  --fest-bg:#fef3df;--fest-line:#f6dfa9;--fest-fg:#b06f10;--fest-fg-on-accent:#fff;
+  --wd-active-bg:#dff0e4;
+  --ticon-bg:#e6f0e2;
+  --nav-bg:#ffffff;
+  --r-tile:20px;--r-mark:14px;
+  --f-body:'Mukta',sans-serif;--f-disp:'Baloo 2',cursive;--f-np-big:'Baloo 2',cursive;
+  --np-size:92px;--np-w:800;
+  --bezel:#15241b;
+}
+.t5 .screen{background:
+  radial-gradient(300px 220px at 108% 12%, rgba(67,193,126,.16), transparent 65%),
+  radial-gradient(260px 200px at -8% 42%, rgba(244,168,60,.14), transparent 60%),
+  radial-gradient(280px 200px at 60% 110%, rgba(67,193,126,.12), transparent 60%),
+  #f2f7ef;}
+.t5 .big-num{font-weight:800}
+.t5 .hero-cal .bs{font-family:'Baloo 2';font-weight:700;font-size:20px}
+.t5 .tool{border-width:0;box-shadow:0 3px 12px rgba(30,80,50,.07)}
+.t5 .pane{border-width:0;box-shadow:0 3px 12px rgba(30,80,50,.07)}
+.t5 .bottomnav{border-width:0;box-shadow:0 8px 26px rgba(30,80,50,.14)}
+.t5 .fest-dot{background:#f4a83c}
+
+/* footer note */
+.foot{max-width:1280px;margin:0 auto;text-align:center;color:#77778a;font-size:12.5px}
+.foot b{color:#c9c9d6}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <div class="kicker">Nepal Patro · Design Direction</div>
+  <h1>Pick a theme.<br><em>पाँचवटा विकल्प</em> — five directions.</h1>
+  <p>Each phone renders the exact same home screen — calendar hero, week strip, panchang,
+     tools grid, navigation — so you're judging pure visual identity. Click any device to mark it selected.</p>
+</header>
+
+<div class="rail">
+
+  <!-- ================= PHONE 1 ================= -->
+  <div class="phone-wrap">
+    <div class="phone t1" onclick="pick(this)">
+      <div class="pick-badge">SELECTED</div>
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>११:४७</span><span class="sicons">▮▮ 🔋</span></div>
+        <div class="appbar">
+          <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">नेपाल पात्रो</div></div>
+          <div class="appbar-actions"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+        </div>
+        <div class="hero">
+          <div class="hero-label">आज · Today</div>
+          <div class="hero-row">
+            <div class="big-num">७</div>
+            <div class="hero-cal">
+              <span class="bs">भदौ २०८३</span>
+              <span class="ad">August 23, 2026 · KTM</span>
+              <span class="day">आइतबार · Sunday</span>
+            </div>
+          </div>
+          <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ</div>
+          <div class="festival-chip"><span class="fest-dot">✦</span>कृष्ण जन्माष्टमी — २ दिनमा</div>
+        </div>
+        <div class="weekstrip">
+          <div class="wd fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+          <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+          <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+          <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+          <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+          <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+          <div class="wd"><div class="dn">शनि</div><div class="dd">१२</div></div>
+        </div>
+        <div class="panrow">
+          <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">bhadra 06:12</div></div>
+          <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">12h 35m day</div></div>
+          <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">avoid auspicious</div></div>
+        </div>
+        <div class="tools">
+          <div class="tools-head"><h4>उपयोगिता हरू</h4><span>saber सबै ›</span></div>
+          <div class="toolgrid">
+            <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+            <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+            <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+            <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+            <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+            <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+            <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+            <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+          </div>
+        </div>
+        <div class="bottomnav">
+          <div class="nav-item on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg>गृह<span class="ndot"></span></div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>पात्रो</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>औजार</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>सेटिङ</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <h3>01 · Kanchenjunga Dark</h3>
+      <p>Aurora glass over midnight blue. Teal-to-indigo glow, frosted cards. The flagship "sleek modern" direction.</p>
+      <div class="tags"><span class="tag">Dark</span><span class="tag">Glassmorphism</span><span class="tag">Glow</span></div>
+    </div>
+  </div>
+
+  <!-- ================= PHONE 2 ================= -->
+  <div class="phone-wrap">
+    <div class="phone t2" onclick="pick(this)">
+      <div class="pick-badge">SELECTED</div>
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>११:४७</span><span class="sicons">▮▮ 🔋</span></div>
+        <div class="appbar">
+          <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">नेपाल पात्रो</div></div>
+          <div class="appbar-actions"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+        </div>
+        <div class="hero">
+          <div class="hero-label">आज · Today</div>
+          <div class="hero-row">
+            <div class="big-num">७</div>
+            <div class="hero-cal">
+              <span class="bs">भदौ २०८३</span>
+              <span class="ad">August 23, 2026 · KTM</span>
+              <span class="day">आइतबार · Sunday</span>
+            </div>
+          </div>
+          <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ</div>
+          <div class="festival-chip"><span class="fest-dot">✦</span>कृष्ण जन्माष्टमी — २ दिनमा</div>
+        </div>
+        <div class="weekstrip">
+          <div class="wd fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+          <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+          <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+          <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+          <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+          <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+          <div class="wd"><div class="dn">शनि</div><div class="dd">१२</div></div>
+        </div>
+        <div class="panrow">
+          <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">sunrise</div></div>
+          <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">sunset</div></div>
+          <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">rahu kaal</div></div>
+        </div>
+        <div class="tools">
+          <div class="tools-head"><h4>उपयोगिता हरू</h4><span>सबै हेर्नुहोस् ›</span></div>
+          <div class="toolgrid">
+            <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+            <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+            <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+            <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+            <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+            <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+            <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+            <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+          </div>
+        </div>
+        <div class="bottomnav">
+          <div class="nav-item on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg>गृह<span class="ndot"></span></div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>पात्रो</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>औजार</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>सेटिङ</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <h3>02 · Dashain Crimson</h3>
+      <p>Luxury festive. Deep maroon silk, gold-foil numerals, ornamented hairline frame. Premium cultural identity.</p>
+      <div class="tags"><span class="tag">Dark</span><span class="tag">Luxury</span><span class="tag">Gold Serif</span></div>
+    </div>
+  </div>
+
+  <!-- ================= PHONE 3 ================= -->
+  <div class="phone-wrap">
+    <div class="phone t3" onclick="pick(this)">
+      <div class="pick-badge">SELECTED</div>
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="stamp">अष्टमी<small>TITHI</small></div>
+        <div class="statusbar"><span>११:४७</span><span class="sicons">▮▮ 🔋</span></div>
+        <div class="appbar">
+          <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">नेपाल पात्रो</div></div>
+          <div class="appbar-actions"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+        </div>
+        <div class="hero">
+          <div class="hero-label">आज · Today</div>
+          <div class="hero-row">
+            <div class="big-num">७</div>
+            <div class="hero-cal">
+              <span class="bs">भदौ २०८३</span>
+              <span class="ad">August 23, 2026 · KTM</span>
+              <span class="day">आइतबार · Sunday</span>
+            </div>
+          </div>
+          <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ</div>
+          <div class="festival-chip"><span class="fest-dot">✦</span>कृष्ण जन्माष्टमी — २ दिनमा</div>
+        </div>
+        <div class="weekstrip">
+          <div class="wd fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+          <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+          <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+          <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+          <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+          <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+          <div class="wd"><div class="dn">शनि</div><div class="dd">१२</div></div>
+        </div>
+        <div class="panrow">
+          <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">sunrise</div></div>
+          <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">sunset</div></div>
+          <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">rahu kaal</div></div>
+        </div>
+        <div class="tools">
+          <div class="tools-head"><h4>उपयोगिता हरू</h4><span>सबै हेर्नुहोस् ›</span></div>
+          <div class="toolgrid">
+            <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+            <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+            <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+            <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+            <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+            <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+            <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+            <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+          </div>
+        </div>
+        <div class="bottomnav">
+          <div class="nav-item on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg>गृह<span class="ndot"></span></div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>पात्रो</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>औजार</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>सेटिङ</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <h3>03 · Newari Ink</h3>
+      <p>Rice-paper light theme with editorial serif numerals and a red tika stamp. Calm, literate, distinctly Nepali.</p>
+      <div class="tags"><span class="tag">Light</span><span class="tag">Editorial</span><span class="tag">Paper Grain</span></div>
+    </div>
+  </div>
+
+  <!-- ================= PHONE 4 ================= -->
+  <div class="phone-wrap">
+    <div class="phone t4" onclick="pick(this)">
+      <div class="pick-badge">SELECTED</div>
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>११:४७</span><span class="sicons">▮▮ 🔋</span></div>
+        <div class="appbar">
+          <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">Nepal Patro</div></div>
+          <div class="appbar-actions"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+        </div>
+        <div class="hero">
+          <div class="hero-label">// आज · TODAY</div>
+          <div class="hero-row">
+            <div class="big-num">७</div>
+            <div class="hero-cal">
+              <span class="bs">भदौ २०८३</span>
+              <span class="ad">August 23, 2026 · KTM</span>
+              <span class="day">आइतबार · SUNDAY</span>
+            </div>
+          </div>
+          <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ</div>
+          <div class="festival-chip"><span class="fest-dot">✦</span>कृष्ण जन्माष्टमी — २ दिनमा</div>
+        </div>
+        <div class="weekstrip">
+          <div class="wd fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+          <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+          <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+          <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+          <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+          <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+          <div class="wd"><div class="dn">शनि</div><div class="dd">१२</div></div>
+        </div>
+        <div class="panrow">
+          <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">sunrise</div></div>
+          <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">sunset</div></div>
+          <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">rahu kaal</div></div>
+        </div>
+        <div class="tools">
+          <div class="tools-head"><h4>TOOLS_उपयोगिता</h4><span>view_all ›</span></div>
+          <div class="toolgrid">
+            <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+            <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+            <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+            <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+            <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+            <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+            <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+            <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+          </div>
+        </div>
+        <div class="bottomnav">
+          <div class="nav-item on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg>गृह<span class="ndot"></span></div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>पात्रो</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>औजार</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>सेटिङ</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <h3>04 · Neon Thamel</h3>
+      <p>Night-market cyberpunk: magenta/cyan neon on blueprint grid, scanlines, chromatic numerals. Loud and young.</p>
+      <div class="tags"><span class="tag">Dark</span><span class="tag">Cyberpunk</span><span class="tag">Neon Glow</span></div>
+    </div>
+  </div>
+
+  <!-- ================= PHONE 5 ================= -->
+  <div class="phone-wrap">
+    <div class="phone t5" onclick="pick(this)">
+      <div class="pick-badge">SELECTED</div>
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>११:४७</span><span class="sicons">▮▮ 🔋</span></div>
+        <div class="appbar">
+          <div class="brand"><div class="brand-mark">॥</div><div class="brand-name">नेपाल पात्रो</div></div>
+          <div class="appbar-actions"><div class="icon-btn">🔔</div><div class="icon-btn">⚙</div></div>
+        </div>
+        <div class="hero">
+          <div class="hero-label">आज · Today</div>
+          <div class="hero-row">
+            <div class="big-num">७</div>
+            <div class="hero-cal">
+              <span class="bs">भदौ २०८३</span>
+              <span class="ad">August 23, 2026 · KTM</span>
+              <span class="day">आइतबार · Sunday</span>
+            </div>
+          </div>
+          <div class="tithi-line"><b>कृष्ण अष्टमी</b><span class="dotsep"></span>रोहिणी<span class="dotsep"></span>विष्कम्भ</div>
+          <div class="festival-chip"><span class="fest-dot">✿</span>कृष्ण जन्माष्टमी — २ दिनमा</div>
+        </div>
+        <div class="weekstrip">
+          <div class="wd fest"><div class="dn">आइत</div><div class="dd">६</div></div>
+          <div class="wd active"><div class="dn">सोम</div><div class="dd">७</div></div>
+          <div class="wd"><div class="dn">मंगल</div><div class="dd">८</div></div>
+          <div class="wd"><div class="dn">बुध</div><div class="dd">९</div></div>
+          <div class="wd"><div class="dn">बिही</div><div class="dd">१०</div></div>
+          <div class="wd fest"><div class="dn">शुक्र</div><div class="dd">११</div></div>
+          <div class="wd"><div class="dn">शनि</div><div class="dd">१२</div></div>
+        </div>
+        <div class="panrow">
+          <div class="pane"><div class="pk">☀ सूर्योदय</div><div class="pv">५:५४</div><div class="ps">sunrise</div></div>
+          <div class="pane"><div class="pk">🌇 सूर्यास्त</div><div class="pv">६:२९</div><div class="ps">sunset</div></div>
+          <div class="pane"><div class="pk">⏳ राहु काल</div><div class="pv">४:१५–५:४८</div><div class="ps">rahu kaal</div></div>
+        </div>
+        <div class="tools">
+          <div class="tools-head"><h4>उपयोगिता हरू</h4><span>सबै हेर्नुहोस् ›</span></div>
+          <div class="toolgrid">
+            <div class="tool"><div class="ti">⇄</div><div class="tl">मिति<br>परिवर्तन</div></div>
+            <div class="tool"><div class="ti">₨</div><div class="tl">विनिमय<br>दर</div></div>
+            <div class="tool"><div class="ti">✧</div><div class="tl">राशिफल</div></div>
+            <div class="tool"><div class="ti">☁</div><div class="tl">मौसम</div></div>
+            <div class="tool"><div class="ti">◷</div><div class="tl">उमेर<br>गणना</div></div>
+            <div class="tool"><div class="ti">⤢</div><div class="tl">इकाई<br>मापन</div></div>
+            <div class="tool"><div class="ti">⛶</div><div class="tl">OCR<br>स्क्यान</div></div>
+            <div class="tool"><div class="ti">◉</div><div class="tl">भ्वाइस<br>नोट</div></div>
+          </div>
+        </div>
+        <div class="bottomnav">
+          <div class="nav-item on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V21H3z"/></svg>गृह<span class="ndot"></span></div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>पात्रो</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>औजार</div>
+          <div class="nav-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>सेटिङ</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <h3>05 · Paddy Light</h3>
+      <p>Soft organic green with warm amber festivals, extra-rounded tiles and floating pastel blobs. Friendly for all ages.</p>
+      <div class="tags"><span class="tag">Light</span><span class="tag">Organic</span><span class="tag">Soft UI</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  Same screen, five identities — <b>click a phone to select</b>, then tell me the number.
+  We can also mix (e.g., 01 layout + 03 palette).
+</footer>
+
+<script>
+function pick(el){
+  document.querySelectorAll('.phone').forEach(p=>p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+</body>
+</html>

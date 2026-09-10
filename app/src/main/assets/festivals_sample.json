@@ -1,0 +1,3356 @@
+{
+  "2080-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 10,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    }
+  ],
+  "2080-2": [
+    {
+      "day": 1,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2080-3": [
+    {
+      "day": 3,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2080-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2080-5": [
+    {
+      "day": 2,
+      "nameNp": "हरितालिका तीज",
+      "nameEn": "Hartalika Teej",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 4,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 10,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "इन्द्रजात्रा",
+      "nameEn": "Indra Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    }
+  ],
+  "2080-6": [
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 6,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 9,
+      "nameNp": "दशैं टीका",
+      "nameEn": "Dashain Tika Day 3",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    }
+  ],
+  "2080-7": [
+    {
+      "day": 3,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 29,
+      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
+      "nameEn": "Bhai Tika (Main Tihar)",
+      "publicHoliday": true
+    }
+  ],
+  "2080-8": [
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
+      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2080-9": [
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    }
+  ],
+  "2080-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 1,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "माघ पूर्णिमा",
+      "nameEn": "Magh Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    }
+  ],
+  "2080-11": [
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "फागु पूर्णिमा / होली",
+      "nameEn": "Holi Festival (Fagu Purnima)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "ग्याल्पो ल्होसार",
+      "nameEn": "Gyalpo Lhosar",
+      "publicHoliday": true
+    }
+  ],
+  "2080-12": [
+    {
+      "day": 4,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    }
+  ],
+  "2081-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    }
+  ],
+  "2081-2": [
+    {
+      "day": 5,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 6,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 10,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 20,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2081-3": [
+    {
+      "day": 3,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 4,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2081-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 6,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 20,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 32,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2081-5": [
+    {
+      "day": 3,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 4,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 10,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "हरितालिका तीज",
+      "nameEn": "Hartalika Teej",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2081-6": [
+    {
+      "day": 2,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 25,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Dashain Tika Day 2",
+      "publicHoliday": true
+    }
+  ],
+  "2081-7": [
+    {
+      "day": 1,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
+      "nameEn": "Bhai Tika (Main Tihar)",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    }
+  ],
+  "2081-8": [
+    {
+      "day": 11,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
+      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "publicHoliday": true
+    }
+  ],
+  "2081-9": [
+    {
+      "day": 11,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    },
+    {
+      "day": 29,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    }
+  ],
+  "2081-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 21,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "माघ पूर्णिमा",
+      "nameEn": "Magh Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2081-11": [
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2081-12": [
+    {
+      "day": 1,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 23,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    }
+  ],
+  "2082-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 25,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    }
+  ],
+  "2082-2": [
+    {
+      "day": 9,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2082-3": [
+    {
+      "day": 11,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2082-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 20,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    }
+  ],
+  "2082-5": [
+    {
+      "day": 3,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 10,
+      "nameNp": "हरितालिका तीज",
+      "nameEn": "Hartalika Teej",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "इन्द्रजात्रा",
+      "nameEn": "Indra Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 29,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    }
+  ],
+  "2082-6": [
+    {
+      "day": 1,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 6,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 15,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Dashain Tika Day 2",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "दशैं टीका",
+      "nameEn": "Dashain Tika Day 3",
+      "publicHoliday": true
+    },
+    {
+      "day": 21,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    },
+    {
+      "day": 31,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2082-7": [
+    {
+      "day": 2,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 3,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 6,
+      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
+      "nameEn": "Bhai Tika (Main Tihar)",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2082-8": [
+    {
+      "day": 4,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2082-9": [
+    {
+      "day": 4,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    },
+    {
+      "day": 30,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2082-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 9,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    }
+  ],
+  "2082-11": [
+    {
+      "day": 1,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 4,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 6,
+      "nameNp": "ग्याल्पो ल्होसार",
+      "nameEn": "Gyalpo Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 15,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "फागु पूर्णिमा / होली",
+      "nameEn": "Holi Festival (Fagu Purnima)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    }
+  ],
+  "2082-12": [
+    {
+      "day": 1,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 5,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 15,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2083-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    },
+    {
+      "day": 30,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2083-2": [
+    {
+      "day": 2,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2083-3": [
+    {
+      "day": 1,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2083-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 9,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2083-5": [
+    {
+      "day": 1,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "इन्द्रजात्रा",
+      "nameEn": "Indra Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "हरितालिका तीज",
+      "nameEn": "Hartalika Teej",
+      "publicHoliday": true
+    },
+    {
+      "day": 30,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    }
+  ],
+  "2083-6": [
+    {
+      "day": 2,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 6,
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Dashain Tika Day 2",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "दशैं टीका",
+      "nameEn": "Dashain Tika Day 3",
+      "publicHoliday": true
+    },
+    {
+      "day": 10,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    },
+    {
+      "day": 20,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    }
+  ],
+  "2083-7": [
+    {
+      "day": 5,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 9,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 23,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 25,
+      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
+      "nameEn": "Bhai Tika (Main Tihar)",
+      "publicHoliday": true
+    },
+    {
+      "day": 29,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    }
+  ],
+  "2083-8": [
+    {
+      "day": 5,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
+      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    }
+  ],
+  "2083-9": [
+    {
+      "day": 5,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 9,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    }
+  ],
+  "2083-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 5,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "माघ पूर्णिमा",
+      "nameEn": "Magh Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    }
+  ],
+  "2083-11": [
+    {
+      "day": 5,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 20,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 25,
+      "nameNp": "ग्याल्पो ल्होसार",
+      "nameEn": "Gyalpo Lhosar",
+      "publicHoliday": true
+    }
+  ],
+  "2083-12": [
+    {
+      "day": 2,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 3,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2084-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 4,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    }
+  ],
+  "2084-2": [
+    {
+      "day": 1,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 6,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2084-3": [
+    {
+      "day": 3,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 4,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    }
+  ],
+  "2084-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 32,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    }
+  ],
+  "2084-5": [
+    {
+      "day": 1,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "हरितालिका तीज",
+      "nameEn": "Hartalika Teej",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "इन्द्रजात्रा",
+      "nameEn": "Indra Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 29,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 31,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    }
+  ],
+  "2084-6": [
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 9,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    },
+    {
+      "day": 19,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 20,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 21,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 23,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Dashain Tika Day 2",
+      "publicHoliday": true
+    },
+    {
+      "day": 25,
+      "nameNp": "दशैं टीका",
+      "nameEn": "Dashain Tika Day 3",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    }
+  ],
+  "2084-7": [
+    {
+      "day": 10,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
+      "nameEn": "Bhai Tika (Main Tihar)",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2084-8": [
+    {
+      "day": 8,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
+      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "publicHoliday": true
+    }
+  ],
+  "2084-9": [
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 23,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    }
+  ],
+  "2084-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 24,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "माघ पूर्णिमा",
+      "nameEn": "Magh Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2084-11": [
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 8,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "ग्याल्पो ल्होसार",
+      "nameEn": "Gyalpo Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "फागु पूर्णिमा / होली",
+      "nameEn": "Holi Festival (Fagu Purnima)",
+      "publicHoliday": true
+    }
+  ],
+  "2084-12": [
+    {
+      "day": 8,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 21,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    }
+  ],
+  "2085-1": [
+    {
+      "day": 1,
+      "nameNp": "नयाँ वर्ष (Nepali New Year)",
+      "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "लोकतन्त्र दिवस",
+      "nameEn": "Loktantra Diwas (Democracy Day)",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
+      "nameEn": "Mother's Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "अक्षय तृतीया",
+      "nameEn": "Akshaya Tritiya",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
+      "nameEn": "International Labour Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
+      "nameEn": "Buddha Jayanti & Ubhauli",
+      "publicHoliday": true
+    }
+  ],
+  "2085-2": [
+    {
+      "day": 7,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "गणतन्त्र दिवस",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
+      "publicHoliday": true
+    },
+    {
+      "day": 20,
+      "nameNp": "गङ्गा दशहरा",
+      "nameEn": "Ganga Dussehra",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 25,
+      "nameNp": "ज्येष्ठ पूर्णिमा / पनौती जात्रा",
+      "nameEn": "Jyeshtha Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2085-3": [
+    {
+      "day": 4,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 18,
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 22,
+      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
+      "nameEn": "Guru Purnima",
+      "publicHoliday": false
+    }
+  ],
+  "2085-4": [
+    {
+      "day": 1,
+      "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
+      "nameEn": "Saune Sankranti",
+      "publicHoliday": false
+    },
+    {
+      "day": 3,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "नाग पञ्चमी",
+      "nameEn": "Nag Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 21,
+      "nameNp": "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन",
+      "nameEn": "Janai Purnima / Raksha Bandhan",
+      "publicHoliday": true
+    },
+    {
+      "day": 32,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2085-5": [
+    {
+      "day": 4,
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Father's Day (Kushe Aunsi)",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "गणेश चतुर्थी",
+      "nameEn": "Ganesh Chaturthi",
+      "publicHoliday": false
+    },
+    {
+      "day": 8,
+      "nameNp": "ऋषि पञ्चमी",
+      "nameEn": "Rishi Panchami",
+      "publicHoliday": false
+    },
+    {
+      "day": 14,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "इन्द्रजात्रा",
+      "nameEn": "Indra Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 18,
+      "nameNp": "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 19,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 20,
+      "nameNp": "गाईजात्रा",
+      "nameEn": "Gai Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 22,
+      "nameNp": "निजामती सेवा दिवस",
+      "nameEn": "Civil Service Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Krishna Janmashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 30,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2085-6": [
+    {
+      "day": 2,
+      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
+      "nameEn": "Mahalaya",
+      "publicHoliday": false
+    },
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय संविधान दिवस",
+      "nameEn": "National Constitution Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
+      "nameEn": "Ghatasthapana (Dashain Begins)",
+      "publicHoliday": true
+    },
+    {
+      "day": 9,
+      "nameNp": "फूलपाती (दशैं)",
+      "nameEn": "Phulpati (Dashain)",
+      "publicHoliday": true
+    },
+    {
+      "day": 10,
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami",
+      "publicHoliday": true
+    },
+    {
+      "day": 11,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
+      "nameEn": "Vijaya Dashami (Main Tika)",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Dashain Tika Day 2",
+      "publicHoliday": true
+    },
+    {
+      "day": 14,
+      "nameNp": "दशैं टीका",
+      "nameEn": "Dashain Tika Day 3",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima",
+      "publicHoliday": true
+    },
+    {
+      "day": 28,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2085-7": [
+    {
+      "day": 1,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    },
+    {
+      "day": 2,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
+      "day": 3,
+      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
+      "nameEn": "Govardhan Puja / Mha Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "छठ पर्व (सूर्य पूजा)",
+      "nameEn": "Chhath Puja",
+      "publicHoliday": true
+    },
+    {
+      "day": 12,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
+      "nameEn": "Haribodhini Ekadashi",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "कार्तिक पूर्णिमा",
+      "nameEn": "Kartik Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 28,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
+      "publicHoliday": false
+    },
+    {
+      "day": 30,
+      "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
+      "nameEn": "Kukur Tihar",
+      "publicHoliday": true
+    }
+  ],
+  "2085-8": [
+    {
+      "day": 1,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
+      "nameEn": "International Disability Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
+      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "publicHoliday": true
+    },
+    {
+      "day": 27,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2085-9": [
+    {
+      "day": 1,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 12,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "तमु ल्होसार",
+      "nameEn": "Tamu Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 16,
+      "nameNp": "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत",
+      "nameEn": "Swasthani Brata Begins",
+      "publicHoliday": false
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "राष्ट्रिय एकता दिवस / पृथ्वी जयन्ती",
+      "nameEn": "Prithvi Jayanti",
+      "publicHoliday": true
+    }
+  ],
+  "2085-10": [
+    {
+      "day": 1,
+      "nameNp": "माघे सङ्क्रान्ति / माघी पर्व",
+      "nameEn": "Maghe Sankranti / Maghi",
+      "publicHoliday": true
+    },
+    {
+      "day": 2,
+      "nameNp": "सोनाम ल्होसार",
+      "nameEn": "Sonam Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 6,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 7,
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Saraswati Puja",
+      "publicHoliday": false
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs' Day",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "माघ पूर्णिमा",
+      "nameEn": "Magh Purnima",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    }
+  ],
+  "2085-11": [
+    {
+      "day": 1,
+      "nameNp": "दर्श श्राद्ध / औंसी",
+      "nameEn": "Aunsi (Amavasya)",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "ग्याल्पो ल्होसार",
+      "nameEn": "Gyalpo Lhosar",
+      "publicHoliday": true
+    },
+    {
+      "day": 7,
+      "nameNp": "राष्ट्रिय प्रजातन्त्र दिवस",
+      "nameEn": "National Democracy Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 16,
+      "nameNp": "फागु पूर्णिमा / होली",
+      "nameEn": "Holi Festival (Fagu Purnima)",
+      "publicHoliday": true
+    },
+    {
+      "day": 24,
+      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
+      "nameEn": "International Women's Day",
+      "publicHoliday": true
+    },
+    {
+      "day": 26,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 29,
+      "nameNp": "महाशिवरात्रि",
+      "nameEn": "Maha Shivaratri",
+      "publicHoliday": true
+    }
+  ],
+  "2085-12": [
+    {
+      "day": 2,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    },
+    {
+      "day": 10,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 11,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
+      "publicHoliday": true
+    },
+    {
+      "day": 13,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 17,
+      "nameNp": "चैते पूर्णिमा / स्वस्थानी व्रत समापन",
+      "nameEn": "Swasthani Brata Concludes",
+      "publicHoliday": false
+    },
+    {
+      "day": 27,
+      "nameNp": "एकादशी व्रत",
+      "nameEn": "Ekadashi Vrata",
+      "publicHoliday": false
+    },
+    {
+      "day": 31,
+      "nameNp": "घोडेजात्रा",
+      "nameEn": "Ghode Jatra",
+      "publicHoliday": true
+    }
+  ]
+}

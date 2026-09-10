@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude sensitive vault encrypted blobs and meta keys -->
+    <exclude domain="file" path="vault_data.bin" />
+    <exclude domain="file" path="vault_data.bin.tmp" />
+    <exclude domain="sharedpref" path="vault_meta.xml" />
+
+    <!-- Exclude personal notes and subscription finances from raw extraction -->
+    <exclude domain="file" path="notes_store.json" />
+    <exclude domain="sharedpref" path="patro_subscriptions_prefs.xml" />
+    <exclude domain="sharedpref" path="patro_habits_prefs.xml" />
+</full-backup-content>

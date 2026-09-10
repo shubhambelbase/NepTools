@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Base Configuration: Enforce HTTPS & System CA Verification App-wide -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Specific domain exceptions for Nepali FM Radio stream endpoints that broadcast over HTTP -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">softnep.net</domain>
+        <domain includeSubdomains="true">softnep.com</domain>
+        <domain includeSubdomains="true">zeno.fm</domain>
+        <domain includeSubdomains="true">zenolive.com</domain>
+        <domain includeSubdomains="true">radiokantipur.com</domain>
+        <domain includeSubdomains="true">radionepal.gov.np</domain>
+        <domain includeSubdomains="true">itechnepal.com</domain>
+        <domain includeSubdomains="true">ktmhost.com</domain>
+        <domain includeSubdomains="true">ekantipur.com</domain>
+    </domain-config>
+</network-security-config>

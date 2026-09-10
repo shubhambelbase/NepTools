@@ -1,20 +1,28 @@
-# Ignore source code and project build files (release/docs only repo)
-app/
-gradle/
-build/
-*.gradle.kts
-*.properties
-gradlew
-gradlew.bat
-mockups/
+# Android / Gradle build output & caches
+.gradle/
+**/build/
+.kotlin/
+.idea/
 *.iml
-.gradle
-.idea
+local.properties
+captures/
+.cxx/
+.externalNativeBuild/
+
+# Build artifacts
 *.apk
 *.aab
-*.png
-*.xml
-*.json
-*.py
-*.txt
+*.hprof
+
+# Logs
+*.log
+
+# Keystores / secrets (never commit signing keys or credentials)
+*.jks
+*.keystore
+*.p12
+.env
+
+# Temp
+.tmp/
 .DS_Store

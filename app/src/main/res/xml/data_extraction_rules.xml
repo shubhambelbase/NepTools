@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Exclude sensitive vault encrypted blobs and meta keys -->
+        <exclude domain="file" path="vault_data.bin" />
+        <exclude domain="file" path="vault_data.bin.tmp" />
+        <exclude domain="sharedpref" path="vault_meta.xml" />
+
+        <!-- Exclude personal notes and subscription finances -->
+        <exclude domain="file" path="notes_store.json" />
+        <exclude domain="sharedpref" path="patro_subscriptions_prefs.xml" />
+        <exclude domain="sharedpref" path="patro_habits_prefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="vault_data.bin" />
+        <exclude domain="file" path="vault_data.bin.tmp" />
+        <exclude domain="sharedpref" path="vault_meta.xml" />
+        <exclude domain="file" path="notes_store.json" />
+        <exclude domain="sharedpref" path="patro_subscriptions_prefs.xml" />
+        <exclude domain="sharedpref" path="patro_habits_prefs.xml" />
+    </device-transfer>
+</data-extraction-rules>
