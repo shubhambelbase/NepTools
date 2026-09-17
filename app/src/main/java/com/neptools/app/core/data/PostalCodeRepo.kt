@@ -1,5 +1,8 @@
 package com.neptools.app.core.data
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class PostalEntry(
     val district: String,
     val districtNp: String,

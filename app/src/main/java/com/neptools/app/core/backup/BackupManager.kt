@@ -58,6 +58,22 @@ object BackupManager {
         } else JSONArray()
         root.put("userEvents", eventsArr)
 
+        // 5. Saved Birth Profile (Kundali)
+        val astroPrefs = context.getSharedPreferences("astro_prefs", Context.MODE_PRIVATE)
+        val astroObj = JSONObject()
+        for ((k, v) in astroPrefs.all) {
+            astroObj.put(k, v)
+        }
+        root.put("astro", astroObj)
+
+        // 6. Favorite Tools
+        val favPrefs = context.getSharedPreferences("favorite_tools_prefs", Context.MODE_PRIVATE)
+        val favObj = JSONObject()
+        for ((k, v) in favPrefs.all) {
+            favObj.put(k, v)
+        }
+        root.put("favoriteTools", favObj)
+
         return root.toString(2)
     }
 
@@ -141,6 +157,38 @@ object BackupManager {
                 val eventsArr = root.getJSONArray("userEvents")
                 File(context.filesDir, "user_calendar_events.json").writeText(eventsArr.toString())
                 eventCount = eventsArr.length()
+            }
+
+            // Restore Saved Birth Profile (Kundali)
+            if (root.has("astro")) {
+                val astroObj = root.getJSONObject("astro")
+                val astroPrefs = context.getSharedPreferences("astro_prefs", Context.MODE_PRIVATE)
+                val editor = astroPrefs.edit()
+                for (key in astroObj.keys()) {
+                    when (val v = astroObj.get(key)) {
+                        is String -> editor.putString(key, v)
+                        is Boolean -> editor.putBoolean(key, v)
+                        is Int -> editor.putInt(key, v)
+                        is Long -> editor.putLong(key, v)
+                        is Float -> editor.putFloat(key, v)
+                        is Double -> editor.putFloat(key, v.toFloat())
+                    }
+                }
+                editor.apply()
+            }
+
+            // Restore Favorite Tools
+            if (root.has("favoriteTools")) {
+                val favObj = root.getJSONObject("favoriteTools")
+                val favPrefs = context.getSharedPreferences("favorite_tools_prefs", Context.MODE_PRIVATE)
+                val editor = favPrefs.edit()
+                for (key in favObj.keys()) {
+                    when (val v = favObj.get(key)) {
+                        is String -> editor.putString(key, v)
+                        is Boolean -> editor.putBoolean(key, v)
+                    }
+                }
+                editor.apply()
             }
 
             Result.success(

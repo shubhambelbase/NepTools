@@ -108,14 +108,6 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                 iconTint = Color(0xFF9333EA),
                 iconBgColor = Color(0xFFF3E8FF),
                 route = Routes.RASHIFAL
-            ),
-            ToolGridItem(
-                titleNp = "ज्योतिष तथा कुण्डली",
-                titleEn = "Kundali & Vedic",
-                icon = PIcons.Stars,
-                iconTint = Color(0xFF4F46E5),
-                iconBgColor = Color(0xFFEEF2FF),
-                route = Routes.ASTRO
             )
         )
     }
@@ -222,12 +214,44 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                 iconTint = Color(0xFF059669),
                 iconBgColor = Color(0xFFD1FAE5),
                 route = Routes.BILL_SPLITTER
+            ),
+            ToolGridItem(
+                titleNp = "जग्गा नाप रूपान्तरण",
+                titleEn = "Land Area Converter",
+                icon = PIcons.Ruler,
+                iconTint = Color(0xFF16A34A),
+                iconBgColor = Color(0xFFDCFCE7),
+                route = Routes.LAND_CONVERTER
             )
         )
     }
 
     val jyotishTools = remember {
         listOf(
+            ToolGridItem(
+                titleNp = "ज्योतिष तथा कुण्डली",
+                titleEn = "Kundali & Vedic",
+                icon = PIcons.Stars,
+                iconTint = Color(0xFF4F46E5),
+                iconBgColor = Color(0xFFEEF2FF),
+                route = Routes.ASTRO
+            ),
+            ToolGridItem(
+                titleNp = "सजीव गोचर चक्र",
+                titleEn = "Transit Wheel",
+                icon = PIcons.SunUp,
+                iconTint = Color(0xFF0284C7),
+                iconBgColor = Color(0xFFE0F2FE),
+                route = Routes.ASTRO_GOCHAR
+            ),
+            ToolGridItem(
+                titleNp = "वास्तु कम्पास",
+                titleEn = "Vastu Compass",
+                icon = PIcons.Compass,
+                iconTint = Color(0xFFD97706),
+                iconBgColor = Color(0xFFFEF3C7),
+                route = Routes.VASTU_COMPASS
+            ),
             ToolGridItem(
                 titleNp = "साइत खोजकर्ता",
                 titleEn = "Muhurat Finder",

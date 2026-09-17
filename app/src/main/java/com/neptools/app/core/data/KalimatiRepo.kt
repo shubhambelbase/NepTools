@@ -12,6 +12,9 @@ import java.net.URL
 import java.time.LocalDate
 import java.util.concurrent.Executors
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class VegetablePrice(
     val id: String,
     val nameNp: String,
@@ -24,6 +27,7 @@ data class VegetablePrice(
     val category: String // "vegetables", "leafy", "fruits", "spices"
 )
 
+@Immutable
 data class KalimatiData(
     val dateNp: String,
     val dateEn: String,

@@ -117,11 +117,11 @@ object FuelLocationResolver {
             categoryNameEn = catNameEn,
             locationNameNp = locNp,
             locationNameEn = locEn,
-            petrolPrice = prices["petrol"] ?: 167.50,
-            dieselPrice = prices["diesel"] ?: 155.50,
-            kerosenePrice = prices["kerosene"] ?: 155.50,
-            lpgPrice = prices["lpg"] ?: 1895.00,
-            atfPrice = prices["atf"] ?: 137.00,
+            petrolPrice = prices["petrol"] ?: 200.00,
+            dieselPrice = prices["diesel"] ?: 200.00,
+            kerosenePrice = prices["kerosene"] ?: 200.00,
+            lpgPrice = prices["lpg"] ?: 2060.00,
+            atfPrice = prices["atf"] ?: 249.00,
             isGpsAccurate = WeatherLocationManager.locationPermissionGranted.value
         )
     }

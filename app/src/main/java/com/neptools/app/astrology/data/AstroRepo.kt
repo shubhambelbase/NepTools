@@ -60,6 +60,14 @@ object AstroRepo {
         }
     }
 
+    fun transitsFor(now: java.time.LocalDateTime, tzOffsetHours: Double = 5.75): Pair<List<TransitInfo>, Map<Planet, Planet>>? {
+        val chart = _result.value?.chart ?: return null
+        if (!::engine.isInitialized) return null
+        val list = engine.currentTransits(chart, now, tzOffsetHours)
+        val conj = engine.natalConjunctions(list, chart)
+        return Pair(list, conj)
+    }
+
     fun toJson(b: BirthData): String =
         listOf(
             b.date.year, b.date.monthValue, b.date.dayOfMonth,

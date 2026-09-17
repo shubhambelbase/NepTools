@@ -117,6 +117,7 @@ fun PostalCodeScreen(onBack: () -> Unit) {
             }
         }
 
+        val focusManager = androidx.compose.ui.platform.LocalFocusManager.current
         // Search Field
         Box(Modifier.padding(horizontal = 16.dp)) {
             OutlinedTextField(
@@ -142,6 +143,12 @@ fun PostalCodeScreen(onBack: () -> Unit) {
                 },
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                    imeAction = androidx.compose.ui.text.input.ImeAction.Search
+                ),
+                keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                    onSearch = { focusManager.clearFocus() }
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline
@@ -157,7 +164,7 @@ fun PostalCodeScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(quickFilters) { (key, label) ->
+            items(quickFilters, key = { it.first }) { (key, label) ->
                 val isSelected = selectedFilter == key
                 Box(
                     Modifier
@@ -196,7 +203,7 @@ fun PostalCodeScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 100.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(results) { item ->
+            items(results, key = { it.district + "_" + it.postOffice + "_" + it.code }) { item ->
                 PostalCard(
                     item = item,
                     isEn = isEn,

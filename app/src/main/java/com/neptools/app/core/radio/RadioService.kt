@@ -53,7 +53,7 @@ class RadioService : Service() {
             @Suppress("DEPRECATION")
             WifiManager.WIFI_MODE_FULL_HIGH_PERF
         }
-        wifiLock = wifiManager.createWifiLock(wifiMode, "NepalPatro::RadioWifiLock").apply {
+        wifiLock = wifiManager.createWifiLock(wifiMode, "NepTools::RadioWifiLock").apply {
             setReferenceCounted(false)
         }
     }

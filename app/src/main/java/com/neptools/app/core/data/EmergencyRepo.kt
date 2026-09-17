@@ -1,5 +1,8 @@
 package com.neptools.app.core.data
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class EmergencyContact(
     val nameNp: String,
     val nameEn: String,

@@ -73,6 +73,8 @@
 -keep class com.neptools.app.astrology.** { *; }
 -keep class com.neptools.app.core.notes.** { *; }
 -keep class com.neptools.app.core.tools.** { *; }
+-keep class com.neptools.app.core.converter.** { *; }
+-keep class com.neptools.app.core.vastu.** { *; }
 
 # ----------------------------------------------------------------------------
 # 6. SECURITY & NATIVE JNI BRIDGE (Keep dynamic JNI targets)

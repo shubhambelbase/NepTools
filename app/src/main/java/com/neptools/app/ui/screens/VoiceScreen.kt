@@ -12,13 +12,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,6 +50,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -59,8 +65,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -100,6 +109,7 @@ fun VoiceScreen(onBack: () -> Unit) {
     var rmsLevel by remember { mutableFloatStateOf(0f) }
     var copyNotice by remember { mutableStateOf<String?>(null) }
     var savedNotice by remember { mutableStateOf(false) }
+    var confirmClear by remember { mutableStateOf(false) }
 
     // Saved voice notes list
     var savedNotes by remember {
@@ -121,6 +131,13 @@ fun VoiceScreen(onBack: () -> Unit) {
         if (savedNotice) {
             kotlinx.coroutines.delay(2500)
             savedNotice = false
+        }
+    }
+
+    LaunchedEffect(confirmClear) {
+        if (confirmClear) {
+            kotlinx.coroutines.delay(3500)
+            confirmClear = false
         }
     }
 
@@ -463,11 +480,31 @@ fun VoiceScreen(onBack: () -> Unit) {
 
                             Spacer(Modifier.height(8.dp))
 
-                            OutlinedButton(
-                                onClick = { stopListening() },
-                                shape = RoundedCornerShape(12.dp)
+                            Surface(
+                                modifier = Modifier
+                                    .height(38.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .clickable { stopListening() },
+                                shape = RoundedCornerShape(12.dp),
+                                color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f),
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.error.copy(alpha = 0.4f))
                             ) {
-                                Text(if (isEn) "Stop Dictating" else "रोक्नुहोस्")
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(8.dp)
+                                            .background(MaterialTheme.colorScheme.error, RoundedCornerShape(2.dp))
+                                    )
+                                    Text(
+                                        text = if (isEn) "Stop Dictating" else "रोक्नुहोस्",
+                                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }
                             }
                         } else {
                             Text(
@@ -532,17 +569,35 @@ fun VoiceScreen(onBack: () -> Unit) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                text = if (isEn) "Dictated Transcript" else "प्रतिलिपि (सम्पादन गर्न मिल्छ)",
-                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = PIcons.Doc,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(17.dp)
+                                )
+                                Text(
+                                    text = if (isEn) "Dictated Transcript" else "प्रतिलिपि (सम्पादन गर्न मिल्छ)",
+                                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
 
-                            Text(
-                                text = "${transcript.length} ${if (isEn) "chars" else "अक्षर"}",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            // Character count pill badge
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+                            ) {
+                                Text(
+                                    text = "${transcript.length} ${if (isEn) "chars" else "अक्षर"}",
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                )
+                            }
                         }
 
                         OutlinedTextField(
@@ -551,105 +606,106 @@ fun VoiceScreen(onBack: () -> Unit) {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(130.dp),
-                            shape = RoundedCornerShape(10.dp),
+                            shape = RoundedCornerShape(12.dp),
                             colors = OutlinedTextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f),
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.12f),
                                 focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
-                            )
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)
+                            ),
+                            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                                lineHeight = 22.sp
+                            ),
+                            placeholder = {
+                                Text(
+                                    text = if (isEn) "Dictated text appears here..." else "बोलेको पाठ यहाँ देखिनेछ...",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                                )
+                            }
                         )
 
-                        // Action Buttons: Copy, Clear, Save
+                        // Action Row 1: Balanced Tactile Copy & Clear Buttons
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            OutlinedButton(
+                            val isCopied = copyNotice != null
+
+                            // Copy Button with tactile spring, custom colors, and in-place feedback
+                            VoiceActionButton(
+                                text = if (isCopied) {
+                                    if (isEn) "Copied!" else "कपी भयो!"
+                                } else {
+                                    if (isEn) "Copy" else "प्रतिलिपि"
+                                },
+                                icon = if (isCopied) PIcons.Check else PIcons.Copy,
+                                tint = if (isCopied) Color(0xFF16A34A) else MaterialTheme.colorScheme.primary,
+                                bgColor = if (isCopied) {
+                                    Color(0xFF16A34A).copy(alpha = 0.12f)
+                                } else {
+                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
+                                },
+                                borderColor = if (isCopied) {
+                                    Color(0xFF16A34A).copy(alpha = 0.35f)
+                                } else {
+                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
+                                },
                                 onClick = {
                                     clipboardManager.setText(AnnotatedString(transcript))
                                     copyNotice = if (isEn) "Transcript copied" else "प्रतिलिपि गरियो"
                                 },
-                                modifier = Modifier.weight(1f),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Icon(
-                                    imageVector = PIcons.Copy,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Spacer(Modifier.width(6.dp))
-                                Text(if (isEn) "Copy" else "प्रतिलिपि", fontSize = 12.sp)
-                            }
+                                modifier = Modifier.weight(1f)
+                            )
 
-                            OutlinedButton(
-                                onClick = {
-                                    transcript = ""
-                                    partial = ""
+                            // Clear Button with soft rose styling & two-step safety for long text
+                            VoiceActionButton(
+                                text = if (confirmClear) {
+                                    if (isEn) "Confirm?" else "पक्का खाली?"
+                                } else {
+                                    if (isEn) "Clear" else "खाली गर्नुहोस्"
                                 },
-                                modifier = Modifier.weight(1f),
-                                shape = RoundedCornerShape(10.dp)
-                            ) {
-                                Icon(
-                                    imageVector = PIcons.Trash,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Spacer(Modifier.width(6.dp))
-                                Text(if (isEn) "Clear" else "खाली", fontSize = 12.sp)
-                            }
-
-                            InkButton(
-                                text = if (isEn) "Save Note" else "सेभ गर्नुहोस्",
+                                icon = if (confirmClear) PIcons.Alert else PIcons.Trash,
+                                tint = MaterialTheme.colorScheme.error,
+                                bgColor = if (confirmClear) {
+                                    MaterialTheme.colorScheme.error.copy(alpha = 0.18f)
+                                } else {
+                                    MaterialTheme.colorScheme.error.copy(alpha = 0.08f)
+                                },
+                                borderColor = MaterialTheme.colorScheme.error.copy(alpha = if (confirmClear) 0.45f else 0.22f),
                                 onClick = {
-                                    if (transcript.isNotBlank()) {
-                                        NotesStore.save(
-                                            context,
-                                            Note(transcript.trim(), System.currentTimeMillis(), "voice")
-                                        )
-                                        refreshSavedNotes()
-                                        savedNotice = true
+                                    if (transcript.length > 20 && !confirmClear) {
+                                        confirmClear = true
+                                    } else {
+                                        transcript = ""
+                                        partial = ""
+                                        confirmClear = false
                                     }
                                 },
-                                modifier = Modifier.weight(1.3f)
+                                modifier = Modifier.weight(1f)
                             )
                         }
 
-                        AnimatedVisibility(visible = copyNotice != null) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(6.dp)
-                            ) {
-                                Icon(
-                                    imageVector = PIcons.Check,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Text(
-                                    text = copyNotice ?: "",
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                        }
-
-                        AnimatedVisibility(visible = savedNotice) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(6.dp)
-                            ) {
-                                Icon(
-                                    imageVector = PIcons.Check,
-                                    contentDescription = null,
-                                    tint = Color(0xFF16A34A),
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Text(
-                                    text = if (isEn) "Voice note saved successfully" else "नोट सुरक्षित भयो",
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = Color(0xFF16A34A)
-                                )
-                            }
-                        }
+                        // Action Row 2: Full-Width Primary Save Button
+                        VoiceSaveButton(
+                            text = if (savedNotice) {
+                                if (isEn) "Saved to Notes" else "नोट सुरक्षित गरियो"
+                            } else {
+                                if (isEn) "Save Note" else "नोट सेभ गर्नुहोस्"
+                            },
+                            isSaved = savedNotice,
+                            onClick = {
+                                if (transcript.isNotBlank()) {
+                                    NotesStore.save(
+                                        context,
+                                        Note(transcript.trim(), System.currentTimeMillis(), "voice")
+                                    )
+                                    refreshSavedNotes()
+                                    savedNotice = true
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
                     }
                 }
             }
@@ -746,6 +802,141 @@ fun VoiceScreen(onBack: () -> Unit) {
 }
 
 @Composable
+private fun VoiceActionButton(
+    text: String,
+    icon: ImageVector,
+    tint: Color,
+    bgColor: Color,
+    borderColor: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.94f else 1.0f,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow,
+            dampingRatio = Spring.DampingRatioMediumBouncy
+        ),
+        label = "voiceActionBtnScale"
+    )
+    val haptics = LocalHapticFeedback.current
+
+    Surface(
+        modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .height(44.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple(color = tint),
+                onClick = {
+                    haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                }
+            ),
+        shape = RoundedCornerShape(12.dp),
+        color = bgColor,
+        border = BorderStroke(1.dp, borderColor)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = tint,
+                modifier = Modifier.size(17.dp)
+            )
+            Spacer(Modifier.width(6.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 0.2.sp
+                ),
+                color = tint,
+                maxLines = 1
+            )
+        }
+    }
+}
+
+@Composable
+private fun VoiceSaveButton(
+    text: String,
+    isSaved: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.97f else 1.0f,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessMediumLow,
+            dampingRatio = Spring.DampingRatioMediumBouncy
+        ),
+        label = "voiceSaveBtnScale"
+    )
+    val haptics = LocalHapticFeedback.current
+    val primaryBg = if (isSaved) Color(0xFF16A34A) else MaterialTheme.colorScheme.primary
+
+    Surface(
+        modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .height(46.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(
+                interactionSource = interactionSource,
+                indication = rememberRipple(color = MaterialTheme.colorScheme.onPrimary),
+                onClick = {
+                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                    onClick()
+                }
+            ),
+        shape = RoundedCornerShape(12.dp),
+        color = primaryBg,
+        shadowElevation = 1.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = if (isSaved) PIcons.Check else PIcons.Bookmark,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.3.sp
+                ),
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+        }
+    }
+}
+
+@Composable
 private fun SavedVoiceNoteCard(
     note: Note,
     isEn: Boolean,
@@ -755,6 +946,14 @@ private fun SavedVoiceNoteCard(
     val dateStr = remember(note.createdAt) {
         val sdf = SimpleDateFormat("yyyy-MM-dd • hh:mm a", Locale.getDefault())
         sdf.format(Date(note.createdAt))
+    }
+    var isCopied by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isCopied) {
+        if (isCopied) {
+            kotlinx.coroutines.delay(1800)
+            isCopied = false
+        }
     }
 
     Card(
@@ -780,35 +979,43 @@ private fun SavedVoiceNoteCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     // Copy button
                     Box(
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(32.dp)
                             .clip(CircleShape)
+                            .background(
+                                if (isCopied) Color(0xFF16A34A).copy(alpha = 0.15f)
+                                else MaterialTheme.colorScheme.primary.copy(alpha = 0.08f)
+                            )
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false, radius = 15.dp),
-                                onClick = onCopy
+                                indication = rememberRipple(bounded = false, radius = 16.dp),
+                                onClick = {
+                                    onCopy()
+                                    isCopied = true
+                                }
                             ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = PIcons.Copy,
+                            imageVector = if (isCopied) PIcons.Check else PIcons.Copy,
                             contentDescription = "Copy note",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(16.dp)
+                            tint = if (isCopied) Color(0xFF16A34A) else MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(15.dp)
                         )
                     }
 
                     // Delete button
                     Box(
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(32.dp)
                             .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f))
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false, radius = 15.dp),
+                                indication = rememberRipple(bounded = false, radius = 16.dp),
                                 onClick = onDelete
                             ),
                         contentAlignment = Alignment.Center
@@ -817,7 +1024,7 @@ private fun SavedVoiceNoteCard(
                             imageVector = PIcons.Trash,
                             contentDescription = "Delete note",
                             tint = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.size(16.dp)
+                            modifier = Modifier.size(15.dp)
                         )
                     }
                 }

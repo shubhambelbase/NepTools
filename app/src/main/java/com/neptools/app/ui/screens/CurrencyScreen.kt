@@ -281,18 +281,136 @@ fun CurrencyScreen(onBack: () -> Unit) {
                         Spacer(Modifier.height(6.dp))
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             Box(Modifier.background(if (isStale) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 3.dp)) {
-                                Text(text = if (isStale) (if (isEn) "Stale • Offline" else "पुरानो • अफलाइन") else (if (isEn) "Live" else "ताजा"), style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold), color = if (isStale) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSecondaryContainer)
+                                Text(text = if (isStale) (if (isEn) "Offline • Cache" else "अफलाइन • क्यास") else (if (isEn) "Live (NRB)" else "ताजा (राष्ट्र बैंक)"), style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold), color = if (isStale) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSecondaryContainer)
                             }
-                            if (ms > 1000000000L) {
+                            if (rs.effectiveDate.isNotEmpty()) {
+                                Text(text = rs.effectiveDate, style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            } else if (ms > 1000000000L) {
                                 val dateStr = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault()).format(java.util.Date(ms))
                                 Text(text = dateStr, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             } else {
                                 Text(text = if (isEn) "NRB pegged INR 1.60" else "रु १.६० स्थिर", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
-                        if (isStale) {
-                            Spacer(Modifier.height(4.dp))
-                            Text(text = if (isEn) "Using cached rates • INR peg fixed" else "क्यास दर प्रयोग • स्थिर", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+            }
+
+            // Official NRB Daily Foreign Exchange Rates Table
+            rates?.let { rs ->
+                val details = rs.nrbDetails.values.toList()
+                if (details.isNotEmpty()) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        border = CardDefaults.outlinedCardBorder().copy(
+                            brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                        )
+                    ) {
+                        Column(Modifier.padding(16.dp)) {
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = if (isEn) "Official NRB Exchange Rates" else "नेपाल राष्ट्र बैंक विनिमय दर",
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                if (rs.effectiveDate.isNotEmpty()) {
+                                    Box(
+                                        Modifier
+                                            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f), RoundedCornerShape(6.dp))
+                                            .padding(horizontal = 8.dp, vertical = 3.dp)
+                                    ) {
+                                        Text(
+                                            text = rs.effectiveDate,
+                                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
+                                    }
+                                }
+                            }
+
+                            Spacer(Modifier.height(12.dp))
+
+                            Row(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), RoundedCornerShape(8.dp))
+                                    .padding(horizontal = 10.dp, vertical = 6.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    if (isEn) "Currency (Unit)" else "मुद्रा (इकाइ)",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.weight(1.3f)
+                                )
+                                Text(
+                                    if (isEn) "Buy (NPR)" else "खरिद (रु)",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.weight(1f),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.End
+                                )
+                                Text(
+                                    if (isEn) "Sell (NPR)" else "बिक्री (रु)",
+                                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.weight(1f),
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.End
+                                )
+                            }
+
+                            Spacer(Modifier.height(8.dp))
+
+                            details.forEachIndexed { idx, item ->
+                                Row(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 10.dp, vertical = 7.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column(Modifier.weight(1.3f)) {
+                                        Text(
+                                            text = "${item.currency} (${item.unit})",
+                                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                        Text(
+                                            text = item.name,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            maxLines = 1,
+                                            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                                        )
+                                    }
+                                    Text(
+                                        text = decFormat.format(item.buy),
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        modifier = Modifier.weight(1f),
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.End
+                                    )
+                                    Text(
+                                        text = decFormat.format(item.sell),
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                        color = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.weight(1f),
+                                        textAlign = androidx.compose.ui.text.style.TextAlign.End
+                                    )
+                                }
+                                if (idx < details.lastIndex) {
+                                    androidx.compose.material3.HorizontalDivider(
+                                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
+                                        thickness = 0.5.dp
+                                    )
+                                }
+                            }
                         }
                     }
                 }

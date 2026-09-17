@@ -116,6 +116,7 @@ fun EmergencyScreen(onBack: () -> Unit) {
             }
         }
 
+        val focusManager = androidx.compose.ui.platform.LocalFocusManager.current
         // Search Bar
         Box(Modifier.padding(horizontal = 16.dp)) {
             OutlinedTextField(
@@ -138,6 +139,12 @@ fun EmergencyScreen(onBack: () -> Unit) {
                 },
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp),
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                    imeAction = androidx.compose.ui.text.input.ImeAction.Search
+                ),
+                keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                    onSearch = { focusManager.clearFocus() }
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline
@@ -153,7 +160,7 @@ fun EmergencyScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(categoryLabels) { (key, label) ->
+            items(categoryLabels, key = { it.first }) { (key, label) ->
                 val isSelected = selectedCategory == key
                 Box(
                     Modifier
@@ -180,15 +187,17 @@ fun EmergencyScreen(onBack: () -> Unit) {
             }
         }
 
-        Spacer(Modifier.height(10.dp))
+        Spacer(Modifier.height(14.dp))
 
-        // Contact List
+        // Contact Cards List
         LazyColumn(
-            Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 100.dp),
+            Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            contentPadding = PaddingValues(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(contacts) { contact ->
+            items(contacts, key = { it.number + "_" + it.nameEn }) { contact ->
                 EmergencyCard(
                     contact = contact,
                     isEn = isEn,

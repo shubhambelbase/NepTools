@@ -50,7 +50,10 @@ private fun directionIndex(heading: Float): Int {
 }
 
 @Composable
-fun CompassScreen(onBack: () -> Unit) {
+fun CompassScreen(
+    onBack: () -> Unit,
+    onOpenVastu: (() -> Unit)? = null
+) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
 
@@ -107,8 +110,24 @@ fun CompassScreen(onBack: () -> Unit) {
             Text(
                 text = if (isEn) "Compass" else "कम्पास",
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f)
             )
+            if (onOpenVastu != null) {
+                Box(
+                    Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
+                        .clickable(onClick = onOpenVastu)
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
+                ) {
+                    Text(
+                        text = if (isEn) "Vastu Mode" else "वास्तु मोड",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
         }
 
         if (!hasSensor) {

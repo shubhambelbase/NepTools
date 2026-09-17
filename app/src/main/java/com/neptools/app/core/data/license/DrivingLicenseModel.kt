@@ -1,19 +1,22 @@
 package com.neptools.app.core.data.license
 
+import androidx.compose.runtime.Immutable
+
 enum class LicenseCategory(val code: String, val nameNp: String, val nameEn: String) {
     CATEGORY_A("A", "वर्ग 'क' (मोटरसाइकल/स्कुटर)", "Category A (Bike/Scooter)"),
     CATEGORY_B("B", "वर्ग 'ख' (कार/जिप/भ्यान)", "Category B (Car/Jeep/Van)")
 }
 
-enum class QuestionTopic(val id: String, val titleNp: String, val titleEn: String, val emoji: String) {
-    ALL("all", "सबै प्रश्नहरू", "All Questions", "📚"),
-    VEHICLE_OPERATION("operation", "सवारी सञ्चालन ज्ञान", "Vehicle Operation", "🚗"),
-    TRAFFIC_SIGNS("signs", "ट्राफिक सङ्केत तथा नियम", "Traffic Signs & Rules", "🛑"),
-    MECHANICAL_KNOWLEDGE("mechanical", "सवारी प्राविधिक तथा यान्त्रिक", "Mechanical Knowledge", "🔧"),
-    ACCIDENT_POLLUTION("safety", "प्रदूषण तथा दुर्घटना सचेतना", "Pollution & Safety", "🚑"),
-    LEGAL_FINES("law", "कानूनी प्रावधान तथा जरिवाना", "Traffic Laws & Fines", "📜")
+enum class QuestionTopic(val id: String, val titleNp: String, val titleEn: String) {
+    ALL("all", "सबै प्रश्नहरू", "All Questions"),
+    VEHICLE_OPERATION("operation", "सवारी सञ्चालन ज्ञान", "Vehicle Operation"),
+    TRAFFIC_SIGNS("signs", "ट्राफिक सङ्केत तथा नियम", "Traffic Signs & Rules"),
+    MECHANICAL_KNOWLEDGE("mechanical", "सवारी प्राविधिक तथा यान्त्रिक", "Mechanical Knowledge"),
+    ACCIDENT_POLLUTION("safety", "प्रदूषण तथा दुर्घटना सचेतना", "Pollution & Safety"),
+    LEGAL_FINES("law", "कानूनी प्रावधान तथा जरिवाना", "Traffic Laws & Fines")
 }
 
+@Immutable
 data class LicenseQuestion(
     val id: Int,
     val category: LicenseCategory,
@@ -36,6 +39,7 @@ enum class SignCategory(val titleNp: String, val titleEn: String, val shapeDesc:
     TRAFFIC_LIGHT("ट्राफिक लाइट तथा इशारा", "Traffic Lights & Signals", "बत्ती तथा ट्राफिक प्रहरीको इशारा", 0xFF16A34A)
 }
 
+@Immutable
 data class TrafficSignItem(
     val id: String,
     val signKey: String,
@@ -50,6 +54,7 @@ data class TrafficSignItem(
     val drawableRes: Int? = null
 )
 
+@Immutable
 data class TrialStep(
     val stepNumber: Int,
     val nameNp: String,

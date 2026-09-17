@@ -42,7 +42,8 @@ class TransitCalculator(private val engine: com.neptools.app.astrology.ephemeris
                 retrograde = speed < 0 && p !in setOf(Planet.SUN, Planet.MOON),
                 natalHouseFromMoon = house,
                 favorable = fav,
-                note = transitNote(p, fav)
+                note = transitNote(p, fav),
+                noteEn = transitNoteEn(p, fav)
             )
         }
     }
@@ -78,5 +79,17 @@ class TransitCalculator(private val engine: com.neptools.app.astrology.ephemeris
         Planet.VENUS -> if (fav) "सम्बन्ध/आनन्द अनुकूल" else "खर्च/सम्बन्धमा संयम"
         Planet.RAHU -> if (fav) "महत्वाकांक्षा बढ्दो" else "भ्रम/छलोकता सावधानी"
         else -> if (fav) "समापन/छोड्ने अनुकूल" else "पुरानो झुकाव सावधानी"
+    }
+
+    private fun transitNoteEn(p: Planet, fav: Boolean): String = when (p) {
+        Planet.JUPITER -> if (fav) "Expansion & divine protection favorable" else "Opportunities delayed — practice patience"
+        Planet.SATURN -> if (fav) "Hard work and discipline yield rewards" else "Heavy duty and pressure — prioritize health"
+        Planet.MARS -> if (fav) "High courage, energy and initiative" else "Risk of rash decisions and friction"
+        Planet.SUN -> if (fav) "Strong self-confidence and recognition" else "Scattered energy — prioritize essentials"
+        Planet.MOON -> if (fav) "Peaceful mind and emotional support" else "Emotional fluctuations — practice mindfulness"
+        Planet.MERCURY -> if (fav) "Smooth communication and commerce" else "Double check documents and avoid misunderstandings"
+        Planet.VENUS -> if (fav) "Harmony in relationships and creative joy" else "Exercise moderation in spending and desires"
+        Planet.RAHU -> if (fav) "Rising ambition and unconventional gains" else "Beware of illusion and overconfidence"
+        else -> if (fav) "Spiritual release and letting go favorable" else "Caution against past detachment patterns"
     }
 }

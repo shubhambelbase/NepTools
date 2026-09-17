@@ -1041,7 +1041,7 @@ private fun HomeFuelPriceCard(
                         )
                         Spacer(Modifier.height(3.dp))
                         Text(
-                            "Rs. ${if (isEn) fmt.format(resLoc.petrolPrice) else npNum(resLoc.petrolPrice.toInt())}",
+                            if (isEn) "Rs. ${fmt.format(resLoc.petrolPrice)}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(resLoc.petrolPrice))}",
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.ExtraBold, fontSize = 13.5.sp),
                             color = androidx.compose.ui.graphics.Color(0xFF1E293B)
                         )
@@ -1068,7 +1068,7 @@ private fun HomeFuelPriceCard(
                         )
                         Spacer(Modifier.height(3.dp))
                         Text(
-                            "Rs. ${if (isEn) fmt.format(resLoc.dieselPrice) else npNum(resLoc.dieselPrice.toInt())}",
+                            if (isEn) "Rs. ${fmt.format(resLoc.dieselPrice)}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(resLoc.dieselPrice))}",
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.ExtraBold, fontSize = 13.5.sp),
                             color = androidx.compose.ui.graphics.Color(0xFF1E293B)
                         )
@@ -1095,7 +1095,7 @@ private fun HomeFuelPriceCard(
                         )
                         Spacer(Modifier.height(3.dp))
                         Text(
-                            "Rs. ${if (isEn) intFmt.format(resLoc.lpgPrice.toLong()) else npNum(resLoc.lpgPrice.toLong())}",
+                            if (isEn) "Rs. ${intFmt.format(resLoc.lpgPrice.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(intFmt.format(resLoc.lpgPrice.toLong()))}",
                             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.ExtraBold, fontSize = 13.5.sp),
                             color = androidx.compose.ui.graphics.Color(0xFF1E293B)
                         )

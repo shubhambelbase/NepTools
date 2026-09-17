@@ -9,6 +9,7 @@ import com.neptools.app.astrology.data.NatalChart
 import com.neptools.app.astrology.data.Planet
 import com.neptools.app.astrology.data.PlanetPosition
 import com.neptools.app.astrology.data.HouseInfo
+import com.neptools.app.astrology.data.TransitInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -70,6 +71,12 @@ class VedicAstrologyEngine(private val engine: com.neptools.app.astrology.epheme
             sripatiCusps = cusps
         )
     }
+
+    fun currentTransits(chart: NatalChart, now: LocalDateTime, tzOffset: Double = 5.75): List<TransitInfo> =
+        transitCalc.currentTransits(chart, now, tzOffset)
+
+    fun natalConjunctions(transits: List<TransitInfo>, chart: NatalChart): Map<Planet, Planet> =
+        transitCalc.natalConjunctions(transits, chart)
 
     fun fullResult(birth: BirthData, now: LocalDateTime = LocalDateTime.now()): AstrologyResult {
         val chart = natalChart(birth)

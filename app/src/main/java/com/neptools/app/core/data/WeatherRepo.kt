@@ -22,6 +22,9 @@ import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class HourlyForecast(
     val timeLabelNp: String,
     val timeLabelEn: String,
@@ -32,6 +35,7 @@ data class HourlyForecast(
     val rainProb: Int
 )
 
+@Immutable
 data class DailyForecast(
     val dayNameNp: String,
     val dayNameEn: String,
@@ -46,6 +50,7 @@ data class DailyForecast(
     val humidityPercent: Int
 )
 
+@Immutable
 data class CityWeather(
     val id: String,
     val nameNp: String,

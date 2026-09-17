@@ -152,6 +152,7 @@ fun KalimatiScreen(onBack: () -> Unit) {
         }
 
         // Search Bar
+        val focusManager = androidx.compose.ui.platform.LocalFocusManager.current
         Box(
             Modifier
                 .fillMaxWidth()
@@ -162,8 +163,9 @@ fun KalimatiScreen(onBack: () -> Unit) {
                 onValueChange = { searchQuery = it },
                 placeholder = {
                     Text(
-                        if (isEn) "Search (e.g. Tomato, Potato, Onion, साग...)" else "खोज्नुहोस् (उदा: गोलभेंडा, आलु, प्याज, साग...)",
-                        style = MaterialTheme.typography.bodyMedium
+                        if (isEn) "Search 100+ vegetables..." else "१००+ तरकारी, फलफूल खोज्नुहोस्...",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 leadingIcon = {
@@ -184,6 +186,12 @@ fun KalimatiScreen(onBack: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 shape = RoundedCornerShape(16.dp),
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                    imeAction = androidx.compose.ui.text.input.ImeAction.Search
+                ),
+                keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                    onSearch = { focusManager.clearFocus() }
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                     focusedContainerColor = MaterialTheme.colorScheme.surface
@@ -196,7 +204,7 @@ fun KalimatiScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(categories) { (key, label) ->
+            items(categories, key = { it.first }) { (key, label) ->
                 val sel = selectedCategory == key
                 Box(
                     Modifier
@@ -227,7 +235,7 @@ fun KalimatiScreen(onBack: () -> Unit) {
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(filteredItems) { item ->
+            items(filteredItems, key = { it.id }) { item ->
                 VegetableCard(item = item, isEn = isEn)
             }
 

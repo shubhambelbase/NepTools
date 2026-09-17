@@ -87,6 +87,8 @@ object Routes {
     const val ASTRO_DASHA = "astrology/dasha"
     const val ASTRO_GOCHAR = "astrology/gochar"
     const val ASTRO_ANALYSIS = "astrology/analysis"
+    const val VASTU_COMPASS = "vastu_compass"
+    const val LAND_CONVERTER = "land_converter"
 
     fun calendar(year: Int, month: Int) = "calendar/$year/$month"
     fun day(year: Int, month: Int, day: Int) = "day/$year/$month/$day"
@@ -266,8 +268,23 @@ fun PatroApp() {
             composable(Routes.DECISION_MAKER) { com.neptools.app.ui.screens.DecisionMakerScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.BILL_SPLITTER) { com.neptools.app.ui.screens.BillSplitterScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.PET_WHISTLE) { com.neptools.app.ui.screens.PetWhistleScreen(onBack = { navController.popBackStack() }) }
-            composable(Routes.COMPASS) { com.neptools.app.ui.screens.CompassScreen(onBack = { navController.popBackStack() }) }
+            composable(Routes.COMPASS) {
+                com.neptools.app.ui.screens.CompassScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenVastu = { navController.navigate(Routes.VASTU_COMPASS) }
+                )
+            }
+            composable(Routes.VASTU_COMPASS) {
+                com.neptools.app.ui.screens.VastuCompassScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenStandardCompass = {
+                        navController.popBackStack()
+                        navController.navigate(Routes.COMPASS)
+                    }
+                )
+            }
             composable(Routes.BUBBLE_LEVEL) { com.neptools.app.ui.screens.BubbleLevelScreen(onBack = { navController.popBackStack() }) }
+            composable(Routes.LAND_CONVERTER) { com.neptools.app.ui.screens.LandConverterScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.VAULT) { com.neptools.app.ui.screens.PasswordVaultScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.FILE_CONVERTER) { com.neptools.app.ui.screens.FileConverterScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.MUHURAT) { com.neptools.app.ui.screens.MuhuratFinderScreen(onBack = { navController.popBackStack() }) }

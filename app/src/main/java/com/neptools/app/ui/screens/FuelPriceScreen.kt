@@ -58,8 +58,6 @@ private data class FuelProduct(
     val id: String,
     val nameNp: String,
     val nameEn: String,
-    val subNp: String,
-    val subEn: String,
     val price: Double,
     val unitNp: String,
     val unitEn: String,
@@ -108,9 +106,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             id = "petrol",
             nameNp = "पेट्रोल",
             nameEn = "Petrol",
-            subNp = "अक्टेन ९१",
-            subEn = "Octane 91 Grade",
-            price = regionPrices["petrol"] ?: 167.50,
+            price = regionPrices["petrol"] ?: 200.00,
             unitNp = "प्रति लिटर",
             unitEn = "per liter",
             primaryColor = Color(0xFFD32F2F),
@@ -120,9 +116,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             id = "diesel",
             nameNp = "डिजेल",
             nameEn = "Diesel",
-            subNp = "हाई स्पीड",
-            subEn = "High Speed (HSD)",
-            price = regionPrices["diesel"] ?: 155.50,
+            price = regionPrices["diesel"] ?: 200.00,
             unitNp = "प्रति लिटर",
             unitEn = "per liter",
             primaryColor = Color(0xFF1976D2),
@@ -132,9 +126,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             id = "kerosene",
             nameNp = "मट्टितेल",
             nameEn = "Kerosene",
-            subNp = "सुपीरियर मट्टितेल",
-            subEn = "Superior Kerosene (SKO)",
-            price = regionPrices["kerosene"] ?: 155.50,
+            price = regionPrices["kerosene"] ?: 200.00,
             unitNp = "प्रति लिटर",
             unitEn = "per liter",
             primaryColor = Color(0xFF00897B),
@@ -144,9 +136,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             id = "lpg",
             nameNp = "एलपी ग्यास",
             nameEn = "LPG Cylinder",
-            subNp = "घरेलु सिलिन्डर (१४.२ केजी)",
-            subEn = "Domestic Cylinder (14.2 kg)",
-            price = regionPrices["lpg"] ?: 1895.00,
+            price = regionPrices["lpg"] ?: 2060.00,
             unitNp = "प्रति सिलिन्डर",
             unitEn = "per cylinder",
             primaryColor = Color(0xFFE65100),
@@ -156,9 +146,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             id = "atf",
             nameNp = "हवाई इन्धन",
             nameEn = "Aviation Fuel",
-            subNp = "आन्तरिक उडान",
-            subEn = "Domestic Aviation Turbine",
-            price = regionPrices["atf"] ?: 137.00,
+            price = regionPrices["atf"] ?: 249.00,
             unitNp = "प्रति लिटर",
             unitEn = "per liter",
             primaryColor = Color(0xFF7B1FA2),
@@ -594,40 +582,31 @@ private fun FuelPriceCard(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(14.dp))
             .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .padding(horizontal = 14.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Icon Circle
         Box(
             Modifier
-                .size(44.dp)
+                .size(42.dp)
                 .background(fuel.lightColor, CircleShape)
-                .border(1.dp, fuel.primaryColor.copy(alpha = 0.2f), CircleShape),
+                .border(1.dp, fuel.primaryColor.copy(alpha = 0.25f), CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Icon(PIcons.Fuel, null, tint = fuel.primaryColor, modifier = Modifier.size(22.dp))
+            Icon(PIcons.Fuel, null, tint = fuel.primaryColor, modifier = Modifier.size(20.dp))
         }
 
         Spacer(Modifier.width(12.dp))
 
-        // Product Name & Specification
-        Column(Modifier.weight(1f)) {
-            Text(
-                if (isEn) fuel.nameEn else fuel.nameNp,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(Modifier.height(2.dp))
-            Text(
-                if (isEn) fuel.subEn else fuel.subNp,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
+        // Product Name (Clean single label)
+        Text(
+            if (isEn) fuel.nameEn else fuel.nameNp,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
+        )
 
         Spacer(Modifier.width(10.dp))
 

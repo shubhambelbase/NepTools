@@ -154,25 +154,25 @@ fun AstrologyHomeScreen(
         )
         Spacer(Modifier.height(8.dp))
         NavRow(
-            title = if (isEn) "Birth Chart (Kundali)" else "जन्म कुण्डली",
+            title = if (isEn) "Birth Chart • Janma Kundali (जन्म कुण्डली)" else "जन्म कुण्डली",
             subtitle = if (isEn) "Ascendant, Moon sign, Nakshatra & 9 planets" else "लग्न, चन्द्र राशि, नक्षत्र र ९ ग्रहको स्थिति",
             icon = PIcons.Calendar
         ) { onOpen("astrology/kundali") }
         Spacer(Modifier.height(8.dp))
         NavRow(
-            title = if (isEn) "Vimshottari Dasha" else "विंशोत्तरी दशा",
+            title = if (isEn) "Vimshottari Dasha (विंशोत्तरी दशा)" else "विंशोत्तरी दशा",
             subtitle = if (isEn) "Current planetary period & 120-year cycle" else "चालु ग्रह-समय र १२० वर्षे जीवन चक्र",
             icon = PIcons.Hourglass
         ) { onOpen("astrology/dasha") }
         Spacer(Modifier.height(8.dp))
         NavRow(
-            title = if (isEn) "Planetary Transits (Gochar)" else "गोचर (ग्रहचाल)",
-            subtitle = if (isEn) "Live planetary movement & transit effects" else "वर्तमान ग्रहहरूको गति र दैनिक प्रभाव",
+            title = if (isEn) "Interactive Gochar Transit Wheel (गोचर चक्र)" else "सजीव गोचर ग्रह चक्र",
+            subtitle = if (isEn) "360° dual-ring live wheel, active aspects & retrograde status" else "३६०° दोहोरो गोचर चक्र, सक्रिय युति, दृष्टि र वक्री ग्रह स्थिति",
             icon = PIcons.SunUp
         ) { onOpen("astrology/gochar") }
         Spacer(Modifier.height(8.dp))
         NavRow(
-            title = if (isEn) "Marriage Compatibility (Guna Milan)" else "विवाह गुण मिलान (३६ गुण)",
+            title = if (isEn) "Marriage Compatibility • Guna Milan (गुण मिलान)" else "विवाह गुण मिलान (३६ गुण)",
             subtitle = if (isEn) "36-point Ashta Koota, Nadi/Bhakoot doshas & compatibility" else "३६ गुण मिलान, नाडी तथा भकूट दोष र वैवाहिक सामञ्जस्य",
             icon = PIcons.Sparkle
         ) { onOpen("guna_milan") }

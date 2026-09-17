@@ -80,7 +80,8 @@ data class TransitInfo(
     val retrograde: Boolean,
     val natalHouseFromMoon: Int,
     val favorable: Boolean,
-    val note: String
+    val note: String,
+    val noteEn: String = ""
 )
 
 data class YogaFinding(val name: String, val nameEn: String, val present: Boolean, val detail: String)
