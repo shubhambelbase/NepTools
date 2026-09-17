@@ -14,7 +14,8 @@
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
-- Distribution: Public releases at https://github.com/shubhambelbase/NepTools
+- Source Code Repository (Private): https://github.com/shubhambelbase/NepTools-private
+- Distribution & Releases (Public): https://github.com/shubhambelbase/NepTools
 
 ---
 
