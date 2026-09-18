@@ -409,9 +409,6 @@ object LanDropServer {
             val path = URLDecoder.decode(rawPath, "UTF-8")
             val queryParams = parseQuery(rawQuery)
 
-            // Every request counts as activity for the idle watchdog.
-            lastActivityMs = System.currentTimeMillis()
-
             var contentLength = 0L
             var boundary = ""
             var isChunked = false
@@ -441,16 +438,22 @@ object LanDropServer {
             val authorized = suppliedCode.isNotEmpty() &&
                 suppliedCode == _state.value.sessionCode &&
                 _state.value.isRunning
+            // Only authorised traffic counts as activity for the idle watchdog; unauthenticated
+            // probes must not be able to keep the port open.
+            if (authorized) lastActivityMs = System.currentTimeMillis()
 
             when {
                 path == "/unlock" -> {
                     handleUnlock(queryParams["code"].orEmpty(), output)
                 }
-                path == "/" || path == "/index.html" -> {
+                path == "/" || path == "/index.html" || path == "/app.html" -> {
                     if (authorized) serveWebPage(output) else servePinGate(output, wrongCode = false)
                 }
                 !authorized -> {
                     rejectUnauthorized(output)
+                }
+                path == "/api/state" -> {
+                    serveApiState(output)
                 }
                 path == "/api/files" -> {
                     serveJsonFiles(output)
@@ -485,7 +488,14 @@ object LanDropServer {
                     val body = String(bodyBuf, 0, readTotal, StandardCharsets.UTF_8)
                     val text = URLDecoder.decode(body.substringAfter("text=", ""), "UTF-8").take(10000)
                     _state.value = _state.value.copy(sharedText = text)
-                    sendRedirect(output, "/?k=${URLEncoder.encode(_state.value.sessionCode, "UTF-8")}")
+                    // JSON response so the single-page client does not need a full reload.
+                    val rb = "{\"ok\":true}".toByteArray(StandardCharsets.UTF_8)
+                    output.write(
+                        ("HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=UTF-8\r\n" +
+                            "Content-Length: ${rb.size}\r\nCache-Control: no-store\r\nConnection: close\r\n\r\n")
+                            .toByteArray(StandardCharsets.UTF_8)
+                    )
+                    output.write(rb)
                 }
                 else -> {
                     send404(output)
@@ -731,7 +741,18 @@ object LanDropServer {
             }
             refreshReceivedFiles()
             _state.value = _state.value.copy(lastDownloadedFileName = savedNames.last())
-            sendRedirect(out, "/?k=${URLEncoder.encode(_state.value.sessionCode, "UTF-8")}")
+            // JSON body lets the SPA mark the upload complete without a page reload.
+            val payload = JSONObject().apply {
+                put("ok", true)
+                put("saved", JSONArray(savedNames))
+            }
+            val rb = payload.toString().toByteArray(StandardCharsets.UTF_8)
+            out.write(
+                ("HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=UTF-8\r\n" +
+                    "Content-Length: ${rb.size}\r\nCache-Control: no-store\r\nConnection: close\r\n\r\n")
+                    .toByteArray(StandardCharsets.UTF_8)
+            )
+            out.write(rb)
         } catch (e: Exception) {
             e.printStackTrace()
             sendError(out, 500, "Upload failed: ${e.message}")
@@ -779,7 +800,9 @@ object LanDropServer {
     }
 
     private fun rejectUnauthorized(out: OutputStream) {
-        registerAuthFailure()
+        // Deliberately NOT counted toward the brute-force lockout: a browser tab left open
+        // across a server restart polls with a stale code and must not kill the session.
+        // Guessing is funnelled through /unlock, where failures do count.
         val body = "{\"error\":\"Unauthorized. Enter the session code shown on the phone.\"}"
         val bytes = body.toByteArray(StandardCharsets.UTF_8)
         val header = "HTTP/1.1 403 Forbidden\r\n" +
@@ -815,12 +838,12 @@ object LanDropServer {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NepTools LAN Drop - Locked</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 18px; padding: 28px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        .logo { width: 52px; height: 52px; background: linear-gradient(135deg, #e11d48, #be123c); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 20px; margin: 0 auto 16px auto; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: radial-gradient(900px 500px at 80% -10%, rgba(225,29,72,.14), transparent 60%), #0b1220; color: #f1f5f9; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .card { background: #141d31; border: 1px solid #273449; border-radius: 18px; padding: 28px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+        .logo { width: 52px; height: 52px; background: linear-gradient(135deg, #e11d48, #be123c); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 20px; margin: 0 auto 16px auto; box-shadow: 0 6px 20px rgba(225,29,72,.35); }
         h1 { font-size: 19px; margin: 0 0 8px 0; }
         p { color: $messageColor; font-size: 13px; margin: 0 0 18px 0; line-height: 1.5; }
-        input { width: 100%; box-sizing: border-box; background: #0f172a; color: #fff; border: 1px solid #334155; border-radius: 12px; padding: 14px; font-size: 22px; letter-spacing: 8px; text-align: center; font-weight: 700; }
+        input { width: 100%; box-sizing: border-box; background: #0f172a; color: #fff; border: 1px solid #273449; border-radius: 12px; padding: 14px; font-size: 22px; letter-spacing: 8px; text-align: center; font-weight: 700; }
         input:focus { outline: none; border-color: #e11d48; }
         button { width: 100%; margin-top: 14px; background: #e11d48; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; }
         button:hover { background: #be123c; }
@@ -851,6 +874,69 @@ object LanDropServer {
         out.write(bytes)
     }
 
+    /**
+     * Serves the single-page LAN Drop client from assets. The page polls /api/state so
+     * phone-side changes show up live without the user refreshing the browser.
+     */
+    private fun serveWebPage(out: OutputStream) {
+        val ctx = appContext
+        val assetBytes: ByteArray? = try {
+            ctx?.assets?.open("landrop.html")?.use { it.readBytes() }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+        if (assetBytes == null) {
+            sendError(out, 500, "LAN Drop page missing from app assets")
+            return
+        }
+        val header = "HTTP/1.1 200 OK\r\n" +
+                "Content-Type: text/html; charset=UTF-8\r\n" +
+                "Content-Length: ${assetBytes.size}\r\n" +
+                "Cache-Control: no-store\r\n" +
+                "Connection: close\r\n\r\n"
+        out.write(header.toByteArray(StandardCharsets.UTF_8))
+        out.write(assetBytes)
+    }
+
+    /**
+     * Full live state for the single-page client. The browser polls this every couple of
+     * seconds, which is how files added on the phone appear on the web page without a refresh.
+     */
+    private fun serveApiState(out: OutputStream) {
+        val s = _state.value
+        val token = URLEncoder.encode(s.sessionCode, "UTF-8")
+        val root = JSONObject()
+        root.put("code", s.sessionCode)
+        root.put("connected", s.isRunning)
+        root.put("text", s.sharedText)
+        val shared = JSONArray()
+        for (item in s.sharedFiles) {
+            val obj = JSONObject()
+            obj.put("id", item.id)
+            obj.put("name", item.name)
+            obj.put("size", item.size)
+            obj.put("downloadUrl", "/download/${URLEncoder.encode(item.id, "UTF-8").replace("+", "%20")}?k=$token")
+            shared.put(obj)
+        }
+        root.put("shared", shared)
+        val received = JSONArray()
+        val df = java.text.SimpleDateFormat("MMM dd, HH:mm", java.util.Locale.getDefault())
+        for (item in s.receivedFiles) {
+            val obj = JSONObject()
+            obj.put("name", item.name)
+            obj.put("size", item.size)
+            obj.put("time", df.format(java.util.Date(item.localFile?.lastModified() ?: 0L)))
+            received.put(obj)
+        }
+        root.put("received", received)
+        val bytes = root.toString().toByteArray(StandardCharsets.UTF_8)
+        val header = "HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=UTF-8\r\n" +
+                "Content-Length: ${bytes.size}\r\nCache-Control: no-store\r\nAccess-Control-Allow-Origin: *\r\nConnection: close\r\n\r\n"
+        out.write(header.toByteArray(StandardCharsets.UTF_8))
+        out.write(bytes)
+    }
+
     private fun serveJsonFiles(out: OutputStream) {
         val list = _state.value.sharedFiles
         val token = URLEncoder.encode(_state.value.sessionCode, "UTF-8")
@@ -866,186 +952,6 @@ object LanDropServer {
         }
         val bytes = arr.toString().toByteArray(StandardCharsets.UTF_8)
         val header = "HTTP/1.1 200 OK\r\nContent-Type: application/json; charset=UTF-8\r\nContent-Length: ${bytes.size}\r\nAccess-Control-Allow-Origin: *\r\nConnection: close\r\n\r\n"
-        out.write(header.toByteArray(StandardCharsets.UTF_8))
-        out.write(bytes)
-    }
-
-    private fun serveWebPage(out: OutputStream) {
-        val shared = _state.value.sharedFiles
-        val received = _state.value.receivedFiles
-        val text = _state.value.sharedText
-        val lastFile = _state.value.lastDownloadedFileName
-        // Carried on every link and form so the unlocked session keeps working.
-        val token = URLEncoder.encode(_state.value.sessionCode, "UTF-8")
-
-        val sb = StringBuilder()
-        sb.append("""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NepTools LAN Drop</title>
-    <style>
-        :root { --primary: #e11d48; --primary-dark: #be123c; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --text-sub: #94a3b8; --border: #334155; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; line-height: 1.5; }
-        .container { max-width: 640px; margin: 0 auto; }
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-        .logo-box { display: flex; align-items: center; gap: 12px; }
-        .logo { width: 44px; height: 44px; background: linear-gradient(135deg, #e11d48, #be123c); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 18px; box-shadow: 0 4px 16px rgba(225,29,72,0.3); }
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-        h2 { font-size: 17px; margin: 0 0 14px 0; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #fff; }
-        .dropzone { border: 2px dashed #f43f5e; border-radius: 14px; padding: 32px 16px; text-align: center; background: rgba(225,29,72,0.06); cursor: pointer; transition: all 0.2s ease; }
-        .dropzone:hover { background: rgba(225,29,72,0.12); border-color: #fb7185; }
-        .btn { background: var(--primary); color: #fff; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; font-size: 13px; transition: 0.15s; }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-        .file-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; background: #0f172a; }
-        .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #334155; color: #cbd5e1; display: inline-block; }
-        textarea { width: 100%; box-sizing: border-box; background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 14px; min-height: 70px; font-family: inherit; resize: vertical; }
-        textarea:focus { outline: none; border-color: var(--primary); }
-        .status-pill { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; }
-        .alert-success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="logo-box">
-                <div class="logo">NT</div>
-                <div>
-                    <h1 style="margin:0; font-size: 20px; font-weight: 800;">NepTools LAN File Drop</h1>
-                    <p style="margin:2px 0 0 0; color: var(--text-sub); font-size: 12px;">High-Speed Wi-Fi Bridge • Direct Phone-to-PC</p>
-                    <p style="margin:4px 0 0 0; color: var(--text-sub); font-size: 11px;">Session code: <strong style="color:#4ade80; letter-spacing:2px;">${escapeHtml(_state.value.sessionCode)}</strong></p>
-                </div>
-            </div>
-            <div class="status-pill">
-                <div class="status-dot"></div> Connected
-            </div>
-        </div>
-        """)
-
-        if (lastFile.isNotEmpty()) {
-            sb.append("<div class='alert-success'>✓ Successfully saved <strong>${escapeHtml(lastFile)}</strong> to phone in <strong>Download/NepTools/</strong>!</div>")
-        }
-
-        // FIX: Show what user sent to phone (received files + text echo) - addresses "say what i send in website"
-        if (received.isNotEmpty()) {
-            sb.append("""
-        <div class="card" style="border-color: #4ade80;">
-            <h2>✓ What you sent to phone (${received.size}) — Download/NepTools/</h2>
-            <p style="color: var(--text-sub); font-size: 12px; margin:0 0 10px 0;">Files you just uploaded from this browser are saved on the phone here:</p>
-            """)
-            for (rf in received.take(10)) {
-                val sz = formatBytes(rf.size)
-                val dt = java.text.SimpleDateFormat("MM-dd HH:mm", java.util.Locale.getDefault()).format(java.util.Date(rf.localFile?.lastModified() ?: 0L))
-                sb.append("""
-                <div class="file-item" style="background: rgba(74,222,128,0.08); border-color: rgba(74,222,128,0.3);">
-                    <div style="overflow:hidden; text-overflow:ellipsis; padding-right:10px;">
-                        <strong style="font-size:13px; display:block; word-break:break-all; color:#4ade80;">✓ ${escapeHtml(rf.name)}</strong>
-                        <div style="font-size:11px; color: var(--text-sub);">$sz • $dt</div>
-                    </div>
-                    <span class="badge" style="background:#14532d; color:#4ade80;">On phone</span>
-                </div>
-                """)
-            }
-            if (received.size > 10) sb.append("<p style='color: var(--text-sub); font-size:12px; margin:8px 0 0 0;'>+ ${received.size - 10} more in phone Download/NepTools/</p>")
-            sb.append("</div>")
-        }
-        if (text.isNotBlank()) {
-            sb.append("<div class='card' style='border-color: #38bdf8;'><h2>Last text you sent to phone</h2><div style='background:#0f172a; border:1px solid #38bdf8; border-radius:10px; padding:12px; font-size:14px; white-space:pre-wrap; word-break:break-word;'>${escapeHtml(text)}</div></div>")
-        }
-
-        sb.append("""
-        <!-- UPLOAD SECTION -->
-        <div class="card">
-            <h2>↑ Send Files to Phone (Saves to Download/NepTools)</h2>
-            <form action="/upload?k=$token" method="post" enctype="multipart/form-data" id="uploadForm">
-                <div class="dropzone" onclick="document.getElementById('fileInput').click()">
-                    <div style="font-size: 38px; margin-bottom: 6px;">↓</div>
-                    <strong style="font-size: 15px;">Click to Select or Drag & Drop Files</strong>
-                    <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-sub);">Directly saved to phone storage: <strong>Download/NepTools/</strong></p>
-                    <input type="file" name="file" id="fileInput" multiple style="display:none" onchange="document.getElementById('uploadForm').submit()">
-                </div>
-            </form>
-        </div>
-
-        <!-- DOWNLOAD SECTION -->
-        <div class="card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                <h2 style="margin:0;">↓ Download Files from Phone (${shared.size})</h2>
-                ${if (shared.isNotEmpty()) """<div style="display:flex; gap:8px; flex-wrap:wrap;"><a href="/downloadAll?k=$token" class="btn" style="background:#2563eb; font-size:12px; padding:8px 14px; border-radius:10px;">↓ ZIP</a><button onclick="downloadAllOneByOne()" class="btn" style="background:#0f172a; border:1px solid #334155; font-size:12px; padding:8px 14px; border-radius:10px;">↓ One-by-One</button></div>""" else ""}
-            </div>
-        """)
-
-        if (shared.isEmpty()) {
-            sb.append("<p style='color: var(--text-sub); font-size: 13px; margin:0;'>No files currently shared. Tap <strong>'+ Select Files'</strong> on the phone app to add files for download.</p>")
-        } else {
-            for (f in shared) {
-                val sizeStr = formatBytes(f.size)
-                val encId = URLEncoder.encode(f.id, "UTF-8").replace("+", "%20")
-                sb.append("""
-                <div class="file-item">
-                    <div style="overflow: hidden; text-overflow: ellipsis; padding-right: 10px;">
-                        <strong style="font-size: 14px; display: block; word-break: break-all;">${escapeHtml(f.name)}</strong>
-                        <div class="badge" style="margin-top: 4px;">$sizeStr</div>
-                    </div>
-                    <a href="/download/$encId?k=$token" class="btn" download="${escapeHtml(f.name)}">↓ Download</a>
-                </div>
-                """)
-            }
-        }
-
-        sb.append("""
-        </div>
-
-        <!-- CLIPBOARD SECTION -->
-        <div class="card">
-            <h2>Clipboard Text & Link Sync</h2>
-            <form action="/text?k=$token" method="post">
-                <textarea name="text" placeholder="Type text or paste links to send to phone clipboard...">${escapeHtml(text)}</textarea>
-                <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-                    <button type="submit" class="btn">Send to Phone</button>
-                </div>
-            </form>
-        </div>
-
-        <div style="text-align: center; color: var(--text-sub); font-size: 12px; margin-top: 24px;">
-            NepTools • Direct High-Speed Network Storage (Download/NepTools)
-        </div>
-    </div>
-    <script>
-    function downloadAllOneByOne(){
-        const links=[...document.querySelectorAll('a.btn')].filter(a=>a.href.includes('/download/') && !a.href.includes('/downloadAll')).map(a=>({href:a.href, name:a.getAttribute('download')||''}));
-        if(links.length===0){ alert('No files to download'); return; }
-        if(!confirm('Download '+links.length+' files one by one? Browser may ask to allow multiple downloads.')) return;
-        let i=0;
-        function next(){
-            if(i>=links.length) return;
-            const a=document.createElement('a');
-            a.href=links[i].href;
-            if(links[i].name) a.download=links[i].name;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            i++;
-            const btn=document.activeElement;
-            if(btn) btn.textContent='Downloading '+(i)+'/'+links.length+'...';
-            setTimeout(next, 900);
-        }
-        next();
-    }
-    </script>
-</body>
-</html>
-        """)
-
-        val bytes = sb.toString().toByteArray(StandardCharsets.UTF_8)
-        val header = "HTTP/1.1 200 OK\r\n" +
-                "Content-Type: text/html; charset=UTF-8\r\n" +
-                "Content-Length: ${bytes.size}\r\n" +
-                "Connection: close\r\n\r\n"
-
         out.write(header.toByteArray(StandardCharsets.UTF_8))
         out.write(bytes)
     }

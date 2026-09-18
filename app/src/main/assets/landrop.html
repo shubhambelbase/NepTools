@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NepTools LAN Drop</title>
+<style>
+:root{
+  --primary:#e11d48; --primary-dark:#be123c; --primary-soft:rgba(225,29,72,.12);
+  --ok:#4ade80; --ok-soft:rgba(74,222,128,.12); --warn:#facc15; --blue:#38bdf8;
+  --bg:#0b1220; --card:#141d31; --card2:#0f172a; --text:#f1f5f9; --sub:#94a3b8;
+  --border:#273449; --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:
+  radial-gradient(1200px 600px at 80% -10%, rgba(225,29,72,.14), transparent 60%),
+  radial-gradient(900px 500px at -10% 110%, rgba(56,189,248,.10), transparent 60%),
+  var(--bg);
+  color:var(--text);min-height:100vh;padding:18px;line-height:1.5}
+.container{max-width:680px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.logo{width:46px;height:46px;background:linear-gradient(135deg,#e11d48,#be123c);border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff;box-shadow:0 6px 20px rgba(225,29,72,.35);flex-shrink:0}
+h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.2px}
+.sub{margin:2px 0 0;font-size:12px;color:var(--sub)}
+.code-chip{display:inline-flex;align-items:center;gap:6px;margin-top:6px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:3px 10px 3px 12px;font-size:13px}
+.code-chip b{letter-spacing:3px;color:var(--ok);font-family:ui-monospace,Menlo,Consolas,monospace}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;padding:6px 13px;border-radius:999px;border:1px solid rgba(74,222,128,.35);background:var(--ok-soft);color:var(--ok);white-space:nowrap}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 1.6s ease infinite}
+.pill.off{border-color:rgba(250,204,21,.4);background:rgba(250,204,21,.1);color:var(--warn)}
+.pill.off .dot{background:var(--warn);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.card h2{margin:0 0 12px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card h2 .count{font-size:12px;font-weight:700;color:var(--sub);background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:2px 8px}
+.hint{color:var(--sub);font-size:12px;margin:0 0 10px}
+/* Dropzone */
+.drop{border:2px dashed rgba(244,63,94,.55);border-radius:14px;padding:26px 16px;text-align:center;background:var(--primary-soft);cursor:pointer;transition:.18s}
+.drop:hover,.drop.drag{background:rgba(225,29,72,.2);border-color:#fb7185;transform:scale(1.005)}
+.drop .big{font-size:34px;line-height:1}
+.drop strong{display:block;margin-top:6px;font-size:14px}
+.drop small{color:var(--sub);font-size:11.5px}
+/* Buttons */
+.btn{background:var(--primary);color:#fff;border:none;padding:9px 16px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:.15s;font-family:inherit}
+.btn:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn.ghost{background:var(--card2);border:1px solid var(--border)}
+.btn.ghost:hover{background:#1a2540}
+.btn.blue{background:#2563eb}.btn.blue:hover{background:#1d4ed8}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+/* File rows */
+.row{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--card2)}
+.row .meta{flex:1;min-width:0}
+.row .name{font-size:13.5px;font-weight:600;word-break:break-all;display:block}
+.row .info{font-size:11px;color:var(--sub);margin-top:2px}
+.icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--primary-soft)}
+.icon.g{background:var(--ok-soft)}
+.badge{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:#253148;color:#cbd5e1;white-space:nowrap}
+.badge.g{background:#14532d;color:var(--ok)}
+.empty{color:var(--sub);font-size:13px;text-align:center;padding:14px 8px;border:1px dashed var(--border);border-radius:12px}
+/* Progress */
+.prog{height:6px;border-radius:4px;background:#0b1220;border:1px solid var(--border);overflow:hidden;margin-top:8px}
+.prog i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--primary),#fb7185);transition:width .2s}
+.upl-item{border-left:3px solid var(--primary)}
+.upl-item.done{border-left-color:var(--ok)}
+/* Text */
+textarea{width:100%;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px;min-height:74px;font-family:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:var(--primary)}
+/* Toasts */
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:50;width:min(92vw,420px)}
+.toast{background:#1a2540;border:1px solid var(--border);border-left:4px solid var(--ok);border-radius:12px;padding:11px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.45);animation:slide .25s ease}
+.toast.err{border-left-color:var(--warn)}
+.toast.info{border-left-color:var(--blue)}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+footer{text-align:center;color:var(--sub);font-size:11.5px;margin-top:22px}
+.blink{animation:pulse 1.2s ease infinite}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="logo">NT</div>
+      <div>
+        <h1>NepTools LAN File Drop</h1>
+        <p class="sub">High-Speed Wi-Fi Bridge &bull; Direct Phone&harr;PC</p>
+        <span class="code-chip">Code <b id="code">------</b></span>
+      </div>
+    </div>
+    <span class="pill" id="statusPill"><span class="dot"></span><span id="statusText">Live</span></span>
+  </header>
+
+  <div id="toasts"></div>
+
+  <!-- Upload to phone -->
+  <div class="card">
+    <h2>&#8593; Send Files to Phone <span class="count" id="upCount">0</span></h2>
+    <p class="hint">Saved directly to phone storage: <b>Download/NepTools/</b></p>
+    <div class="drop" id="drop">
+      <div class="big">&#8681;</div>
+      <strong>Click to select or drag &amp; drop files</strong>
+      <small>Multiple files supported &bull; up to 500 MB total</small>
+    </div>
+    <input type="file" id="fileInput" multiple style="display:none">
+    <div id="uplList" style="margin-top:12px"></div>
+    <div id="phoneStrip"></div>
+  </div>
+
+  <!-- Download from phone -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <h2 style="margin:0">&#8595; Files from Phone <span class="count" id="dlCount">0</span></h2>
+      <div class="btn-row" id="dlActions" style="display:none">
+        <a class="btn blue" id="zipBtn" href="#">&#8595; ZIP All</a>
+        <button class="btn ghost" id="oneByOneBtn">&#8595; One-by-One</button>
+      </div>
+    </div>
+    <div id="dlList"></div>
+  </div>
+
+  <!-- Text sync -->
+  <div class="card">
+    <h2>&#8645; Clipboard Text &amp; Link Sync</h2>
+    <form id="textForm">
+      <textarea id="textArea" placeholder="Type text or paste links to send to the phone clipboard..."></textarea>
+      <div style="margin-top:10px;display:flex;justify-content:flex-end">
+        <button type="submit" class="btn" id="textBtn">Send to Phone</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>NepTools &bull; Direct high-speed network storage (Download/NepTools)</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var qs = new URLSearchParams(location.search);
+  var K = qs.get("k") || sessionStorage.getItem("landrop_k") || "";
+  if (K) sessionStorage.setItem("landrop_k", K);
+  var token = function(){ return "k=" + encodeURIComponent(K); };
+  var apiUrl = function(p){ return p + (p.indexOf("?") >= 0 ? "&" : "?") + token(); };
+  var iconFor = function(n){
+    n = (n || "").toLowerCase();
+    if (/\.(png|jpe?g|gif|webp|bmp|svg|heic)$/.test(n)) return "\uD83D\uDDBC";
+    if (/\.(mp4|mkv|mov|avi|webm)$/.test(n)) return "\uD83C\uDFAC";
+    if (/\.(mp3|wav|ogg|m4a|flac)$/.test(n)) return "\uD83C\uDFB5";
+    if (/\.(zip|rar|7z|tar|gz)$/.test(n)) return "\uD83D\uDCE6";
+    if (/\.(pdf)$/.test(n)) return "\uD83D\uDCD5";
+    if (/\.(docx?|xlsx?|pptx?|txt|md|csv)$/.test(n)) return "\uD83D\uDCC4";
+    if (/\.(apk)$/.test(n)) return "\uD83D\uDCF1";
+    return "\uD83D\uDCC1";
+  };
+  var fmt = function(b){
+    if (b === -1 || b === null || b === undefined) return "—";
+    if (b >= 1073741824) return (b/1073741824).toFixed(2) + " GB";
+    if (b >= 1048576) return (b/1048576).toFixed(2) + " MB";
+    if (b >= 1024) return (b/1024).toFixed(1) + " KB";
+    return b + " B";
+  };
+  var esc = function(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+    });
+  };
+  var toast = function(msg, kind){
+    var box = document.getElementById("toasts");
+    var el = document.createElement("div");
+    el.className = "toast" + (kind ? " " + kind : "");
+    el.textContent = msg;
+    box.appendChild(el);
+    setTimeout(function(){ el.style.opacity = "0"; el.style.transition = "opacity .3s"; }, 3500);
+    setTimeout(function(){ el.remove(); }, 3900);
+  };
+
+  /* ---------- state rendering ---------- */
+  var shared = [], received = [], sharedText = "";
+  var knownShared = {}, knownReceived = {};
+
+  function renderShared(){
+    var list = document.getElementById("dlList");
+    document.getElementById("dlCount").textContent = shared.length;
+    document.getElementById("dlActions").style.display = shared.length ? "flex" : "none";
+    if (!shared.length){
+      list.innerHTML = '<div class="empty">No files shared yet. Tap <b>+ Select Files</b> in the NepTools app to add some.</div>';
+      knownShared = {};
+      return;
+    }
+    var seen = {};
+    list.innerHTML = "";
+    shared.forEach(function(f){
+      seen[f.id] = true;
+      if (!knownShared[f.id]) toast("New file from phone: " + f.name);
+      var row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML =
+        '<div class="icon">' + iconFor(f.name) + '</div>' +
+        '<div class="meta"><span class="name">' + esc(f.name) + '</span>' +
+        '<div class="info">' + fmt(f.size) + '</div></div>' +
+        '<a class="btn" href="' + apiUrl("/download/" + encodeURIComponent(f.id)) + '" download="' + esc(f.name) + '">&#8595; Save</a>';
+      list.appendChild(row);
+    });
+    knownShared = seen;
+    document.getElementById("zipBtn").href = apiUrl("/downloadAll");
+  }
+
+  function renderReceived(){
+    document.getElementById("upCount").textContent = received.length;
+    var strip = document.getElementById("phoneStrip");
+    if (!received.length){ strip.innerHTML = ""; return; }
+    // Show at most the 4 most recent phone-side files
+    var recent = received.slice(0, 4);
+    var html = '<p class="hint" style="margin:12px 0 6px">On phone now (most recent):</p>';
+    recent.forEach(function(f){
+      html += '<div class="row upl-item done">' +
+        '<div class="icon g">' + iconFor(f.name) + '</div>' +
+        '<div class="meta"><span class="name">' + esc(f.name) + '</span>' +
+        '<div class="info">' + fmt(f.size) + (f.time ? " \u2022 " + esc(f.time) : "") + '</div></div>' +
+        '<span class="badge g">On phone</span></div>';
+    });
+    if (received.length > 4) html += '<p class="hint">+ ' + (received.length - 4) + ' more on the phone</p>';
+    strip.innerHTML = html;
+  }
+
+  function applyState(s){
+    var codeEl = document.getElementById("code");
+    if (codeEl.textContent !== s.code) codeEl.textContent = s.code || "------";
+    var st = s.connected;
+    var pill = document.getElementById("statusPill");
+    if (st){ pill.classList.remove("off"); document.getElementById("statusText").textContent = "Live"; }
+    else { pill.classList.add("off"); document.getElementById("statusText").textContent = "Reconnecting…"; }
+
+    var changed = JSON.stringify([s.shared, s.received]) !== JSON.stringify([shared, received]);
+    shared = s.shared || [];
+    received = s.received || [];
+    sharedText = s.text || "";
+    if (changed){ renderShared(); renderReceived(); }
+  }
+
+  /* ---------- polling ---------- */
+  var pollTimer = null, failures = 0;
+  function poll(){
+    fetch(apiUrl("/api/state"), {cache:"no-store"}).then(function(r){
+      if (r.status === 403) { throw new Error("unauthorized"); }
+      return r.json();
+    }).then(function(s){
+      failures = 0;
+      applyState(s);
+      schedule(2500);
+    }).catch(function(e){
+      failures++;
+      var pill = document.getElementById("statusPill");
+      pill.classList.add("off");
+      document.getElementById("statusText").textContent = "Reconnecting…";
+      // Exponential backoff capped at 8s while the server is unreachable.
+      schedule(Math.min(1500 * Math.pow(2, Math.min(failures,3)), 8000));
+    });
+  }
+  function schedule(ms){ clearTimeout(pollTimer); pollTimer = setTimeout(poll, ms); }
+  // Pause polling while the tab is hidden to save battery; resume immediately on return.
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden){ clearTimeout(pollTimer); }
+    else { failures = 0; poll(); }
+  });
+
+  /* ---------- uploads (XHR with progress) ---------- */
+  function uploadFiles(fileList){
+    var fd = new FormData();
+    var files = Array.prototype.slice.call(fileList);
+    if (!files.length) return;
+    files.forEach(function(f){ fd.append("file", f, f.name); });
+    var box = document.getElementById("uplList");
+    var card = document.createElement("div");
+    card.className = "row upl-item";
+    var total = files.reduce(function(a,f){ return a + f.size; }, 0);
+    card.innerHTML =
+      '<div class="icon">&#8593;</div>' +
+      '<div class="meta"><span class="name">' + esc(files.length > 1 ? files.length + " files" : files[0].name) + '</span>' +
+      '<div class="info uinfo">Preparing…</div><div class="prog"><i></i></div></div>';
+    box.insertBefore(card, box.firstChild);
+    var info = card.querySelector(".uinfo"), bar = card.querySelector(".prog i");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", apiUrl("/upload"));
+    xhr.upload.onprogress = function(ev){
+      if (ev.lengthComputable){
+        var pct = Math.round(ev.loaded / ev.total * 100);
+        bar.style.width = pct + "%";
+        info.textContent = "Uploading " + pct + "% • " + fmt(ev.loaded) + " / " + fmt(ev.total);
+      }
+    };
+    xhr.onload = function(){
+      if (xhr.status === 200){
+        bar.style.width = "100%";
+        card.classList.add("done");
+        card.querySelector(".icon").className = "icon g";
+        info.textContent = "Saved to phone ✓";
+        toast("Upload complete — saved to Download/NepTools/");
+        try { applyState(JSON.parse(xhr.responseText)); } catch(_){}
+        // Auto-dismiss the completed card after a short pause
+        setTimeout(function(){ card.style.opacity = "0"; card.style.transition = "opacity .4s"; }, 1800);
+        setTimeout(function(){ card.remove(); }, 2300);
+        poll();
+      } else {
+        card.remove();
+        toast("Upload failed (" + xhr.status + ")", "err");
+      }
+    };
+    xhr.onerror = function(){ card.remove(); toast("Upload failed — connection error", "err"); };
+    xhr.send(fd);
+  }
+
+  var dz = document.getElementById("drop"), fi = document.getElementById("fileInput");
+  dz.addEventListener("click", function(){ fi.click(); });
+  fi.addEventListener("change", function(){ uploadFiles(fi.files); fi.value = ""; });
+  ["dragenter","dragover"].forEach(function(ev){
+    dz.addEventListener(ev, function(e){ e.preventDefault(); dz.classList.add("drag"); });
+  });
+  ["dragleave","drop"].forEach(function(ev){
+    dz.addEventListener(ev, function(e){ e.preventDefault(); dz.classList.remove("drag"); });
+  });
+  dz.addEventListener("drop", function(e){ uploadFiles(e.dataTransfer.files); });
+
+  /* ---------- text send ---------- */
+  document.getElementById("textForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    var t = document.getElementById("textArea").value;
+    if (!t.trim()){ toast("Type some text first", "info"); return; }
+    var btn = document.getElementById("textBtn");
+    btn.disabled = true;
+    fetch(apiUrl("/text"), {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:"text=" + encodeURIComponent(t)
+    }).then(function(r){ if (!r.ok) throw 0; return r.json(); })
+      .then(function(){
+        toast("Text sent to phone ✓");
+        btn.disabled = false;
+        poll();
+      })
+      .catch(function(){ btn.disabled = false; toast("Failed to send text", "err"); });
+  });
+
+  /* ---------- bulk download ---------- */
+  document.getElementById("oneByOneBtn").addEventListener("click", function(){
+    var links = shared.slice();
+    if (!links.length) return;
+    if (!confirm("Download " + links.length + " files one by one? The browser may ask to allow multiple downloads.")) return;
+    var i = 0, btn = this;
+    btn.disabled = true;
+    (function next(){
+      if (i >= links.length){ btn.disabled = false; btn.textContent = "↓ One-by-One"; return; }
+      btn.textContent = "Downloading " + (i+1) + "/" + links.length + "…";
+      var a = document.createElement("a");
+      a.href = apiUrl("/download/" + encodeURIComponent(links[i].id));
+      a.download = links[i].name;
+      document.body.appendChild(a); a.click(); a.remove();
+      i++;
+      setTimeout(next, 900);
+    })();
+  });
+
+  poll();
+})();
+</script>
+</body>
+</html>
