@@ -10,7 +10,7 @@
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
 - Current Version: v2.6.0 (versionCode: 19)
-- Last Updated: September 17, 2026
+- Last Updated: September 18, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -85,16 +85,19 @@ app/src/main/
 ## 7. Status & Recent Changes
 
 - Status: v2.6.0 (versionCode 19).
-- Last Updated: September 17, 2026
+- Last Updated: September 18, 2026
 - Recent Updates:
   - v2.6.0:
-    - Voice Notes UI Overhaul (VoiceScreen.kt): Replaced clunky OutlinedButton row with tactile VoiceActionButton pills (spring press bounce, haptics, in-place animated green checkmark on copy, soft rose container with 3.5s double-tap confirmation on clear for long notes), elevated full-width VoiceSaveButton, and upgraded card header with character badge.
-    - Category Reorganization (ToolsScreen.kt): Moved Kundali & Vedic (Routes.ASTRO) from Daily Services into the top of Panchang & Jyotish category.
-    - Interactive Kundali Transit Wheel (TransitWheelView.kt & GocharScreen.kt): 360-degree dual-ring planetary wheel comparing live Gochar transits against birth chart, with active aspect/conjunction rays, retrograde status, and on-device time controller.
-    - Vastu Shastra Compass (VastuEngine.kt & VastuCompassScreen.kt): Classical 8-direction live compass overlay with Sanskrit deities, elements, room suitability verifier, and Nepali house architectural guide.
-    - Land Area Converter (LandConverter.kt & LandConverterScreen.kt): Official Nepal Survey Department cross-converter for Hilly (R-A-P-D), Terai (B-K-D-K), Metric/Imperial, and parcel arithmetic (+/-).
-    - Bilingual English & Nepali Localization: Full English mode support with authentic bilingual pairings (e.g., Ropani/Aana, Bigha/Katha, Ishanya/Agni, Vakri Rx, Janma/Gochar) across Land Converter, Vastu Compass, and Gochar Wheel for clear comprehension.
-    - Architecture, Backup & Polish: Central Bank Forex & NOC Fuel live pricing; passed HighPrecisionEphemeris to AstroRepo; expanded BackupManager to Kundali profiles and favorite tools; strict zero emoji compliance.
+    - Location-Based Emergency Directory (EmergencyLocationResolver.kt & EmergencyScreen.kt): On-device GPS auto-resolver with 100% offline Haversine fallback across 852 locations in nepal_places.json. Manual 77-district and 7-province picker modal. Expanded EmergencyRepo with verified district police controls and provincial hospital hotlines. Dynamic 4-tier sorting prioritizing local district services and 24/7 national lifelines with visual local badges.
+    - Remote Emergency Contacts API Sync (EmergencySyncManager.kt): Dual-backend edge sync (Cloudflare Worker in worker/ and GitHub Gist fallback) with non-blocking HTTP GET, conditional If-Modified-Since caching, 100% offline fallback, and 4-hour background sync via WorkManager.
+    - Verified & Updated Reference Data: Re-verified emergency hotlines with official directories (TUTH Poison Info 01-4502011, Bir Hospital 01-5321988, TUTH 01-4512505, Koshi 021-530103, Gandaki 061-570066, Lumbini 071-534010, Karnali 083-520200, Seti 091-525911; updated Red Cross blood banks). Verified all 77 district postal codes with Nepal Post and fixed Lalitpur typo.
+    - Asset Cleanup: Removed orphan bus route and bus fare JSON assets (bus_routes_official.json, bus_rates.json).
+    - Radio Streams: Verified working live streams and updated Image FM to active stream.
+    - Voice Notes UI Overhaul (VoiceScreen.kt): Tactile VoiceActionButton pills (spring bounce, haptics, animated checkmark on copy, soft rose 3.5s confirmation on clear), elevated VoiceSaveButton, and character badge.
+    - Interactive Kundali Transit Wheel & Vastu Shastra: 360-degree dual-ring Gochar wheel (TransitWheelView.kt), classical 8-direction live compass with deities and room verifier (VastuEngine.kt).
+    - Land Area Converter (LandConverter.kt): Nepal Survey Department cross-converter for Hilly (R-A-P-D), Terai (B-K-D-K), Metric/Imperial, and parcel arithmetic (+/-).
+    - Bilingual English & Nepali Localization: Full English mode support across Land Converter, Vastu Compass, Gochar Wheel, and Emergency Directory.
+    - Architecture, Backup & Polish: Central Bank Forex & NOC Fuel live pricing; HighPrecisionEphemeris in AstroRepo; BackupManager expanded to Kundali profiles and favorite tools; strict zero emoji compliance.
   - v2.5.9:
     - Authentic 36-Point Ashta Koota Guna Milan Engine (AshtakootaGunaMilan.kt): Implemented classical Brihat Parashara Hora Shastra tables for all 8 Kootas (Nadi, Bhakoot, Gana, Maitri, Yoni, Tara, Vashya, Varna).
     - Upgraded GunaMilanScreen.kt: Human-friendly compatibility overview with percentage, plain-language marital guidance, 3 critical dosha indicators (Nadi, Bhakoot, Gana), 4 life-domain scorecards, 8 expandable Guna accordions, and 1-tap auto-fill from saved birth chart.

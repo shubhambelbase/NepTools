@@ -47,6 +47,13 @@ class NepToolsSmartBackgroundWorker(
                 // Ignore network errors in background
             }
 
+            // 6. Background Emergency Contacts Sync
+            try {
+                com.neptools.app.core.util.EmergencySyncManager.sync(ctx, force = false)
+            } catch (_: Exception) {
+                // Ignore network errors in background
+            }
+
             Result.success()
         } catch (_: Exception) {
             Result.retry()

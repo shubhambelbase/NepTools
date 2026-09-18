@@ -1,0 +1,13 @@
+{
+  "name": "neptools-emergency-api",
+  "version": "1.0.0",
+  "description": "NepTools Verified Emergency Contacts Cloudflare Edge API",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": ["neptools", "emergency", "api", "cloudflare-workers"],
+  "author": "Shubham Belbase",
+  "license": "MIT"
+}

@@ -276,6 +276,18 @@ private val S: Map<String, Pair<String, String>> = mapOf(
     "emg_cat_res" to ("उद्धार" to "Rescue & Fire"),
     "emg_cat_soc" to ("सामाजिक" to "Social Help"),
     "emg_cat_bld" to ("रक्तसञ्चार" to "Blood Banks"),
+    "emg_loc_title" to ("स्थान छान्नुहोस्" to "Select Location"),
+    "emg_loc_gps" to ("GPS पत्ता लगाउनुहोस्" to "Detect via GPS"),
+    "emg_loc_change" to ("परिवर्तन" to "Change"),
+    "emg_loc_all" to ("सबै नेपाल (राष्ट्रिय)" to "All Nepal (National)"),
+    "emg_loc_local_badge" to ("तपाईंको क्षेत्र" to "Your Area"),
+    "emg_loc_locating" to ("GPS खोजी हुँदै…" to "Detecting GPS…"),
+    "emg_loc_search_hint" to ("जिल्ला खोज्नुहोस्…" to "Search district…"),
+    "emg_sync_title" to ("सम्पर्क अद्यावधिक" to "Sync Contacts"),
+    "emg_sync_btn" to ("अद्यावधिक" to "Sync Now"),
+    "emg_sync_success" to ("सम्पर्कहरू सफलतापूर्वक अद्यावधिक भए" to "Emergency contacts updated"),
+    "emg_sync_latest" to ("सम्पर्कहरू पहिल्यै नवीनतम छन्" to "Contacts are up to date"),
+    "emg_sync_failed" to ("सम्पर्क अद्यावधिक हुन सकेन" to "Failed to sync contacts"),
 
     // bill calc
     "bill_title" to ("महसुल क्यालकुलेटर" to "Bill Calculator"),

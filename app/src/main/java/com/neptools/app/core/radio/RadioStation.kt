@@ -20,7 +20,7 @@ object RadioStations {
         RadioStation("ujyaalo", "उज्यालो ९० नेटवर्क", "Ujyaalo 90", "90.0 MHz", "Kathmandu", "news", "http://stream.zenolive.com/wtuvp08xq1duv", "https://stream.zeno.fm/0r0xa792kwzuv"),
         RadioStation("hitsfm", "हिट्स एफएम", "Hits FM", "91.2 MHz", "Kathmandu", "music", "https://usa15.fastcast4u.com/proxy/hitsfm912?mp=/1"),
         RadioStation("bbcnepali", "बीबीसी नेपाली", "BBC Nepali", "103 MHz", "London / Kathmandu", "news", "https://stream.live.vc.bbcmedia.co.uk/bbc_nepali_radio"),
-        RadioStation("imagefm", "इमेज एफएम", "Image FM", "97.9 MHz", "Kathmandu", "music", "https://stream.zeno.fm/0r0xa792kwzuv"),
+        RadioStation("imagefm", "इमेज एफएम", "Image FM", "97.9 MHz", "Kathmandu", "music", "https://www.hamropatro.com/api/radio/stream/9"),
         RadioStation("kalikafm", "कालिका एफएम", "Kalika FM", "95.2 MHz", "Bharatpur, Chitwan", "national", "http://kalika-stream.softnep.com:7740/;"),
         RadioStation("capitalfm", "क्यापिटल एफएम", "Capital FM", "92.4 MHz", "Kathmandu", "national", "http://streaming.softnep.net:8037/;"),
         RadioStation("thaha", "रेडियो थाहा सञ्चार", "Radio Thaha Sanchar", "99.4 MHz", "Kathmandu / Hetauda", "news", "https://streaming.softnep.net:10988/;stream.nsv&type=mp3"),

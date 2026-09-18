@@ -75,6 +75,7 @@
 -keep class com.neptools.app.core.tools.** { *; }
 -keep class com.neptools.app.core.converter.** { *; }
 -keep class com.neptools.app.core.vastu.** { *; }
+-keep class com.neptools.app.core.util.** { *; }
 
 # ----------------------------------------------------------------------------
 # 6. SECURITY & NATIVE JNI BRIDGE (Keep dynamic JNI targets)

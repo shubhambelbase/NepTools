@@ -23,10 +23,11 @@ class PatroApp : Application() {
         NepaliDateStickyService.start(this)
         com.neptools.app.core.notification.SmartAlertNotificationManager.createNotificationChannels(this)
 
-        // Asynchronously initialize background workers and reminders to eliminate cold-start main thread jank
+        // Asynchronously initialize background workers, reminders, and emergency cache to eliminate cold-start main thread jank
         CoroutineScope(Dispatchers.IO).launch {
             com.neptools.app.core.work.WorkScheduler.scheduleAll(this@PatroApp)
             com.neptools.app.core.reminder.ReminderHelper.rescheduleAll(this@PatroApp)
+            com.neptools.app.core.util.EmergencySyncManager.init(this@PatroApp)
         }
     }
 }
