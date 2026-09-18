@@ -252,12 +252,20 @@ private fun QuickSplitView(isEn: Boolean) {
             perPersonAmount = perPersonFinal,
             isEn = isEn
         )
-        ReceiptGraphicGenerator.shareReceiptImage(context, file, if (isEn) "Share Receipt Graphic" else "रसिद कार्ड शेयर गर्नुहोस्")
+        runCatching {
+            ReceiptGraphicGenerator.shareReceiptImage(context, file, if (isEn) "Share Receipt Graphic" else "रसिद कार्ड शेयर गर्नुहोस्")
+        }.onFailure {
+            android.widget.Toast.makeText(
+                context,
+                if (isEn) "Could not share the receipt image" else "रसिद शेयर गर्न सकिएन",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     fun shareSummary() {
         val summary = buildString {
-            append("🍽️ ${if (isEn) "Bill Split Summary" else "बिल बाँडफाँड विवरण"}\n")
+            append("${if (isEn) "Bill Split Summary" else "बिल बाँडफाँड विवरण"}\n")
             append("━━━━━━━━━━━━━━━━━━━\n")
             append("${if (isEn) "Total Bill:" else "जम्मा बिल:"} ${if (isEn) "Rs. ${fmt.format(totalBill.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(totalBill.toLong()))}"}\n")
             append("${if (isEn) "Number of People:" else "मानिस सङ्ख्या:"} ${if (isEn) "$numPeople" else com.neptools.app.core.calendar.NepaliNames.toDevanagari(numPeople.toString())}\n")
@@ -265,7 +273,7 @@ private fun QuickSplitView(isEn: Boolean) {
             if (includeServiceCharge) append("${if (isEn) "Service Charge (10%):" else "सेवा शुल्क (१०%):"} ${if (isEn) "Rs. ${fmt.format(serviceChargeAmount.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(serviceChargeAmount.toLong()))}"}\n")
             if (includeVat) append("${if (isEn) "Govt VAT (13%):" else "सरकारी भ्याट (१३%):"} ${if (isEn) "Rs. ${fmt.format(vatAmount.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(vatAmount.toLong()))}"}\n")
             append("━━━━━━━━━━━━━━━━━━━\n")
-            append("👉 ${if (isEn) "EACH PERSON PAYS:" else "प्रत्येकले तिर्नुपर्ने रकम:"} ${if (isEn) "Rs. ${fmt.format(perPersonFinal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(perPersonFinal.toLong()))}"}\n")
+            append("${if (isEn) "EACH PERSON PAYS:" else "प्रत्येकले तिर्नुपर्ने रकम:"} ${if (isEn) "Rs. ${fmt.format(perPersonFinal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(perPersonFinal.toLong()))}"}\n")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -514,7 +522,7 @@ private fun QuickSplitView(isEn: Boolean) {
                 Icon(PIcons.CameraShare, null, tint = Color.White, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    if (isEn) "Share Graphic Receipt Card 📸" else "रसिद कार्ड शेयर गर्नुहोस् 📸",
+                    if (isEn) "Share Graphic Receipt Card" else "रसिद कार्ड शेयर गर्नुहोस्",
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = Color.White)
                 )
             }
@@ -617,21 +625,29 @@ private fun ItemizedSplitView(isEn: Boolean) {
             subtotalAll = subtotalAll,
             isEn = isEn
         )
-        ReceiptGraphicGenerator.shareReceiptImage(context, file, if (isEn) "Share Group Settlement Graphic" else "ग्रुप हिसाब कार्ड शेयर गर्नुहोस्")
+        runCatching {
+            ReceiptGraphicGenerator.shareReceiptImage(context, file, if (isEn) "Share Group Settlement Graphic" else "ग्रुप हिसाब कार्ड शेयर गर्नुहोस्")
+        }.onFailure {
+            android.widget.Toast.makeText(
+                context,
+                if (isEn) "Could not share the settlement card" else "ग्रुप हिसाब कार्ड शेयर गर्न सकिएन",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     fun shareItemizedSummary() {
         val summary = buildString {
-            append("📋 ${if (isEn) "Itemized Group Bill Settlement" else "व्यक्तिगत परिकार बाँडफाँड विवरण"}\n")
+            append("${if (isEn) "Itemized Group Bill Settlement" else "व्यक्तिगत परिकार बाँडफाँड विवरण"}\n")
             append("━━━━━━━━━━━━━━━━━━━\n")
             members.forEach { member ->
                 val base = memberSubtotals[member.id] ?: 0.0
                 val finalTotal = base * totalMultiplier
-                append("👤 ${member.name}: ${if (isEn) "Rs. ${fmt.format(finalTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(finalTotal.toLong()))}"}\n")
+                append("${member.name}: ${if (isEn) "Rs. ${fmt.format(finalTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(finalTotal.toLong()))}"}\n")
             }
             append("━━━━━━━━━━━━━━━━━━━\n")
             val grandTotal = subtotalAll * totalMultiplier
-            append("💰 ${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
+            append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -899,7 +915,7 @@ private fun ItemizedSplitView(isEn: Boolean) {
                 Icon(PIcons.CameraShare, null, tint = Color.White, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    if (isEn) "Share Graphic Settlement Card 📸" else "ग्रुप हिसाब कार्ड शेयर गर्नुहोस् 📸",
+                    if (isEn) "Share Graphic Settlement Card" else "ग्रुप हिसाब कार्ड शेयर गर्नुहोस्",
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, color = Color.White)
                 )
             }
@@ -908,16 +924,16 @@ private fun ItemizedSplitView(isEn: Boolean) {
                 OutlinedButton(
                     onClick = {
                         val summary = buildString {
-                            append("📋 ${if (isEn) "Itemized Group Bill Settlement" else "व्यक्तिगत परिकार बाँडफाँड विवरण"}\n")
+                            append("${if (isEn) "Itemized Group Bill Settlement" else "व्यक्तिगत परिकार बाँडफाँड विवरण"}\n")
                             append("━━━━━━━━━━━━━━━━━━━\n")
                             members.forEach { member ->
                                 val base = memberSubtotals[member.id] ?: 0.0
                                 val finalTotal = base * totalMultiplier
-                                append("👤 ${member.name}: ${if (isEn) "Rs. ${fmt.format(finalTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(finalTotal.toLong()))}"}\n")
+                                append("${member.name}: ${if (isEn) "Rs. ${fmt.format(finalTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(finalTotal.toLong()))}"}\n")
                             }
                             append("━━━━━━━━━━━━━━━━━━━\n")
                             val grandTotal = subtotalAll * totalMultiplier
-                            append("💰 ${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
+                            append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
                         }
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText(if (isEn) "Itemized Split" else "व्यक्तिगत बाँडफाँड", summary)

@@ -39,7 +39,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -418,7 +418,7 @@ fun VoiceScreen(onBack: () -> Unit) {
                                     )
                                     .clickable(
                                         interactionSource = remember { MutableInteractionSource() },
-                                        indication = rememberRipple(bounded = false, radius = 38.dp)
+                                        indication = ripple(bounded = false, radius = 38.dp)
                                     ) {
                                         if (listening) {
                                             stopListening()
@@ -833,7 +833,7 @@ private fun VoiceActionButton(
             .clip(RoundedCornerShape(12.dp))
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(color = tint),
+                indication = ripple(color = tint),
                 onClick = {
                     haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                     onClick()
@@ -900,7 +900,7 @@ private fun VoiceSaveButton(
             .clip(RoundedCornerShape(12.dp))
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(color = MaterialTheme.colorScheme.onPrimary),
+                indication = ripple(color = MaterialTheme.colorScheme.onPrimary),
                 onClick = {
                     haptics.performHapticFeedback(HapticFeedbackType.LongPress)
                     onClick()
@@ -991,7 +991,7 @@ private fun SavedVoiceNoteCard(
                             )
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false, radius = 16.dp),
+                                indication = ripple(bounded = false, radius = 16.dp),
                                 onClick = {
                                     onCopy()
                                     isCopied = true
@@ -1015,7 +1015,7 @@ private fun SavedVoiceNoteCard(
                             .background(MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.35f))
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false, radius = 16.dp),
+                                indication = ripple(bounded = false, radius = 16.dp),
                                 onClick = onDelete
                             ),
                         contentAlignment = Alignment.Center

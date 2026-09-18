@@ -5,7 +5,7 @@ const DATA = {
   "version": 1,
   "updatedAt": "2026-09-18T09:30:00Z",
   "source": "NepTools Official Verified Emergency Directory",
-  "totalContacts": 38,
+  "totalContacts": 61,
   "contacts": [
     {
       "nameNp": "नेपाल प्रहरी (Police)",
@@ -619,7 +619,8 @@ const DATA = {
     }
   ]
 };
-const ETAG = '"v1-38"';
+// Derived from the payload so the ETag can never drift from the data it describes.
+const ETAG = `"v${DATA.version || 1}-${DATA.contacts.length}"`;
 
 export default {
   async fetch(request) {

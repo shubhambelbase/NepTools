@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,7 +60,7 @@ internal fun NavArrow(glyph: String, enabled: Boolean, onClick: () -> Unit) {
             )
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(bounded = true, color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
+                indication = ripple(bounded = true, color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
                 enabled = enabled,
                 onClick = onClick
             ),
@@ -100,7 +100,7 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
             .fillMaxSize()
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     bounded = true,
                     color = if (isToday) MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.3f)
                     else MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
@@ -209,7 +209,7 @@ internal fun FestivalRow(day: Int, nameNp: String, nameEn: String, publicHoliday
             .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.small)
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     bounded = true,
                     color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
                 ),

@@ -49,10 +49,12 @@
 
 ## 4. Multi-Layer Security Architecture
 
-1. Layer 1 (R8 / ProGuard): Class repackaging into root (''), complete stripping of android.util.Log calls, source file obfuscation.
-2. Layer 2 (RASP Engine): Active debugger check (TracerPid procfs), /proc/self/maps scanning (Frida, Xposed, Substrate), localhost port probing, SU/root binary detection, certificate SHA-256 fingerprint pinning.
-3. Layer 3 (Native C++): Dynamic JNI registration in JNI_OnLoad (no Java_ exports), symbol stripping (-fvisibility=hidden, -Wl,--strip-all), native ptrace(PTRACE_TRACEME) anti-debugging, XOR-masked secrets.
-4. Layer 4 (Update Verification): Pre-install SHA-256 hash checking and package name identity validation.
+Full detail lives in agent.md. The summary:
+
+1. Layer 1 (R8 / ProGuard): Shrinking, renaming, and complete stripping of android.util.Log calls. Several packages are deliberately kept unrenamed (see agent.md for the list and why), so obfuscation is partial by design, not by accident.
+2. Layer 2 (RASP Engine, advisory only): TracerPid debugger check, /proc/self/maps hooking scan (Frida, Xposed, Substrate), localhost port probes, SU/root detection, signing-certificate SHA-256 allow-list. Invoked from PatroApp.onCreate and surfaced in Settings under "Security & Integrity". Rooted devices are reported, never terminated.
+3. Layer 3 (Native C++): Built via externalNativeBuild (CMake, NDK 26). Dynamic JNI registration in JNI_OnLoad (no Java_ exports), symbol stripping (-fvisibility=hidden, -Wl,--strip-all), ptrace(PTRACE_TRACEME) tracer check. Holds no secrets: anything compiled into an APK is extractable, so vault keys come only from the master password plus a random salt.
+4. Layer 4 (Signing & Update Verification): Release build signed from keystore.properties (see RELEASE_SIGNING.md). Pre-install requires a published SHA-256 and a package-name identity match; without a checksum the updater refuses to auto-install.
 
 ---
 
@@ -74,6 +76,9 @@ app/src/main/
 
 ## 6. Build & Run Commands
 
+- Release signing: `keystore.properties` at the repo root plus `release.keystore` (both gitignored). Procedure, fingerprint, and the one-time user migration are in RELEASE_SIGNING.md. A release build without them falls back to the public debug key and warns loudly.
+- Unit tests: `.\gradlew.bat testDebugUnitTest`
+- Lint: `.\gradlew.bat lintDebug`
 - Debug Build: `.\gradlew.bat assembleDebug`
 - Install Debug APK: `& "D:\Android\Sdk\platform-tools\adb.exe" install -r -d app\build\outputs\apk\debug\app-debug.apk`
 - Release Build (R8 minified): `.\gradlew.bat assembleRelease`

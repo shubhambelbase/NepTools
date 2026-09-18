@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,9 +43,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.neptools.app.BuildConfig
 import com.neptools.app.core.backup.BackupManager
 import com.neptools.app.core.backup.BackupSummary
 import com.neptools.app.core.data.RatesRepo
+import com.neptools.app.core.security.NepToolsSecurityGuard
+import kotlinx.coroutines.launch
 import com.neptools.app.ui.components.HairLabel
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
@@ -268,6 +273,11 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
         }
 
         Spacer(Modifier.height(14.dp))
+        HairLabel(if (isEn) "Security & Integrity" else "सुरक्षा तथा अखण्डता")
+        Spacer(Modifier.height(8.dp))
+        SecuritySection(isEn)
+
+        Spacer(Modifier.height(14.dp))
         HairLabel(if (isEn) "About NepTools" else "हाम्रो बारे")
         Spacer(Modifier.height(8.dp))
 
@@ -310,7 +320,7 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = if (isEn) "Built by Shubham Belbase · v2.5.3" else "निर्माणकर्ता: Shubham Belbase · संस्करण २.५.३",
+                            text = "Shubham Belbase · v${BuildConfig.VERSION_NAME}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -383,6 +393,117 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
         }
 
         Spacer(Modifier.height(24.dp))
+    }
+}
+
+@Composable
+private fun SecuritySection(isEn: Boolean) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val status by NepToolsSecurityGuard.status.collectAsStateWithLifecycle()
+    val report = status.report
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
+            .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.medium)
+            .padding(14.dp)
+    ) {
+        Text(
+            text = if (isEn) "Device integrity check" else "यन्त्र अखण्डता जाँच",
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            text = if (isEn)
+                "NepTools verifies its own signature and scans for debugging or hooking tools. Rooted devices are allowed and simply reported here."
+            else "नेपटूल्सले आफ्नै हस्ताक्षर जाँच्छ र डिबगिङ वा हुकिङ उपकरण खोज्छ। रुट गरिएका यन्त्रहरू अनुमति छन् र यहाँ मात्र जानकारी दिइन्छ।",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(Modifier.height(10.dp))
+
+        if (report == null) {
+            Text(
+                text = if (isEn) "Scanning..." else "जाँच हुँदैछ...",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        } else {
+            IntegrityRow(
+                label = if (isEn) "App signature" else "एप हस्ताक्षर",
+                state = if (report.isSignatureValid) IntegrityState.PASS else IntegrityState.FAIL,
+                isEn = isEn
+            )
+            IntegrityRow(
+                label = if (isEn) "Debugger" else "डिबगर",
+                state = if (report.isDebuggerDetected) IntegrityState.FAIL else IntegrityState.PASS,
+                isEn = isEn
+            )
+            IntegrityRow(
+                label = if (isEn) "Hooking tools" else "हुकिङ उपकरण",
+                state = if (report.isHookingDetected) IntegrityState.FAIL else IntegrityState.PASS,
+                isEn = isEn
+            )
+            IntegrityRow(
+                label = if (isEn) "Root access" else "रुट पहुँच",
+                state = if (report.isRootDetected) IntegrityState.INFO else IntegrityState.PASS,
+                isEn = isEn
+            )
+            IntegrityRow(
+                label = if (isEn) "Native tracer check" else "नेटिभ ट्रेसर जाँच",
+                state = when (report.nativeIntegrityOk) {
+                    true -> IntegrityState.PASS
+                    false -> IntegrityState.FAIL
+                    null -> IntegrityState.INFO
+                },
+                isEn = isEn
+            )
+        }
+
+        Spacer(Modifier.height(10.dp))
+        androidx.compose.material3.OutlinedButton(
+            onClick = { scope.launch { NepToolsSecurityGuard.refresh(context) } },
+            enabled = !status.isAuditing,
+            shape = MaterialTheme.shapes.small
+        ) {
+            Text(
+                if (status.isAuditing) {
+                    if (isEn) "Checking..." else "जाँच हुँदैछ..."
+                } else {
+                    if (isEn) "Re-check now" else "पुनः जाँच"
+                },
+                style = MaterialTheme.typography.labelMedium
+            )
+        }
+    }
+}
+
+private enum class IntegrityState { PASS, FAIL, INFO }
+
+@Composable
+private fun IntegrityRow(label: String, state: IntegrityState, isEn: Boolean) {
+    val color = when (state) {
+        IntegrityState.PASS -> MaterialTheme.colorScheme.primary
+        IntegrityState.FAIL -> MaterialTheme.colorScheme.error
+        IntegrityState.INFO -> MaterialTheme.colorScheme.onSurfaceVariant
+    }
+    val valueText = when (state) {
+        IntegrityState.PASS -> if (isEn) "Pass" else "ठीक"
+        IntegrityState.FAIL -> if (isEn) "Fail" else "समस्या"
+        IntegrityState.INFO -> if (isEn) "Info" else "जानकारी"
+    }
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(vertical = 3.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(valueText, style = MaterialTheme.typography.labelMedium, color = color, fontWeight = FontWeight.SemiBold)
     }
 }
 

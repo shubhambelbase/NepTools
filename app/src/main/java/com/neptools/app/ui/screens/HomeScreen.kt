@@ -23,7 +23,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
@@ -321,7 +321,7 @@ fun HomeScreen(
                             )
                             .clickable(
                                 interactionSource = weatherInteraction,
-                                indication = rememberRipple(
+                                indication = ripple(
                                     bounded = true,
                                     color = androidx.compose.ui.graphics.Color(0xFF0284C7).copy(alpha = 0.2f)
                                 ),
@@ -973,7 +973,7 @@ private fun HomeFuelPriceCard(
             .border(1.dp, androidx.compose.ui.graphics.Color(0xFFFED7AA), androidx.compose.foundation.shape.RoundedCornerShape(18.dp))
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     bounded = true,
                     color = androidx.compose.ui.graphics.Color(0xFFEA580C).copy(alpha = 0.15f)
                 ),

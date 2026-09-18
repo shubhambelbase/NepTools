@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -197,7 +198,7 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                             readOnly = true,
                             label = { Text(if (isEn) "Groom's Nakshatra & Sign (वर)" else "वरको नक्षत्र र राशि") },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = boyExp) },
-                            modifier = Modifier.menuAnchor().fillMaxWidth(),
+                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
                         )
                         ExposedDropdownMenu(expanded = boyExp, onDismissRequest = { boyExp = false }) {
@@ -228,7 +229,7 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                             readOnly = true,
                             label = { Text(if (isEn) "Bride's Nakshatra & Sign (वधु)" else "वधुको नक्षत्र र राशि") },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = girlExp) },
-                            modifier = Modifier.menuAnchor().fillMaxWidth(),
+                            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
                         )
                         ExposedDropdownMenu(expanded = girlExp, onDismissRequest = { girlExp = false }) {

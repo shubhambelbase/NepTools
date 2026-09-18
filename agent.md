@@ -1,221 +1,123 @@
-# 🛡️ NepTools — Release Build Anti-Decompile & Multi-Layer Defense Architecture
+# NepTools Release Hardening Architecture
 
-This guide details the complete 4-layer defense-in-depth security architecture designed to protect **NepTools** against reverse engineering, bytecode decompilation (JADX, Bytecode Viewer), dynamic memory manipulation (Frida, Xposed, GameGuardian), native disassembly (Ghidra, IDA Pro), and APK repackaging.
+This document describes the defenses that are actually compiled into a release build. Every
+claim below maps to a file and a code path. If you change a defense, update this document in the
+same change; a document that overstates protection is worse than no document, because the next
+engineer trusts it.
 
----
+## Overview
 
-## 🏗️ Defense-in-Depth Architecture Overview
+| Layer | Mechanism | Implementation | Runs at |
+| --- | --- | --- | --- |
+| 1 | R8 shrinking, renaming, log stripping | `app/proguard-rules.pro` | Build time |
+| 2 | Runtime environment audit (RASP) | `core/security/NepToolsSecurityGuard.kt` | App start, on demand from Settings |
+| 3 | Native ptrace tracer check + symbol hiding | `app/src/main/cpp/native-lib.cpp`, `core/security/NativeSecurityBridge.kt` | App start (only when the native library loads) |
+| 4 | Release signing + install-time APK verification | `keystore.properties`, `core/updater/GitHubUpdateManager.kt` | Build time, update install |
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        NepTools Security Perimeter                     │
-├────────────────────────────────────────────────────────────────────────┤
-│ Layer 1: Aggressive R8/ProGuard Obfuscation & Bytecode Repackaging    │
-│  ├── Package flattening (-repackageclasses '')                         │
-│  ├── Zero Log footprint (-assumenosideeffects android.util.Log)        │
-│  └── SourceFile & line number obfuscation                              │
-├────────────────────────────────────────────────────────────────────────┤
-│ Layer 2: Runtime Application Self-Protection (RASP Engine)             │
-│  ├── TracerPid & Linux procfs active debugger detection                │
-│  ├── /proc/self/maps memory scanning (Frida, Xposed, Substrate)        │
-│  ├── Localhost Frida TCP probe (Ports 27042 / 27043)                   │
-│  ├── Multi-path Root & SU binary detection                             │
-│  └── Release Signing Certificate SHA-256 Fingerprint Pinning           │
-├────────────────────────────────────────────────────────────────────────┤
-│ Layer 3: Native C++ Isolation & Dynamic JNI Symbol Hiding              │
-│  ├── Dynamic JNI registration via JNI_OnLoad (No Java_ export symbols) │
-│  ├── Compiler symbol stripping (-fvisibility=hidden -Wl,--strip-all)   │
-│  ├── Native ptrace(PTRACE_TRACEME) anti-debugging trap                 │
-│  └── Dynamic XOR-masked AES-256 Vault seed generation                  │
-├────────────────────────────────────────────────────────────────────────┤
-│ Layer 4: Cryptographic In-App Update Verification                      │
-│  ├── Streaming SHA-256 hash calculation prior to installation          │
-│  ├── PackageArchiveInfo validation to prevent APK identity hijacking   │
-│  └── Safe scoped installation via Android FileProvider                 │
-└────────────────────────────────────────────────────────────────────────┘
-```
+Layer 2 is advisory. It reports, it does not terminate the process. Rooted devices and emulators
+are legitimate configurations for many NepTools users, so the app must not destroy their data or
+refuse to run. The audit result is shown in Settings under "Security & Integrity".
 
----
+## Layer 1: R8 / ProGuard
 
-## 🔒 Layer 1: Aggressive R8 / ProGuard Configuration
+Configured in `app/proguard-rules.pro`, applied by `isMinifyEnabled = true` and
+`isShrinkResources = true` in `buildTypes.release`.
 
-**Target File**: `app/proguard-rules.pro`
+What is actually done:
+* `-allowaccessmodification` allows cross-class access changes that help inlining.
+* `-assumenosideeffects` removes every `android.util.Log` call from release builds.
+* `-renamesourcefileattribute SourceFile` hides original file names.
+* `-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod,Exceptions` keeps what
+  Compose, reflection, and Kotlin metadata need.
 
-### 1. Class Repackaging & Name Mangling
-When reverse engineers decompile an Android APK using **JADX**, class directory structures normally expose package names (e.g. `com.neptools.app.core.vault`). 
+Important caveat: the keep rules intentionally pin large parts of the app
+(`core.data.**`, `core.calendar.**`, `core.habit.**`, `core.updater.**`, `core.vault.**`,
+`astrology.**`, `core.util.**`). Those packages are **not** obfuscated, because they are loaded
+through reflective or field-access patterns that R8 cannot prove safe to rename. Narrowing the
+keep rules is a real improvement opportunity, but it must be done with instrumentation tests,
+not by deleting rules and hoping.
 
-R8 aggressive repackaging moves all non-public classes into the default root package `""` or single-letter namespaces, making class structure flat and unreadable:
+## Layer 2: Runtime environment audit (RASP)
 
-```proguard
-# Flatten all classes into the root package
--repackageclasses ''
--allowaccessmodification
--optimizationpasses 5
--mergeinterfacesaggressively
+`core/security/NepToolsSecurityGuard.kt`, invoked from `PatroApp.onCreate()` on a background
+dispatcher and republished to `NepToolsSecurityGuard.status` as a `StateFlow`.
 
-# Obfuscate source file names
--renamesourcefileattribute SourceFile
--keepattributes SourceFile,LineNumberTable
-```
+Checks:
+1. **Debugger / tracer**: `Debug.isDebuggerConnected()`, `Debug.waitingForDebugger()`, and
+   `TracerPid` parsed from `/proc/self/status`.
+2. **Hooking frameworks**: `/proc/self/maps` scanned for `frida`, `gadget`, `linjector`,
+   `xposed`, `substrate`; TCP probes against 127.0.0.1:27042 and 27043; reflection checks for
+   known Xposed/Substrate/Magisk bridge classes.
+3. **Root indicators**: SU binary paths, `test-keys` build tags, `which su`.
+4. **Signing certificate**: SHA-256 of the APK signing certificate compared against an allow-list.
 
-### 2. Stripping All Debug Logs
-Logging statements (`Log.d`, `Log.v`, `Log.i`, `Log.e`) leak application flow and sensitive API structures. We configure R8 to eliminate them completely from release bytecode:
+Signature allow-list rules:
+* `RELEASE_SIGNATURE_HASHES` holds the release certificate fingerprint.
+* `DEBUG_SIGNATURE_HASHES` holds the public Android debug key fingerprint and is only accepted
+  when `BuildConfig.DEBUG` is true.
+* If Google Play App Signing is ever used, the Play signing certificate must be added to the
+  release set, or production installs will report a false signature failure.
+* A signature hash mismatch (for example a missing certificate) is reported, not acted on.
 
-```proguard
--assumenosideeffects class android.util.Log {
-    public static boolean isLoggable(java.lang.String, int);
-    public static int v(...);
-    public static int d(...);
-    public static int i(...);
-    public static int w(...);
-    public static int e(...);
-    public static int wtf(...);
-    public static int println(...);
-}
-```
+`performSecurityAudit(context, enforceStrictTermination = true)` exists for callers that
+genuinely need to kill the process. Nothing calls it that way today, and no new caller should
+without a product decision, because it destroys user data on rooted devices.
 
-### 3. Preserving Essential Framework Targets
-To ensure Jetpack Compose, dynamic JNI, BiometricPrompt, and Kotlin Coroutines function properly under aggressive optimization:
+## Layer 3: Native security library
 
-```proguard
-# Jetpack Compose
--keepclassmembers class * {
-    @androidx.compose.runtime.Composable *;
-    @androidx.compose.runtime.ReadOnlyComposable *;
-}
+`app/src/main/cpp/` is built through `externalNativeBuild` in `app/build.gradle.kts`. Before this
+wiring existed the CMake project was never compiled, so `System.loadLibrary("neptools-security")`
+always threw `UnsatisfiedLinkError` and the layer was inert.
 
-# Custom Vector Drawables (PatroIcons)
--keep class com.neptools.app.ui.icons.** { *; }
+What it does:
+* `verifyEnvironmentIntegrity()` performs a `ptrace(PTRACE_TRACEME)` check and inspects
+  `/proc/self/wchan` for an active tracer.
+* Methods are bound with `RegisterNatives` inside `JNI_OnLoad`, so no `Java_*` symbols are
+  exported for a decompiler to read.
+* `-fvisibility=hidden` and `-Wl,--strip-all` keep the symbol table minimal.
+* ABI filters limit the build to `arm64-v8a`, `armeabi-v7a`, and `x86_64`.
 
-# Dynamic JNI Bridge
--keep class com.neptools.app.core.security.** { *; }
--keepclasseswithmembers class com.neptools.app.core.security.NativeSecurityBridge {
-    native <methods>;
-}
+What it deliberately does **not** do: hold vault key material. An earlier revision embedded an
+XOR-obfuscated "vault seed". Anything compiled into a shipped APK is recoverable, so a compiled-in
+secret provides no cryptographic strength, and `VaultCrypto` never used it. The seed was removed.
+Vault keys are derived from the user's master password and a 32-byte random salt with
+PBKDF2-HMAC-SHA256 at 210,000 iterations, and the data key is sealed with AES-256-GCM.
 
-# Biometric & Keystore Crypto
--keep class androidx.biometric.** { *; }
--keep class javax.crypto.** { *; }
-```
+`NativeSecurityBridge.nativeIntegrityOk()` returns `null` when the library is unavailable, and
+that null is reported as "unknown" rather than either "secure" or "compromised".
 
----
+## Layer 4: Signing and update verification
 
-## 🛡️ Layer 2: Runtime Application Self-Protection (RASP)
+Release signing is configured in `app/build.gradle.kts` from `keystore.properties`, which is
+gitignored. See `RELEASE_SIGNING.md` for backup and migration steps. Do not distribute a build
+that fell back to the debug key; the build prints a warning when it does.
 
-**Target File**: `app/src/main/java/com/neptools/app/core/security/NepToolsSecurityGuard.kt`
+`core/updater/GitHubUpdateManager.kt` verifies a downloaded APK before it is handed to the
+package installer:
+1. Minimum size sanity check.
+2. SHA-256 of the file compared with the checksum published in the release notes. A checksum is
+   **required** for an automatic install; without one the updater refuses and asks the user to
+   install from the GitHub release page. The package-name check alone is not a security control,
+   because an attacker-authored APK simply declares the same package name.
+3. `PackageManager.getPackageArchiveInfo()` archive parse and package identity check.
 
-The `NepToolsSecurityGuard` singleton runs comprehensive environment and memory integrity checks during app startup and critical operations:
+## What is intentionally not claimed
 
-### 1. Active Debugger & TracerPid Detection
-Decompilers and reverse engineers attach GDB, LLDB, or JDWP debuggers. We detect them through dual inspection:
-* Standard Android API: `Debug.isDebuggerConnected()` & `Debug.waitingForDebugger()`.
-* Low-Level Linux `procfs`: Reading `/proc/self/status` line-by-line to parse `TracerPid`. If `TracerPid > 0`, an external process is actively tracing execution.
+* **No TLS certificate pinning.** Traffic uses `HttpURLConnection` over HTTPS with the system CA
+  store, plus the update checksum above. Adding pins is a deliberate future decision because a
+  bad pin bricks updates.
+* **No tamper-resistant secret storage.** Anything shipped in the APK is extractable.
+* **No remote kill switch or anti-tamper termination.**
+* **The remote emergency-contact feed is not signed.** It is instead merged additively: remote
+  entries can add contacts but can never overwrite or remove a compiled-in hotline
+  (`EmergencyRepo.mergeRemoteContacts`). Payloads must pass number-format validation, a
+  minimum-size floor, and version monotonicity before being cached.
 
-### 2. Dynamic Memory Hooking Detection (Frida / Xposed)
-Frida injects `frida-agent.so` or `frida-gadget.so` into the running process. We detect this by:
-* Reading `/proc/self/maps` in real-time to inspect all loaded `.so` and `.jar` memory mappings for suspicious keywords (`frida`, `gadget`, `linjector`, `xposed`, `substrate`).
-* Probing default local Frida TCP listening ports (`27042`, `27043`).
-* Reflection checks for hooking class loaders (`de.robv.android.xposed.XposedBridge`).
+## Release checklist
 
-### 3. Multi-Vector Root Detection
-Scans for standard SU binary locations across the filesystem (`/system/bin/su`, `/sbin/su`, `/data/local/xbin/su`, `/data/adb/magisk`), test-keys build tags, and attempts executing `which su`.
-
-### 4. APK Signature SHA-256 Fingerprint Pinning
-Prevents repackaging attacks where an attacker modifies the APK, re-signs it with a custom certificate, and redistributes it:
-* Extracts the X.509 signing certificate from `PackageManager`.
-* Computes its SHA-256 cryptographic digest.
-* Verifies against hardcoded allowed release hashes.
-
-```kotlin
-// Example Startup Invocation in MainActivity.kt or Application.onCreate():
-val auditReport = NepToolsSecurityGuard.performSecurityAudit(context, enforceStrictTermination = false)
-if (!auditReport.isSecure) {
-    // Log internally or terminate process
-    NepToolsSecurityGuard.terminateApplication()
-}
-```
-
----
-
-## ⚙️ Layer 3: Native C++ Isolation & Dynamic JNI Registration
-
-**Target Files**: 
-* `app/src/main/cpp/native-lib.cpp`
-* `app/src/main/cpp/CMakeLists.txt`
-* `app/src/main/java/com/neptools/app/core/security/NativeSecurityBridge.kt`
-
-### 1. Dynamic JNI Registration (Hiding Symbols from Ghidra/IDA Pro)
-Standard JNI functions use naming schemes like:
-`Java_com_neptools_app_core_security_NativeSecurityBridge_getVaultSeed`
-
-These names appear clearly in decompilers under the `.dynsym` table.
-
-We use **Dynamic JNI Registration** inside `JNI_OnLoad` via `env->RegisterNatives()`. The function pointers are registered at runtime and do **NOT** export any `Java_` symbol names.
-
-### 2. Native ptrace Anti-Debugging
-Linux allows only one tracer process per PID. In `native-lib.cpp`, calling:
-```cpp
-ptrace(PTRACE_TRACEME, 0, 1, 0);
-```
-If an attacker attached a debugger prior to this call, `ptrace` returns `-1`, alerting the app to immediately abort.
-
-### 3. Obfuscated Vault Pepper Generation
-Critical cryptographic salts and vault seeds are stored as XOR-encoded byte arrays with multi-stage rotating keys:
-```cpp
-decryptedBytes[i] = static_cast<jbyte>(OBFUSCATED_SEED[i] ^ NEUTRAL_KEY ^ (ROTATING_KEY + (i % 7)));
-```
-
-### 4. Compiler Flags in `CMakeLists.txt`
-```cmake
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fvisibility=hidden -fvisibility-inlines-hidden -fstack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now")
-set_target_properties(neptools-security PROPERTIES LINK_FLAGS "-Wl,--strip-all -Wl,--exclude-libs,ALL")
-```
-
----
-
-## 🚀 Layer 4: Cryptographic In-App Update Verification
-
-**Target File**: `app/src/main/java/com/neptools/app/core/updater/GitHubUpdateManager.kt`
-
-To prevent Man-in-the-Middle (MITM) attacks and malicious APK substitution:
-
-### 1. Streaming SHA-256 Digest Calculation
-When downloading a release APK from GitHub, the app streams the byte stream into a `MessageDigest.getInstance("SHA-256")` pipeline using a 64KB memory buffer.
-
-### 2. Pre-Install Verification Pipeline
-Before invoking Android's `FileProvider` package installer:
-1. **File Size Check**: Validates the APK meets the expected size threshold.
-2. **SHA-256 Checksum Check**: Verifies the calculated hash against the published release hash.
-3. **Archive Structure & Package Name Check**: Uses Android's `PackageManager.getPackageArchiveInfo()` to verify that the downloaded APK package name strictly equals `com.neptools.app`.
-
----
-
-## 📋 Integration Checklist for Release Builds
-
-1. **Verify ProGuard in `app/build.gradle.kts`**:
-   Ensure `isMinifyEnabled = true` and `isShrinkResources = true` in `buildTypes.release`.
-
-2. **Add Native Support (Optional C++ Build)**:
-   If building the C++ native module, ensure `externalNativeBuild` is configured in `app/build.gradle.kts`:
-   ```kotlin
-   android {
-       externalNativeBuild {
-           cmake {
-               path = file("src/main/cpp/CMakeLists.txt")
-               version = "3.22.1"
-           }
-       }
-   }
-   ```
-
-3. **Production Signing Keystore**:
-   When switching from the debug key to your private production keystore:
-   * Run: `keytool -list -v -keystore your_release_key.jks -alias your_alias`
-   * Copy the **SHA-256** fingerprint.
-   * Add the fingerprint to `NepToolsSecurityGuard.ALLOWED_SIGNATURE_HASHES`.
-
-4. **Verify Obfuscation**:
-   Build the release APK (`./gradlew :app:assembleRelease`) and open `app-release.apk` in Android Studio's **APK Analyzer** or **JADX-GUI** to inspect:
-   * Class names are obfuscated (`a.a.b.c`).
-   * No `android.util.Log` strings exist.
-   * Native `.so` libraries contain no exported `Java_` symbols.
+1. `keystore.properties` present and pointing at the release keystore, and the build log free of
+   the debug-key fallback warning.
+2. `RELEASE_SIGNATURE_HASHES` matches the certificate actually used for this build.
+3. `./gradlew testDebugUnitTest` and `./gradlew lintDebug` pass; CI enforces both.
+4. `versionCode` incremented in `app/build.gradle.kts`.
+5. SHA-256 of the APK published in the GitHub release notes, so the in-app updater can verify it.

@@ -39,6 +39,12 @@ object EmergencySyncManager {
     private const val KEY_DATA_VERSION = "data_version"
     private const val MIN_SYNC_INTERVAL_MS = 6L * 60 * 60 * 1000 // 6 hours
 
+    /**
+     * A remote feed must contain at least this many valid contacts before it is trusted enough
+     * to be merged. The compiled-in hotlines remain authoritative regardless.
+     */
+    private const val MIN_REMOTE_CONTACTS = 10
+
     private val _isSyncing = MutableStateFlow(false)
     val isSyncing: StateFlow<Boolean> = _isSyncing.asStateFlow()
 
@@ -65,7 +71,8 @@ object EmergencySyncManager {
     fun init(context: Context) {
         val cached = loadCachedContacts(context)
         if (cached.isNotEmpty()) {
-            EmergencyRepo.updateContacts(cached)
+            // Merge, never replace: the compiled-in hotlines stay authoritative.
+            EmergencyRepo.mergeRemoteContacts(cached)
         }
 
         val prefs = getPrefs(context)
@@ -85,16 +92,27 @@ object EmergencySyncManager {
         if (!file.exists()) return emptyList()
 
         return try {
-            val jsonStr = file.readText()
-            parseContactsJson(jsonStr)
+            parseContactsJson(file.readText())
         } catch (_: Exception) {
             emptyList()
         }
     }
 
-    fun parseContactsJson(jsonStr: String): List<EmergencyContact> {
+    /** Only dialable numbers are accepted: digits with optional +, -, spaces, 3-20 characters. */
+    private val NUMBER_PATTERN = Regex("^[0-9+\\-\\s]{3,20}$")
+
+    /** Payload version from the API, used to reject rolled-back or stale feeds. */
+    data class ParsedFeed(
+        val version: Int,
+        val contacts: List<EmergencyContact>
+    )
+
+    fun parseContactsJson(jsonStr: String): List<EmergencyContact> = parseFeed(jsonStr).contacts
+
+    fun parseFeed(jsonStr: String): ParsedFeed {
         val root = JSONObject(jsonStr)
-        val array = root.optJSONArray("contacts") ?: return emptyList()
+        val version = root.optInt("version", 0)
+        val array = root.optJSONArray("contacts") ?: return ParsedFeed(version, emptyList())
         val list = ArrayList<EmergencyContact>()
 
         for (i in 0 until array.length()) {
@@ -108,22 +126,25 @@ object EmergencySyncManager {
             val descNp = obj.optString("descriptionNp", "").trim()
             val descEn = obj.optString("descriptionEn", "").trim()
 
-            if (number.isNotEmpty() && (nameNp.isNotEmpty() || nameEn.isNotEmpty())) {
-                list.add(
-                    EmergencyContact(
-                        nameNp = nameNp,
-                        nameEn = nameEn,
-                        number = number,
-                        category = category,
-                        province = province,
-                        district = district,
-                        descriptionNp = descNp,
-                        descriptionEn = descEn
-                    )
+            if (number.isEmpty() || (nameNp.isEmpty() && nameEn.isEmpty())) continue
+            if (!NUMBER_PATTERN.matches(number)) continue
+            if (number.count { it.isDigit() } < 3) continue
+            if (category !in EmergencyRepo.categories.map { it.first }) continue
+
+            list.add(
+                EmergencyContact(
+                    nameNp = nameNp,
+                    nameEn = nameEn,
+                    number = number,
+                    category = category,
+                    province = province,
+                    district = district,
+                    descriptionNp = descNp,
+                    descriptionEn = descEn
                 )
-            }
+            )
         }
-        return list
+        return ParsedFeed(version, list)
     }
 
     /**
@@ -192,22 +213,35 @@ object EmergencySyncManager {
                 return@withContext
             }
 
-            val parsedList = parseContactsJson(body)
+            val feed = parseFeed(body)
 
-            if (parsedList.size >= 10) {
-                // Save verified payload to disk cache
-                val cacheFile = File(context.filesDir, CACHE_FILE)
-                cacheFile.writeText(body)
+            // Reject rolled-back feeds so an older payload cannot silently undo a newer one.
+            val cachedVersion = prefs.getInt(KEY_DATA_VERSION, 0)
+            if (feed.version in 1..<cachedVersion) {
+                withContext(Dispatchers.Main) {
+                    onComplete?.invoke(false, 0, "Ignored stale contact feed (v${feed.version} < v$cachedVersion)")
+                }
+                return@withContext
+            }
 
-                // Update active in-memory repository
-                EmergencyRepo.updateContacts(parsedList)
+            if (feed.contacts.size >= MIN_REMOTE_CONTACTS) {
+                val merge = EmergencyRepo.mergeRemoteContacts(feed.contacts)
 
-                // Update metadata
-                prefs.edit().putLong(KEY_LAST_SYNC, now).apply()
+                // Only persist payloads that passed validation and the merge.
+                File(context.filesDir, CACHE_FILE).writeText(body)
+
+                prefs.edit()
+                    .putLong(KEY_LAST_SYNC, now)
+                    .putInt(KEY_DATA_VERSION, feed.version)
+                    .apply()
                 _lastSyncTime.value = now
 
                 withContext(Dispatchers.Main) {
-                    onComplete?.invoke(true, parsedList.size, "Contacts updated successfully")
+                    onComplete?.invoke(
+                        true,
+                        merge.totals,
+                        "${merge.added} new contact(s) added, ${merge.skippedCurated} verified entr(y/ies) kept"
+                    )
                 }
             } else {
                 withContext(Dispatchers.Main) {

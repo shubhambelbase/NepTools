@@ -36,7 +36,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -1290,7 +1289,7 @@ private fun HabitEditorBottomSheet(
 
     var nameNp by remember { mutableStateOf(habit?.nameNp ?: "") }
     var nameEn by remember { mutableStateOf(habit?.nameEn ?: "") }
-    var selectedIcon by remember { mutableStateOf(habit?.icon ?: "🚶") }
+    var selectedIcon by remember { mutableStateOf(habit?.icon ?: "TASK") }
     var selectedColor by remember { mutableLongStateOf(habit?.colorHex ?: COLOR_PALETTE[0]) }
     var selectedType by remember { mutableStateOf(habit?.type ?: HabitType.BOOLEAN) }
     var targetValueStr by remember { mutableStateOf(habit?.targetValue?.toInt()?.toString() ?: "1") }

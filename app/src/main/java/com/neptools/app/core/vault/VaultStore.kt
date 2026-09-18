@@ -61,9 +61,17 @@ class VaultStore private constructor(private val context: Context) {
         return true
     }
 
+    /**
+     * Attempts to unlock the vault with the master password.
+     *
+     * Failed attempts are rate limited with exponential backoff so an attacker with physical
+     * access to the device cannot brute force the master password at full speed.
+     */
     fun unlockWithPassword(masterPassword: CharArray): Boolean {
         if (!exists()) return false
-        return try {
+        if (isLockedOut()) return false
+
+        val unlocked = try {
             val salt = unb64(prefs.getString(KEY_SALT, null)!!)
             val wrap1 = unb64(prefs.getString(KEY_WRAP1, null)!!)
             val derivedKey = VaultCrypto.deriveKey(masterPassword, salt)
@@ -73,6 +81,39 @@ class VaultStore private constructor(private val context: Context) {
         } catch (_: Throwable) {
             false
         }
+
+        if (unlocked) resetFailedAttempts() else registerFailedAttempt()
+        return unlocked
+    }
+
+    /** Milliseconds remaining before another password attempt is accepted. */
+    fun lockoutRemainingMs(): Long =
+        (prefs.getLong(KEY_LOCKOUT_UNTIL, 0L) - System.currentTimeMillis()).coerceAtLeast(0L)
+
+    fun isLockedOut(): Boolean = lockoutRemainingMs() > 0L
+
+    fun failedAttempts(): Int = prefs.getInt(KEY_FAILED_ATTEMPTS, 0)
+
+    private fun registerFailedAttempt() {
+        val failures = failedAttempts() + 1
+        val backoffMs = if (failures < FREE_ATTEMPTS) {
+            0L
+        } else {
+            val steps = (failures - FREE_ATTEMPTS).coerceAtMost(6)
+            (BASE_BACKOFF_MS shl steps).coerceAtMost(MAX_BACKOFF_MS)
+        }
+        prefs.edit()
+            .putInt(KEY_FAILED_ATTEMPTS, failures)
+            .putLong(KEY_LOCKOUT_UNTIL, System.currentTimeMillis() + backoffMs)
+            .apply()
+    }
+
+    private fun resetFailedAttempts() {
+        if (failedAttempts() == 0 && prefs.getLong(KEY_LOCKOUT_UNTIL, 0L) == 0L) return
+        prefs.edit()
+            .putInt(KEY_FAILED_ATTEMPTS, 0)
+            .remove(KEY_LOCKOUT_UNTIL)
+            .apply()
     }
 
     fun changeMasterPassword(oldPassword: CharArray, newPassword: CharArray): Boolean {
@@ -168,6 +209,8 @@ class VaultStore private constructor(private val context: Context) {
                 .putString(KEY_WRAP1, b64(payload.wrap1))
                 .remove(KEY_WRAP2)
                 .putBoolean(KEY_BIO_ENABLED, false)
+                .remove(KEY_FAILED_ATTEMPTS)
+                .remove(KEY_LOCKOUT_UNTIL)
                 .apply()
             dataFile.writeBytes(payload.blob)
             true
@@ -235,6 +278,13 @@ class VaultStore private constructor(private val context: Context) {
         private const val KEY_WRAP2 = "wrap2"
         private const val KEY_BIO_ENABLED = "bio_enabled"
         private const val KEY_AUTO_LOCK = "auto_lock"
+        private const val KEY_FAILED_ATTEMPTS = "failed_attempts"
+        private const val KEY_LOCKOUT_UNTIL = "lockout_until"
+
+        /** Failed attempts allowed before backoff starts. */
+        private const val FREE_ATTEMPTS = 5
+        private const val BASE_BACKOFF_MS = 15_000L
+        private const val MAX_BACKOFF_MS = 5 * 60_000L
 
         const val BACKUP_MAGIC = "NPTVAULT"
         const val BACKUP_VERSION = 1

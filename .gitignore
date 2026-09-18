@@ -22,6 +22,7 @@ captures/
 *.keystore
 *.p12
 .env
+keystore.properties
 
 # Temp
 .tmp/

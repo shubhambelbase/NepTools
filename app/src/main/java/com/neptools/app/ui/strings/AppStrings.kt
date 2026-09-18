@@ -343,7 +343,7 @@ private val S: Map<String, Pair<String, String>> = mapOf(
     "radio_cat_news" to ("समाचार" to "News"),
     "radio_cat_mus" to ("मनोरञ्जन" to "Music"),
     "radio_buffering" to ("बफरिङ हुँदैछ…" to "Buffering stream…"),
-    "radio_playing" to ("लाइभ प्रसारण बजिरहेको छ 🔴" to "Playing Live Stream 🔴"),
+    "radio_playing" to ("लाइभ प्रसारण बजिरहेको छ" to "Playing Live Stream"),
     "radio_paused" to ("रोकिएको" to "Paused"),
     "radio_note" to ("अनलाइन लाइभ स्ट्रिम सुन्न इन्टरनेट जडान आवश्यक पर्दछ। रेडियो पृष्ठभूमिमा पनि बज्छ।"
         to "Live radio streaming requires an active internet connection. Plays in background."),

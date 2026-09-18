@@ -371,7 +371,7 @@ private fun DecisionWheelView(isEn: Boolean) {
             contentPadding = PaddingValues(bottom = 14.dp)
         ) {
             item {
-                PresetChip(if (isEn) "🍲 Nepali Food" else "🍲 खाना / खाजा", onClick = {
+                PresetChip(if (isEn) "Nepali Food" else "खाना / खाजा", onClick = {
                     choices.clear()
                     choices.addAll(
                         listOf("Momo", "Thakali", "Chowmein", "Pizza", "Sekuwa", "Biryani", "Burger", "Khaja Set").mapIndexed { i, t ->
@@ -381,7 +381,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                 })
             }
             item {
-                PresetChip(if (isEn) "❓ Yes / No / Maybe" else "❓ हो / होइन / सायद", onClick = {
+                PresetChip(if (isEn) "Yes / No / Maybe" else "हो / होइन / सायद", onClick = {
                     choices.clear()
                     choices.addAll(
                         listOf("YES (हो)", "NO (होइन)", "MAYBE (सायद)", "DEFINITELY (पक्कै)").mapIndexed { i, t ->
@@ -391,7 +391,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                 })
             }
             item {
-                PresetChip(if (isEn) "💰 Who Pays?" else "💰 कसले तिर्ने?", onClick = {
+                PresetChip(if (isEn) "Who Pays?" else "कसले तिर्ने?", onClick = {
                     choices.clear()
                     choices.addAll(
                         listOf("Me (मैले)", "You (तिमीले)", "50 / 50 Split", "Next Time (अर्को पटक)").mapIndexed { i, t ->
@@ -401,7 +401,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                 })
             }
             item {
-                PresetChip(if (isEn) "🌄 Travel Spots" else "🌄 घुम्न जाने ठाउँ", onClick = {
+                PresetChip(if (isEn) "Travel Spots" else "घुम्न जाने ठाउँ", onClick = {
                     choices.clear()
                     choices.addAll(
                         listOf("Pokhara", "Mustang", "Chitwan", "Nagarkot", "Bandipur", "Illam", "Rara").mapIndexed { i, t ->
@@ -411,7 +411,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                 })
             }
             item {
-                PresetChip(if (isEn) "🎭 Truth or Dare" else "🎭 सत्य वा चुनौती", onClick = {
+                PresetChip(if (isEn) "Truth or Dare" else "सत्य वा चुनौती", onClick = {
                     choices.clear()
                     choices.addAll(
                         listOf("Truth (सत्य)", "Dare (चुनौती)", "Pass (पास)", "Double Dare (दोहोरो चुनौती)").mapIndexed { i, t ->
@@ -421,7 +421,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                 })
             }
             item {
-                PresetChip(if (isEn) "🔢 1 to 6" else "🔢 १ देखि ६", onClick = {
+                PresetChip(if (isEn) "1 to 6" else "१ देखि ६", onClick = {
                     choices.clear()
                     choices.addAll(
                         (1..6).map { i ->
@@ -596,7 +596,7 @@ private fun DecisionWheelView(isEn: Boolean) {
                             )
                             Spacer(Modifier.width(6.dp))
                             Text(
-                                text = if (isEn) "🎯 The Wheel Decided:" else "🎯 भाग्य चक्रको निर्णय:",
+                                text = if (isEn) "The Wheel Decided:" else "भाग्य चक्रको निर्णय:",
                                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -847,8 +847,8 @@ private fun CoinFlipperView(isEn: Boolean) {
                     .padding(horizontal = 20.dp, vertical = 6.dp)
             ) {
                 Text(
-                    text = if (isHead) (if (isEn) "👑 Result: HEADS (राजा)" else "👑 नतिजा: राजा (HEADS)")
-                           else (if (isEn) "🏔️ Result: TAILS (सगरमाथा)" else "🏔️ नतिजा: सगरमाथा (TAILS)"),
+                    text = if (isHead) (if (isEn) "Result: HEADS (राजा)" else "नतिजा: राजा (HEADS)")
+                           else (if (isEn) "Result: TAILS (सगरमाथा)" else "नतिजा: सगरमाथा (TAILS)"),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = if (isHead) Color(0xFFB45309) else Color(0xFF334155)

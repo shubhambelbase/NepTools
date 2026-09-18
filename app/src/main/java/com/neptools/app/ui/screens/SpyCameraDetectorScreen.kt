@@ -505,7 +505,7 @@ private fun OpticalStrobeView(
                                         containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
                                     ) else ButtonDefaults.outlinedButtonColors(),
                                     border = if (isSelected) androidx.compose.foundation.BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary)
-                                             else ButtonDefaults.outlinedButtonBorder
+                                             else ButtonDefaults.outlinedButtonBorder(enabled = true)
                                 ) {
                                     Text(
                                         text = label,

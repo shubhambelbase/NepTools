@@ -292,7 +292,7 @@ object ReceiptGraphicGenerator {
                 typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
                 textAlign = Paint.Align.RIGHT
             }
-            canvas.drawText("👤 ${member.name}", memberRect.left + 25f, memberRect.top + 48f, namePaint)
+            canvas.drawText("${member.name}", memberRect.left + 25f, memberRect.top + 48f, namePaint)
             canvas.drawText("Rs. ${numberFormat.format(memberTotal.toLong())}", memberRect.right - 25f, memberRect.top + 48f, amountPaint)
 
             var dishY = memberRect.top + 92f
@@ -359,7 +359,8 @@ object ReceiptGraphicGenerator {
     }
 
     private fun saveBitmapToCache(context: Context, bitmap: Bitmap, fileName: String): File {
-        val file = File(context.cacheDir, fileName)
+        // Must live under cache/exports/ so FileProvider can resolve a URI for it.
+        val file = File(ExportDirs.cacheExports(context), fileName)
         FileOutputStream(file).use { out ->
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
         }

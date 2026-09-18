@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.compose.runtime.Immutable
 import com.neptools.app.core.calendar.NepaliDate
 import com.neptools.app.core.data.PatroRepo
@@ -145,12 +146,27 @@ object UserEventManager {
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
+            // Android 12+ only grants SCHEDULE_EXACT_ALARM to apps the user has approved.
+            // Without this branch the call throws SecurityException and the reminder is
+            // silently dropped, which is exactly how reminders used to go missing.
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-            alarmManager?.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                triggerMillis,
-                pendingIntent
-            )
+                ?: return
+            val canScheduleExact = Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+                alarmManager.canScheduleExactAlarms()
+            if (canScheduleExact) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerMillis,
+                    pendingIntent
+                )
+            } else {
+                // Fall back to an inexact alarm so the user still gets the reminder.
+                alarmManager.setAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerMillis,
+                    pendingIntent
+                )
+            }
         } catch (_: Exception) {
         }
     }

@@ -76,6 +76,8 @@ fun AppUpdaterScreen(
 
     var updateState by remember { mutableStateOf<UpdateDownloadState>(UpdateDownloadState.Idle) }
     var downloadedFile by remember { mutableStateOf<File?>(null) }
+    // Retained so install can verify the SHA-256 published for this release.
+    var verifiedSha256 by remember { mutableStateOf<String?>(null) }
 
     val currentVersion = remember { updater.getCurrentVersionName() }
     val currentBuild = remember { updater.getCurrentVersionCode() }
@@ -89,6 +91,7 @@ fun AppUpdaterScreen(
                     val cached = updater.getCachedDownloadedApk(info)
                     if (cached != null) {
                         downloadedFile = cached
+                        verifiedSha256 = info.sha256Checksum
                         updateState = UpdateDownloadState.DownloadComplete(cached.absolutePath, info)
                     } else {
                         updateState = UpdateDownloadState.UpdateAvailable(info)
@@ -110,6 +113,7 @@ fun AppUpdaterScreen(
             }
             result.onSuccess { file ->
                 downloadedFile = file
+                verifiedSha256 = info.sha256Checksum
                 updateState = UpdateDownloadState.DownloadComplete(file.absolutePath, info)
             }.onFailure { err ->
                 updateState = UpdateDownloadState.Error("Download failed: ${err.localizedMessage}")
@@ -118,7 +122,8 @@ fun AppUpdaterScreen(
     }
 
     fun triggerInstall(file: File) {
-        val res = updater.installApk(file)
+        // The download is only trustworthy if it matched the published checksum.
+        val res = updater.installApk(file, verifiedSha256)
         res.onFailure { err ->
             updateState = UpdateDownloadState.Error(err.localizedMessage ?: "Installation failed")
         }
@@ -528,6 +533,7 @@ fun AppUpdaterScreen(
                                 Button(
                                     onClick = {
                                         val f = downloadedFile ?: File(state.apkPath)
+                                        verifiedSha256 = state.info.sha256Checksum
                                         triggerInstall(f)
                                     },
                                     modifier = Modifier

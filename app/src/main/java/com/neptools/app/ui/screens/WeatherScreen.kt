@@ -206,7 +206,7 @@ fun WeatherScreen(onBack: () -> Unit) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                if (isEn) "⏱️ Hourly Forecast" else "⏱️ २४ घण्टे पूर्वानुमान",
+                                if (isEn) "Hourly Forecast" else "२४ घण्टे पूर्वानुमान",
                                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -704,7 +704,7 @@ private fun HourlyCard(forecast: HourlyForecast, isEn: Boolean) {
 
             if (forecast.rainProb > 0) {
                 Text(
-                    "💧${forecast.rainProb}%",
+                    "${forecast.rainProb}%",
                     style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
                     color = Color(0xFF0284C7)
                 )

@@ -119,11 +119,56 @@ object EmergencyRepo {
 
     fun allContacts(): List<EmergencyContact> = _liveContacts.value
 
-    fun updateContacts(newList: List<EmergencyContact>) {
-        if (newList.isNotEmpty()) {
-            _liveContacts.value = newList
+    data class MergeResult(
+        val added: Int,
+        val totals: Int,
+        val skippedCurated: Int
+    )
+
+    /**
+     * Applies a remotely fetched contact list.
+     *
+     * Trust model: the contacts compiled into the app are the verified baseline and the numbers
+     * a user may be dialling in an emergency, so remote data is merged rather than substituted.
+     * A remote entry can add new contacts, but it can never overwrite or remove a curated
+     * hotline, and it can never attach a new name to a curated number. That keeps a stale or
+     * tampered feed from redirecting an emergency call.
+     */
+    fun mergeRemoteContacts(remote: List<EmergencyContact>): MergeResult {
+        if (remote.isEmpty()) return MergeResult(0, _liveContacts.value.size, 0)
+
+        val curatedKeys = defaultContacts.map { identityKey(it) }.toHashSet()
+        val curatedNumbers = defaultContacts.map { normalizeNumber(it.number) }.toHashSet()
+
+        val merged = defaultContacts.toMutableList()
+        val seen = curatedKeys.toMutableSet()
+        var added = 0
+        var skippedCurated = 0
+
+        for (contact in remote) {
+            val key = identityKey(contact)
+            if (key in curatedKeys) {
+                skippedCurated++
+                continue
+            }
+            // Never let remote data re-label a verified hotline number.
+            if (normalizeNumber(contact.number) in curatedNumbers) {
+                skippedCurated++
+                continue
+            }
+            if (!seen.add(key)) continue
+            merged.add(contact)
+            added++
         }
+
+        _liveContacts.value = merged
+        return MergeResult(added = added, totals = merged.size, skippedCurated = skippedCurated)
     }
+
+    private fun identityKey(contact: EmergencyContact): String =
+        contact.nameEn.trim().lowercase() + "|" + contact.district.trim().lowercase()
+
+    private fun normalizeNumber(number: String): String = number.filter { it.isDigit() }
 
     fun isLocal(contact: EmergencyContact, userDistrict: String, userProvince: String): Boolean {
         if (contact.province == "National") return false

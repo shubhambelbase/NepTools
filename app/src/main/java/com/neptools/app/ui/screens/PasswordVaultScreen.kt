@@ -2,8 +2,12 @@ package com.neptools.app.ui.screens
 
 import android.app.Activity
 import android.content.ClipData
+import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.ContextWrapper
+import android.os.PersistableBundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +47,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -55,7 +60,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalView
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -77,6 +83,32 @@ import java.util.UUID
 
 private const val CLIPBOARD_CLEAR_MS = 45_000L
 
+/** Unwraps the Activity from a possibly wrapped Compose context. */
+private tailrec fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
+
+/**
+ * Marks clipboard content so Android 13+ hides it from the clipboard preview overlay and
+ * excludes it from clipboard history.
+ */
+private fun sensitiveClip(label: String, text: String): ClipData {
+    val clip = ClipData.newPlainText(label, text)
+    clip.description.extras = PersistableBundle().apply {
+        putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
+    }
+    return clip
+}
+
+private fun clearClipboard(context: Context) {
+    runCatching {
+        val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        cm.setPrimaryClip(ClipData.newPlainText("", ""))
+    }
+}
+
 @Composable
 fun PasswordVaultScreen(onBack: () -> Unit) {
     val context = LocalContext.current
@@ -91,13 +123,27 @@ fun PasswordVaultScreen(onBack: () -> Unit) {
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP && store.autoLockEnabled() && VaultStore.Session.unlocked) {
-                store.lock()
-                stage = 1
+            if (event == Lifecycle.Event.ON_STOP) {
+                clearClipboard(context)
+                if (store.autoLockEnabled() && VaultStore.Session.unlocked) {
+                    store.lock()
+                    stage = 1
+                }
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+
+    // Block screenshots, screen recording and the Recents thumbnail while the vault is open.
+    val view = LocalView.current
+    DisposableEffect(view) {
+        val window = view.context.findActivity()?.window
+        window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        onDispose {
+            clearClipboard(context)
+            window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
     }
 
     Column(
@@ -243,6 +289,16 @@ private fun LockedStage(store: VaultStore, isEn: Boolean, onUnlocked: () -> Unit
     var pw by remember { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
     var bioBusy by remember { mutableStateOf(false) }
+    var lockoutRemaining by remember { mutableStateOf(store.lockoutRemainingMs()) }
+
+    // Live countdown while the vault is rate limited after repeated wrong passwords.
+    LaunchedEffect(lockoutRemaining > 0L) {
+        while (lockoutRemaining > 0L) {
+            delay(500L)
+            lockoutRemaining = store.lockoutRemainingMs()
+        }
+        if (error != null) error = null
+    }
 
     val bioAvailable = remember { BiometricGateActivity.canUseBiometrics(context) }
 
@@ -311,10 +367,20 @@ private fun LockedStage(store: VaultStore, isEn: Boolean, onUnlocked: () -> Unit
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Button(
                 onClick = {
-                    if (store.unlockWithPassword(pw.toCharArray())) onUnlocked()
-                    else error = if (isEn) "Wrong password" else "गलत पासवर्ड"
+                    if (store.unlockWithPassword(pw.toCharArray())) {
+                        onUnlocked()
+                    } else {
+                        lockoutRemaining = store.lockoutRemainingMs()
+                        error = if (lockoutRemaining > 0L) {
+                            val seconds = ((lockoutRemaining + 999L) / 1000L)
+                            if (isEn) "Too many attempts. Try again in ${seconds}s"
+                            else "धेरै पटक गलत भयो। ${seconds} सेकेण्डपछि प्रयास गर्नुहोस्"
+                        } else {
+                            if (isEn) "Wrong password" else "गलत पासवर्ड"
+                        }
+                    }
                 },
-                enabled = pw.isNotEmpty(),
+                enabled = pw.isNotEmpty() && lockoutRemaining == 0L,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 modifier = Modifier.weight(1f)
             ) {
@@ -367,13 +433,11 @@ private fun VaultListStage(
 
     fun copySecret(text: String) {
         val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        cm.setPrimaryClip(ClipData.newPlainText(if (isEn) "NepTools" else "NepTools", text))
+        cm.setPrimaryClip(sensitiveClip("NepTools", text))
         Toast.makeText(context, if (isEn) "Copied (clears in 45s)" else "कपी भयो (४५ सेकेण्डमा हट्छ)", Toast.LENGTH_SHORT).show()
         scope.launch {
             delay(CLIPBOARD_CLEAR_MS)
-            runCatching {
-                cm.setPrimaryClip(ClipData.newPlainText("", ""))
-            }
+            clearClipboard(context)
         }
     }
 

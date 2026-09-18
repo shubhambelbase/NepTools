@@ -107,8 +107,8 @@ object PdfExporter {
             drawLetterPage(canvas, title, bodyText)
             pdfDoc.finishPage(page)
 
-            // Write to Cache directory
-            val cacheDir = File(context.cacheDir, "documents")
+            // Must live under cache/exports/ so FileProvider can resolve a URI for it
+            val cacheDir = File(ExportDirs.cacheExports(context), "documents")
             if (!cacheDir.exists()) cacheDir.mkdirs()
 
             val pdfFile = File(cacheDir, "Nepali_Application_${System.currentTimeMillis()}.pdf")
@@ -147,7 +147,7 @@ object PdfExporter {
                 context.startActivity(chooser)
             }
 
-            Toast.makeText(context, "PDF successfully generated! 📄", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "PDF successfully generated!", Toast.LENGTH_SHORT).show()
 
         } catch (e: Exception) {
             e.printStackTrace()

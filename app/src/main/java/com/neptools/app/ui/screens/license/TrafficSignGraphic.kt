@@ -713,7 +713,7 @@ private fun DrawScope.drawVehicularTrafficLightGraphic(
     for (cy in centersY) {
         val hoodPath = Path().apply {
             moveTo(center.x - lightRadius - 3f, cy - lightRadius * 0.3f)
-            quadraticBezierTo(center.x, cy - lightRadius - 6f, center.x + lightRadius + 3f, cy - lightRadius * 0.3f)
+            quadraticTo(center.x, cy - lightRadius - 6f, center.x + lightRadius + 3f, cy - lightRadius * 0.3f)
         }
         drawPath(
             path = hoodPath,
@@ -881,7 +881,7 @@ private fun DrawScope.drawPedestrianSignalGraphic(
     for (cy in listOf(cyRed, cyGreen)) {
         val hood = Path().apply {
             moveTo(center.x - lightRadius - 2f, cy - lightRadius * 0.3f)
-            quadraticBezierTo(center.x, cy - lightRadius - 5f, center.x + lightRadius + 2f, cy - lightRadius * 0.3f)
+            quadraticTo(center.x, cy - lightRadius - 5f, center.x + lightRadius + 2f, cy - lightRadius * 0.3f)
         }
         drawPath(hood, color = Color(0xFF020617), style = Stroke(width = 3.5f, cap = StrokeCap.Round))
     }
@@ -1095,7 +1095,7 @@ private fun DrawScope.drawPoliceOfficerGestureCard(
             val greenFlow = Color(0xFF22C55E)
             val flowArc = Path().apply {
                 moveTo(center.x - w * 0.32f, bodyY - h * 0.20f)
-                quadraticBezierTo(center.x, bodyY - h * 0.30f, center.x + w * 0.28f, bodyY - h * 0.15f)
+                quadraticTo(center.x, bodyY - h * 0.30f, center.x + w * 0.28f, bodyY - h * 0.15f)
             }
             drawPath(flowArc, color = greenFlow, style = Stroke(width = 3.5f, cap = StrokeCap.Round))
             // Arrowhead
@@ -1122,7 +1122,7 @@ private fun DrawScope.drawPoliceOfficerGestureCard(
             val greenFlow = Color(0xFF22C55E)
             val flowArc = Path().apply {
                 moveTo(center.x + w * 0.32f, bodyY - h * 0.20f)
-                quadraticBezierTo(center.x, bodyY - h * 0.30f, center.x - w * 0.28f, bodyY - h * 0.15f)
+                quadraticTo(center.x, bodyY - h * 0.30f, center.x - w * 0.28f, bodyY - h * 0.15f)
             }
             drawPath(flowArc, color = greenFlow, style = Stroke(width = 3.5f, cap = StrokeCap.Round))
             val arr = Path().apply {
@@ -1184,7 +1184,7 @@ private fun DrawScope.drawArrowLeft90(center: Offset, w: Float, color: Color) {
     val path = Path().apply {
         moveTo(center.x + w * 0.14f, center.y + w * 0.18f)
         lineTo(center.x + w * 0.14f, center.y - w * 0.04f)
-        quadraticBezierTo(center.x + w * 0.14f, center.y - w * 0.14f, center.x, center.y - w * 0.14f)
+        quadraticTo(center.x + w * 0.14f, center.y - w * 0.14f, center.x, center.y - w * 0.14f)
         lineTo(center.x - w * 0.10f, center.y - w * 0.14f)
     }
     drawPath(path, color = color, style = Stroke(width = w * 0.10f, cap = StrokeCap.Square))
@@ -1202,7 +1202,7 @@ private fun DrawScope.drawArrowRight90(center: Offset, w: Float, color: Color) {
     val path = Path().apply {
         moveTo(center.x - w * 0.14f, center.y + w * 0.18f)
         lineTo(center.x - w * 0.14f, center.y - w * 0.04f)
-        quadraticBezierTo(center.x - w * 0.14f, center.y - w * 0.14f, center.x, center.y - w * 0.14f)
+        quadraticTo(center.x - w * 0.14f, center.y - w * 0.14f, center.x, center.y - w * 0.14f)
         lineTo(center.x + w * 0.10f, center.y - w * 0.14f)
     }
     drawPath(path, color = color, style = Stroke(width = w * 0.10f, cap = StrokeCap.Square))
@@ -1351,7 +1351,7 @@ private fun DrawScope.drawCurveArrow(center: Offset, w: Float, isLeft: Boolean, 
         if (isSharp) {
             lineTo(center.x + dir * w * 0.14f, center.y)
         } else {
-            quadraticBezierTo(center.x - dir * w * 0.12f, center.y - w * 0.12f, center.x + dir * w * 0.14f, center.y - w * 0.12f)
+            quadraticTo(center.x - dir * w * 0.12f, center.y - w * 0.12f, center.x + dir * w * 0.14f, center.y - w * 0.12f)
         }
     }
     drawPath(path, color = Color(0xFF0F172A), style = Stroke(width = w * 0.09f, cap = StrokeCap.Square))
@@ -1477,7 +1477,7 @@ private fun DrawScope.drawSpeedHump(center: Offset, w: Float) {
     val path = Path().apply {
         moveTo(center.x - w * 0.28f, center.y + w * 0.08f)
         lineTo(center.x - w * 0.14f, center.y + w * 0.08f)
-        quadraticBezierTo(center.x, center.y - w * 0.14f, center.x + w * 0.14f, center.y + w * 0.08f)
+        quadraticTo(center.x, center.y - w * 0.14f, center.x + w * 0.14f, center.y + w * 0.08f)
         lineTo(center.x + w * 0.28f, center.y + w * 0.08f)
     }
     drawPath(path, color = Color(0xFF0F172A), style = Stroke(width = w * 0.09f, cap = StrokeCap.Round))
@@ -1486,8 +1486,8 @@ private fun DrawScope.drawSpeedHump(center: Offset, w: Float) {
 private fun DrawScope.drawRoughRoad(center: Offset, w: Float) {
     val path = Path().apply {
         moveTo(center.x - w * 0.28f, center.y + w * 0.06f)
-        quadraticBezierTo(center.x - w * 0.14f, center.y - w * 0.10f, center.x, center.y + w * 0.06f)
-        quadraticBezierTo(center.x + w * 0.14f, center.y - w * 0.10f, center.x + w * 0.28f, center.y + w * 0.06f)
+        quadraticTo(center.x - w * 0.14f, center.y - w * 0.10f, center.x, center.y + w * 0.06f)
+        quadraticTo(center.x + w * 0.14f, center.y - w * 0.10f, center.x + w * 0.28f, center.y + w * 0.06f)
     }
     drawPath(path, color = Color(0xFF0F172A), style = Stroke(width = w * 0.08f, cap = StrokeCap.Round))
 }
@@ -1616,8 +1616,8 @@ private fun DrawScope.drawSlipperyCar(center: Offset, w: Float) {
     drawCarFrontGlyph(Offset(center.x, center.y - w * 0.04f), w * 0.75f, Color(0xFF0F172A))
     val path = Path().apply {
         moveTo(center.x - w * 0.20f, center.y + w * 0.14f)
-        quadraticBezierTo(center.x - w * 0.10f, center.y + w * 0.06f, center.x, center.y + w * 0.14f)
-        quadraticBezierTo(center.x + w * 0.10f, center.y + w * 0.22f, center.x + w * 0.20f, center.y + w * 0.14f)
+        quadraticTo(center.x - w * 0.10f, center.y + w * 0.06f, center.x, center.y + w * 0.14f)
+        quadraticTo(center.x + w * 0.10f, center.y + w * 0.22f, center.x + w * 0.20f, center.y + w * 0.14f)
     }
     drawPath(path, color = Color(0xFF0F172A), style = Stroke(width = w * 0.05f, cap = StrokeCap.Round))
 }
@@ -1752,11 +1752,11 @@ private fun DrawScope.drawFuelPump(center: Offset, w: Float, color: Color) {
 private fun DrawScope.drawTelephone(center: Offset, w: Float, color: Color) {
     val path = Path().apply {
         moveTo(center.x - w * 0.14f, center.y + w * 0.07f)
-        quadraticBezierTo(center.x - w * 0.16f, center.y - w * 0.14f, center.x + w * 0.07f, center.y - w * 0.16f)
+        quadraticTo(center.x - w * 0.16f, center.y - w * 0.14f, center.x + w * 0.07f, center.y - w * 0.16f)
         lineTo(center.x + w * 0.14f, center.y - w * 0.09f)
         lineTo(center.x + w * 0.07f, center.y - w * 0.04f)
         lineTo(center.x + w * 0.02f, center.y - w * 0.07f)
-        quadraticBezierTo(center.x - w * 0.05f, center.y, center.x - w * 0.03f, center.y + w * 0.05f)
+        quadraticTo(center.x - w * 0.05f, center.y, center.x - w * 0.03f, center.y + w * 0.05f)
         lineTo(center.x - w * 0.09f, center.y + w * 0.12f)
         close()
     }

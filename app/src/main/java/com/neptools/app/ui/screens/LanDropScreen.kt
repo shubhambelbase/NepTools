@@ -105,9 +105,15 @@ fun LanDropScreen(onBack: () -> Unit) {
         "http://${serverState.ipAddress}:${serverState.port}"
     } else "Connecting..."
 
-    val qrBitmap = remember(serverState.isRunning, serverUrl) {
+    // The QR carries the session code so scanning it opens an already-authorised session,
+    // while the visible URL stays clean for people typing the address by hand.
+    val qrUrl = if (serverState.isRunning && serverState.sessionCode.isNotEmpty()) {
+        "$serverUrl/?k=${serverState.sessionCode}"
+    } else serverUrl
+
+    val qrBitmap = remember(serverState.isRunning, qrUrl) {
         if (serverState.isRunning && serverState.ipAddress.isNotEmpty()) {
-            QrCodeGenerator.generateQrBitmap(serverUrl, size = 480)
+            QrCodeGenerator.generateQrBitmap(qrUrl, size = 480)
         } else null
     }
 
@@ -198,6 +204,56 @@ fun LanDropScreen(onBack: () -> Unit) {
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
+                // Session code card - the browser cannot list or move files without it.
+                if (serverState.isRunning && serverState.sessionCode.isNotEmpty()) {
+                    item {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(18.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.35f)
+                            ),
+                            border = androidx.compose.foundation.BorderStroke(
+                                1.dp,
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)
+                            )
+                        ) {
+                            Column(
+                                Modifier.padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(
+                                    if (isEn) "Session code" else "सेसन कोड",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    serverState.sessionCode,
+                                    style = MaterialTheme.typography.headlineMedium.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        letterSpacing = 8.sp
+                                    ),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    if (isEn)
+                                        "Type this code in the browser before any file can be listed or transferred. The server stops by itself after 10 minutes of inactivity."
+                                    else "कुनै फाइल हेर्न वा सार्नु अघि ब्राउजरमा यो कोड टाइप गर्नुहोस्। १० मिनेट निष्क्रिय भएपछि सर्भर आफै बन्द हुन्छ।",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    if (isEn)
+                                        "Only enable this on a network you trust. Anyone on the same Wi-Fi who knows the code can transfer files."
+                                    else "विश्वास गर्न सकिने नेटवर्कमा मात्र चालु गर्नुहोस्। कोड थाहा पाउने जो कोहीले फाइल सार्न सक्छ।",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+
                 // Server Switch Card
                 item {
                     Card(

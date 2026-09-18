@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -615,7 +615,7 @@ private fun ToolGridCard(
             .clip(RoundedCornerShape(13.dp))
             .clickable(
                 interactionSource = interactionSource,
-                indication = rememberRipple(
+                indication = ripple(
                     bounded = true,
                     color = item.iconTint.copy(alpha = 0.2f)
                 ),
@@ -677,7 +677,7 @@ private fun ToolGridCard(
                     .clip(CircleShape)
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false, radius = 12.dp),
+                        indication = ripple(bounded = false, radius = 12.dp),
                         onClick = onToggleFavorite
                     ),
                 contentAlignment = Alignment.Center

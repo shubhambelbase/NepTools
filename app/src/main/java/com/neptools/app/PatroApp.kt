@@ -28,6 +28,9 @@ class PatroApp : Application() {
             com.neptools.app.core.work.WorkScheduler.scheduleAll(this@PatroApp)
             com.neptools.app.core.reminder.ReminderHelper.rescheduleAll(this@PatroApp)
             com.neptools.app.core.util.EmergencySyncManager.init(this@PatroApp)
+            // Advisory integrity audit. Results are surfaced in Settings; the app never
+            // self-terminates, because rooted devices are a supported configuration.
+            com.neptools.app.core.security.NepToolsSecurityGuard.refresh(this@PatroApp)
         }
     }
 }

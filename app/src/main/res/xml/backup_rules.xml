@@ -5,8 +5,13 @@
     <exclude domain="file" path="vault_data.bin.tmp" />
     <exclude domain="sharedpref" path="vault_meta.xml" />
 
-    <!-- Exclude personal notes and subscription finances from raw extraction -->
+    <!-- Exclude personal notes, finances, habits and calendar events from raw extraction -->
     <exclude domain="file" path="notes_store.json" />
+    <exclude domain="file" path="user_calendar_events.json" />
+    <exclude domain="file" path="reminders.json" />
+    <exclude domain="file" path="emergency_contacts_cache.json" />
     <exclude domain="sharedpref" path="patro_subscriptions_prefs.xml" />
     <exclude domain="sharedpref" path="patro_habits_prefs.xml" />
+    <exclude domain="sharedpref" path="astro_prefs.xml" />
+    <exclude domain="sharedpref" path="vault_meta.xml" />
 </full-backup-content>

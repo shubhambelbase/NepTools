@@ -146,7 +146,9 @@ fun PatroApp() {
                             icon = {
                                 Icon(
                                     imageVector = item.icon,
-                                    contentDescription = item.key,
+                                    // The visible label already names the destination; a
+                                    // contentDescription here would make TalkBack read it twice.
+                                    contentDescription = null,
                                     tint = if (selected) MaterialTheme.colorScheme.primary
                                            else MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier.size(24.dp)

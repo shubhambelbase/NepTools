@@ -205,10 +205,12 @@ class GitHubUpdateManager private constructor(private val context: Context) {
             val targetFile = File(updatesDir, "${releaseInfo.tagName}_${releaseInfo.apkFileName}")
             val legacyFile = File(updatesDir, releaseInfo.apkFileName)
 
+            if (releaseInfo.sha256Checksum.isBlank()) return null
+
             val fileToTest = if (targetFile.exists() && targetFile.length() > 500_000) targetFile else legacyFile
             if (fileToTest.exists() && fileToTest.length() > 500_000) {
                 if (releaseInfo.apkSize <= 0 || kotlin.math.abs(fileToTest.length() - releaseInfo.apkSize) < 10000 || fileToTest.length() > 1_000_000) {
-                    val integrity = verifyApkIntegrity(fileToTest, releaseInfo.sha256Checksum)
+                    val integrity = verifyApkIntegrity(fileToTest, releaseInfo.sha256Checksum, requireChecksum = true)
                     if (integrity.isSuccess) fileToTest else null
                 } else null
             } else null
@@ -224,6 +226,16 @@ class GitHubUpdateManager private constructor(private val context: Context) {
         releaseInfo: GitHubReleaseInfo,
         onProgress: (percent: Int, downloadedBytes: Long, totalBytes: Long) -> Unit
     ): Result<File> = withContext(Dispatchers.IO) {
+        // Refuse to fetch anything we cannot verify. The web-redirect fallback has no access to
+        // the release notes, so no checksum is available for it and auto-install is unsafe.
+        if (releaseInfo.sha256Checksum.isBlank()) {
+            return@withContext Result.failure(
+                Exception(
+                    "This release does not publish a SHA-256 checksum, so NepTools will not " +
+                        "install it automatically. Open the release page on GitHub to update manually."
+                )
+            )
+        }
         try {
             val updatesDir = File(context.cacheDir, "updates").apply { mkdirs() }
             val outputFile = File(updatesDir, "${releaseInfo.tagName}_${releaseInfo.apkFileName}")
@@ -334,7 +346,11 @@ class GitHubUpdateManager private constructor(private val context: Context) {
      * 2. SHA-256 checksum match (if provided)
      * 3. Package archive header structure & package name verification
      */
-    fun verifyApkIntegrity(apkFile: File, expectedSha256: String? = null): Result<Unit> {
+    fun verifyApkIntegrity(
+        apkFile: File,
+        expectedSha256: String? = null,
+        requireChecksum: Boolean = false
+    ): Result<Unit> {
         if (!apkFile.exists()) {
             return Result.failure(Exception("APK file does not exist."))
         }
@@ -342,7 +358,13 @@ class GitHubUpdateManager private constructor(private val context: Context) {
             return Result.failure(Exception("APK file is incomplete or corrupted."))
         }
 
-        // 1. SHA-256 Checksum Validation (if specified)
+        // 1. SHA-256 checksum validation. The package-name check below cannot stand alone:
+        // an attacker-authored APK simply declares the same package name.
+        if (requireChecksum && expectedSha256.isNullOrBlank()) {
+            return Result.failure(
+                Exception("No SHA-256 checksum is published for this release, so the download cannot be verified.")
+            )
+        }
         if (!expectedSha256.isNullOrBlank()) {
             val calculated = calculateFileSha256(apkFile)
             if (!calculated.equals(expectedSha256.trim(), ignoreCase = true)) {
@@ -372,7 +394,7 @@ class GitHubUpdateManager private constructor(private val context: Context) {
      */
     fun installApk(apkFile: File, expectedSha256: String? = null): Result<Unit> {
         return try {
-            val verifyRes = verifyApkIntegrity(apkFile, expectedSha256)
+            val verifyRes = verifyApkIntegrity(apkFile, expectedSha256, requireChecksum = true)
             if (verifyRes.isFailure) {
                 return verifyRes
             }

@@ -5,8 +5,10 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Environment
 import android.provider.OpenableColumns
+import com.neptools.app.core.util.ExportDirs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,7 +47,9 @@ data class LanDropState(
     val sharedFiles: List<SharedFileInfo> = emptyList(),
     val receivedFiles: List<SharedFileInfo> = emptyList(),
     val sharedText: String = "",
-    val lastDownloadedFileName: String = ""
+    val lastDownloadedFileName: String = "",
+    /** One-time code the browser must supply before it can list or move any file. */
+    val sessionCode: String = ""
 )
 
 object LanDropServer {
@@ -61,6 +65,23 @@ object LanDropServer {
 
     private var appContext: Context? = null
     private const val BUFFER_SIZE = 131072 // 128 KB for high-speed Wi-Fi throughput
+
+    /** The server shuts itself down after this long with no request, so it cannot be left open. */
+    private const val IDLE_TIMEOUT_MS = 10L * 60L * 1000L
+
+    /** Consecutive rejected requests tolerated before the server shuts down. */
+    private const val MAX_AUTH_FAILURES = 10
+
+    private val authFailures = java.util.concurrent.atomic.AtomicInteger(0)
+
+    @Volatile
+    private var lastActivityMs: Long = 0L
+
+    /**
+     * Generates the per-session access code. It is displayed on the phone and must be typed into
+     * the browser before any file can be listed, downloaded or uploaded.
+     */
+    private fun generateSessionCode(): String = (100000..999999).random().toString()
 
     fun getStorageDir(): File {
         // FIX: Use scoped-storage compatible path first, fallback to legacy public dir
@@ -202,7 +223,28 @@ object LanDropServer {
             refreshReceivedFiles()
             // Re-resolve IP after socket bound (Wi-Fi may have come up)
             ip = getLocalIpAddress().ifEmpty { ip }
-            _state.value = _state.value.copy(isRunning = true, ipAddress = ip, port = currentPort)
+            val code = generateSessionCode()
+            authFailures.set(0)
+            lastActivityMs = System.currentTimeMillis()
+            _state.value = _state.value.copy(
+                isRunning = true,
+                ipAddress = ip,
+                port = currentPort,
+                sessionCode = code
+            )
+
+            // Watchdog: never leave a file-transfer port open indefinitely.
+            launch {
+                while (_state.value.isRunning) {
+                    delay(30_000L)
+                    val idle = System.currentTimeMillis() - lastActivityMs
+                    if (idle > IDLE_TIMEOUT_MS && activeClients.get() == 0) {
+                        stopServer()
+                        break
+                    }
+                }
+            }
+
             while (_state.value.isRunning && !ss.isClosed) {
                 try {
                     val client = ss.accept()
@@ -224,11 +266,12 @@ object LanDropServer {
 
     fun stopServer() {
         try {
-            _state.value = _state.value.copy(isRunning = false)
+            _state.value = _state.value.copy(isRunning = false, sessionCode = "")
             serverSocket?.close()
             serverSocket = null
             serverJob?.cancel()
             serverJob = null
+            authFailures.set(0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -362,13 +405,22 @@ object LanDropServer {
             if (reqLine.size < 2) return
             val method = reqLine[0].uppercase()
             val rawPath = reqLine[1].substringBefore("?").substringBefore("#")
+            val rawQuery = reqLine[1].substringAfter("?", "").substringBefore("#")
             val path = URLDecoder.decode(rawPath, "UTF-8")
+            val queryParams = parseQuery(rawQuery)
+
+            // Every request counts as activity for the idle watchdog.
+            lastActivityMs = System.currentTimeMillis()
 
             var contentLength = 0L
             var boundary = ""
             var isChunked = false
+            var headerToken = ""
 
             for (h in lines) {
+                if (h.lowercase().startsWith("x-neptools-token:")) {
+                    headerToken = h.substringAfter(":").trim()
+                }
                 val lower = h.lowercase()
                 if (lower.startsWith("content-length:")) {
                     contentLength = h.substringAfter(":").trim().toLongOrNull() ?: 0L
@@ -383,9 +435,22 @@ object LanDropServer {
                 }
             }
 
+            // A request is authorised when it presents the current session code either as the
+            // "k" query parameter (used by browser links) or as the X-Neptools-Token header.
+            val suppliedCode = queryParams["k"] ?: headerToken
+            val authorized = suppliedCode.isNotEmpty() &&
+                suppliedCode == _state.value.sessionCode &&
+                _state.value.isRunning
+
             when {
+                path == "/unlock" -> {
+                    handleUnlock(queryParams["code"].orEmpty(), output)
+                }
                 path == "/" || path == "/index.html" -> {
-                    serveWebPage(output)
+                    if (authorized) serveWebPage(output) else servePinGate(output, wrongCode = false)
+                }
+                !authorized -> {
+                    rejectUnauthorized(output)
                 }
                 path == "/api/files" -> {
                     serveJsonFiles(output)
@@ -420,7 +485,7 @@ object LanDropServer {
                     val body = String(bodyBuf, 0, readTotal, StandardCharsets.UTF_8)
                     val text = URLDecoder.decode(body.substringAfter("text=", ""), "UTF-8").take(10000)
                     _state.value = _state.value.copy(sharedText = text)
-                    sendRedirect(output, "/")
+                    sendRedirect(output, "/?k=${URLEncoder.encode(_state.value.sessionCode, "UTF-8")}")
                 }
                 else -> {
                     send404(output)
@@ -666,7 +731,7 @@ object LanDropServer {
             }
             refreshReceivedFiles()
             _state.value = _state.value.copy(lastDownloadedFileName = savedNames.last())
-            sendRedirect(out, "/")
+            sendRedirect(out, "/?k=${URLEncoder.encode(_state.value.sessionCode, "UTF-8")}")
         } catch (e: Exception) {
             e.printStackTrace()
             sendError(out, 500, "Upload failed: ${e.message}")
@@ -688,8 +753,107 @@ object LanDropServer {
         return -1
     }
 
+    private fun parseQuery(rawQuery: String): Map<String, String> {
+        if (rawQuery.isBlank()) return emptyMap()
+        val out = HashMap<String, String>()
+        for (pair in rawQuery.split("&")) {
+            if (pair.isBlank()) continue
+            val key = pair.substringBefore("=", "")
+            val value = pair.substringAfter("=", "")
+            if (key.isNotBlank()) {
+                out[URLDecoder.decode(key, "UTF-8")] = URLDecoder.decode(value, "UTF-8")
+            }
+        }
+        return out
+    }
+
+    private fun handleUnlock(suppliedCode: String, out: OutputStream) {
+        val expected = _state.value.sessionCode
+        if (expected.isNotEmpty() && suppliedCode == expected) {
+            authFailures.set(0)
+            sendRedirect(out, "/?k=${URLEncoder.encode(expected, "UTF-8")}")
+            return
+        }
+        registerAuthFailure()
+        servePinGate(out, wrongCode = true)
+    }
+
+    private fun rejectUnauthorized(out: OutputStream) {
+        registerAuthFailure()
+        val body = "{\"error\":\"Unauthorized. Enter the session code shown on the phone.\"}"
+        val bytes = body.toByteArray(StandardCharsets.UTF_8)
+        val header = "HTTP/1.1 403 Forbidden\r\n" +
+                "Content-Type: application/json; charset=UTF-8\r\n" +
+                "Content-Length: ${bytes.size}\r\n" +
+                "Cache-Control: no-store\r\n" +
+                "Connection: close\r\n\r\n"
+        out.write(header.toByteArray(StandardCharsets.UTF_8))
+        out.write(bytes)
+    }
+
+    /**
+     * Counts consecutive rejected requests and shuts the server down once an attacker on the
+     * network starts guessing, so the session code cannot be brute forced.
+     */
+    private fun registerAuthFailure() {
+        val failures = authFailures.incrementAndGet()
+        if (failures >= MAX_AUTH_FAILURES) stopServer()
+    }
+
+    private fun servePinGate(out: OutputStream, wrongCode: Boolean) {
+        val message = if (wrongCode) {
+            "Incorrect code. Check the code shown in the NepTools app."
+        } else {
+            "Enter the 6-digit session code shown in the NepTools app on your phone."
+        }
+        val messageColor = if (wrongCode) "#f87171" else "#94a3b8"
+        val html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NepTools LAN Drop - Locked</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 18px; padding: 28px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .logo { width: 52px; height: 52px; background: linear-gradient(135deg, #e11d48, #be123c); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 20px; margin: 0 auto 16px auto; }
+        h1 { font-size: 19px; margin: 0 0 8px 0; }
+        p { color: $messageColor; font-size: 13px; margin: 0 0 18px 0; line-height: 1.5; }
+        input { width: 100%; box-sizing: border-box; background: #0f172a; color: #fff; border: 1px solid #334155; border-radius: 12px; padding: 14px; font-size: 22px; letter-spacing: 8px; text-align: center; font-weight: 700; }
+        input:focus { outline: none; border-color: #e11d48; }
+        button { width: 100%; margin-top: 14px; background: #e11d48; color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; }
+        button:hover { background: #be123c; }
+        .note { color: #64748b; font-size: 11px; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">NT</div>
+        <h1>NepTools LAN Drop</h1>
+        <p>$message</p>
+        <form action="/unlock" method="get" autocomplete="off">
+            <input type="tel" name="code" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="000000" autofocus required>
+            <button type="submit">Unlock</button>
+        </form>
+        <div class="note">Only devices you authorise on this network can transfer files.</div>
+    </div>
+</body>
+</html>
+        """
+        val bytes = html.toByteArray(StandardCharsets.UTF_8)
+        val header = "HTTP/1.1 200 OK\r\n" +
+                "Content-Type: text/html; charset=UTF-8\r\n" +
+                "Content-Length: ${bytes.size}\r\n" +
+                "Cache-Control: no-store\r\n" +
+                "Connection: close\r\n\r\n"
+        out.write(header.toByteArray(StandardCharsets.UTF_8))
+        out.write(bytes)
+    }
+
     private fun serveJsonFiles(out: OutputStream) {
         val list = _state.value.sharedFiles
+        val token = URLEncoder.encode(_state.value.sessionCode, "UTF-8")
         val arr = JSONArray()
         for (item in list) {
             val obj = JSONObject()
@@ -697,7 +861,7 @@ object LanDropServer {
             obj.put("name", item.name)
             obj.put("size", item.size)
             val encId = URLEncoder.encode(item.id, "UTF-8").replace("+", "%20")
-            obj.put("downloadUrl", "/download/$encId")
+            obj.put("downloadUrl", "/download/$encId?k=$token")
             arr.put(obj)
         }
         val bytes = arr.toString().toByteArray(StandardCharsets.UTF_8)
@@ -711,6 +875,8 @@ object LanDropServer {
         val received = _state.value.receivedFiles
         val text = _state.value.sharedText
         val lastFile = _state.value.lastDownloadedFileName
+        // Carried on every link and form so the unlocked session keeps working.
+        val token = URLEncoder.encode(_state.value.sessionCode, "UTF-8")
 
         val sb = StringBuilder()
         sb.append("""
@@ -750,6 +916,7 @@ object LanDropServer {
                 <div>
                     <h1 style="margin:0; font-size: 20px; font-weight: 800;">NepTools LAN File Drop</h1>
                     <p style="margin:2px 0 0 0; color: var(--text-sub); font-size: 12px;">High-Speed Wi-Fi Bridge • Direct Phone-to-PC</p>
+                    <p style="margin:4px 0 0 0; color: var(--text-sub); font-size: 11px;">Session code: <strong style="color:#4ade80; letter-spacing:2px;">${escapeHtml(_state.value.sessionCode)}</strong></p>
                 </div>
             </div>
             <div class="status-pill">
@@ -766,7 +933,7 @@ object LanDropServer {
         if (received.isNotEmpty()) {
             sb.append("""
         <div class="card" style="border-color: #4ade80;">
-            <h2>✅ What you sent to phone (${received.size}) — Download/NepTools/</h2>
+            <h2>✓ What you sent to phone (${received.size}) — Download/NepTools/</h2>
             <p style="color: var(--text-sub); font-size: 12px; margin:0 0 10px 0;">Files you just uploaded from this browser are saved on the phone here:</p>
             """)
             for (rf in received.take(10)) {
@@ -786,16 +953,16 @@ object LanDropServer {
             sb.append("</div>")
         }
         if (text.isNotBlank()) {
-            sb.append("<div class='card' style='border-color: #38bdf8;'><h2>💬 Last text you sent to phone</h2><div style='background:#0f172a; border:1px solid #38bdf8; border-radius:10px; padding:12px; font-size:14px; white-space:pre-wrap; word-break:break-word;'>${escapeHtml(text)}</div></div>")
+            sb.append("<div class='card' style='border-color: #38bdf8;'><h2>Last text you sent to phone</h2><div style='background:#0f172a; border:1px solid #38bdf8; border-radius:10px; padding:12px; font-size:14px; white-space:pre-wrap; word-break:break-word;'>${escapeHtml(text)}</div></div>")
         }
 
         sb.append("""
         <!-- UPLOAD SECTION -->
         <div class="card">
-            <h2>📤 Send Files to Phone (Saves to Download/NepTools)</h2>
-            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+            <h2>↑ Send Files to Phone (Saves to Download/NepTools)</h2>
+            <form action="/upload?k=$token" method="post" enctype="multipart/form-data" id="uploadForm">
                 <div class="dropzone" onclick="document.getElementById('fileInput').click()">
-                    <div style="font-size: 38px; margin-bottom: 6px;">📥</div>
+                    <div style="font-size: 38px; margin-bottom: 6px;">↓</div>
                     <strong style="font-size: 15px;">Click to Select or Drag & Drop Files</strong>
                     <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-sub);">Directly saved to phone storage: <strong>Download/NepTools/</strong></p>
                     <input type="file" name="file" id="fileInput" multiple style="display:none" onchange="document.getElementById('uploadForm').submit()">
@@ -806,8 +973,8 @@ object LanDropServer {
         <!-- DOWNLOAD SECTION -->
         <div class="card">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                <h2 style="margin:0;">📥 Download Files from Phone (${shared.size})</h2>
-                ${if (shared.isNotEmpty()) """<div style="display:flex; gap:8px; flex-wrap:wrap;"><a href="/downloadAll" class="btn" style="background:#2563eb; font-size:12px; padding:8px 14px; border-radius:10px;">⬇ ZIP</a><button onclick="downloadAllOneByOne()" class="btn" style="background:#0f172a; border:1px solid #334155; font-size:12px; padding:8px 14px; border-radius:10px;">⬇ One-by-One</button></div>""" else ""}
+                <h2 style="margin:0;">↓ Download Files from Phone (${shared.size})</h2>
+                ${if (shared.isNotEmpty()) """<div style="display:flex; gap:8px; flex-wrap:wrap;"><a href="/downloadAll?k=$token" class="btn" style="background:#2563eb; font-size:12px; padding:8px 14px; border-radius:10px;">↓ ZIP</a><button onclick="downloadAllOneByOne()" class="btn" style="background:#0f172a; border:1px solid #334155; font-size:12px; padding:8px 14px; border-radius:10px;">↓ One-by-One</button></div>""" else ""}
             </div>
         """)
 
@@ -823,7 +990,7 @@ object LanDropServer {
                         <strong style="font-size: 14px; display: block; word-break: break-all;">${escapeHtml(f.name)}</strong>
                         <div class="badge" style="margin-top: 4px;">$sizeStr</div>
                     </div>
-                    <a href="/download/$encId" class="btn" download="${escapeHtml(f.name)}">⬇ Download</a>
+                    <a href="/download/$encId?k=$token" class="btn" download="${escapeHtml(f.name)}">↓ Download</a>
                 </div>
                 """)
             }
@@ -834,8 +1001,8 @@ object LanDropServer {
 
         <!-- CLIPBOARD SECTION -->
         <div class="card">
-            <h2>📋 Clipboard Text & Link Sync</h2>
-            <form action="/text" method="post">
+            <h2>Clipboard Text & Link Sync</h2>
+            <form action="/text?k=$token" method="post">
                 <textarea name="text" placeholder="Type text or paste links to send to phone clipboard...">${escapeHtml(text)}</textarea>
                 <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
                     <button type="submit" class="btn">Send to Phone</button>
@@ -936,7 +1103,7 @@ object LanDropServer {
         val files = _state.value.receivedFiles
         if (files.isEmpty()) return null
         return try {
-            val zipFile = File(context.cacheDir, "NepTools_Received_${System.currentTimeMillis()}.zip")
+            val zipFile = File(ExportDirs.cacheExports(context), "NepTools_Received_${System.currentTimeMillis()}.zip")
             java.util.zip.ZipOutputStream(BufferedOutputStream(FileOutputStream(zipFile))).use { zos ->
                 val seen = HashSet<String>()
                 for (f in files) {
@@ -970,7 +1137,7 @@ object LanDropServer {
         val files = _state.value.sharedFiles
         if (files.isEmpty()) return null
         return try {
-            val zipFile = File(context.cacheDir, "NepTools_Shared_${System.currentTimeMillis()}.zip")
+            val zipFile = File(ExportDirs.cacheExports(context), "NepTools_Shared_${System.currentTimeMillis()}.zip")
             java.util.zip.ZipOutputStream(BufferedOutputStream(FileOutputStream(zipFile))).use { zos ->
                 val seen = HashSet<String>()
                 for (item in files) {
