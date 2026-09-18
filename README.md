@@ -70,6 +70,13 @@ Download the latest official production APK directly from the Releases page:
 - Online Nepali FM Radio streaming service.
 - Smart utilities: Compass, Bubble Level, Image Compressor, PDF Document Converter, Speed Test, Loan EMI Calculator, and Decision Maker.
 
+### 9. Location-Based Emergency Directory & Edge Sync
+- Automatic on-device GPS location detection with 100% offline Haversine fallback across 852 locations in Nepal.
+- 77-district and 7-province manual selector.
+- 61 verified emergency contacts (police control, ambulance, fire rescue, blood banks, hospitals, and child/women hotlines).
+- 4-tier dynamic prioritization surfacing local district services at the top.
+- Dual-cloud edge synchronization (Cloudflare Worker edge API + GitHub raw CDN fallback) with offline caching.
+
 ---
 
 ## Requirements
