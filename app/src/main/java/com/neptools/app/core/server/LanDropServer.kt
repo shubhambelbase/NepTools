@@ -78,6 +78,14 @@ object LanDropServer {
     private var lastActivityMs: Long = 0L
 
     /**
+     * When the current transfer session started. The Received list is scoped to files that
+     * arrived after this instant, so files from earlier sessions (or a previous phone) do not
+     * linger in the app or on the web page. 0 means no session is active.
+     */
+    @Volatile
+    private var sessionStartMs: Long = 0L
+
+    /**
      * Generates the per-session access code. It is displayed on the phone and must be typed into
      * the browser before any file can be listed, downloaded or uploaded.
      */
@@ -220,6 +228,8 @@ object LanDropServer {
                 return@launch
             }
             serverSocket = ss
+            // Start a fresh session: only uploads that arrive from now on are listed as received.
+            sessionStartMs = System.currentTimeMillis()
             refreshReceivedFiles()
             // Re-resolve IP after socket bound (Wi-Fi may have come up)
             ip = getLocalIpAddress().ifEmpty { ip }
@@ -272,6 +282,9 @@ object LanDropServer {
             serverJob?.cancel()
             serverJob = null
             authFailures.set(0)
+            // End of session: drop the received list so stale transfers do not linger.
+            sessionStartMs = 0L
+            refreshReceivedFiles()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -342,14 +355,22 @@ object LanDropServer {
 
     fun refreshReceivedFiles() {
         try {
+            // Session scoping: with no active session the list is empty, and while a session is
+            // running only files that arrived during it are shown. Older transfers stay on disk
+            // in Download/NepTools/ and remain reachable through the file manager.
+            val start = sessionStartMs
+            if (start <= 0L) {
+                _state.value = _state.value.copy(receivedFiles = emptyList())
+                return
+            }
             val dir = getStorageDir()
             val files = mutableListOf<File>()
             if (dir.exists()) {
-                dir.listFiles()?.filter { it.isFile && it.length() > 0 }?.let { files.addAll(it) }
+                dir.listFiles()?.filter { it.isFile && it.length() > 0 && it.lastModified() >= start }?.let { files.addAll(it) }
             }
             val alt = File("/sdcard/Download/NepTools")
             if (alt.exists() && alt.canonicalPath != dir.canonicalPath) {
-                alt.listFiles()?.filter { it.isFile && it.length() > 0 }?.let { altList ->
+                alt.listFiles()?.filter { it.isFile && it.length() > 0 && it.lastModified() >= start }?.let { altList ->
                     for (af in altList) {
                         if (files.none { it.name == af.name }) files.add(af)
                     }
