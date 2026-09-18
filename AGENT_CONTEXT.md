@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.1 (versionCode: 20)
+- Current Version: v2.6.6 (versionCode: 25)
 - Last Updated: September 18, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -89,52 +89,21 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.1 (versionCode 20).
+- Status: v2.6.6 (versionCode 25).
 - Last Updated: September 18, 2026
 - Recent Updates:
+  - v2.6.6:
+    - Full-Screen Splash Graphic (SplashScreen.kt): Implemented user-specified high-resolution splash poster (drawable-nodpi/splash_background.png) featuring the 3D toolbox, Himalayan vista, and cultural heritage ribbon with zero animations, instant tap-to-skip, and a fail-safe background watchdog.
+    - Official 3D Toolbox Brand Identity: Replaced app logo across all assets (splash_center_logo 1254px master, app_logo & splash_logo 512px, adaptive foreground with 270px safe-zone scaling, legacy mipmaps mdpi-xxxhdpi, and status icons).
+    - Launcher Parity: Updated adaptive icon foreground and white background (#FFFFFF) to eliminate OEM mask clipping across circle, squircle, and teardrop launchers.
+    - About Screen Hero Alignment (AboutScreen.kt): Replaced calendar placeholder icon with official app_logo and connected dynamic BuildConfig version name and code.
   - v2.6.0:
-    - Location-Based Emergency Directory (EmergencyLocationResolver.kt & EmergencyScreen.kt): On-device GPS auto-resolver with 100% offline Haversine fallback across 852 locations in nepal_places.json. Manual 77-district and 7-province picker modal. Expanded EmergencyRepo with verified district police controls and provincial hospital hotlines. Dynamic 4-tier sorting prioritizing local district services and 24/7 national lifelines with visual local badges.
-    - Remote Emergency Contacts API Sync (EmergencySyncManager.kt): Dual-backend edge sync (Cloudflare Worker in worker/ and GitHub Gist fallback) with non-blocking HTTP GET, conditional If-Modified-Since caching, 100% offline fallback, and 4-hour background sync via WorkManager.
-    - Verified & Updated Reference Data: Re-verified emergency hotlines with official directories (TUTH Poison Info 01-4502011, Bir Hospital 01-5321988, TUTH 01-4512505, Koshi 021-530103, Gandaki 061-570066, Lumbini 071-534010, Karnali 083-520200, Seti 091-525911; updated Red Cross blood banks). Verified all 77 district postal codes with Nepal Post and fixed Lalitpur typo.
-    - Asset Cleanup: Removed orphan bus route and bus fare JSON assets (bus_routes_official.json, bus_rates.json).
-    - Radio Streams: Verified working live streams and updated Image FM to active stream.
-    - Voice Notes UI Overhaul (VoiceScreen.kt): Tactile VoiceActionButton pills (spring bounce, haptics, animated checkmark on copy, soft rose 3.5s confirmation on clear), elevated VoiceSaveButton, and character badge.
-    - Interactive Kundali Transit Wheel & Vastu Shastra: 360-degree dual-ring Gochar wheel (TransitWheelView.kt), classical 8-direction live compass with deities and room verifier (VastuEngine.kt).
-    - Land Area Converter (LandConverter.kt): Nepal Survey Department cross-converter for Hilly (R-A-P-D), Terai (B-K-D-K), Metric/Imperial, and parcel arithmetic (+/-).
-    - Bilingual English & Nepali Localization: Full English mode support across Land Converter, Vastu Compass, Gochar Wheel, and Emergency Directory.
-    - Architecture, Backup & Polish: Central Bank Forex & NOC Fuel live pricing; HighPrecisionEphemeris in AstroRepo; BackupManager expanded to Kundali profiles and favorite tools; strict zero emoji compliance.
-  - v2.5.9:
-    - Authentic 36-Point Ashta Koota Guna Milan Engine (AshtakootaGunaMilan.kt): Implemented classical Brihat Parashara Hora Shastra tables for all 8 Kootas (Nadi, Bhakoot, Gana, Maitri, Yoni, Tara, Vashya, Varna).
-    - Upgraded GunaMilanScreen.kt: Human-friendly compatibility overview with percentage, plain-language marital guidance, 3 critical dosha indicators (Nadi, Bhakoot, Gana), 4 life-domain scorecards, 8 expandable Guna accordions, and 1-tap auto-fill from saved birth chart.
-  - v2.5.8:
-    - High-Precision Astrology Engine: Embedded pure Kotlin VSOP87 perturbation theory, ELP-2000 lunar theory, and NOVAS C 3.1 sidereal time algorithms (100% offline).
-    - Fixed Daily Panchang calculation (PanchangCalc.kt) to compute authentic Sidereal (Nirayana) coordinates, eliminating the 2 Nakshatra and 4 Yoga discrepancy.
-    - Added true Lunar Node calculation with evection oscillations (+-1.75 degrees).
-    - Implemented authentic Sripati Bhava Chalit house cusps and interactive Rashi D1 vs Bhava Chalit chart toggle in KundaliScreen.
-    - Fixed UI text and component overlap glitch across accordion cards (ExpandablePlanet, showGuide, and showTimeline) by refactoring SoftCard container to Column and refining indicator dividers and chevrons.
-    - Added pre-1986 Nepal timezone auto-correction (UTC+5:30 IST).
-  - v2.5.7:
-    - Removed offline & private sub-badge from splash screen per user specification.
-    - Optimized splash duration to 700ms with 750ms internal and 850ms native Looper watchdogs.
-    - Multi-route fail-safe entry: BackHandler instant skip, full-screen tap dismiss, deep-link bypass, and onResume/onStop lifecycle splash recovery.
-  - v2.5.6:
-    - Restored authentic signature warm Nepali rice paper and golden sunrise splash screen palette across all system themes.
-    - Preserved non-blocking async startup, battery saver fast-path bypass, responsive geometry scaling, and instant tap-to-skip.
-  - v2.5.5:
-    - Universal splash screen stabilization: non-blocking asynchronous cold start (WorkScheduler and ReminderHelper moved off main thread), zero-scale animator duration and battery saver detection.
-    - Dark mode window theme parity (#0D1418 background) and dynamic midnight Himalayan sky splash palette.
-    - Responsive splash geometry scaling with BoxWithConstraints and instant tap-to-skip gesture.
-  - v2.5.4:
-    - Added Dynamic Favorite Tools section at top of ToolsScreen with persistent 1-tap star bookmarking (FavoriteToolsManager).
-    - Redesigned Voice Notes: bilingual speech recognition (Nepali ne-NP / English en-US), pulsing mic halo, real-time waveform bars, full transcript editor (copy, clear, save), and saved memos manager.
-    - Added Sound Level Meter (AudioRecord dBA measurement, rolling waveform oscillograph, WHO noise safety indicators).
-    - Added Spy Camera & Bug Detector with Master Inspection Guide (EMF magnetic sniffer, optical lens reflection strobe, and infrared detection).
-    - Added Android Home Screen Widget (Daily Bikram Sambat Date, Tithi & Festival with midnight auto-update).
-    - Added Offline Local Data Backup & Restore (export/import habits, subscriptions, notes, events via SAF).
-    - Added Custom Calendar Events & Personal Reminders with 8:00 AM notifications and cell dots.
-    - Clean tool optimization: Removed BLE Radar tool and Gold & Silver rates per user specifications.
-    - Codebase hygiene: Removed Bluetooth permissions, ensured strict zero emoji compliance.
-  - v2.5.3: Universal splash screen fix and stability improvements.
-  - v2.5.2: Refined Decision Wheel winner outcome card.
-  - v2.5.1: Overhauled Decision Wheel, Coin Toss, and Dice Roller tools.
-  - v2.5.0: Core bug fixes and performance improvements.
+    - Location-Based Emergency Directory: GPS auto-resolver, 100% offline Haversine fallback across 852 locations, 77-district picker, 4-tier sorting, and Cloudflare Worker sync fallback.
+    - Verified Reference Data: Re-verified emergency hotlines with official directories; postal codes updated.
+    - Voice Notes UI Overhaul: Tactile action pills, elevated save button, character counter.
+    - Interactive Kundali Transit Wheel & Vastu Shastra: 360-degree Gochar wheel, 8-direction live compass.
+    - Land Area Converter: Hilly (R-A-P-D), Terai (B-K-D-K), metric cross-conversions.
+    - Strict zero emoji compliance maintained across all screens and resources.
+  - v2.5.8 - v2.5.9: High-precision ephemeris (VSOP87/ELP-2000), authentic Sidereal Nirayana Panchang, 36-Point Ashta Koota Guna Milan, and Sripati Bhava Chalit charts.
+  - v2.5.0 - v2.5.7: Universal splash screen stabilization, sound meter, spy camera detector, offline backup, home screen widget, and security engine.
+

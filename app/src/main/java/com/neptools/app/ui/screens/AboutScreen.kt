@@ -1,5 +1,6 @@
 package com.neptools.app.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,9 +33,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.BuildConfig
+import com.neptools.app.R
 import com.neptools.app.ui.components.HairLabel
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -92,19 +97,14 @@ fun AboutScreen(onBack: () -> Unit) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
-                    Modifier
-                        .size(68.dp)
-                        .background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        PIcons.Calendar,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(36.dp)
-                    )
-                }
+                Image(
+                    painter = painterResource(id = R.drawable.app_logo),
+                    contentDescription = "NepTools Logo",
+                    modifier = Modifier
+                        .size(72.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Fit
+                )
 
                 Spacer(Modifier.height(12.dp))
 
@@ -115,7 +115,7 @@ fun AboutScreen(onBack: () -> Unit) {
                 )
 
                 Text(
-                    text = if (isEn) "Version 2.5.2 (Build 11)" else "संस्करण २.५.२ (बिल्ड ११)",
+                    text = if (isEn) "Version ${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})" else "संस्करण ${BuildConfig.VERSION_NAME} (बिल्ड ${BuildConfig.VERSION_CODE})",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
