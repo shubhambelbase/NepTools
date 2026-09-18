@@ -19,12 +19,17 @@ class PatroApp : Application() {
         PatroRepo.init(this)
         PlacesRepo.init(this)
         AstroRepo.init(this, HighPrecisionEphemeris(useTrueNode = true))
-        NepaliDateNotificationManager.updateNotification(this)
-        NepaliDateStickyService.start(this)
         com.neptools.app.core.notification.SmartAlertNotificationManager.createNotificationChannels(this)
 
-        // Asynchronously initialize background workers, reminders, and emergency cache to eliminate cold-start main thread jank
+        // Cold-start rule: nothing expensive on the main thread before the first frame.
+        // The calendar JSON parse, festival validation, panchang computation, notification
+        // posting and widget refresh used to run synchronously here and stalled the launch
+        // animation on slower phones (frozen splash until the user tapped the screen).
         CoroutineScope(Dispatchers.IO).launch {
+            // Pre-warm the BS calendar + festivals so the first composition never blocks on parsing.
+            runCatching { PatroRepo.d }
+            NepaliDateNotificationManager.updateNotification(this@PatroApp)
+            NepaliDateStickyService.start(this@PatroApp)
             com.neptools.app.core.work.WorkScheduler.scheduleAll(this@PatroApp)
             com.neptools.app.core.reminder.ReminderHelper.rescheduleAll(this@PatroApp)
             com.neptools.app.core.util.EmergencySyncManager.init(this@PatroApp)
