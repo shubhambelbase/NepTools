@@ -12,11 +12,13 @@ NepTools is an all-in-one, modern Nepali calendar and smart utility application 
 
 Download the latest official production APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v2.6.1)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v2.6.2)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
 1. Download the `app-release.apk` file from the latest release.
 2. Open the file on your Android device (enable "Install unknown apps" if prompted).
 3. Tap Install and launch NepTools.
+
+> **Upgrading from v2.6.1 or older?** NepTools is now signed with a dedicated release key, so Android treats it as a different signer. One-time step: export a backup from **Settings**, uninstall the old build, install v2.6.2, then restore your backup.
 
 ---
 
@@ -27,7 +29,7 @@ Download the latest official production APK directly from the Releases page:
 - Daily Panchang: Tithi, Nakshatra, Yoga, Karna, Sunrise, Sunset, Rahu Kaal, and Yamaganda timings.
 - Fast BS to AD and AD to BS bi-directional date converter with smart clipboard detection.
 - Comprehensive calendar of Nepali holidays, government observances, and cultural festivals.
-- Clean Android home screen widget with automated midnight rollover.
+- Clean Android home screen widget with automated midnight rollover, rendering off the main thread to keep your launcher smooth.
 
 ### 2. Vedic Astrology & Jyotish Suite
 - Birth Chart (Janma Kundali): Authentic North Indian and South Indian chart calculations with Sripati Bhava Chalit house cusps.
@@ -58,6 +60,7 @@ Download the latest official production APK directly from the Releases page:
 
 ### 7. Encrypted Vault & Offline Backup
 - AES-256 encrypted local vault with biometric fingerprint and PIN protection.
+- Privacy-first clipboard: vault copies are flagged sensitive on Android 13+, hiding them from the clipboard preview overlay and history, and the vault screen is excluded from screenshots and the recents overview.
 - Portable JSON backup and restore for habits, subscriptions, notes, and personal events via Android Storage Access Framework (SAF).
 - 100% offline-first architecture with zero tracking, zero telemetry, and zero ads.
 
@@ -68,6 +71,7 @@ Download the latest official production APK directly from the Releases page:
 - Live Forex rates from Nepal Rastra Bank and fuel prices from Nepal Oil Corporation.
 - Kalimati daily vegetable and fruit market wholesale price tracker.
 - Online Nepali FM Radio streaming service.
+- LanDrop: share files over Wi-Fi to any browser on the same network, protected by a per-session 6-digit access code with automatic idle shutdown.
 - Smart utilities: Compass, Bubble Level, Image Compressor, PDF Document Converter, Speed Test, Loan EMI Calculator, and Decision Maker.
 
 ### 9. Location-Based Emergency Directory & Edge Sync
@@ -76,6 +80,11 @@ Download the latest official production APK directly from the Releases page:
 - 61 verified emergency contacts (police control, ambulance, fire rescue, blood banks, hospitals, and child/women hotlines).
 - 4-tier dynamic prioritization surfacing local district services at the top.
 - Dual-cloud edge synchronization (Cloudflare Worker edge API + GitHub raw CDN fallback) with offline caching.
+
+### 10. Security & Integrity
+- Official release signing: every distributed APK is signed with a dedicated RSA-4096 release key.
+- Live Security & Integrity panel in Settings showing signature, installer, and tamper status.
+- Checksum-enforced in-app updater: releases without a published SHA-256 checksum are never auto-installed, and every download is integrity-verified before installation.
 
 ---
 
@@ -89,7 +98,7 @@ Download the latest official production APK directly from the Releases page:
 
 ## Updates
 
-NepTools features an integrated offline-friendly update checker. You can check for new releases anytime from **Settings -> About -> App Updates**.
+NepTools features an integrated offline-friendly update checker with checksum-verified installation. You can check for new releases anytime from **Settings -> About -> App Updates**.
 
 ---
 
