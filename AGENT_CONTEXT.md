@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.0 (versionCode: 19)
+- Current Version: v2.6.1 (versionCode: 20)
 - Last Updated: September 18, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -84,7 +84,7 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.0 (versionCode 19).
+- Status: v2.6.1 (versionCode 20).
 - Last Updated: September 18, 2026
 - Recent Updates:
   - v2.6.0:
