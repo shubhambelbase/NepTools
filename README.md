@@ -12,7 +12,7 @@ NepTools is an all-in-one, modern Nepali calendar and smart utility application 
 
 Download the latest official production APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v2.6.4)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v2.6.5)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
 1. Download the `app-release.apk` file from the latest release.
 2. Open the file on your Android device (enable "Install unknown apps" if prompted).
