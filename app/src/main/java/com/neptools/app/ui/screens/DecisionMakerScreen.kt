@@ -76,6 +76,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -278,6 +279,25 @@ private fun DecisionWheelView(isEn: Boolean) {
     var showWinnerDialog by remember { mutableStateOf(false) }
     var showCustomizerSheet by remember { mutableStateOf(false) }
 
+    // Dynamic haptic micro-interactions synchronized with wheel deceleration
+    LaunchedEffect(isSpinning) {
+        if (!isSpinning) return@LaunchedEffect
+        val totalActive = activeChoices.size
+        if (totalActive == 0) return@LaunchedEffect
+        val sliceAngle = 360f / totalActive
+        var lastSlice = -1
+        var lastHapticTime = 0L
+        snapshotFlow { rotation.value }.collect { rot ->
+            val currentSlice = (rot / sliceAngle).toInt()
+            val now = System.currentTimeMillis()
+            if (currentSlice != lastSlice && now - lastHapticTime >= 35L) {
+                lastSlice = currentSlice
+                lastHapticTime = now
+                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+            }
+        }
+    }
+
     fun spinWheel() {
         if (isSpinning || activeChoices.isEmpty()) return
         isSpinning = true
@@ -298,19 +318,6 @@ private fun DecisionWheelView(isEn: Boolean) {
             val currentMod = rotation.value % 360f
             val fullSpins = (6..9).random() * 360f
             val finalTarget = rotation.value + (360f - currentMod) + fullSpins + targetPointerOffset
-
-            // Haptic ticking sequence while spinning
-            launch {
-                val startTime = System.currentTimeMillis()
-                val duration = 4000L
-                var delayMs = 45L
-                while (System.currentTimeMillis() - startTime < duration) {
-                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    delay(delayMs)
-                    val elapsed = System.currentTimeMillis() - startTime
-                    delayMs = (45L + (elapsed * 0.08f).toLong()).coerceAtMost(250L)
-                }
-            }
 
             rotation.animateTo(
                 targetValue = finalTarget,
@@ -773,10 +780,21 @@ private fun CoinFlipperView(isEn: Boolean) {
             val totalSpinsY = (6..10).random() * 360f + (if (outcomeIsHeads) 0f else 180f)
             val wobbleX = (2..4).random() * 360f
 
+            // Mid-air tumble flutter micro-haptics
+            launch {
+                delay(70)
+                repeat(4) {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    delay(130)
+                }
+            }
+
             // Gravity arc jump
             launch {
                 translationY.animateTo(-180f, tween(360, easing = LinearOutSlowInEasing))
                 translationY.animateTo(0f, tween(440, easing = FastOutSlowInEasing))
+                // Crisp tactile snap on coin flip landing
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             }
 
             // Multi-axis 3D tumbling
@@ -802,7 +820,6 @@ private fun CoinFlipperView(isEn: Boolean) {
 
             flipHistory = listOf(finalTargetSide) + flipHistory.take(7)
             isFlipping = false
-            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         }
     }
 
@@ -1104,20 +1121,21 @@ private fun DiceRollerView(isEn: Boolean) {
         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
 
         scope.launch {
-            // Rapid shuffling and haptic rattle
+            // Rapid shuffling and progressive bounce bumps
             launch {
-                repeat(8) {
+                val bounceDelays = listOf(45L, 65L, 90L, 130L, 180L)
+                for (d in bounceDelays) {
+                    delay(d)
                     diceValues = (1..numDice).map { Random.nextInt(1, 7) }
-                    wobbleAnim.animateTo((it % 2 * 10f) - 5f, tween(40))
+                    wobbleAnim.animateTo((Random.nextFloat() * 16f) - 8f, tween(35))
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    delay(50)
                 }
-                wobbleAnim.animateTo(0f, tween(80))
+                wobbleAnim.animateTo(0f, tween(70))
             }
 
             rotation.animateTo(
                 targetValue = rotation.value + 360f,
-                animationSpec = tween(480, easing = FastOutSlowInEasing)
+                animationSpec = tween(520, easing = FastOutSlowInEasing)
             )
 
             val finalDice = (1..numDice).map { Random.nextInt(1, 7) }

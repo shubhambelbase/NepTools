@@ -122,6 +122,7 @@ fun PatroApp() {
 
     androidx.compose.runtime.LaunchedEffect(Unit) {
         AppNavigator.events.collect { route ->
+            AppNavigator.consume()
             navigateTo(route)
         }
     }

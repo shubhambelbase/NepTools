@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">नेपटूल्स</string>
+    <string name="widget_nepali_date_label">नेपटूल्स दैनिक पात्रो</string>
+    <string name="widget_nepali_date_desc">आजको बि.सं. मिति, तिथि र चाडपर्व प्रदर्शन गर्छ</string>
+    <string name="widget_nepali_month_label">नेपटूल्स मासिक क्यालेन्डर</string>
+    <string name="widget_nepali_month_desc">चाडपर्व र बिदाहरू सहितको मासिक पात्रो</string>
+    <string name="widget_quick_glance_label">नेपटूल्स क्विक ग्लान्स</string>
+    <string name="widget_quick_glance_desc">इन्धन भाउ, विदेशी मुद्रा दर र मुख्य सुविधाहरू</string>
+
+    <!-- Launcher App Shortcuts -->
+    <string name="shortcut_calendar_short">पात्रो</string>
+    <string name="shortcut_calendar_long">आजको नेपाली पात्रो र पञ्चाङ्ग</string>
+    <string name="shortcut_converter_short">मिति परिवर्तन</string>
+    <string name="shortcut_converter_long">बि.सं. र ई.सं. मिति रूपान्तरण</string>
+    <string name="shortcut_emergency_short">सम्पर्क</string>
+    <string name="shortcut_emergency_long">आपतकालीन हटलाइन तथा सम्पर्क</string>
+    <string name="shortcut_qr_short">क्युआर स्क्यान</string>
+    <string name="shortcut_qr_long">क्युआर कोड स्क्यान तथा जेनेरेटर</string>
+</resources>

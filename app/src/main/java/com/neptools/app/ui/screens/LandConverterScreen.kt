@@ -1,5 +1,6 @@
 package com.neptools.app.ui.screens
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +24,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -53,9 +56,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.converter.LandConverter
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
+import java.util.Locale
 
 private enum class LandInputMode {
     HILLY,   // Ropani - Aana - Paisa - Daam
@@ -124,6 +129,55 @@ fun LandConverterScreen(onBack: () -> Unit) {
 
     val calculation = remember(currentTotalSqFt) {
         LandConverter.calculateFromSqFt(currentTotalSqFt)
+    }
+
+    fun shareLandBreakdown() {
+        val rb = calculation.ropaniBreakdown
+        val bb = calculation.bighaBreakdown
+        val dStr = if (rb.daam % 1.0 == 0.0) rb.daam.toInt().toString() else "%.2f".format(Locale.US, rb.daam)
+        val kStr = if (bb.kanwa % 1.0 == 0.0) bb.kanwa.toInt().toString() else "%.2f".format(Locale.US, bb.kanwa)
+        val sqFtStr = "%,.2f".format(Locale.US, calculation.sqFt)
+        val sqMStr = "%,.2f".format(Locale.US, calculation.sqMeters)
+        val acresStr = "%.4f".format(Locale.US, calculation.acres)
+        val haStr = "%.4f".format(Locale.US, calculation.hectares)
+
+        val summary = buildString {
+            append(if (isEn) "NepTools - Land Area Conversion Breakdown" else "नेपटूल्स - जग्गा नाप रूपान्तरण विवरण")
+            append("\n----------------------------------------\n")
+            if (isEn) {
+                append("Hilly / Valley System:\n")
+                append("  • Ropani-Aana-Paisa-Daam: ${rb.formatCompact()}\n")
+                append("  • Breakdown: ${rb.ropani} Ropani, ${rb.aana} Aana, ${rb.paisa} Paisa, $dStr Daam\n\n")
+                append("Terai System:\n")
+                append("  • Bigha-Katha-Dhur-Kanwa: ${bb.formatCompact()}\n")
+                append("  • Breakdown: ${bb.bigha} Bigha, ${bb.katha} Katha, ${bb.dhur} Dhur, $kStr Kanwa\n\n")
+                append("Metric & Imperial Units:\n")
+                append("  • Square Feet: $sqFtStr sq. ft.\n")
+                append("  • Square Metres: $sqMStr sq. m.\n")
+                append("  • Acres: $acresStr acres\n")
+                append("  • Hectares: $haStr ha\n")
+            } else {
+                append("पहाडी प्रणाली (काठमाडौं उपत्यका र पहाड):\n")
+                append("  • रोपनी-आना-पैसा-दाम: ${NepaliNames.toDevanagari(rb.ropani)}-${NepaliNames.toDevanagari(rb.aana)}-${NepaliNames.toDevanagari(rb.paisa)}-${NepaliNames.toDevanagari(dStr)}\n")
+                append("  • विस्तृत: ${NepaliNames.toDevanagari(rb.ropani)} रोपनी, ${NepaliNames.toDevanagari(rb.aana)} आना, ${NepaliNames.toDevanagari(rb.paisa)} पैसा, ${NepaliNames.toDevanagari(dStr)} दाम\n\n")
+                append("तराई प्रणाली (भित्री मधेस तथा तराई):\n")
+                append("  • बिघा-कठ्ठा-धुर-कन्वा: ${NepaliNames.toDevanagari(bb.bigha)}-${NepaliNames.toDevanagari(bb.katha)}-${NepaliNames.toDevanagari(bb.dhur)}-${NepaliNames.toDevanagari(kStr)}\n")
+                append("  • विस्तृत: ${NepaliNames.toDevanagari(bb.bigha)} बिघा, ${NepaliNames.toDevanagari(bb.katha)} कठ्ठा, ${NepaliNames.toDevanagari(bb.dhur)} धुर, ${NepaliNames.toDevanagari(kStr)} कन्वा\n\n")
+                append("मेट्रिक तथा अन्तर्राष्ट्रिय एकाइहरू:\n")
+                append("  • वर्ग फिट: ${NepaliNames.toDevanagari(sqFtStr)} वर्ग फिट\n")
+                append("  • वर्ग मिटर: ${NepaliNames.toDevanagari(sqMStr)} वर्ग मिटर\n")
+                append("  • एकड: ${NepaliNames.toDevanagari(acresStr)} एकड\n")
+                append("  • हेक्टर: ${NepaliNames.toDevanagari(haStr)} हेक्टर\n")
+            }
+            append("----------------------------------------\n")
+            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+        }
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, summary)
+            type = "text/plain"
+        }
+        context.startActivity(Intent.createChooser(sendIntent, if (isEn) "Share Land Area Breakdown" else "जग्गा विवरण शेयर गर्नुहोस्"))
     }
 
     Column(
@@ -396,6 +450,27 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             MetricRow(label = if (isEn) "Square Metres" else "वर्ग मिटर", value = "%.2f".format(calculation.sqMeters))
                             MetricRow(label = if (isEn) "Acres" else "एकड", value = "%.4f".format(calculation.acres))
                             MetricRow(label = if (isEn) "Hectares" else "हेक्टर", value = "%.4f".format(calculation.hectares))
+                        }
+                    }
+
+                    // 1-Tap Share Breakdown Button
+                    item {
+                        Button(
+                            onClick = { shareLandBreakdown() },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            shape = RoundedCornerShape(14.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
+                            Icon(PIcons.Share, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                if (isEn) "Share Area Breakdown" else "जग्गा नाप विवरण शेयर गर्नुहोस्",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = Color.White)
+                            )
                         }
                     }
                 }

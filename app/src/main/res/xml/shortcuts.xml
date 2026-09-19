@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="shortcut_calendar"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_calendar"
+        android:shortcutShortLabel="@string/shortcut_calendar_short"
+        android:shortcutLongLabel="@string/shortcut_calendar_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.neptools.app"
+            android:targetClass="com.neptools.app.MainActivity">
+            <extra
+                android:name="navigate_to_route"
+                android:value="calendar" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_converter"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_converter"
+        android:shortcutShortLabel="@string/shortcut_converter_short"
+        android:shortcutLongLabel="@string/shortcut_converter_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.neptools.app"
+            android:targetClass="com.neptools.app.MainActivity">
+            <extra
+                android:name="navigate_to_route"
+                android:value="converter" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_emergency"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_emergency"
+        android:shortcutShortLabel="@string/shortcut_emergency_short"
+        android:shortcutLongLabel="@string/shortcut_emergency_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.neptools.app"
+            android:targetClass="com.neptools.app.MainActivity">
+            <extra
+                android:name="navigate_to_route"
+                android:value="emergency" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="shortcut_qr"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_qr"
+        android:shortcutShortLabel="@string/shortcut_qr_short"
+        android:shortcutLongLabel="@string/shortcut_qr_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.neptools.app"
+            android:targetClass="com.neptools.app.MainActivity">
+            <extra
+                android:name="navigate_to_route"
+                android:value="qr" />
+        </intent>
+    </shortcut>
+</shortcuts>

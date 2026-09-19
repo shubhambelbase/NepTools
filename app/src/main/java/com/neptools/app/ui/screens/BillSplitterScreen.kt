@@ -265,8 +265,8 @@ private fun QuickSplitView(isEn: Boolean) {
 
     fun shareSummary() {
         val summary = buildString {
-            append("${if (isEn) "Bill Split Summary" else "बिल बाँडफाँड विवरण"}\n")
-            append("━━━━━━━━━━━━━━━━━━━\n")
+            append(if (isEn) "NepTools - Bill Split Summary" else "नेपटूल्स - बिल बाँडफाँड विवरण")
+            append("\n━━━━━━━━━━━━━━━━━━━\n")
             append("${if (isEn) "Total Bill:" else "जम्मा बिल:"} ${if (isEn) "Rs. ${fmt.format(totalBill.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(totalBill.toLong()))}"}\n")
             append("${if (isEn) "Number of People:" else "मानिस सङ्ख्या:"} ${if (isEn) "$numPeople" else com.neptools.app.core.calendar.NepaliNames.toDevanagari(numPeople.toString())}\n")
             append("${if (isEn) "Tip (${tipPercent.toInt()}%):" else "टिप (${com.neptools.app.core.calendar.NepaliNames.toDevanagari(tipPercent.toInt().toString())}%):"} ${if (isEn) "Rs. ${fmt.format(tipAmount.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(tipAmount.toLong()))}"}\n")
@@ -274,6 +274,8 @@ private fun QuickSplitView(isEn: Boolean) {
             if (includeVat) append("${if (isEn) "Govt VAT (13%):" else "सरकारी भ्याट (१३%):"} ${if (isEn) "Rs. ${fmt.format(vatAmount.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(vatAmount.toLong()))}"}\n")
             append("━━━━━━━━━━━━━━━━━━━\n")
             append("${if (isEn) "EACH PERSON PAYS:" else "प्रत्येकले तिर्नुपर्ने रकम:"} ${if (isEn) "Rs. ${fmt.format(perPersonFinal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(perPersonFinal.toLong()))}"}\n")
+            append("━━━━━━━━━━━━━━━━━━━\n")
+            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -638,8 +640,8 @@ private fun ItemizedSplitView(isEn: Boolean) {
 
     fun shareItemizedSummary() {
         val summary = buildString {
-            append("${if (isEn) "Itemized Group Bill Settlement" else "व्यक्तिगत परिकार बाँडफाँड विवरण"}\n")
-            append("━━━━━━━━━━━━━━━━━━━\n")
+            append(if (isEn) "NepTools - Itemized Group Bill Settlement" else "नेपटूल्स - व्यक्तिगत परिकार बाँडफाँड विवरण")
+            append("\n━━━━━━━━━━━━━━━━━━━\n")
             members.forEach { member ->
                 val base = memberSubtotals[member.id] ?: 0.0
                 val finalTotal = base * totalMultiplier
@@ -648,6 +650,8 @@ private fun ItemizedSplitView(isEn: Boolean) {
             append("━━━━━━━━━━━━━━━━━━━\n")
             val grandTotal = subtotalAll * totalMultiplier
             append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
+            append("━━━━━━━━━━━━━━━━━━━\n")
+            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -934,6 +938,8 @@ private fun ItemizedSplitView(isEn: Boolean) {
                             append("━━━━━━━━━━━━━━━━━━━\n")
                             val grandTotal = subtotalAll * totalMultiplier
                             append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
+                            append("━━━━━━━━━━━━━━━━━━━\n")
+                            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
                         }
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText(if (isEn) "Itemized Split" else "व्यक्तिगत बाँडफाँड", summary)

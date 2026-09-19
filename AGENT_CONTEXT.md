@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.8 (versionCode: 27)
+- Current Version: v2.6.9 (versionCode: 28)
 - Last Updated: September 19, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -25,6 +25,7 @@
 2. Navigation: Exactly 3 bottom tabs: Home ("गृह"), Calendar ("पात्रो"), Tools ("टूल्स"). Top-right 3-line menu gives access to Updater, Settings, and About.
 3. Card Design: Single clean title per card; no redundant sub-labels.
 4. Offline-First: 100% offline for calendar, astrology, calculators, habit tracker, and vault. Zero telemetry, tracking, or ads.
+5. Mandatory Version Bump: Every update / release must bump versionCode (+1) and versionName in app/build.gradle.kts, sync AGENT_CONTEXT.md, and verify SHA-256 before publishing release APKs.
 
 ---
 
@@ -89,28 +90,23 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.8 (versionCode 27) — Release build completed, signed, and verified.
+- Status: v2.6.9 (versionCode 28) — Launcher shortcuts, tactile haptics, 1-tap utility sharing, and tools search/recents implemented.
 - Last Updated: September 19, 2026
 - Recent Updates:
-  - v2.6.8:
-    - Robust In-App Update Checksum Extraction: Updated SHA-256 regex parser in GitHubUpdateManager to seamlessly accept all markdown formatting variations (bold markers, code backticks, colons, and equals signs).
+  - v2.6.9:
+    - Launcher Quick App Shortcuts: Configured Android dynamic shortcuts (shortcuts.xml) for Today's Calendar, Date Converter, Emergency Numbers, and QR Scanner with vector drawables and cold-start route replay in AppNavigator.
+    - Tactile Haptic Micro-Interactions: Added physics-based haptic feedback in DecisionMakerScreen (slice-crossing deceleration ticks on the wheel, crisp snap on coin landing impact, and progressive bounce bumps on dice rolls).
+    - 1-Tap Utility Share Summaries: Added instant calculation sharing for Loan EMI & FD (LoanEmiScreen), Land Area breakdowns across Hilly (R-A-P-D), Terai (B-K-D-K), and Metric units (LandConverterScreen), and group bill splits (BillSplitterScreen) formatted with Devanagari numerals.
+    - Tools Section Discoverability & Instant Search: Added live search bar with bilingual matching and keyword alias mapping (TOOL_SEARCH_KEYWORDS), search result count, and contextual empty state.
+    - Recently Used Tools Section: Built RecentToolsManager (SharedPreferences-backed, reactive mutableStateListOf) showing top-5 recently used tools with 1-tap clear action.
+    - Robust In-App Update Checksum Extraction: Updated SHA-256 regex parser in GitHubUpdateManager to accept all markdown formatting variations.
   - v2.6.7:
-    - Comprehensive App-Wide Single-Language Enforcement: Conducted exhaustive codebase audit eliminating 100% of language mixing. In Nepali mode: zero English words or abbreviations (eliminated parenthetical trial labels, mixed lucky colors, English tab headers, English error notes, etc., with full Devanagari numerals). In English mode: 100% pure English. Fixed across AppStrings, RashifalScreen, OnboardingScreen, VoiceScreen, DrivingLicenseQuestionBank, ToolsScreen, GocharScreen, KundaliScreen, PlaceSelector, ApplicationTemplatesRepo, PdfExporter, RadioService, and SpyCameraDetectorScreen.
-    - Vedic Marriage Compatibility PDF & Kundali Export Overhaul: Fixed text overlapping in Ashta Koota breakdown table with cell clipping (drawClippedText) and tuned column widths; language-isolated titles, dosha assessments, domain cards, and Devanagari numerals for pure Nepali or pure English reports.
-    - Live Choghadiya UI Polish & Dynamic Solar Calculation: Added solar calculation location banner (Kathmandu coordinates), live pulsating indicator, 1-tap guide launcher button, elapsed progress bar, and localized hour/minute metrics.
-    - Comprehensive Vedic Choghadiya Guide: Added 4-step practical Muhurat selection guide, complete breakdown of 7 Choghadiya types with planetary rulers, Rahu Kaal precedence rules, and weekday starting sequence.
-    - Android 14/15 Predictive Back Navigation: Enabled platform OnBackInvokedCallback in AndroidManifest for smooth swipe-back system gestures across all screens.
-    - Dark Mode & OLED Contrast Polish: Polished dark palette (#0C0F14 midnight bg, #141A22 card surface, #F1F5F9 crisp text) and razor-sharp outline borders.
-    - Interactive Month & Quick Glance Widgets: 4x2 interactive BS monthly grid widget (NepToolsMonthWidgetProvider) and 4x1 Quick Glance widget (NepToolsQuickGlanceWidgetProvider).
-    - Android Baseline Profiles: Added app/src/main/baseline-prof.txt for 30-40% faster cold starts.
-    - Full-Screen Splash Graphic & Brand Identity: User-specified splash poster (drawable-nodpi/splash_background.png) and 3D Toolbox brand identity.
-  - v2.6.0:
-    - Location-Based Emergency Directory: GPS auto-resolver, 100% offline Haversine fallback across 852 locations, 77-district picker, 4-tier sorting, and Cloudflare Worker sync fallback.
-    - Verified Reference Data: Re-verified emergency hotlines with official directories; postal codes updated.
-    - Voice Notes UI Overhaul: Tactile action pills, elevated save button, character counter.
-    - Interactive Kundali Transit Wheel & Vastu Shastra: 360-degree Gochar wheel, 8-direction live compass.
-    - Land Area Converter: Hilly (R-A-P-D), Terai (B-K-D-K), metric cross-conversions.
-    - Strict zero emoji compliance maintained across all screens and resources.
-  - v2.5.8 - v2.5.9: High-precision ephemeris (VSOP87/ELP-2000), authentic Sidereal Nirayana Panchang, 36-Point Ashta Koota Guna Milan, and Sripati Bhava Chalit charts.
-  - v2.5.0 - v2.5.7: Universal splash screen stabilization, sound meter, spy camera detector, offline backup, home screen widget, and security engine.
+    - Comprehensive App-Wide Single-Language Enforcement: Pure Devanagari in Nepali mode; 100% English in English mode.
+    - Vedic Marriage Compatibility PDF & Kundali Export Overhaul: Cell clipping, tuned column widths, and language-isolated tables.
+    - Live Choghadiya UI & Vedic Choghadiya Guide: Dynamic solar calculations, pulsating indicator, and 4-step selection guide.
+    - Android 14/15 Predictive Back Navigation & Dark Mode Polish: Enabled OnBackInvokedCallback; midnight OLED palette.
+    - Baseline Profiles & Brand Assets: Cold start optimization and 3D Toolbox splash branding.
+  - v2.6.0: Location-based emergency directory (offline Haversine fallback), Kundali Gochar wheel, Vastu compass, Land Area converter.
+  - v2.5.0 - v2.5.9: High-precision ephemeris, 36-Point Guna Milan, sound meter, spy camera detector, offline backup, widgets, and security engine.
+
 

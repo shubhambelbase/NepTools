@@ -7,4 +7,14 @@
     <string name="widget_nepali_month_desc">Interactive Bikram Sambat monthly grid with holidays and festivals</string>
     <string name="widget_quick_glance_label">NepTools Quick Glance</string>
     <string name="widget_quick_glance_desc">Live NOC fuel prices, Forex rates, and instant utility shortcuts</string>
+
+    <!-- Launcher App Shortcuts -->
+    <string name="shortcut_calendar_short">Calendar</string>
+    <string name="shortcut_calendar_long">Today\'s Nepali Calendar &amp; Panchang</string>
+    <string name="shortcut_converter_short">Date Converter</string>
+    <string name="shortcut_converter_long">Convert BS and AD Dates</string>
+    <string name="shortcut_emergency_short">Emergency</string>
+    <string name="shortcut_emergency_long">Emergency Contacts &amp; Helplines</string>
+    <string name="shortcut_qr_short">QR Scanner</string>
+    <string name="shortcut_qr_long">Scan or Generate QR Codes</string>
 </resources>

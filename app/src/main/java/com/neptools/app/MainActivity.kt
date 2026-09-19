@@ -70,7 +70,8 @@ class MainActivity : ComponentActivity() {
         handleIntent(intent)
 
         val initiallyNeedsOnboarding = !OnboardingPrefs.isCompleted(applicationContext)
-        val isExplicitDeepLink = intent?.action != null && intent.action != Intent.ACTION_MAIN
+        val isExplicitDeepLink = intent?.hasExtra(RadioService.EXTRA_NAVIGATE_ROUTE) == true ||
+                (intent?.action != null && intent.action != Intent.ACTION_MAIN)
         val shouldShowSplash = (savedInstanceState == null) && !isExplicitDeepLink
 
         setContent {

@@ -1,5 +1,6 @@
 package com.neptools.app.ui.screens
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,12 +21,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.data.LoanEmiRepo
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
@@ -154,6 +159,28 @@ private fun LoanEmiCalculatorView(isEn: Boolean) {
     }
 
     val fmt = NumberFormat.getNumberInstance(Locale.US)
+    val context = LocalContext.current
+
+    fun shareLoanCalculation() {
+        val summary = buildString {
+            append(if (isEn) "NepTools - Loan EMI Calculation Summary" else "नेपटूल्स - ऋण किस्ता (EMI) विवरण")
+            append("\n----------------------------------------\n")
+            append("${if (isEn) "Loan Amount:" else "ऋण रकम:"} ${if (isEn) "Rs. ${fmt.format(amount.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(amount.toLong()))}"}\n")
+            append("${if (isEn) "Interest Rate:" else "वार्षिक ब्याजदर:"} ${if (isEn) "$rate% p.a." else "${NepaliNames.toDevanagari(rate.toString())}% वार्षिक"}\n")
+            append("${if (isEn) "Tenure:" else "ऋण अवधि:"} ${if (isEn) "$years Years ($tenureMonths months)" else "${NepaliNames.toDevanagari(years)} वर्ष (${NepaliNames.toDevanagari(tenureMonths)} महिना)"}\n")
+            append("${if (isEn) "Monthly EMI:" else "मासिक किस्ता:"} ${if (isEn) "Rs. ${fmt.format(emiResult.monthlyEmi.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.monthlyEmi.toLong()))}"}\n")
+            append("${if (isEn) "Total Interest:" else "जम्मा ब्याज:"} ${if (isEn) "Rs. ${fmt.format(emiResult.totalInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.totalInterest.toLong()))}"}\n")
+            append("${if (isEn) "Total Payable:" else "जम्मा भुक्तानी:"} ${if (isEn) "Rs. ${fmt.format(emiResult.totalPayment.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.totalPayment.toLong()))}"}\n")
+            append("----------------------------------------\n")
+            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+        }
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, summary)
+            type = "text/plain"
+        }
+        context.startActivity(Intent.createChooser(sendIntent, if (isEn) "Share Loan EMI Calculation" else "ऋण हिसाब विवरण पठाउनुहोस्"))
+    }
 
     LazyColumn(
         Modifier.fillMaxSize(),
@@ -247,6 +274,25 @@ private fun LoanEmiCalculatorView(isEn: Boolean) {
             }
         }
 
+        // 1-Tap Share Button
+        item {
+            Button(
+                onClick = { shareLoanCalculation() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32))
+            ) {
+                Icon(PIcons.Share, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    if (isEn) "Share Loan Calculation" else "ऋण हिसाब शेयर गर्नुहोस्",
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = Color.White)
+                )
+            }
+        }
+
         // Inputs Card
         item {
             Box(
@@ -314,6 +360,29 @@ private fun FixedDepositCalculatorView(isEn: Boolean) {
     }
 
     val fmt = NumberFormat.getNumberInstance(Locale.US)
+    val context = LocalContext.current
+
+    fun shareFdCalculation() {
+        val summary = buildString {
+            append(if (isEn) "NepTools - Fixed Deposit Calculation Summary" else "नेपटूल्स - मुद्दती निक्षेप विवरण")
+            append("\n----------------------------------------\n")
+            append("${if (isEn) "Deposit Amount:" else "जम्मा रकम:"} ${if (isEn) "Rs. ${fmt.format(principal.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(principal.toLong()))}"}\n")
+            append("${if (isEn) "Interest Rate:" else "वार्षिक ब्याजदर:"} ${if (isEn) "$annualRate% p.a." else "${NepaliNames.toDevanagari(annualRate.toString())}% वार्षिक"}\n")
+            append("${if (isEn) "Tenure:" else "अवधि:"} ${if (isEn) "$months Months" else "${NepaliNames.toDevanagari(months)} महिना"}\n")
+            append("${if (isEn) "Gross Interest:" else "कुल आर्जित ब्याज:"} ${if (isEn) "Rs. ${fmt.format(fdResult.grossInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.grossInterest.toLong()))}"}\n")
+            append("${if (isEn) "6% TDS Tax:" else "६% सरकारी कर:"} ${if (isEn) "Rs. ${fmt.format(fdResult.taxDeduction.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.taxDeduction.toLong()))}"}\n")
+            append("${if (isEn) "Net In-Hand Interest:" else "खुद प्राप्त हुने ब्याज:"} ${if (isEn) "Rs. ${fmt.format(fdResult.netInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.netInterest.toLong()))}"}\n")
+            append("${if (isEn) "Maturity Amount:" else "परिपक्वता रकम:"} ${if (isEn) "Rs. ${fmt.format(fdResult.maturityAmount.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.maturityAmount.toLong()))}"}\n")
+            append("----------------------------------------\n")
+            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+        }
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, summary)
+            type = "text/plain"
+        }
+        context.startActivity(Intent.createChooser(sendIntent, if (isEn) "Share Fixed Deposit Calculation" else "मुद्दती निक्षेप विवरण पठाउनुहोस्"))
+    }
 
     LazyColumn(
         Modifier.fillMaxSize(),
@@ -390,6 +459,25 @@ private fun FixedDepositCalculatorView(isEn: Boolean) {
                         Text(if (isEn) "Rs. ${fmt.format(fdResult.netInterest.toLong())}" else "रु ${npNum(fdResult.netInterest.toLong())}", style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold), color = Color(0xFF1B5E20))
                     }
                 }
+            }
+        }
+
+        // 1-Tap Share Button
+        item {
+            Button(
+                onClick = { shareFdCalculation() },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0))
+            ) {
+                Icon(PIcons.Share, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    if (isEn) "Share FD Calculation" else "मुद्दती हिसाब शेयर गर्नुहोस्",
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, color = Color.White)
+                )
             }
         }
 
