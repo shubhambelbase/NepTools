@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.7.0 (versionCode: 29)
+- Current Version: v2.7.1 (versionCode: 30)
 - Last Updated: September 19, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,9 +90,12 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.0 (versionCode 29) — "Recent Updates" live data freshness tracker, HomeScreen compact cards, relative time engine, and dedicated history view implemented.
+- Status: v2.7.1 (versionCode 30) — Recent Updates card positioning locked permanently to prevent shuffling; unread status preserved across routine screen refreshes.
 - Last Updated: September 19, 2026
 - Recent Updates:
+  - v2.7.1:
+    - Card Position Stability: Anchored Recent Updates cards in a fixed canonical order (Forex -> Fuel -> Kalimati -> Weather) to completely prevent shuffling or layout jumps when cards are tapped and returned from.
+    - Smart Unread Status Preservation: Routine screen-load refreshes now preserve read status rather than reappearing as unread dots immediately upon navigation return.
   - v2.7.0:
     - Recent Updates (Live Data Freshness Tracker): Added RecentUpdatesManager and RelativeTimeFormatter to record genuine timestamps only when fresh data is fetched and verified from Weather, Fuel (NOC), Kalimati wholesale market, and Forex (NRB).
     - Offline-First & Privacy Preserving: Zero new network calls; seed from disk cache; pure local relative time formatting with live 60-second ticker and strict Devanagari numeral localization in Nepali mode.

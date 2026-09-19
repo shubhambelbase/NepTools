@@ -125,6 +125,13 @@ object RecentUpdatesManager {
         }
     }
 
+    private val SERVICE_ORDER = mapOf(
+        "rates" to 1,
+        "fuel" to 2,
+        "kalimati" to 3,
+        "weather" to 4
+    )
+
     fun recordSuccessfulUpdate(
         context: Context,
         serviceId: String,
@@ -141,11 +148,23 @@ object RecentUpdatesManager {
 
         // Find existing record
         val existingIndex = updates.indexOfFirst { it.serviceId == serviceId }
+        var isUnread = true
         if (existingIndex >= 0) {
             val existing = updates[existingIndex]
             if (existing.timestampMillis >= timestampMillis) {
                 // Not newer than existing verified timestamp, do not create duplicate
                 return
+            }
+            // If user already viewed this update, preserve the read status (do not show red dot again)
+            // unless the new timestamp is genuinely from a different refresh cycle (> 1 hour later)
+            // or the status text actually changed.
+            if (!existing.isUnread) {
+                val timeDifference = timestampMillis - existing.timestampMillis
+                val statusChanged = (statusEn != null && statusEn != existing.statusEn) ||
+                        (statusNp != null && statusNp != existing.statusNp)
+                if (!statusChanged && timeDifference < 60 * 60 * 1000L) {
+                    isUnread = false
+                }
             }
             updates.removeAt(existingIndex)
         }
@@ -159,10 +178,10 @@ object RecentUpdatesManager {
             timestampMillis = timestampMillis,
             statusNp = statusNp,
             statusEn = statusEn,
-            isUnread = true
+            isUnread = isUnread
         )
 
-        updates.add(0, record)
+        updates.add(record)
         while (updates.size > MAX_RECORDS) {
             updates.removeAt(updates.lastIndex)
         }
@@ -208,7 +227,17 @@ object RecentUpdatesManager {
     }
 
     private fun sortUpdates() {
-        updates.sortByDescending { it.timestampMillis }
+        // Locked, deterministic display order:
+        // Service cards stay permanently anchored in their fixed slots (Forex -> Fuel -> Kalimati -> Weather)
+        // so that tapping a card or refreshing never shuffles or moves the layout.
+        val sorted = updates.sortedWith(
+            compareBy<RecentUpdateRecord> { SERVICE_ORDER[it.serviceId] ?: 99 }
+                .thenByDescending { it.timestampMillis }
+        )
+        if (updates != sorted) {
+            updates.clear()
+            updates.addAll(sorted)
+        }
     }
 
     private fun persist(context: Context) {
