@@ -1,6 +1,6 @@
 # NepTools - Modern Nepali Calendar & Smart Utility Suite
 
-[![Version](https://img.shields.io/badge/Version-v2.6.8-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
+[![Version](https://img.shields.io/badge/Version-v2.7.0-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
 [![Platform](https://img.shields.io/badge/Platform-Android%208.0%2B-green.svg)](https://github.com/shubhambelbase/NepTools)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](https://github.com/shubhambelbase/NepTools)
 
@@ -12,7 +12,7 @@ NepTools is an all-in-one, modern Nepali calendar and smart utility application 
 
 Download the latest official production APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v2.6.8)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v2.7.0)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
 1. Download the `app-release.apk` file from the latest release.
 2. Open the file on your Android device (enable "Install unknown apps" if prompted).
@@ -85,6 +85,12 @@ Download the latest official production APK directly from the Releases page:
 - Official release signing: every distributed APK is signed with a dedicated RSA-4096 release key.
 - Live Security & Integrity panel in Settings showing signature, installer, and tamper status.
 - Checksum-enforced in-app updater: releases without a published SHA-256 checksum are never auto-installed, and every download is integrity-verified before installation.
+
+### 11. Recent Updates & Live Data Freshness Tracker
+- Live service freshness tracker across Weather, Fuel (NOC), Kalimati wholesale market, and Forex (NRB).
+- 100% offline-first and privacy-preserving: seeds from cached timestamps with zero additional background network calls.
+- Pure relative time calculation with continuous 60-second ticker updates and strict Devanagari numerals in Nepali mode.
+- Home screen quick-glance compact cards with unread freshness indicators and dedicated full history screen.
 
 ---
 
