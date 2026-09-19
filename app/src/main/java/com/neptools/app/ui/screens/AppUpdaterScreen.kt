@@ -212,7 +212,7 @@ fun AppUpdaterScreen(
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = if (isEn) "Installed: v$currentVersion (Build $currentBuild)" else "इन्स्टल भर्सन: v$currentVersion (बिल्ड $currentBuild)",
+                                    text = if (isEn) "Installed: v$currentVersion (Build $currentBuild)" else "हालको संस्करण: ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(currentVersion)} (बिल्ड ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(currentBuild.toString())})",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )

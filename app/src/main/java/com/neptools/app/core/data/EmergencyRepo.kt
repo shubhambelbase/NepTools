@@ -20,12 +20,12 @@ data class EmergencyContact(
 object EmergencyRepo {
 
     val categories = listOf(
-        "all" to "सबै (All)",
-        "security" to "सुरक्षा (Security)",
-        "medical" to "स्वास्थ्य (Medical)",
-        "rescue" to "उद्धार (Rescue & Fire)",
-        "social" to "महिला/बालबालिका (Social Help)",
-        "blood" to "रक्तसञ्चार (Blood Banks)"
+        "all" to "सबै",
+        "security" to "सुरक्षा",
+        "medical" to "स्वास्थ्य",
+        "rescue" to "उद्धार",
+        "social" to "महिला तथा बालबालिका",
+        "blood" to "रक्तसञ्चार"
     )
 
     val provinces = listOf(
@@ -35,29 +35,29 @@ object EmergencyRepo {
 
     val defaultContacts = listOf(
         // ==================== National Toll-Free Lifelines ====================
-        EmergencyContact("नेपाल प्रहरी (Police)", "Nepal Police", "100", "security", "National", "All", "आपतकालीन प्रहरी सहायता (Toll-Free २४ घण्टा)", "Emergency Police Assistance (24/7 Toll-Free)"),
-        EmergencyContact("एम्बुलेन्स (Ambulance)", "Nepal Ambulance Service", "102", "medical", "National", "All", "आपतकालीन एम्बुलेन्स सेवा (२४ घण्टा)", "Emergency Medical Transport (24/7)"),
-        EmergencyContact("दमकल / अग्नि नियन्त्रण (Fire)", "Fire Brigade / Damkal", "101", "rescue", "National", "All", "आगलागी तथा विपद् उद्धार", "Fire Emergency & Rescue"),
-        EmergencyContact("ट्राफिक प्रहरी (Traffic Police)", "Traffic Police Hotline", "103", "security", "National", "All", "ट्राफिक सूचना तथा दुर्घटना सहायता", "Traffic Updates & Accident Support"),
-        EmergencyContact("बाल हेल्पलाइन (Child Helpline)", "Child Helpline Nepal", "1098", "social", "National", "All", "बालबालिकाको उद्धार तथा संरक्षण (Toll-Free)", "Child Protection & Support"),
-        EmergencyContact("राष्ट्रिय महिला आयोग (Women Helpline)", "National Women Commission", "1145", "social", "National", "All", "महिला हिंसाविरुद्ध २४ घण्टे हटलाइन (खबर गरौँ)", "24/7 Women Violence Helpline (Khabar Garaun)"),
-        EmergencyContact("पर्यटक प्रहरी (Tourist Police)", "Tourist Police Nepal", "1144", "security", "National", "Kathmandu", "पर्यटक सहायता तथा सुरक्षा", "Tourist Safety & Assistance"),
-        EmergencyContact("सशस्त्र प्रहरी बल (APF)", "Armed Police Force", "1114", "security", "National", "All", "सीमा सुरक्षा तथा विपद् उद्धार", "Disaster Response & Border Security"),
+        EmergencyContact("नेपाल प्रहरी", "Nepal Police", "100", "security", "National", "All", "आपतकालीन प्रहरी सहायता (२४ घण्टा निःशुल्क)", "Emergency Police Assistance (24/7 Toll-Free)"),
+        EmergencyContact("एम्बुलेन्स सेवा", "Nepal Ambulance Service", "102", "medical", "National", "All", "आपतकालीन एम्बुलेन्स सेवा (२४ घण्टा)", "Emergency Medical Transport (24/7)"),
+        EmergencyContact("दमकल / अग्नि नियन्त्रण", "Fire Brigade / Damkal", "101", "rescue", "National", "All", "आगलागी तथा विपद् उद्धार", "Fire Emergency & Rescue"),
+        EmergencyContact("ट्राफिक प्रहरी", "Traffic Police Hotline", "103", "security", "National", "All", "ट्राफिक सूचना तथा दुर्घटना सहायता", "Traffic Updates & Accident Support"),
+        EmergencyContact("बाल हेल्पलाइन", "Child Helpline Nepal", "1098", "social", "National", "All", "बालबालिकाको उद्धार तथा संरक्षण (निःशुल्क)", "Child Protection & Support"),
+        EmergencyContact("राष्ट्रिय महिला आयोग", "National Women Commission", "1145", "social", "National", "All", "महिला हिंसाविरुद्ध २४ घण्टे हटलाइन (खबर गरौँ)", "24/7 Women Violence Helpline (Khabar Garaun)"),
+        EmergencyContact("पर्यटक प्रहरी", "Tourist Police Nepal", "1144", "security", "National", "Kathmandu", "पर्यटक सहायता तथा सुरक्षा", "Tourist Safety & Assistance"),
+        EmergencyContact("सशस्त्र प्रहरी बल", "Armed Police Force", "1114", "security", "National", "All", "सीमा सुरक्षा तथा विपद् उद्धार", "Disaster Response & Border Security"),
         EmergencyContact("विपद् पूर्वसूचना तथा व्यवस्थापन", "Disaster Emergency Info", "1155", "rescue", "National", "All", "बाढी, पहिरो तथा जल तथा मौसम विपद् सूचना", "Flood & Disaster Early Warning"),
-        EmergencyContact("हेलो सरकार (Hello Sarkar)", "Hello Sarkar Grievance", "1111", "social", "National", "All", "प्रधानमन्त्री कार्यालय — सरकारी सेवा तथा जनगुनासो", "Citizen Grievance & Inquiries"),
+        EmergencyContact("हेलो सरकार", "Hello Sarkar Grievance", "1111", "social", "National", "All", "प्रधानमन्त्री कार्यालय — सरकारी सेवा तथा जनगुनासो", "Citizen Grievance & Inquiries"),
 
         // ==================== Bagmati Province & Kathmandu Valley ====================
         EmergencyContact("काठमाडौं प्रहरी कन्ट्रोल", "Kathmandu Police Control", "014226998", "security", "Bagmati", "Kathmandu", "जिल्ला प्रहरी परिसर टेकु, काठमाडौं", "District Police Control Room Teku, Kathmandu"),
         EmergencyContact("ललितपुर प्रहरी कन्ट्रोल", "Lalitpur Police Control", "015521207", "security", "Bagmati", "Lalitpur", "जिल्ला प्रहरी परिसर जावलाखेल, ललितपुर", "District Police Control Jawalakhel, Lalitpur"),
         EmergencyContact("भक्तपुर प्रहरी कन्ट्रोल", "Bhaktapur Police Control", "016614821", "security", "Bagmati", "Bhaktapur", "जिल्ला प्रहरी परिसर भक्तपुर", "District Police Control Bhaktapur"),
         EmergencyContact("चितवन प्रहरी कन्ट्रोल", "Chitwan Police Control", "056520199", "security", "Bagmati", "Chitwan", "जिल्ला प्रहरी कार्यालय भरतपुर, चितवन", "District Police Office Bharatpur, Chitwan"),
-        EmergencyContact("विषाक्त सूचना केन्द्र (Poison Info)", "Poison Information Center", "014502011", "medical", "Bagmati", "Kathmandu", "शिक्षण अस्पताल (TUTH), महाराजगञ्ज (२४ घण्टा)", "TUTH 24/7 Poisoning Emergency Center"),
+        EmergencyContact("विषाक्त सूचना केन्द्र", "Poison Information Center", "014502011", "medical", "Bagmati", "Kathmandu", "त्रिवि शिक्षण अस्पताल, महाराजगञ्ज (२४ घण्टा)", "TUTH 24/7 Poisoning Emergency Center"),
         EmergencyContact("वीर अस्पताल आकस्मिक कक्ष", "Bir Hospital Emergency", "015321988", "medical", "Bagmati", "Kathmandu", "सरकारी केन्द्रीय आकस्मिक सेवा (२४ घण्टा)", "Central Government Hospital 24/7 Emergency"),
         EmergencyContact("शिक्षण अस्पताल महाराजगञ्ज", "TUTH Emergency", "014512505", "medical", "Bagmati", "Kathmandu", "त्रिवि शिक्षण अस्पताल आकस्मिक कक्ष", "Teaching Hospital Emergency Maharajgunj"),
         EmergencyContact("पाटन अस्पताल आकस्मिक कक्ष", "Patan Hospital Emergency", "015522295", "medical", "Bagmati", "Lalitpur", "पाटन अस्पताल, लगनखेल", "Patan Hospital Lagankhel"),
         EmergencyContact("भक्तपुर अस्पताल आकस्मिक कक्ष", "Bhaktapur Hospital Emergency", "016610798", "medical", "Bagmati", "Bhaktapur", "भक्तपुर अस्पताल, दूधपाटी", "Bhaktapur Hospital Emergency Dudhpati"),
         EmergencyContact("चितवन मेडिकल कलेज आकस्मिक", "Chitwan Medical College", "056532933", "medical", "Bagmati", "Chitwan", "सीएमसी भरतपुर आकस्मिक कक्ष", "CMC Hospital Emergency Bharatpur"),
-        EmergencyContact("केन्द्रीय रक्तसञ्चार सेवा (Blood Bank)", "Central Blood Transfusion Service", "014225344", "blood", "Bagmati", "Kathmandu", "नेपाल रेडक्रस प्रदर्शनीमार्ग, काठमाडौं", "Red Cross Central Blood Bank, Kathmandu"),
+        EmergencyContact("केन्द्रीय रक्तसञ्चार सेवा", "Central Blood Transfusion Service", "014225344", "blood", "Bagmati", "Kathmandu", "नेपाल रेडक्रस प्रदर्शनीमार्ग, काठमाडौं", "Red Cross Central Blood Bank, Kathmandu"),
         EmergencyContact("रेडक्रस रक्तसञ्चार ललितपुर", "Lalitpur Blood Bank", "015427033", "blood", "Bagmati", "Lalitpur", "नेपाल रेडक्रस, पुलचोक", "Red Cross Blood Bank, Pulchowk"),
         EmergencyContact("रेडक्रस रक्तसञ्चार भक्तपुर", "Bhaktapur Blood Bank", "016611661", "blood", "Bagmati", "Bhaktapur", "नेपाल रेडक्रस, भक्तपुर", "Red Cross Blood Bank, Bhaktapur"),
         EmergencyContact("रेडक्रस रक्तसञ्चार चितवन", "Chitwan Blood Bank", "056520880", "blood", "Bagmati", "Chitwan", "नेपाल रेडक्रस, भरतपुर", "Red Cross Blood Bank, Bharatpur"),

@@ -74,7 +74,7 @@ object DrivingLicenseQuestionBank {
         TrafficSignItem("w_two_way_cross", "w_two_way_cross", SignCategory.CAUTIONARY, "अगाडी दुई तर्फी बाटो (दाहिने-बायाँ)", "Two-Way Traffic Crossing", "अगाडि क्रस हुने सडकमा दुई तर्फी सवारी साधन चल्छन्।", "Two-way traffic crossing ahead horizontally.", "दुवैतर्फ हेर्नुहोस्।", "Check both directions.", "triangle", R.drawable.dotm_warn_13),
         TrafficSignItem("w_two_way_straight", "w_two_way_straight", SignCategory.CAUTIONARY, "अगाडी दुई तर्फी बाटो (सिधा)", "Two-Way Traffic Straight", "एकतर्फी सडक समाप्त भई अगाडिबाट दुईतर्फी सवारी आवागमन सुरु हुन्छ।", "Two-way traffic ahead in the same road corridor.", "आफ्नो लेनमा रहनुहोस्।", "Stay in your lane.", "triangle", R.drawable.dotm_warn_14),
         TrafficSignItem("w_height_limit_warn", "w_height_limit_warn", SignCategory.CAUTIONARY, "अगाडी उचाई सीमा (४.४ मिटर)", "Height Limit Ahead (4.4m)", "अगाडि पुल वा सुरुङको उचाइ सीमा ४.४ मिटर छ।", "Height restriction overhead ahead (4.4m).", "अग्लो सवारी नछिराउनुहोस्।", "Avoid exceeding height limit.", "triangle", R.drawable.dotm_warn_15),
-        TrafficSignItem("w_steep_descent", "w_steep_descent", SignCategory.CAUTIONARY, "बढी ओरालो", "Steep Descent Ahead", "अगाडि भिरालो ठाडो ओरालो छ, तल्लो गियर (Lower Gear) मा चलाउनुहोस्।", "Steep downhill gradient ahead. Use lower gear.", "इन्जिन ब्रेकिङ प्रयोग गर्नुहोस्।", "Use engine braking.", "triangle", R.drawable.dotm_warn_16),
+        TrafficSignItem("w_steep_descent", "w_steep_descent", SignCategory.CAUTIONARY, "बढी ओरालो", "Steep Descent Ahead", "अगाडि भिरालो ठाडो ओरालो छ, तल्लो गियरमा चलाउनुहोस्।", "Steep downhill gradient ahead. Use lower gear.", "इन्जिन ब्रेकिङ प्रयोग गर्नुहोस्।", "Use engine braking.", "triangle", R.drawable.dotm_warn_16),
         TrafficSignItem("w_dual_carriageway_end", "w_dual_carriageway_end", SignCategory.CAUTIONARY, "दोहोरो सडक समाप्त", "Dual Carriageway Ends", "डिभाइडर भएको दोहोरो सडक समाप्त भई एकल दुईतर्फी सडक सुरु हुन्छ।", "Dual carriageway road ends ahead.", "बायाँ लेनमा फर्कनुहोस्।", "Merge left safely.", "triangle", R.drawable.dotm_warn_17),
         TrafficSignItem("w_cattle_crossing", "w_cattle_crossing", SignCategory.CAUTIONARY, "पाल्तु जनावर", "Domestic Animals / Cattle Crossing", "सडकमा गाईवस्तु वा पाल्तु जनावर अचानक आउन सक्छन्।", "Cattle or livestock crossing road ahead.", "सवारी ढिलो गर्नुहोस्।", "Reduce speed.", "triangle", R.drawable.dotm_warn_18),
         TrafficSignItem("w_pedestrians_ahead", "w_pedestrians_ahead", SignCategory.CAUTIONARY, "अगाडि बाटोमा पदयात्रीहरू", "Pedestrians on Road Ahead", "सडकमा पैदल हिँड्ने मानिस वा बालबालिका हुन सक्छन्।", "Pedestrians or school children on road ahead.", "सतर्क रहनुहोस्।", "Drive with caution.", "triangle", R.drawable.dotm_warn_19),
@@ -85,7 +85,7 @@ object DrivingLicenseQuestionBank {
         TrafficSignItem("w_side_road_merge_left", "w_side_road_merge_left", SignCategory.CAUTIONARY, "बायाँबाट सवारी आउन सक्छ", "Side Road Merge Left", "अगाडि बायाँ तर्फको कोणबाट सवारी मुख्य सडकमा मिसिन सक्छन्।", "Side traffic merging at an angle from the left.", "मिसिने सवारीमा ध्यान दिनुहोस्।", "Watch for merging traffic.", "triangle", R.drawable.dotm_warn_24),
         TrafficSignItem("w_dip_causeway", "w_dip_causeway", SignCategory.CAUTIONARY, "खतरनाक दबेको बाटो", "Dip / Riverbed / Causeway", "अगाडि सडक सतह दबेको, खाल्डो वा खोलाको कजवे छ।", "Dip, riverbed, or low-water causeway on road ahead.", "सवारी बिस्तारै लैजानुहोस्।", "Cross slowly.", "triangle", R.drawable.dotm_warn_25),
         TrafficSignItem("w_traffic_signals", "w_traffic_signals", SignCategory.CAUTIONARY, "ट्राफिक संकेत", "Traffic Light Signals Ahead", "अगाडि ट्राफिक लाइट बत्ती प्रणाली छ, बत्तीको संकेत अनुसार चल्नुहोस्।", "Traffic control signal lights ahead. Prepare to stop.", "रातो बत्तीमा रोकिनुहोस्।", "Halt on red signal.", "triangle", R.drawable.dotm_warn_26),
-        TrafficSignItem("w_speed_breaker", "w_speed_breaker", SignCategory.CAUTIONARY, "उठेको बाटो", "Speed Hump / Bump Ahead", "अगाडि सडकमा गति नियन्त्रक हम्प (Speed Breaker) छ।", "Speed hump on roadway ahead. Slow down.", "सवारी जोगाउनुहोस्।", "Protect vehicle suspension.", "triangle", R.drawable.dotm_warn_27),
+        TrafficSignItem("w_speed_breaker", "w_speed_breaker", SignCategory.CAUTIONARY, "उठेको बाटो", "Speed Hump / Bump Ahead", "अगाडि सडकमा गति नियन्त्रक हम्प छ।", "Speed hump on roadway ahead. Slow down.", "सवारी जोगाउनुहोस्।", "Protect vehicle suspension.", "triangle", R.drawable.dotm_warn_27),
         TrafficSignItem("w_unguarded_rail", "w_unguarded_rail", SignCategory.CAUTIONARY, "रेल गाडी (गेट नभएको)", "Unguarded Railway Crossing", "अगाडि गेट नभएको रेलवे क्रसिङ छ, रेल नआएको यकिन गरेर मात्र पार गर्नुहोस्।", "Unguarded railway level crossing without barrier ahead.", "रेललाई पहिलो प्राथमिकता।", "Trains have absolute right of way.", "triangle", R.drawable.dotm_warn_28),
         TrafficSignItem("w_steep_ascent", "w_steep_ascent", SignCategory.CAUTIONARY, "बढी उकालो", "Steep Ascent Ahead", "अगाडि ठाडो उकालो सडक छ, उचित शक्ति भएको गियरमा चलाउनुहोस्।", "Steep uphill gradient ahead. Maintain power gear.", "पछाडि गुल्टिन नदिनुहोस्।", "Prevent rollback.", "triangle", R.drawable.dotm_warn_29),
         TrafficSignItem("w_loose_gravel", "w_loose_gravel", SignCategory.CAUTIONARY, "गिट्टी उछिट्टिन सक्ने", "Loose Gravel / Flying Stones", "सडकमा गिट्टी छरिएकाले चक्काबाट ढुङ्गा उछिट्टिन सक्छ।", "Loose stones may be thrown by tires.", "अगाडिको सवारीसँग दूरी राख्नुहोस्।", "Increase following distance.", "triangle", R.drawable.dotm_warn_30),
@@ -125,26 +125,26 @@ object DrivingLicenseQuestionBank {
         // ---------------------------------------------------------------------
         // ROAD SURFACE MARKINGS (सडक रेखांकन - DoTM Standard)
         // ---------------------------------------------------------------------
-        TrafficSignItem("r_broken_white", "r_broken_white", SignCategory.ROAD_MARKING, "खण्डित सेतो रेखा (Broken White Center Line)", "Broken White Center Line", "सडक सुरक्षित र स्पष्ट भएको अवस्थामा लेन परिवर्तन वा ओभरटेक गर्न पाइन्छ।", "Overtaking or lane changing permitted when clear and safe.", "इन्डिकेटर बालेर मात्र बदल्नुहोस्।", "Always signal before lane change.", "square"),
-        TrafficSignItem("r_solid_white", "r_solid_white", SignCategory.ROAD_MARKING, "अखण्डित सेतो रेखा (Solid Continuous White Line)", "Solid White Center Line", "यो रेखा क्रस गरि ओभरटेक वा लेन परिवर्तन गर्न पूर्ण निषेध छ।", "Crossing this continuous line to overtake is strictly prohibited.", "रु. १००० लेन अनुशासन जरिवाना।", "Fine of Rs. 1,000.", "square"),
-        TrafficSignItem("r_double_yellow", "r_double_yellow", SignCategory.ROAD_MARKING, "दोहोरो पहेँलो अखण्डित रेखा (Double Solid Yellow Lines)", "Double Solid Yellow Lines", "दुवै तर्फका कुनै पनि सवारीले रेखा क्रस गर्न वा ओभरटेक गर्न सख्त निषेध।", "Neither side of traffic may cross or straddle these lines.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
-        TrafficSignItem("r_solid_broken_combo", "r_solid_broken_combo", SignCategory.ROAD_MARKING, "खण्डित र अखण्डित संयुक्त रेखा (Solid with Broken Line)", "Combination Solid and Broken Line", "खण्डित रेखा भएको लेनका सवारीले ओभरटेक गर्न पाउँछन्, अखण्डित तर्फकाले पाउँदैनन्।", "Traffic on broken line side may pass; solid line side must not cross.", "रु. १००० जरिवाना।", "Fine of Rs. 1,000.", "square"),
-        TrafficSignItem("r_zebra_crossing", "r_zebra_crossing", SignCategory.ROAD_MARKING, "जेब्रा क्रसिङ (Zebra Pedestrian Crossing)", "Zebra Crosswalk", "पैदलयात्री सडक पार गर्ने स्थान। सवारी रोकि पैदलयात्रीलाई पहिलो बाटो दिनु अनिवार्य।", "Pedestrian crosswalk zone. Drivers must stop and give priority.", "नरोकेमा रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
-        TrafficSignItem("r_stop_line", "r_stop_line", SignCategory.ROAD_MARKING, "स्टप लाइन (Stop Line)", "Stop Line", "रातो बत्ती वा ट्राफिक प्रहरीको रोक्ने इशारा हुँदा यो रेखा अगावै रोकिनु पर्छ।", "Vehicles must come to a complete halt before this transverse line.", "रेखा नाघेमा रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
-        TrafficSignItem("r_give_way_triangle", "r_give_way_triangle", SignCategory.ROAD_MARKING, "बाटो दिने त्रिकोण चिन्ह (Give Way Marking)", "Give Way Triangle Marking", "सडक सतहमा कोरिएको सेतो त्रिकोण: मुख्य सडकका सवारीलाई बाटो दिनुहोस्।", "Marked on road surface indicating requirement to yield.", "रु. ५०० जरिवाना।", "Fine of Rs. 500.", "square"),
-        TrafficSignItem("r_yellow_box", "r_yellow_box", SignCategory.ROAD_MARKING, "पहेँलो बक्स जंक्शन (Yellow Box Junction)", "Yellow Box Junction", "चोकमा सवारी जाम हुँदा बक्स भित्र नपस्नुहोस्। अगाडिको निकास खुला भएपछि मात्र छिर्नुहोस्।", "Do not enter the box junction unless your exit is completely clear.", "रु. १००० जरिवाना।", "Fine of Rs. 1,000.", "square"),
+        TrafficSignItem("r_broken_white", "r_broken_white", SignCategory.ROAD_MARKING, "खण्डित सेतो रेखा", "Broken White Center Line", "सडक सुरक्षित र स्पष्ट भएको अवस्थामा लेन परिवर्तन वा ओभरटेक गर्न पाइन्छ।", "Overtaking or lane changing permitted when clear and safe.", "इन्डिकेटर बालेर मात्र बदल्नुहोस्।", "Always signal before lane change.", "square"),
+        TrafficSignItem("r_solid_white", "r_solid_white", SignCategory.ROAD_MARKING, "अखण्डित सेतो रेखा", "Solid White Center Line", "यो रेखा क्रस गरि ओभरटेक वा लेन परिवर्तन गर्न पूर्ण निषेध छ।", "Crossing this continuous line to overtake is strictly prohibited.", "रु. १००० लेन अनुशासन जरिवाना।", "Fine of Rs. 1,000.", "square"),
+        TrafficSignItem("r_double_yellow", "r_double_yellow", SignCategory.ROAD_MARKING, "दोहोरो पहेँलो अखण्डित रेखा", "Double Solid Yellow Lines", "दुवै तर्फका कुनै पनि सवारीले रेखा क्रस गर्न वा ओभरटेक गर्न सख्त निषेध।", "Neither side of traffic may cross or straddle these lines.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
+        TrafficSignItem("r_solid_broken_combo", "r_solid_broken_combo", SignCategory.ROAD_MARKING, "खण्डित र अखण्डित संयुक्त रेखा", "Combination Solid and Broken Line", "खण्डित रेखा भएको लेनका सवारीले ओभरटेक गर्न पाउँछन्, अखण्डित तर्फकाले पाउँदैनन्।", "Traffic on broken line side may pass; solid line side must not cross.", "रु. १००० जरिवाना।", "Fine of Rs. 1,000.", "square"),
+        TrafficSignItem("r_zebra_crossing", "r_zebra_crossing", SignCategory.ROAD_MARKING, "जेब्रा क्रसिङ", "Zebra Crosswalk", "पैदलयात्री सडक पार गर्ने स्थान। सवारी रोकि पैदलयात्रीलाई पहिलो बाटो दिनु अनिवार्य।", "Pedestrian crosswalk zone. Drivers must stop and give priority.", "नरोकेमा रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
+        TrafficSignItem("r_stop_line", "r_stop_line", SignCategory.ROAD_MARKING, "स्टप लाइन", "Stop Line", "रातो बत्ती वा ट्राफिक प्रहरीको रोक्ने इशारा हुँदा यो रेखा अगावै रोकिनु पर्छ।", "Vehicles must come to a complete halt before this transverse line.", "रेखा नाघेमा रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
+        TrafficSignItem("r_give_way_triangle", "r_give_way_triangle", SignCategory.ROAD_MARKING, "बाटो दिने त्रिकोण चिन्ह", "Give Way Triangle Marking", "सडक सतहमा कोरिएको सेतो त्रिकोण: मुख्य सडकका सवारीलाई बाटो दिनुहोस्।", "Marked on road surface indicating requirement to yield.", "रु. ५०० जरिवाना।", "Fine of Rs. 500.", "square"),
+        TrafficSignItem("r_yellow_box", "r_yellow_box", SignCategory.ROAD_MARKING, "पहेँलो बक्स जंक्शन", "Yellow Box Junction", "चोकमा सवारी जाम हुँदा बक्स भित्र नपस्नुहोस्। अगाडिको निकास खुला भएपछि मात्र छिर्नुहोस्।", "Do not enter the box junction unless your exit is completely clear.", "रु. १००० जरिवाना।", "Fine of Rs. 1,000.", "square"),
 
         // ---------------------------------------------------------------------
         // TRAFFIC LIGHTS & POLICE SIGNALS (ट्राफिक लाइट तथा इशारा)
         // ---------------------------------------------------------------------
-        TrafficSignItem("p_light_red", "p_light_red", SignCategory.TRAFFIC_LIGHT, "रातो बत्ती (Red Traffic Signal)", "Red Light Signal", "सवारी साधन स्टप लाइन अगावै पूर्ण रूपमा रोक्नुहोस्। क्रस गर्न सख्त निषेध।", "Stop completely before the stop line. No proceeding on red light.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "light"),
-        TrafficSignItem("p_light_yellow", "p_light_yellow", SignCategory.TRAFFIC_LIGHT, "पहेँलो बत्ती (Amber/Yellow Signal)", "Amber / Yellow Signal", "रातो बत्ती बल्न लागेको संकेत। सुरक्षित रूपमा रोकिने तयारी गर्नुहोस्।", "Prepare to halt safely before red. Do not speed up to beat the light.", "रु. ५०० - १००० जरिवाना।", "Fine of Rs. 500 - 1,000.", "light"),
-        TrafficSignItem("p_light_green", "p_light_green", SignCategory.TRAFFIC_LIGHT, "हरियो बत्ती (Green Traffic Signal)", "Green Light Signal", "बाटो खुला छ, चोक खाली भएपछि सुरक्षित रूपमा अगाडि बढ्नुहोस्।", "Proceed through junction with care when safe.", "—", "—", "light"),
-        TrafficSignItem("p_flashing_red", "p_flashing_red", SignCategory.TRAFFIC_LIGHT, "झिम्किने रातो बत्ती (Flashing Red Signal)", "Flashing Red Signal", "स्टप साइन सरह पूर्ण रूपमा रोक्नुहोस्, दुवैतर्फ हेरेर बाटो खाली भएपछि मात्र अघि बढ्नुहोस्।", "Treat as STOP sign: Complete halt, yield, and proceed only when clear.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "light"),
-        TrafficSignItem("p_flashing_yellow", "p_flashing_yellow", SignCategory.TRAFFIC_LIGHT, "झिम्किने पहेँलो बत्ती (Flashing Amber Signal)", "Flashing Amber Signal", "सवारीको गति कम गरी सावधानीपूर्वक चोक पार गर्नुहोस्।", "Slow down and proceed through intersection with extra caution.", "रु. ५०० - १००० जरिवाना।", "Fine of Rs. 500 - 1,000.", "light"),
-        TrafficSignItem("p_green_arrow", "p_green_arrow", SignCategory.TRAFFIC_LIGHT, "हरियो बाण संकेत (Green Directional Arrow)", "Green Filter Arrow Signal", "मुख्य रातो बत्ती बले तापनि तीरले देखाएको दिशामा सुरक्षित मोड्न छुट छ।", "Permitted to turn in indicated arrow direction even if main light is red.", "—", "—", "light"),
-        TrafficSignItem("p_pedestrian_red", "p_pedestrian_red", SignCategory.TRAFFIC_LIGHT, "पैदलयात्री रातो बत्ती (Don't Walk Red Man)", "Pedestrian Don't Walk (Red)", "पैदलयात्रीले सडक पार गर्न निषेध। फुटपाथमै पर्खनुहोस्।", "Pedestrians must not cross the roadway. Wait on sidewalk.", "सडक सुरक्षा उल्लंघन।", "Safety violation.", "light"),
-        TrafficSignItem("p_pedestrian_green", "p_pedestrian_green", SignCategory.TRAFFIC_LIGHT, "पैदलयात्री हरियो बत्ती (Walk Green Man)", "Pedestrian Walk Signal (Green)", "पैदलयात्रीले जेब्रा क्रसिङबाट बाटो काट्न पाउँछन्। चालकले बाटो दिनुपर्छ।", "Pedestrians may cross at zebra crossing. Drivers must yield.", "पैदलयात्रीलाई बाटो दिनुहोस्।", "Yield to walkers.", "light"),
+        TrafficSignItem("p_light_red", "p_light_red", SignCategory.TRAFFIC_LIGHT, "रातो बत्ती", "Red Light Signal", "सवारी साधन स्टप लाइन अगावै पूर्ण रूपमा रोक्नुहोस्। क्रस गर्न सख्त निषेध।", "Stop completely before the stop line. No proceeding on red light.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "light"),
+        TrafficSignItem("p_light_yellow", "p_light_yellow", SignCategory.TRAFFIC_LIGHT, "पहेँलो बत्ती", "Amber / Yellow Signal", "रातो बत्ती बल्न लागेको संकेत। सुरक्षित रूपमा रोकिने तयारी गर्नुहोस्।", "Prepare to halt safely before red. Do not speed up to beat the light.", "रु. ५०० - १००० जरिवाना।", "Fine of Rs. 500 - 1,000.", "light"),
+        TrafficSignItem("p_light_green", "p_light_green", SignCategory.TRAFFIC_LIGHT, "हरियो बत्ती", "Green Light Signal", "बाटो खुला छ, चोक खाली भएपछि सुरक्षित रूपमा अगाडि बढ्नुहोस्।", "Proceed through junction with care when safe.", "—", "—", "light"),
+        TrafficSignItem("p_flashing_red", "p_flashing_red", SignCategory.TRAFFIC_LIGHT, "झिम्किने रातो बत्ती", "Flashing Red Signal", "स्टप साइन सरह पूर्ण रूपमा रोक्नुहोस्, दुवैतर्फ हेरेर बाटो खाली भएपछि मात्र अघि बढ्नुहोस्।", "Treat as STOP sign: Complete halt, yield, and proceed only when clear.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "light"),
+        TrafficSignItem("p_flashing_yellow", "p_flashing_yellow", SignCategory.TRAFFIC_LIGHT, "झिम्किने पहेँलो बत्ती", "Flashing Amber Signal", "सवारीको गति कम गरी सावधानीपूर्वक चोक पार गर्नुहोस्।", "Slow down and proceed through intersection with extra caution.", "रु. ५०० - १००० जरिवाना।", "Fine of Rs. 500 - 1,000.", "light"),
+        TrafficSignItem("p_green_arrow", "p_green_arrow", SignCategory.TRAFFIC_LIGHT, "हरियो बाण संकेत", "Green Filter Arrow Signal", "मुख्य रातो बत्ती बले तापनि तीरले देखाएको दिशामा सुरक्षित मोड्न छुट छ।", "Permitted to turn in indicated arrow direction even if main light is red.", "—", "—", "light"),
+        TrafficSignItem("p_pedestrian_red", "p_pedestrian_red", SignCategory.TRAFFIC_LIGHT, "पैदलयात्री रातो बत्ती", "Pedestrian Don't Walk (Red)", "पैदलयात्रीले सडक पार गर्न निषेध। फुटपाथमै पर्खनुहोस्।", "Pedestrians must not cross the roadway. Wait on sidewalk.", "सडक सुरक्षा उल्लंघन।", "Safety violation.", "light"),
+        TrafficSignItem("p_pedestrian_green", "p_pedestrian_green", SignCategory.TRAFFIC_LIGHT, "पैदलयात्री हरियो बत्ती", "Pedestrian Walk Signal (Green)", "पैदलयात्रीले जेब्रा क्रसिङबाट बाटो काट्न पाउँछन्। चालकले बाटो दिनुपर्छ।", "Pedestrians may cross at zebra crossing. Drivers must yield.", "पैदलयात्रीलाई बाटो दिनुहोस्।", "Yield to walkers.", "light"),
         TrafficSignItem("p_stop_front", "p_stop_front", SignCategory.TRAFFIC_LIGHT, "प्रहरीको अगाडिको सवारी रोक्ने इशारा", "Police Stop Front Traffic", "ट्राफिक प्रहरीले अगाडिबाट आउने सवारी साधनलाई रोकिन हात उठाएको आधिकारिक इशारा।", "Traffic police officer raising right hand to order oncoming traffic to stop.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
         TrafficSignItem("p_stop_rear", "p_stop_rear", SignCategory.TRAFFIC_LIGHT, "प्रहरीको पछाडिको सवारी रोक्ने इशारा", "Police Stop Rear Traffic", "ट्राफिक प्रहरीले पछाडिबाट आउने सवारी साधनलाई रोकिन बायाँ हात तेर्स्याएको इशारा।", "Traffic police extending left arm horizontally to halt rear traffic.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
         TrafficSignItem("p_stop_both", "p_stop_both", SignCategory.TRAFFIC_LIGHT, "प्रहरीको अगाडि र पछाडि दुवै रोक्ने इशारा", "Police Stop Front & Rear", "अगाडि र पछाडि दुवै तर्फबाट आउने सवारी साधनलाई एकैपटक रोक्ने संयुक्त इशारा।", "Simultaneous hand signal to halt both oncoming front and rear traffic.", "रु. १५०० जरिवाना।", "Fine of Rs. 1,500.", "square"),
@@ -156,14 +156,14 @@ object DrivingLicenseQuestionBank {
     // =========================================================================
     val bikeTrialGuide = TrialGuide(
         category = LicenseCategory.CATEGORY_A,
-        titleNp = "मोटरसाइकल / स्कुटर प्रयोगात्मक परीक्षा (Trial Guide - ७० अंक पास प्रणाली)",
+        titleNp = "मोटरसाइकल / स्कुटर प्रयोगात्मक परीक्षा — ७० अंक पास प्रणाली",
         titleEn = "Motorcycle/Scooter Practical Trial Assessment (70 Marks Pass Rule)",
         totalMarks = 100,
         passMarks = 70,
         steps = listOf(
             TrialStep(
                 stepNumber = 1,
-                nameNp = "घुमाउरो ८ आकार (Figure 8 Test)",
+                nameNp = "घुमाउरो ८ आकार",
                 nameEn = "Figure '8' Maneuver",
                 totalMarks = 25,
                 deductionsNp = listOf(
@@ -181,7 +181,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 2,
-                nameNp = "साँघुरो फल्याक / सीधा फल्याक (Narrow Plank Test)",
+                nameNp = "साँघुरो फल्याक / सीधा फल्याक",
                 nameEn = "Narrow Plank Balance",
                 totalMarks = 15,
                 deductionsNp = listOf(
@@ -197,7 +197,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 3,
-                nameNp = "यु-टर्न तथा साइड इन्डिकेटर (U-Turn & Indicator)",
+                nameNp = "यु-टर्न तथा साइड इन्डिकेटर",
                 nameEn = "U-Turn with Indicator Signal",
                 totalMarks = 10,
                 deductionsNp = listOf(
@@ -213,7 +213,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 4,
-                nameNp = "ट्राफिक लाइट संकेत (Traffic Signal Stop & Go)",
+                nameNp = "ट्राफिक लाइट संकेत",
                 nameEn = "Traffic Light Compliance",
                 totalMarks = 15,
                 deductionsNp = listOf(
@@ -229,12 +229,12 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 5,
-                nameNp = "गति अवरोधक / उबडखाबड (Speed Breaker / Bumps)",
+                nameNp = "गति अवरोधक / उबडखाबड",
                 nameEn = "Speed Bump Maneuver",
                 totalMarks = 15,
                 deductionsNp = listOf(
                     "१ पटक खुट्टा टेकेमा: ५ अंक घट्ने",
-                    "१ पटक इन्जिन बन्द (Start Off) भएमा: ५ अंक घट्ने"
+                    "१ पटक इन्जिन बन्द भएमा: ५ अंक घट्ने"
                 ),
                 deductionsEn = listOf(
                     "1 foot touch: -5 marks deduction",
@@ -245,7 +245,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 6,
-                nameNp = "उकालो र ओरालो र्याम्प (Uphill & Downhill Ramp)",
+                nameNp = "उकालो र ओरालो र्याम्प",
                 nameEn = "Uphill & Downhill Ramp Test",
                 totalMarks = 20,
                 deductionsNp = listOf(
@@ -266,14 +266,14 @@ object DrivingLicenseQuestionBank {
 
     val carTrialGuide = TrialGuide(
         category = LicenseCategory.CATEGORY_B,
-        titleNp = "कार / जिप प्रयोगात्मक परीक्षा (Car Trial Guide - ७० अंक पास प्रणाली)",
+        titleNp = "कार / जिप प्रयोगात्मक परीक्षा — ७० अंक पास प्रणाली",
         titleEn = "Car/Jeep Practical Trial Assessment (70 Marks Pass Rule)",
         totalMarks = 100,
         passMarks = 70,
         steps = listOf(
             TrialStep(
                 stepNumber = 1,
-                nameNp = "८ आकार घुम्ती (Figure 8 Test)",
+                nameNp = "८ आकार घुम्ती",
                 nameEn = "Car Figure 8 Maneuver",
                 totalMarks = 20,
                 deductionsNp = listOf(
@@ -289,7 +289,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 2,
-                nameNp = "ट्राफिक लाइट संकेत (Traffic Light Stop)",
+                nameNp = "ट्राफिक लाइट संकेत",
                 nameEn = "Traffic Light Compliance",
                 totalMarks = 15,
                 deductionsNp = listOf("रातो बत्तीमा स्टप लाइन काटेमा: सिधै फेल"),
@@ -299,7 +299,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 3,
-                nameNp = "उकालो र्याम्प स्टार्ट (Uphill Ramp Start)",
+                nameNp = "उकालो र्याम्प स्टार्ट",
                 nameEn = "Uphill Ramp Start with Handbrake",
                 totalMarks = 20,
                 deductionsNp = listOf(
@@ -315,7 +315,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 4,
-                nameNp = "एल-पार्किङ / टी-पार्किङ (L-Parking / Garage Parking)",
+                nameNp = "एल-पार्किङ / टी-पार्किङ",
                 nameEn = "Garage L-Parking & Reversing",
                 totalMarks = 25,
                 deductionsNp = listOf(
@@ -333,7 +333,7 @@ object DrivingLicenseQuestionBank {
             ),
             TrialStep(
                 stepNumber = 5,
-                nameNp = "सिट बेल्ट तथा साइड लाइट (Safety & Indicators)",
+                nameNp = "सिट बेल्ट तथा साइड लाइट",
                 nameEn = "Seatbelt & Indicators",
                 totalMarks = 20,
                 deductionsNp = listOf(
@@ -452,12 +452,12 @@ object DrivingLicenseQuestionBank {
             id = 1,
             category = LicenseCategory.CATEGORY_A,
             topic = QuestionTopic.VEHICLE_OPERATION,
-            questionNp = "सवारी साधन हाँक्दा कुन साइडबाट ओभरटेक (Overtake) गर्नुपर्छ?",
+            questionNp = "सवारी साधन हाँक्दा कुन छेउबाट ओभरटेक गर्नुपर्छ?",
             questionEn = "From which side should you overtake a vehicle in Nepal?",
-            optionsNp = listOf("दायाँ (Right) तर्फबाट", "बायाँ (Left) तर्फबाट", "जुनसुकै साइडबाट", "फुटपाथबाट"),
+            optionsNp = listOf("दायाँ तर्फबाट", "बायाँ तर्फबाट", "जुनसुकै छेउबाट", "फुटपाथबाट"),
             optionsEn = listOf("From the Right side", "From the Left side", "From either side", "From footpath"),
             correctIndex = 0,
-            explanationNp = "नेपालमा बायाँ तर्फ सवारी चलाउने नियम (Left-hand traffic) भएकाले सधैं अगाडिको सवारीको दायाँ तर्फबाट मात्र ओभरटेक गर्नुपर्छ।",
+            explanationNp = "नेपालमा बायाँ तर्फ सवारी चलाउने नियम भएकाले सधैं अगाडिको सवारीको दायाँ तर्फबाट मात्र ओभरटेक गर्नुपर्छ।",
             explanationEn = "In Nepal's left-hand traffic system, overtaking must always be done from the right side."
         ),
         LicenseQuestion(
@@ -491,7 +491,7 @@ object DrivingLicenseQuestionBank {
                 "Honk and keep driving"
             ),
             correctIndex = 0,
-            explanationNp = "एम्बुलेन्स, दमकल, तथा शव वाहनलाई पहिलो प्राथमिकता (Right of Way) दिँदै बायाँ किनारामा सवारी सारेर रोक्नुपर्छ।",
+            explanationNp = "एम्बुलेन्स, दमकल, तथा शव वाहनलाई पहिलो प्राथमिकता दिँदै बायाँ किनारामा सवारी सारेर रोक्नुपर्छ।",
             explanationEn = "Emergency vehicles have top priority. Always pull safely to the left edge and stop."
         )
     )

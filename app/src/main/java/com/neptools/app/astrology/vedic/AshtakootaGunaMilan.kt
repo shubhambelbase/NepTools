@@ -1,4 +1,4 @@
-﻿package com.neptools.app.astrology.vedic
+package com.neptools.app.astrology.vedic
 
 import kotlin.math.abs
 
@@ -64,9 +64,9 @@ object AshtakootaGunaMilan {
     )
 
     val YONI_NAMES_NP = listOf(
-        "अश्व (घोडा)", "गज (हात्ती)", "मेष (भेडा)", "सर्प", "श्वान (कुकुर)", "मार्जार (बिरालो)",
-        "मूषक (मुसो)", "गौ (गाई)", "महिष (राँगो)", "व्याघ्र (बाघ)", "मृग (हरिण)", "वानर (बाँदर)",
-        "नकुल (न्याउरी)", "सिंह"
+        "अश्व", "गज", "मेष", "सर्प", "श्वान", "मार्जार",
+        "मूषक", "गौ", "महिष", "व्याघ्र", "मृग", "वानर",
+        "नकुल", "सिंह"
     )
 
     val YONI_NAMES_EN = listOf(
@@ -76,10 +76,10 @@ object AshtakootaGunaMilan {
     )
 
     val NADI_NAMES_NP = listOf("आदि", "मध्य", "अन्त्य")
-    val NADI_NAMES_EN = listOf("Adi (Vata)", "Madhya (Pitta)", "Antya (Kapha)")
+    val NADI_NAMES_EN = listOf("Adi", "Madhya", "Antya")
 
     val GANA_NAMES_NP = listOf("देव", "मनुष्य", "राक्षस")
-    val GANA_NAMES_EN = listOf("Deva (Divine)", "Manushya (Human)", "Rakshasa (Fiery)")
+    val GANA_NAMES_EN = listOf("Deva", "Manushya", "Rakshasa")
 
     // Rashi planetary lords:
     // 0 Aries (Mars), 1 Taurus (Venus), 2 Gemini (Mercury), 3 Cancer (Moon),
@@ -117,15 +117,25 @@ object AshtakootaGunaMilan {
         val nameEn: String,
         val maxPoints: Double,
         val earnedPoints: Double,
-        val boyValue: String,
-        val girlValue: String,
+        val boyValueNp: String,
+        val boyValueEn: String,
+        val girlValueNp: String,
+        val girlValueEn: String,
         val category: String, // "Mental", "Health", "Prosperity", "Physical"
         val explanationNp: String,
         val explanationEn: String,
         val hasDosha: Boolean = false,
         val doshaNameNp: String? = null,
         val doshaNameEn: String? = null
-    )
+    ) {
+        val boyValue: String get() = boyValueNp
+        val girlValue: String get() = girlValueNp
+        fun boyValue(isEn: Boolean): String = if (isEn) boyValueEn else boyValueNp
+        fun girlValue(isEn: Boolean): String = if (isEn) girlValueEn else girlValueNp
+        fun name(isEn: Boolean): String = if (isEn) nameEn else nameNp
+        fun explanation(isEn: Boolean): String = if (isEn) explanationEn else explanationNp
+        fun doshaName(isEn: Boolean): String? = if (isEn) doshaNameEn else doshaNameNp
+    }
 
     data class MilanResult(
         val totalPoints: Double,
@@ -238,12 +248,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "varna",
-            nameNp = "वर्ण (Varna)",
-            nameEn = "Varna (Ego & Work)",
+            nameNp = "वर्ण",
+            nameEn = "Varna",
             maxPoints = 1.0,
             earnedPoints = pts,
-            boyValue = nameNp(bRank),
-            girlValue = nameNp(gRank),
+            boyValueNp = nameNp(bRank),
+            boyValueEn = nameEn(bRank),
+            girlValueNp = nameNp(gRank),
+            girlValueEn = nameEn(gRank),
             category = "Prosperity",
             explanationNp = if (pts > 0) "वर र वधु बीच कार्यशैली र आध्यात्मिक अहंको राम्रो सन्तुलन छ।" else "वर र वधुको कार्यशैली र दृष्टिकोणमा भिन्नता देखिन्छ।",
             explanationEn = if (pts > 0) "Favorable ego balance and cooperative work orientation." else "Difference in temperament and ego perspective."
@@ -282,12 +294,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "vashya",
-            nameNp = "वश्य (Vashya)",
-            nameEn = "Vashya (Mutual Attraction)",
+            nameNp = "वश्य",
+            nameEn = "Vashya",
             maxPoints = 2.0,
             earnedPoints = pts,
-            boyValue = typeNamesNp[bT],
-            girlValue = typeNamesEn[gT],
+            boyValueNp = typeNamesNp[bT],
+            boyValueEn = typeNamesEn[bT],
+            girlValueNp = typeNamesNp[gT],
+            girlValueEn = typeNamesEn[gT],
             category = "Prosperity",
             explanationNp = if (pts >= 1.5) "आपसी आकर्षण, प्रभाव र सम्मान उत्कृष्ट रहनेछ।" else if (pts >= 1.0) "मध्यम आपसी आकर्षण र प्रभाव।" else "एक-अर्कामा नियन्त्रण गर्ने प्रयासले मतभेद हुन सक्छ।",
             explanationEn = if (pts >= 1.5) "Strong mutual attraction and mutual respect." else if (pts >= 1.0) "Moderate mutual influence and bonding." else "Possibility of dominance struggle in relationship."
@@ -316,12 +330,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "tara",
-            nameNp = "तारा (Tara)",
-            nameEn = "Tara (Destiny & Health)",
+            nameNp = "तारा",
+            nameEn = "Tara",
             maxPoints = 3.0,
             earnedPoints = pts,
-            boyValue = taraNamesNp[rem1],
-            girlValue = taraNamesNp[rem2],
+            boyValueNp = taraNamesNp[rem1],
+            boyValueEn = taraNamesEn[rem1],
+            girlValueNp = taraNamesNp[rem2],
+            girlValueEn = taraNamesEn[rem2],
             category = "Health",
             explanationNp = when (pts) {
                 3.0 -> "भाग्य, दीर्घायु र स्वास्थ्यमा पूर्ण शुभ योग।"
@@ -352,12 +368,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "yoni",
-            nameNp = "योनि (Yoni)",
-            nameEn = "Yoni (Physical Harmony)",
+            nameNp = "योनि",
+            nameEn = "Yoni",
             maxPoints = 4.0,
             earnedPoints = pts,
-            boyValue = YONI_NAMES_NP[bY],
-            girlValue = YONI_NAMES_NP[gY],
+            boyValueNp = YONI_NAMES_NP[bY],
+            boyValueEn = YONI_NAMES_EN[bY],
+            girlValueNp = YONI_NAMES_NP[gY],
+            girlValueEn = YONI_NAMES_EN[gY],
             category = "Physical",
             explanationNp = when {
                 pts == 4.0 -> "शारीरिक र जैविक अनुकूलता पूर्ण रूपमा उत्तम।"
@@ -395,12 +413,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "maitri",
-            nameNp = "ग्रह मैत्री (Maitri)",
-            nameEn = "Graha Maitri (Mental Harmony)",
+            nameNp = "ग्रह मैत्री",
+            nameEn = "Graha Maitri",
             maxPoints = 5.0,
             earnedPoints = pts,
-            boyValue = "${RASHIS_NP[bRashi]} (${planetNamesNp[bLord]})",
-            girlValue = "${RASHIS_NP[gRashi]} (${planetNamesNp[gLord]})",
+            boyValueNp = "${RASHIS_NP[bRashi]} (${planetNamesNp[bLord]})",
+            boyValueEn = "${RASHIS_EN[bRashi]} (${planetNamesEn[bLord]})",
+            girlValueNp = "${RASHIS_NP[gRashi]} (${planetNamesNp[gLord]})",
+            girlValueEn = "${RASHIS_EN[gRashi]} (${planetNamesEn[gLord]})",
             category = "Mental",
             explanationNp = when {
                 pts >= 4.0 -> "राशि स्वामीहरू बीच मित्रता; मानसिक सोच, विचार र मित्रता उत्कृष्ट।"
@@ -434,12 +454,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "gana",
-            nameNp = "गण (Gana)",
-            nameEn = "Gana (Temperament)",
+            nameNp = "गण",
+            nameEn = "Gana",
             maxPoints = 6.0,
             earnedPoints = pts,
-            boyValue = GANA_NAMES_NP[bG],
-            girlValue = GANA_NAMES_NP[gG],
+            boyValueNp = GANA_NAMES_NP[bG],
+            boyValueEn = GANA_NAMES_EN[bG],
+            girlValueNp = GANA_NAMES_NP[gG],
+            girlValueEn = GANA_NAMES_EN[gG],
             category = "Mental",
             hasDosha = hasDosha,
             doshaNameNp = if (hasDosha) "गण दोष" else null,
@@ -474,34 +496,43 @@ object AshtakootaGunaMilan {
             else -> 0.0 to true
         }
 
-        val doshaDesc = when (dist) {
+        val doshaDescNp = when (dist) {
             6, 8 -> "षडाष्टक (६/८) भकूट दोष"
             2, 12 -> "द्विर्द्वादश (२/१२) भकूट दोष"
             5, 9 -> "नवपञ्चम (५/९) भकूट दोष"
             else -> if (hasDosha) "भकूट दोष" else "शुभ भकूट"
         }
 
+        val doshaDescEn = when (dist) {
+            6, 8 -> "Shadashtak (6/8) Bhakoot Dosha"
+            2, 12 -> "Dwidwadash (2/12) Bhakoot Dosha"
+            5, 9 -> "Navapancham (5/9) Bhakoot Dosha"
+            else -> if (hasDosha) "Bhakoot Dosha" else "Auspicious Bhakoot"
+        }
+
         return KootaScore(
             key = "bhakoot",
-            nameNp = "भकूट (Bhakoot)",
-            nameEn = "Bhakoot (Love & Growth)",
+            nameNp = "भकूट",
+            nameEn = "Bhakoot",
             maxPoints = 7.0,
             earnedPoints = pts,
-            boyValue = RASHIS_NP[bRashi],
-            girlValue = RASHIS_NP[gRashi],
+            boyValueNp = RASHIS_NP[bRashi],
+            boyValueEn = RASHIS_EN[bRashi],
+            girlValueNp = RASHIS_NP[gRashi],
+            girlValueEn = RASHIS_EN[gRashi],
             category = "Prosperity",
             hasDosha = hasDosha,
-            doshaNameNp = if (hasDosha) doshaDesc else null,
-            doshaNameEn = if (hasDosha) "Bhakoot Dosha" else null,
+            doshaNameNp = if (hasDosha) doshaDescNp else null,
+            doshaNameEn = if (hasDosha) doshaDescEn else null,
             explanationNp = when {
                 pts == 7.0 && cancellation && isDoshaPosition -> "भकूट दोष राशि स्वामीको मित्रताले परिहार (निष्प्रभावी) भएको छ।"
                 pts == 7.0 -> "वैवाहिक सुख, प्रेम र पारिवारिक आर्थिक समृद्धिका लागि पूर्ण शुभ।"
-                else -> "$doshaDesc उपस्थित; पारिवारिक समृद्धि र समझदारीमा सचेत रहनुपर्ने।"
+                else -> "$doshaDescNp उपस्थित; पारिवारिक समृद्धि र समझदारीमा सचेत रहनुपर्ने।"
             },
             explanationEn = when {
                 pts == 7.0 && cancellation && isDoshaPosition -> "Bhakoot Dosha cancelled due to friendship between sign lords."
                 pts == 7.0 -> "Strong marital happiness, love, and long-term family prosperity."
-                else -> "Bhakoot Dosha present; extra care needed for family harmony."
+                else -> "$doshaDescEn present; extra care needed for family harmony."
             }
         )
     }
@@ -526,12 +557,14 @@ object AshtakootaGunaMilan {
 
         return KootaScore(
             key = "nadi",
-            nameNp = "नाडी (Nadi)",
-            nameEn = "Nadi (Health & Genetics)",
+            nameNp = "नाडी",
+            nameEn = "Nadi",
             maxPoints = 8.0,
             earnedPoints = pts,
-            boyValue = NADI_NAMES_NP[bN],
-            girlValue = NADI_NAMES_NP[gN],
+            boyValueNp = NADI_NAMES_NP[bN],
+            boyValueEn = NADI_NAMES_EN[bN],
+            girlValueNp = NADI_NAMES_NP[gN],
+            girlValueEn = NADI_NAMES_EN[gN],
             category = "Health",
             hasDosha = hasDosha,
             doshaNameNp = if (hasDosha) "नाडी दोष" else null,

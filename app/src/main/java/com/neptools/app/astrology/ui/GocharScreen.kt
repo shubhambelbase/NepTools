@@ -98,7 +98,7 @@ fun GocharScreen(onBack: () -> Unit) {
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
                 Text(
-                    if (isEn) "Planetary Transits • Gochar (गोचर)" else "सजीव गोचर ग्रह चक्र",
+                    if (isEn) "Planetary Transits" else "सजीव गोचर ग्रह चक्र",
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
@@ -115,7 +115,7 @@ fun GocharScreen(onBack: () -> Unit) {
         if (r == null) {
             EmptyState(
                 PIcons.SunUp,
-                if (isEn) "No Chart Data (विवरण छैन)" else "डाटा छैन",
+                if (isEn) "No Chart Data" else "कुण्डली विवरण छैन",
                 if (isEn) "Fill birth details to calculate transits" else "जन्म विवरण भरेर कुण्डली बनाउनुहोस्"
             )
             return@Column
@@ -138,7 +138,7 @@ fun GocharScreen(onBack: () -> Unit) {
                 onClick = { selectedTab = 0 },
                 text = {
                     Text(
-                        if (isEn) "Interactive Wheel (गोचर चक्र)" else "सजीव गोचर चक्र",
+                        if (isEn) "Interactive Wheel" else "सजीव गोचर चक्र",
                         fontWeight = if (selectedTab == 0) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -148,7 +148,7 @@ fun GocharScreen(onBack: () -> Unit) {
                 onClick = { selectedTab = 1 },
                 text = {
                     Text(
-                        if (isEn) "Transit List (तालिका)" else "तालिका विवरण",
+                        if (isEn) "Transit List" else "तालिका विवरण",
                         fontWeight = if (selectedTab == 1) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -210,10 +210,10 @@ fun GocharScreen(onBack: () -> Unit) {
             val favorable = currentTransits.filter { it.favorable }
             val caution = currentTransits.filter { !it.favorable }
 
-            SectionHeaderGo(if (isEn) "Favorable Transits (शुभ गोचर)" else "अनुकूल ग्रहचाल", MaterialTheme.colorScheme.secondary)
+            SectionHeaderGo(if (isEn) "Favorable Transits" else "अनुकूल ग्रहचाल", MaterialTheme.colorScheme.secondary)
             favorable.forEach { TransitCard(it, isEn) }
             Spacer(Modifier.height(14.dp))
-            SectionHeaderGo(if (isEn) "Needs Caution & Care (सावधानी)" else "ध्यान दिनुपर्ने ग्रहचाल", MaterialTheme.colorScheme.primary)
+            SectionHeaderGo(if (isEn) "Needs Caution & Care" else "ध्यान दिनुपर्ने ग्रहचाल", MaterialTheme.colorScheme.primary)
             caution.forEach { TransitCard(it, isEn) }
         }
 
@@ -357,12 +357,12 @@ private fun TransitCard(t: TransitInfo, isEn: Boolean) {
             Column(Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        if (isEn) "${PlanetStyle.nameEn(t.planet)} (${PlanetStyle.nameNp(t.planet)})" else PlanetStyle.nameNp(t.planet),
+                        if (isEn) PlanetStyle.nameEn(t.planet) else PlanetStyle.nameNp(t.planet),
                         style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                     )
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        "in ${if (isEn) "${Signs.en[t.signIndex]} (${Signs.np[t.signIndex]})" else Signs.np[t.signIndex]} ${"%.1f".format(t.degreeInSign)}°",
+                        if (isEn) "in ${Signs.en[t.signIndex]} ${"%.1f".format(t.degreeInSign)}°" else "${Signs.np[t.signIndex]} ${"%.1f".format(t.degreeInSign)}°",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -377,7 +377,7 @@ private fun TransitCard(t: TransitInfo, isEn: Boolean) {
                 }
                 Spacer(Modifier.height(2.dp))
                 Text(
-                    if (isEn && t.noteEn.isNotBlank()) "${t.noteEn} (${t.note})" else t.note,
+                    if (isEn && t.noteEn.isNotBlank()) t.noteEn else t.note,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

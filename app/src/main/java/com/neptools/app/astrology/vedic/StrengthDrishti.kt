@@ -80,8 +80,8 @@ class StrengthCalculator {
         when (p) {
             Planet.SUN, Planet.MOON, Planet.MARS, Planet.MERCURY,
             Planet.JUPITER, Planet.VENUS, Planet.SATURN -> {
-                if (pos.signIndex == exaltation[p]) { score += 18; notes.add("उच्च राशिमा (exalted)") }
-                if (pos.signIndex == debilitation[p]) { score -= 18; notes.add("नीच राशिमा (debilitated)") }
+                if (pos.signIndex == exaltation[p]) { score += 18; notes.add("उच्च राशिमा") }
+                if (pos.signIndex == debilitation[p]) { score -= 18; notes.add("नीच राशिमा") }
                 if (pos.signIndex in ownSigns.getValue(p)) { score += 12; notes.add("स्वराशि") }
                 val dispositor = signLords.getValue(pos.signIndex)
                 if (dispositor != p && friends.getValue(p).contains(dispositor)) {
@@ -95,15 +95,15 @@ class StrengthCalculator {
 
         digBalaHouse[p]?.let { best ->
             val h = pos.houseFromLagna
-            if (h == best) { score += 8; notes.add("दिग्बल (house $best)") }
+            if (h == best) { score += 8; notes.add("दिग्बल (भाव $best)") }
             else if ((h - best + 12) % 12 <= 1 || (best - h + 12) % 12 <= 1) score += 3
         }
 
         val benefics = setOf(Planet.JUPITER, Planet.VENUS, Planet.MERCURY)
         val malefics = setOf(Planet.SATURN, Planet.MARS, Planet.RAHU, Planet.KETU, Planet.SUN)
         DrishtiCalculator.aspectsOn(p, chart.positions).forEach { src ->
-            if (src in benefics) { score += 5; notes.add("$src को शुभ दृष्टि") }
-            if (src in malefics && p != Planet.SUN) { score -= 4; notes.add("$src को पाप दृष्टि") }
+            if (src in benefics) { score += 5; notes.add("${planetNameNp(src)}को शुभ दृष्टि") }
+            if (src in malefics && p != Planet.SUN) { score -= 4; notes.add("${planetNameNp(src)}को पाप दृष्टि") }
         }
 
         combustionOrb[p]?.let { orb ->
@@ -114,9 +114,21 @@ class StrengthCalculator {
         }
 
         if (pos.retrograde && p !in setOf(Planet.SUN, Planet.MOON)) {
-            score += 4; notes.add("वक्री (chesta bala)")
+            score += 4; notes.add("वक्री (चेष्टा बल)")
         }
 
         return StrengthResult(score.coerceIn(5, 98), notes)
+    }
+
+    private fun planetNameNp(p: Planet): String = when (p) {
+        Planet.SUN -> "सूर्य"
+        Planet.MOON -> "चन्द्र"
+        Planet.MARS -> "मंगल"
+        Planet.MERCURY -> "बुध"
+        Planet.JUPITER -> "बृहस्पति"
+        Planet.VENUS -> "शुक्र"
+        Planet.SATURN -> "शनि"
+        Planet.RAHU -> "राहु"
+        Planet.KETU -> "केतु"
     }
 }

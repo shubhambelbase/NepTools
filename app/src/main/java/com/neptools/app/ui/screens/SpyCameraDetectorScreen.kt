@@ -219,7 +219,7 @@ private fun EmfSnifferView(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = if (isEn) "ELECTROMAGNETIC FIELD FLUX" else "विद्युत्–चुम्बकीय प्रवाह (EMF)",
+                        text = if (isEn) "ELECTROMAGNETIC FIELD FLUX" else "विद्युत्–चुम्बकीय प्रवाह",
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -619,7 +619,7 @@ private fun InfraredGuideView(isEn: Boolean) {
                         }
                         Spacer(Modifier.width(10.dp))
                         Text(
-                            text = if (isEn) "Infrared Night-Vision Scan" else "इन्फ्रारेड (IR) नाइट भिजन पहिचान",
+                            text = if (isEn) "Infrared Night-Vision Scan" else "इन्फ्रारेड नाइट भिजन पहिचान",
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                         )
                     }
@@ -728,7 +728,7 @@ private fun SpyDetectorMasterGuideView(isEn: Boolean) {
                     )
 
                     GuideSubItem(
-                        badge = if (isEn) "EMF SNIFFER" else "चुम्बकीय (EMF)",
+                        badge = if (isEn) "EMF SNIFFER" else "चुम्बकीय प्रवाह",
                         badgeColor = Color(0xFF0284C7),
                         title = if (isEn) "Electromagnetic Radiation Sensor" else "विद्युत्–चुम्बकीय विकिरण सेन्सर",
                         desc = if (isEn)
@@ -782,9 +782,9 @@ private fun SpyDetectorMasterGuideView(isEn: Boolean) {
 
                     StepRow(
                         step = "2",
-                        title = if (isEn) "Close-Range EMF Sweep" else "EMF चुम्बकीय स्क्यान",
+                        title = if (isEn) "Close-Range EMF Sweep" else "इएमएफ चुम्बकीय स्क्यान",
                         desc = if (isEn) "Open the EMF Sniffer. Slowly glide the top edge of your phone around smoke alarms, digital alarm clocks, power sockets, and lamp bases."
-                        else "EMF Sniffer खोलेर फोनको माथिल्लो भागलाई स्मोक डिटेक्टर, डिजिटल घडी, टिभी बक्स र सकेट वरिपरि २ से.मी. नजिक घुमाउनुहोस्।"
+                        else "चुम्बकीय स्क्यानर खोलेर फोनको माथिल्लो भागलाई स्मोक डिटेक्टर, डिजिटल घडी, टिभी बक्स र सकेट वरिपरि २ से.मी. नजिक घुमाउनुहोस्।"
                     )
 
                     StepRow(
@@ -798,7 +798,7 @@ private fun SpyDetectorMasterGuideView(isEn: Boolean) {
                         step = "4",
                         title = if (isEn) "Optical Strobe Glint Search" else "स्ट्रोब लेन्स परावर्तन जाँच",
                         desc = if (isEn) "Set the strobe to 3 Hz or 6 Hz in a dim room. Hold phone near eye level and watch for tiny retro-reflective glints."
-                        else "स्ट्रोब ३ वा ६ Hz मा अन गर्नुहोस्। फोनलाई आँखाको तहमा राखेर हेर्नुहोस्, लेन्समा प्रकाश पर्दा सानो तारा जस्तै चम्कन्छ।"
+                        else "स्ट्रोब ३ वा ६ हर्जमा अन गर्नुहोस्। फोनलाई आँखाको तहमा राखेर हेर्नुहोस्, लेन्समा प्रकाश पर्दा सानो तारा जस्तै चम्कन्छ।"
                     )
                 }
             }
@@ -825,7 +825,7 @@ private fun SpyDetectorMasterGuideView(isEn: Boolean) {
                         else
                             "आफ्नो नङको टुप्पो ऐनामा सिधा छुवाउनुहोस्:\n\n" +
                             "• सक्कली साधारण ऐना: तपाईंको नङ र प्रतिबिम्बको बीचमा स्पष्ट खाली ठाउँ (१ देखि २ मि.मी. ग्याप) देखिन्छ, किनकि परावर्तन तह सिसाको पछाडि हुन्छ।\n\n" +
-                            "• शङ्कास्पद दुईतर्फी ऐना (Two-Way): नङ र प्रतिबिम्बको बीचमा कुनै ग्याप हुँदैन (नङले सिधै प्रतिबिम्ब छुन्छ)। यस्तो ऐनाको पछाडिबाट मानिसले हेर्न वा क्यामेरा राख्न सक्छ।",
+                            "• शङ्कास्पद दुईतर्फी ऐना: नङ र प्रतिबिम्बको बीचमा कुनै ग्याप हुँदैन (नङले सिधै प्रतिबिम्ब छुन्छ)। यस्तो ऐनाको पछाडिबाट मानिसले हेर्न वा क्यामेरा राख्न सक्छ।",
                         style = MaterialTheme.typography.bodySmall.copy(lineHeight = 20.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

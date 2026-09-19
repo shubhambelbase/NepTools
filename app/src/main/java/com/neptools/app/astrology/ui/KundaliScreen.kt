@@ -1,6 +1,7 @@
 package com.neptools.app.astrology.ui
 
 import com.neptools.app.ui.strings.T
+import com.neptools.app.core.calendar.NepaliNames
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
@@ -88,6 +89,28 @@ fun KundaliScreen(onBack: () -> Unit) {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
+            val context = androidx.compose.ui.platform.LocalContext.current
+            if (result != null) {
+                Box(
+                    Modifier
+                        .size(40.dp)
+                        .background(MaterialTheme.colorScheme.primaryContainer, CircleShape)
+                        .border(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f), CircleShape)
+                        .clickable {
+                            result?.chart?.let { chart ->
+                                com.neptools.app.core.util.AstroPdfExporter.exportKundaliPdf(context, chart, isShare = false, isEn = isEn)
+                            }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        PIcons.Share,
+                        contentDescription = "Export PDF",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
         }
 
         Spacer(Modifier.height(14.dp))
@@ -159,17 +182,17 @@ fun KundaliScreen(onBack: () -> Unit) {
                             )
                             Spacer(Modifier.height(8.dp))
                             if (isEn) {
-                                GuideLine("Ascendant (Lagna)", "Rising sign at birth — your core identity and mindset")
-                                GuideLine("Moon Sign (Rashi)", "Inner mind, emotions and mental tendencies")
+                                GuideLine("Ascendant", "Rising sign at birth — your core identity and mindset")
+                                GuideLine("Moon Sign", "Inner mind, emotions and mental tendencies")
                                 GuideLine("Houses (1–12)", "Life areas: Wealth (2), Family (4), Creativity (5), Marriage (7), Career (10)…")
-                                GuideLine("Planets (Grahas)", "Cosmic guides directing specific strengths and energies")
+                                GuideLine("Planets", "Cosmic guides directing specific strengths and energies")
                                 GuideLine("Retrograde (R)", "Intense, deep and internalized planetary influence")
                             } else {
-                                GuideLine("लग्न (Ascendant)", "जन्मक्षणमा पूर्वीय क्षितिजको राशि — तपाईंको व्यक्तित्व र दृष्टिकोण")
-                                GuideLine("चन्द्र राशि (Moon Sign)", "मन, भावना र विचार गर्ने शैली")
+                                GuideLine("लग्न", "जन्मक्षणमा पूर्वीय क्षितिजको राशि — तपाईंको व्यक्तित्व र दृष्टिकोण")
+                                GuideLine("चन्द्र राशि", "मन, भावना र विचार गर्ने शैली")
                                 GuideLine("घरहरू (१–१२)", "जीवनका १२ पक्ष: धन (२), परिवार (४), प्रेम/शिक्षा (५), विवाह (७), करियर (१०)…")
-                                GuideLine("ग्रहहरू (Planets)", "हरेक ग्रहले जीवनको कुनै खास क्षेत्र र क्षमतालाई मार्गदर्शन गर्छ")
-                                GuideLine("वक्री (Retrograde)", "ग्रहको गहिरो, अन्तर्मुखी र बलियो प्रभाव")
+                                GuideLine("ग्रहहरू", "हरेक ग्रहले जीवनको कुनै खास क्षेत्र र क्षमतालाई मार्गदर्शन गर्छ")
+                                GuideLine("वक्री", "ग्रहको गहिरो, अन्तर्मुखी र बलियो प्रभाव")
                             }
                         }
                     }
@@ -321,7 +344,7 @@ private fun ExpandablePlanet(p: Planet, chart: NatalChart) {
                 }
                 Text(
                     if (isEn) "${Signs.en[pos.signIndex]} · House ${pos.houseFromLagna} (Bhava ${pos.bhavaFromLagna}) · ${KundaliTexts.nakshatraOf(pos)}"
-                    else "${Signs.np[pos.signIndex]} · घर ${pos.houseFromLagna} (भाव ${pos.bhavaFromLagna}) · ${KundaliTexts.nakshatraOf(pos)}",
+                    else "${Signs.np[pos.signIndex]} · घर ${NepaliNames.toDevanagari(pos.houseFromLagna)} (भाव ${NepaliNames.toDevanagari(pos.bhavaFromLagna)}) · ${KundaliTexts.nakshatraOf(pos)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -349,7 +372,7 @@ private fun ExpandablePlanet(p: Planet, chart: NatalChart) {
                 Spacer(Modifier.height(6.dp))
                 Text(
                     if (isEn) "Star: ${KundaliTexts.nakshatraOf(pos)}, Pada ${NakshatraCalc.pada(pos.siderealLon)} · ${"%.2f".format(pos.degreeInSign)}°"
-                    else "नक्षत्र: ${pos.nakshatraName}, पदा ${NakshatraCalc.pada(pos.siderealLon)} · ${"%.2f".format(pos.degreeInSign)}°",
+                    else "नक्षत्र: ${KundaliTexts.nakshatraOf(pos)}, पदा ${NepaliNames.toDevanagari(NakshatraCalc.pada(pos.siderealLon))} · ${NepaliNames.toDevanagari("%.2f".format(pos.degreeInSign))}°",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -387,7 +410,7 @@ private fun ShadowPlanetRow(p: Planet, chart: NatalChart) {
                 )
                 Text(
                     if (isEn) "${Signs.en[pos.signIndex]} · House ${pos.houseFromLagna} (Bhava ${pos.bhavaFromLagna}) (${KundaliTexts.houseTheme(pos.houseFromLagna)})"
-                    else "${Signs.np[pos.signIndex]} · घर ${pos.houseFromLagna} (भाव ${pos.bhavaFromLagna})",
+                    else "${Signs.np[pos.signIndex]} · घर ${NepaliNames.toDevanagari(pos.houseFromLagna)} (भाव ${NepaliNames.toDevanagari(pos.bhavaFromLagna)})",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -436,7 +459,7 @@ private fun NorthIndianChart(chart: NatalChart, isBhavaChalit: Boolean = false) 
             }
             val label = buildString {
                 if (isBhavaChalit) {
-                    append(if (isEn) "H$house" else "भाव $house")
+                    append(if (isEn) "H$house" else "भाव ${NepaliNames.toDevanagari(house)}")
                 } else {
                     append(if (isEn) Signs.en[sign].take(3) else Signs.np[sign])
                 }

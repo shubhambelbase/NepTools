@@ -578,20 +578,20 @@ private fun ItemizedSplitView(isEn: Boolean) {
     val context = LocalContext.current
     val fmt = remember { NumberFormat.getNumberInstance(Locale.US) }
 
-    val members = remember {
+    val members = remember(isEn) {
         mutableStateListOf(
-            GroupMember("m1", "Ram (राम)", MEMBER_COLORS[0]),
-            GroupMember("m2", "Sita (सीता)", MEMBER_COLORS[1]),
-            GroupMember("m3", "Shyam (श्याम)", MEMBER_COLORS[2])
+            GroupMember("m1", if (isEn) "Ram" else "राम", MEMBER_COLORS[0]),
+            GroupMember("m2", if (isEn) "Sita" else "सीता", MEMBER_COLORS[1]),
+            GroupMember("m3", if (isEn) "Shyam" else "श्याम", MEMBER_COLORS[2])
         )
     }
 
-    val dishes = remember {
+    val dishes = remember(isEn) {
         mutableStateListOf(
-            DishItem("d1", "Buff C. Momo (मोमो)", 320.0, listOf("m1", "m2")),
-            DishItem("d2", "Chicken Thakali (थकाली)", 480.0, listOf("m1")),
-            DishItem("d3", "Mutton Khaja Set (खाजा)", 550.0, listOf("m3")),
-            DishItem("d4", "Cold Drinks / Coke", 180.0, listOf("m1", "m2", "m3"))
+            DishItem("d1", if (isEn) "Buff Momo" else "बफ मोमो", 320.0, listOf("m1", "m2")),
+            DishItem("d2", if (isEn) "Chicken Thakali" else "चिकेन थकाली", 480.0, listOf("m1")),
+            DishItem("d3", if (isEn) "Mutton Khaja Set" else "मटन खाजा सेट", 550.0, listOf("m3")),
+            DishItem("d4", if (isEn) "Cold Drinks" else "कोल्ड ड्रिंक्स", 180.0, listOf("m1", "m2", "m3"))
         )
     }
 

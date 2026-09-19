@@ -490,7 +490,7 @@ private fun LocationStatusBanner(
                             .padding(horizontal = 6.dp, vertical = 2.dp)
                     ) {
                         Text(
-                            if (currentLoc.isAutoGps) "GPS Auto" else (if (isEn) "Manual" else "म्यानुअल"),
+                            if (currentLoc.isAutoGps) (if (isEn) "GPS Auto" else "जीपीएस स्वचालित") else (if (isEn) "Manual" else "म्यानुअल"),
                             style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.SemiBold),
                             color = if (currentLoc.isAutoGps) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurfaceVariant
                         )

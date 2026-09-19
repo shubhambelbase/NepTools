@@ -152,10 +152,10 @@ $dist ।
             fields = listOf(
                 TemplateField("name", "जग्गाधनीको नाम", "Land Owner Name", "उदा: विष्णु शर्मा", "e.g. Bishnu Sharma"),
                 TemplateField("kitta_no", "कित्ता नम्बर", "Kitta / Plot No.", "उदा: १२८", "e.g. 128"),
-                TemplateField("east", "पूर्व साँध (East)", "East Boundary", "उदा: बाटो / रामको जग्गा", "e.g. Road / Ram's plot"),
-                TemplateField("west", "पश्चिम साँध (West)", "West Boundary", "उदा: श्यामको कित्ता नं. १२९", "e.g. Shyam's plot 129"),
-                TemplateField("north", "उत्तर साँध (North)", "North Boundary", "उदा: मूल सडक (८ मिटर)", "e.g. Main 8m Road"),
-                TemplateField("south", "दक्षिण साँध (South)", "South Boundary", "उदा: खोला / हरिबहादुरको घर", "e.g. Stream / Hari's house"),
+                TemplateField("east", "पूर्व साँध", "East Boundary", "उदा: बाटो / रामको जग्गा", "e.g. Road / Ram's plot"),
+                TemplateField("west", "पश्चिम साँध", "West Boundary", "उदा: श्यामको कित्ता नं. १२९", "e.g. Shyam's plot 129"),
+                TemplateField("north", "उत्तर साँध", "North Boundary", "उदा: मूल सडक (८ मिटर)", "e.g. Main 8m Road"),
+                TemplateField("south", "दक्षिण साँध", "South Boundary", "उदा: खोला / हरिबहादुरको घर", "e.g. Stream / Hari's house"),
                 TemplateField("municipality", "गाउँ / नगरपालिका", "Municipality", "उदा: भरतपुर महानगरपालिका", "e.g. Bharatpur"),
                 TemplateField("ward", "वडा नं.", "Ward No.", "उदा: ४", "e.g. 4", isNumber = true),
                 TemplateField("district", "जिल्ला", "District", "उदा: चितवन", "e.g. Chitwan")
@@ -184,10 +184,10 @@ $dist ।
 बैंक कर्जा / भवन निर्माण / किनबेच प्रयोजनका लागि सो चार किल्ला प्रमाणित पत्र आवश्यक परेकोले स्थलगत प्राविधिक जाँचबुझ गरी प्रमाणित पत्र उपलब्ध गराइदिनुहुन यो निवेदन पेश गरेको छु।
 
 तपसिल (चार किल्ला विवरण):
-• पूर्व (East): $east
-• पश्चिम (West): $west
-• उत्तर (North): $north
-• दक्षिण (South): $south
+• पूर्व: $east
+• पश्चिम: $west
+• उत्तर: $north
+• दक्षिण: $south
 
 निवेदक:
 नाम: $name
@@ -267,7 +267,7 @@ $dist ।
                 TemplateField("name", "खातावालाको पूरा नाम", "Account Holder Name", "उदा: सुनिता गुरुङ", "e.g. Sunita Gurung"),
                 TemplateField("bank_name", "बैंकको नाम", "Bank Name", "उदा: नबिल बैंक लिमिटेड", "e.g. Nabil Bank Ltd"),
                 TemplateField("branch", "शाखा कार्यालय", "Branch Name", "उदा: न्युरोड शाखा, काठमाडौँ", "e.g. New Road Branch"),
-                TemplateField("acc_no", "खाता नम्बर (Account No.)", "Account Number", "उदा: ०१२०१०००५४३२१", "e.g. 0120100054321"),
+                TemplateField("acc_no", "खाता नम्बर", "Account Number", "उदा: ०१२०१०००५४३२१", "e.g. 0120100054321"),
                 TemplateField("reason", "खाता बन्द गर्नुको कारण", "Reason for Closure", "उदा: विदेश जान लागेकोले / व्यक्तिगत कारण", "e.g. Relocating"),
                 TemplateField("phone", "सम्पर्क फोन नम्बर", "Phone Number", "उदा: ९८५१००००००", "e.g. 9851000000")
             ),
@@ -312,7 +312,7 @@ $branch ।
             subjectEn = "Police report for lost official documents.",
             fields = listOf(
                 TemplateField("name", "निवेदकको नाम", "Applicant Full Name", "उदा: प्रकाश थापा", "e.g. Prakash Thapa"),
-                TemplateField("doc_type", "हराएको कागजातको नाम", "Lost Document Name", "उदा: सवारी चालक अनुमतिपत्र (Driving License)", "e.g. Driving License"),
+                TemplateField("doc_type", "हराएको कागजातको नाम", "Lost Document Name", "उदा: सवारी चालक अनुमतिपत्र", "e.g. Driving License"),
                 TemplateField("doc_no", "कागजातको नम्बर (यदि थाहा भए)", "Document Number", "उदा: ०१-०६-००१२३४५", "e.g. 01-06-0012345"),
                 TemplateField("lost_place", "हराएको स्थान र मिति", "Place & Date Lost", "उदा: रत्नपार्क बसपार्क, २०८३/०४/१० मा", "e.g. Ratnapark on 2083/04/10"),
                 TemplateField("municipality", "गाउँ / नगरपालिका", "Municipality", "उदा: ललितपुर महानगरपालिका", "e.g. Lalitpur"),
@@ -413,7 +413,7 @@ $comp ।
             subjectEn = "Application for Student Leave of Absence.",
             fields = listOf(
                 TemplateField("name", "विद्यार्थीको नाम", "Student Full Name", "उदा: आरभ पौडेल", "e.g. Aarav Poudel"),
-                TemplateField("grade", "कक्षा र सेक्सन", "Class & Section", "उदा: कक्षा १० (A)", "e.g. Grade 10 (A)"),
+                TemplateField("grade", "कक्षा र सेक्सन", "Class & Section", "उदा: कक्षा १०, सेक्सन 'क'", "e.g. Grade 10 (A)"),
                 TemplateField("roll_no", "रोल नम्बर", "Roll Number", "उदा: १५", "e.g. 15", isNumber = true),
                 TemplateField("school_name", "विद्यालय / कलेजको नाम", "School / College Name", "उदा: सिद्धार्थ सेकेण्डरी स्कूल", "e.g. Siddhartha School"),
                 TemplateField("leave_dates", "बिदा मिति र दिन", "Leave Dates & Days", "उदा: २०८३/०५/१५ देखि २०८३/०५/१७ सम्म (३ दिन)", "e.g. 3 days"),

@@ -21,6 +21,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.neptools.app.ui.theme.ThemePrefs
 import java.io.File
 import java.io.FileOutputStream
 import java.io.FileInputStream
@@ -30,10 +31,15 @@ object PdfExporter {
     /**
      * Uses Android PrintManager to provide official system "Save as PDF" & "Print" dialog
      */
-    fun printDocument(context: Context, title: String, bodyText: String) {
+    fun printDocument(
+        context: Context,
+        title: String,
+        bodyText: String,
+        isEn: Boolean = ThemePrefs.lang.value == "en"
+    ) {
         val printManager = context.getSystemService(Context.PRINT_SERVICE) as? PrintManager
         if (printManager == null) {
-            generateAndOpenPdf(context, title, bodyText, isShare = false)
+            generateAndOpenPdf(context, title, bodyText, isShare = false, isEn = isEn)
             return
         }
 
@@ -74,7 +80,7 @@ object PdfExporter {
                     val page = document.startPage(pageInfo)
                     val canvas = page.canvas
 
-                    drawLetterPage(canvas, title, bodyText)
+                    drawLetterPage(canvas, title, bodyText, isEn)
                     document.finishPage(page)
 
                     val outputStream = FileOutputStream(destination.fileDescriptor)
@@ -96,7 +102,8 @@ object PdfExporter {
         context: Context,
         title: String,
         bodyText: String,
-        isShare: Boolean = false
+        isShare: Boolean = false,
+        isEn: Boolean = ThemePrefs.lang.value == "en"
     ) {
         try {
             val pdfDoc = PdfDocument()
@@ -104,7 +111,7 @@ object PdfExporter {
             val page = pdfDoc.startPage(pageInfo)
             val canvas = page.canvas
 
-            drawLetterPage(canvas, title, bodyText)
+            drawLetterPage(canvas, title, bodyText, isEn)
             pdfDoc.finishPage(page)
 
             // Must live under cache/exports/ so FileProvider can resolve a URI for it
@@ -131,7 +138,7 @@ object PdfExporter {
                     putExtra(Intent.EXTRA_SUBJECT, title)
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
-                val chooser = Intent.createChooser(shareIntent, "Share PDF / Share Document").apply {
+                val chooser = Intent.createChooser(shareIntent, if (isEn) "Share Document" else "कागजात सेयर गर्नुहोस्").apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 context.startActivity(chooser)
@@ -141,21 +148,21 @@ object PdfExporter {
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
-                val chooser = Intent.createChooser(viewIntent, "Open PDF with...").apply {
+                val chooser = Intent.createChooser(viewIntent, if (isEn) "Open PDF with..." else "PDF खोल्नुहोस्...").apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 context.startActivity(chooser)
             }
 
-            Toast.makeText(context, "PDF successfully generated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, if (isEn) "PDF successfully generated!" else "PDF सफलतापूर्वक बनाइयो!", Toast.LENGTH_SHORT).show()
 
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(context, "Error creating PDF: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, if (isEn) "Error creating PDF: ${e.localizedMessage}" else "PDF बनाउन त्रुटि भयो: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun drawLetterPage(canvas: Canvas, title: String, bodyText: String) {
+    private fun drawLetterPage(canvas: Canvas, title: String, bodyText: String, isEn: Boolean) {
         // Page Background
         canvas.drawColor(Color.WHITE)
 
@@ -184,8 +191,8 @@ object PdfExporter {
         }
 
         // Draw Top Document Title
-        canvas.drawText("नेपाल पात्रो — $title", 54f, 64f, titlePaint)
-        canvas.drawText("Official Nepali Application Document · Format Approved", 54f, 78f, subPaint)
+        canvas.drawText(if (isEn) "NepTools — $title" else "नेपटूल्स — $title", 54f, 64f, titlePaint)
+        canvas.drawText(if (isEn) "Official Document · NepTools" else "आधिकारिक कागजात · नेपटूल्स", 54f, 78f, subPaint)
 
         // Separator
         canvas.drawLine(54f, 88f, 541f, 88f, borderPaint)
@@ -219,6 +226,6 @@ object PdfExporter {
             typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC)
             isAntiAlias = true
         }
-        canvas.drawText("Generated via Nepal Patro (नेपाल पात्रो)", 54f, 792f, footerPaint)
+        canvas.drawText(if (isEn) "Generated via NepTools" else "नेपटूल्सद्वारा निर्मित", 54f, 792f, footerPaint)
     }
 }

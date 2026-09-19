@@ -589,7 +589,7 @@ fun LanDropScreen(onBack: () -> Unit) {
                                                         putExtra(Intent.EXTRA_STREAM, uri)
                                                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                                                     }
-                                                    context.startActivity(Intent.createChooser(intent, if (isEn) "Share ZIP (${serverState.receivedFiles.size} files)" else "ZIP सेयर (${serverState.receivedFiles.size} फाइल)"))
+                                                    context.startActivity(Intent.createChooser(intent, if (isEn) "Share ZIP (${serverState.receivedFiles.size} files)" else "जिप फाइल सेयर (${serverState.receivedFiles.size} फाइल)"))
                                                 } catch (e: Exception) {
                                                     Toast.makeText(context, if (isEn) "Zip failed: ${e.message}" else "जिप असफल: ${e.message}", Toast.LENGTH_SHORT).show()
                                                 }

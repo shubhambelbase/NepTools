@@ -206,7 +206,7 @@ fun VastuCompassScreen(
                 onClick = { selectedTab = 0 },
                 text = {
                     Text(
-                        if (isEn) "Live Direction (दिशा सूचक)" else "दिशा सूचक",
+                        if (isEn) "Live Direction" else "दिशा सूचक",
                         fontWeight = if (selectedTab == 0) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -216,7 +216,7 @@ fun VastuCompassScreen(
                 onClick = { selectedTab = 1 },
                 text = {
                     Text(
-                        if (isEn) "House Guide (वास्तु नियम)" else "वास्तु नियम गाइड",
+                        if (isEn) "House Guide" else "वास्तु नियम गाइड",
                         fontWeight = if (selectedTab == 1) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -253,7 +253,7 @@ fun VastuCompassScreen(
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = if (isEn) "${currentVastu.nameEn} • ${currentVastu.nameNp}" else currentVastu.nameNp,
+                                text = if (isEn) currentVastu.nameEn else currentVastu.nameNp,
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.primary,
                                 textAlign = TextAlign.Center
@@ -412,23 +412,23 @@ private fun VastuDial(
 
             // Sanskrit & Cardinal Labels
             val vastuLabels = if (isEn) listOf(
-                Pair("N • उत्तर", 0),
-                Pair("NE • ईशान", 45),
-                Pair("E • पूर्व", 90),
-                Pair("SE • आग्नेय", 135),
-                Pair("S • दक्षिण", 180),
-                Pair("SW • नैऋत्य", 225),
-                Pair("W • पश्चिम", 270),
-                Pair("NW • वायव्य", 315)
+                Pair("N", 0),
+                Pair("NE", 45),
+                Pair("E", 90),
+                Pair("SE", 135),
+                Pair("S", 180),
+                Pair("SW", 225),
+                Pair("W", 270),
+                Pair("NW", 315)
             ) else listOf(
-                Pair("उत्तर (N)", 0),
-                Pair("ईशान (NE)", 45),
-                Pair("पूर्व (E)", 90),
-                Pair("आग्नेय (SE)", 135),
-                Pair("दक्षिण (S)", 180),
-                Pair("नैऋत्य (SW)", 225),
-                Pair("पश्चिम (W)", 270),
-                Pair("वायव्य (NW)", 315)
+                Pair("उत्तर", 0),
+                Pair("ईशान", 45),
+                Pair("पूर्व", 90),
+                Pair("आग्नेय", 135),
+                Pair("दक्षिण", 180),
+                Pair("नैऋत्य", 225),
+                Pair("पश्चिम", 270),
+                Pair("वायव्य", 315)
             )
 
             for ((label, ang) in vastuLabels) {
@@ -493,12 +493,12 @@ private fun VastuDirectionCard(
         ) {
             Column(modifier = Modifier.weight(1f, fill = false)) {
                 Text(
-                    text = if (isEn) "${direction.nameEn} • ${direction.nameNp}" else direction.nameNp,
+                    text = if (isEn) direction.nameEn else direction.nameNp,
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "${if (isEn) "Deity (अधिपति)" else "अधिपति"}: ${if (isEn) "${direction.deityEn} • ${direction.deityNp}" else direction.deityNp}",
+                    text = "${if (isEn) "Deity" else "अधिपति"}: ${if (isEn) direction.deityEn else direction.deityNp}",
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -511,7 +511,7 @@ private fun VastuDirectionCard(
                     .padding(horizontal = 10.dp, vertical = 5.dp)
             ) {
                 Text(
-                    text = if (isEn) "${direction.elementEn} • ${direction.elementNp}" else direction.elementNp,
+                    text = if (isEn) direction.elementEn else direction.elementNp,
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -522,15 +522,12 @@ private fun VastuDirectionCard(
 
         // Best Rooms
         Text(
-            text = if (isEn) "Auspicious Placements (शुभ निर्माण):" else "शुभ तथा उत्तम निर्माण:",
+            text = if (isEn) "Auspicious Placements:" else "शुभ तथा उत्तम निर्माण:",
             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
             color = Color(0xFF16A34A)
         )
         Spacer(Modifier.height(4.dp))
-        val bestList = if (isEn) direction.bestRoomsEn.mapIndexed { idx, en ->
-            val np = direction.bestRoomsNp.getOrNull(idx)
-            if (np != null) "$en ($np)" else en
-        } else direction.bestRoomsNp
+        val bestList = if (isEn) direction.bestRoomsEn else direction.bestRoomsNp
         for (item in bestList) {
             Row(
                 modifier = Modifier.padding(vertical = 2.dp),
@@ -555,15 +552,12 @@ private fun VastuDirectionCard(
 
         // Avoid Rooms
         Text(
-            text = if (isEn) "Strictly Avoid (वर्जित दोष):" else "वर्जित तथा नराख्नुपर्ने (दोष):",
+            text = if (isEn) "Strictly Avoid:" else "वर्जित तथा नराख्नुपर्ने:",
             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.error
         )
         Spacer(Modifier.height(4.dp))
-        val avoidList = if (isEn) direction.avoidRoomsEn.mapIndexed { idx, en ->
-            val np = direction.avoidRoomsNp.getOrNull(idx)
-            if (np != null) "$en ($np)" else en
-        } else direction.avoidRoomsNp
+        val avoidList = if (isEn) direction.avoidRoomsEn else direction.avoidRoomsNp
         for (item in avoidList) {
             Row(
                 modifier = Modifier.padding(vertical = 2.dp),
@@ -621,7 +615,7 @@ private fun RoomSuitabilitySection(
             .padding(16.dp)
     ) {
         Text(
-            text = if (isEn) "Quick Room Suitability Verifier (वास्तु अनुकूलता)" else "कोठा अनुसार उपयुक्त दिशा जाँच",
+            text = if (isEn) "Quick Room Suitability Verifier" else "कोठा अनुसार उपयुक्त दिशा जाँच",
             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -645,7 +639,7 @@ private fun RoomSuitabilitySection(
                         .padding(horizontal = 12.dp, vertical = 7.dp)
                 ) {
                     Text(
-                        text = if (isEn) "${rule.roomEn} (${rule.roomNp})" else rule.roomNp,
+                        text = if (isEn) rule.roomEn else rule.roomNp,
                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                         color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
                     )
@@ -658,22 +652,22 @@ private fun RoomSuitabilitySection(
         // Verdict Banner
         val (verdictTitle, verdictDesc, bannerBg, bannerColor) = when {
             isIdeal -> Quadruple(
-                if (isEn) "Ideal & Auspicious (सर्वोत्तम तथा शुभ)" else "सर्वोत्तम तथा शुभ स्थान",
-                if (isEn) "This direction is classically recommended for ${activeRule.roomEn} (${activeRule.roomNp})."
+                if (isEn) "Ideal & Auspicious" else "सर्वोत्तम तथा शुभ स्थान",
+                if (isEn) "This direction is classically recommended for ${activeRule.roomEn}."
                 else "यो दिशा ${activeRule.roomNp} को लागि वास्तु अनुसार सर्वोत्तम मानिन्छ।",
                 Color(0xFFDCFCE7),
                 Color(0xFF15803D)
             )
             isForbidden -> Quadruple(
-                if (isEn) "Inauspicious / Avoid (वर्जित तथा अशुभ)" else "वर्जित तथा अशुभ स्थान",
-                if (isEn) "Placing ${activeRule.roomEn} (${activeRule.roomNp}) here creates serious Vastu defect."
+                if (isEn) "Inauspicious / Avoid" else "वर्जित तथा अशुभ स्थान",
+                if (isEn) "Placing ${activeRule.roomEn} here creates serious Vastu defect."
                 else "यस दिशामा ${activeRule.roomNp} राख्दा ठूलो वास्तु दोष उत्पन्न हुन सक्छ।",
                 Color(0xFFFEE2E2),
                 Color(0xFFB91C1C)
             )
             else -> Quadruple(
-                if (isEn) "Secondary / Neutral (मध्यम वा वैकल्पिक)" else "मध्यम वा वैकल्पिक स्थान",
-                if (isEn) "Acceptable if the ideal direction (${activeRule.bestDirectionEn} • ${activeRule.bestDirectionNp}) is unavailable."
+                if (isEn) "Secondary / Neutral" else "मध्यम वा वैकल्पिक स्थान",
+                if (isEn) "Acceptable if the ideal direction (${activeRule.bestDirectionEn}) is unavailable."
                 else "उत्कृष्ट दिशा (${activeRule.bestDirectionNp}) उपलब्ध नभएमा स्वीकार्य मानिन्छ।",
                 Color(0xFFFEF3C7),
                 Color(0xFFB45309)
@@ -705,12 +699,12 @@ private fun RoomSuitabilitySection(
         Spacer(Modifier.height(10.dp))
 
         Text(
-            text = "${if (isEn) "Ideal Zone (सर्वोत्तम दिशा)" else "सर्वोत्तम दिशा"}: ${if (isEn) "${activeRule.bestDirectionEn} • ${activeRule.bestDirectionNp}" else activeRule.bestDirectionNp}",
+            text = "${if (isEn) "Ideal Zone" else "सर्वोत्तम दिशा"}: ${if (isEn) activeRule.bestDirectionEn else activeRule.bestDirectionNp}",
             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            text = "${if (isEn) "Alternative (वैकल्पिक दिशा)" else "वैकल्पिक दिशा"}: ${if (isEn) "${activeRule.alternativeDirectionEn} • ${activeRule.alternativeDirectionNp}" else activeRule.alternativeDirectionNp}",
+            text = "${if (isEn) "Alternative" else "वैकल्पिक दिशा"}: ${if (isEn) activeRule.alternativeDirectionEn else activeRule.alternativeDirectionNp}",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -731,7 +725,7 @@ private fun RoomRuleCard(
             .padding(14.dp)
     ) {
         Text(
-            text = if (isEn) "${rule.roomEn} (${rule.roomNp})" else rule.roomNp,
+            text = if (isEn) rule.roomEn else rule.roomNp,
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onSurface
         )
@@ -739,13 +733,13 @@ private fun RoomRuleCard(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = if (isEn) "Best (उत्तम):" else "उत्तम:",
+                text = if (isEn) "Best:" else "उत्तम:",
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                 color = Color(0xFF16A34A)
             )
             Spacer(Modifier.width(6.dp))
             Text(
-                text = if (isEn) "${rule.bestDirectionEn} • ${rule.bestDirectionNp}" else rule.bestDirectionNp,
+                text = if (isEn) rule.bestDirectionEn else rule.bestDirectionNp,
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -755,13 +749,13 @@ private fun RoomRuleCard(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = if (isEn) "Alternative (विकल्प):" else "विकल्प:",
+                text = if (isEn) "Alternative:" else "विकल्प:",
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.width(6.dp))
             Text(
-                text = if (isEn) "${rule.alternativeDirectionEn} • ${rule.alternativeDirectionNp}" else rule.alternativeDirectionNp,
+                text = if (isEn) rule.alternativeDirectionEn else rule.alternativeDirectionNp,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -771,13 +765,13 @@ private fun RoomRuleCard(
 
         Row(verticalAlignment = Alignment.Top) {
             Text(
-                text = if (isEn) "Avoid (वर्जित):" else "वर्जित:",
+                text = if (isEn) "Avoid:" else "वर्जित:",
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.error
             )
             Spacer(Modifier.width(6.dp))
             Text(
-                text = if (isEn) "${rule.strictlyAvoidEn} • ${rule.strictlyAvoidNp}" else rule.strictlyAvoidNp,
+                text = if (isEn) rule.strictlyAvoidEn else rule.strictlyAvoidNp,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.error.copy(alpha = 0.85f)
             )

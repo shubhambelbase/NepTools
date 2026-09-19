@@ -83,6 +83,7 @@ fun SoftCard(
     Column(
         modifier
             .shadow(2.dp, shape)
+            .border(0.75.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.25f), shape)
             .background(MaterialTheme.colorScheme.surface, shape)
             .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
             .padding(contentPadding),

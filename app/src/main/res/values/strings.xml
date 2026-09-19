@@ -3,4 +3,8 @@
     <string name="app_name">NepTools</string>
     <string name="widget_nepali_date_label">NepTools Daily Patro</string>
     <string name="widget_nepali_date_desc">Displays today\'s Bikram Sambat date, tithi, and festive events</string>
+    <string name="widget_nepali_month_label">NepTools Month Calendar</string>
+    <string name="widget_nepali_month_desc">Interactive Bikram Sambat monthly grid with holidays and festivals</string>
+    <string name="widget_quick_glance_label">NepTools Quick Glance</string>
+    <string name="widget_quick_glance_desc">Live NOC fuel prices, Forex rates, and instant utility shortcuts</string>
 </resources>

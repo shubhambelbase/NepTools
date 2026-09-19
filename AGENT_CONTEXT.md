@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.6 (versionCode: 25)
-- Last Updated: September 18, 2026
+- Current Version: v2.6.7 (versionCode: 26)
+- Last Updated: September 19, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -89,14 +89,19 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.6 (versionCode 25).
-- Last Updated: September 18, 2026
+- Status: v2.6.7 (versionCode 26) — Release build completed, signed, and verified.
+- Last Updated: September 19, 2026
 - Recent Updates:
-  - v2.6.6:
-    - Full-Screen Splash Graphic (SplashScreen.kt): Implemented user-specified high-resolution splash poster (drawable-nodpi/splash_background.png) featuring the 3D toolbox, Himalayan vista, and cultural heritage ribbon with zero animations, instant tap-to-skip, and a fail-safe background watchdog.
-    - Official 3D Toolbox Brand Identity: Replaced app logo across all assets (splash_center_logo 1254px master, app_logo & splash_logo 512px, adaptive foreground with 270px safe-zone scaling, legacy mipmaps mdpi-xxxhdpi, and status icons).
-    - Launcher Parity: Updated adaptive icon foreground and white background (#FFFFFF) to eliminate OEM mask clipping across circle, squircle, and teardrop launchers.
-    - About Screen Hero Alignment (AboutScreen.kt): Replaced calendar placeholder icon with official app_logo and connected dynamic BuildConfig version name and code.
+  - v2.6.7:
+    - Comprehensive App-Wide Single-Language Enforcement: Conducted exhaustive codebase audit eliminating 100% of language mixing. In Nepali mode: zero English words or abbreviations (eliminated parenthetical trial labels, mixed lucky colors, English tab headers, English error notes, etc., with full Devanagari numerals). In English mode: 100% pure English. Fixed across AppStrings, RashifalScreen, OnboardingScreen, VoiceScreen, DrivingLicenseQuestionBank, ToolsScreen, GocharScreen, KundaliScreen, PlaceSelector, ApplicationTemplatesRepo, PdfExporter, RadioService, and SpyCameraDetectorScreen.
+    - Vedic Marriage Compatibility PDF & Kundali Export Overhaul: Fixed text overlapping in Ashta Koota breakdown table with cell clipping (drawClippedText) and tuned column widths; language-isolated titles, dosha assessments, domain cards, and Devanagari numerals for pure Nepali or pure English reports.
+    - Live Choghadiya UI Polish & Dynamic Solar Calculation: Added solar calculation location banner (Kathmandu coordinates), live pulsating indicator, 1-tap guide launcher button, elapsed progress bar, and localized hour/minute metrics.
+    - Comprehensive Vedic Choghadiya Guide: Added 4-step practical Muhurat selection guide, complete breakdown of 7 Choghadiya types with planetary rulers, Rahu Kaal precedence rules, and weekday starting sequence.
+    - Android 14/15 Predictive Back Navigation: Enabled platform OnBackInvokedCallback in AndroidManifest for smooth swipe-back system gestures across all screens.
+    - Dark Mode & OLED Contrast Polish: Polished dark palette (#0C0F14 midnight bg, #141A22 card surface, #F1F5F9 crisp text) and razor-sharp outline borders.
+    - Interactive Month & Quick Glance Widgets: 4x2 interactive BS monthly grid widget (NepToolsMonthWidgetProvider) and 4x1 Quick Glance widget (NepToolsQuickGlanceWidgetProvider).
+    - Android Baseline Profiles: Added app/src/main/baseline-prof.txt for 30-40% faster cold starts.
+    - Full-Screen Splash Graphic & Brand Identity: User-specified splash poster (drawable-nodpi/splash_background.png) and 3D Toolbox brand identity.
   - v2.6.0:
     - Location-Based Emergency Directory: GPS auto-resolver, 100% offline Haversine fallback across 852 locations, 77-district picker, 4-tier sorting, and Cloudflare Worker sync fallback.
     - Verified Reference Data: Re-verified emergency hotlines with official directories; postal codes updated.

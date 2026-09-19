@@ -185,7 +185,7 @@ fun LandConverterScreen(onBack: () -> Unit) {
                 onClick = { selectedTab = 0 },
                 text = {
                     Text(
-                        if (isEn) "Converter (रूपान्तरण)" else "रूपान्तरण",
+                        if (isEn) "Converter" else "रूपान्तरण",
                         fontWeight = if (selectedTab == 0) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -195,7 +195,7 @@ fun LandConverterScreen(onBack: () -> Unit) {
                 onClick = { selectedTab = 1 },
                 text = {
                     Text(
-                        if (isEn) "Parcel Math (जोड/घटाउ)" else "जग्गा जोड / घटाउ",
+                        if (isEn) "Parcel Math" else "जग्गा जोड / घटाउ",
                         fontWeight = if (selectedTab == 1) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -205,7 +205,7 @@ fun LandConverterScreen(onBack: () -> Unit) {
                 onClick = { selectedTab = 2 },
                 text = {
                     Text(
-                        if (isEn) "Reference (तालिका)" else "नाप नक्शा तालिका",
+                        if (isEn) "Reference Table" else "नाप नक्शा तालिका",
                         fontWeight = if (selectedTab == 2) FontWeight.Bold else FontWeight.Normal
                     )
                 }
@@ -224,7 +224,7 @@ fun LandConverterScreen(onBack: () -> Unit) {
                         // Input Mode Selector Chips
                         Column {
                             Text(
-                                text = if (isEn) "Select Input Unit (एकाइ छान्नुहोस्):" else "नाप प्रविष्ट गर्ने एकाइ छान्नुहोस्:",
+                                text = if (isEn) "Select Input Unit:" else "नाप प्रविष्ट गर्ने एकाइ छान्नुहोस्:",
                                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -232,28 +232,28 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 item {
                                     UnitChip(
-                                        label = if (isEn) "Hilly (Ropani • रोपनी)" else "पहाड (रोपनी-आना-पैसा-दाम)",
+                                        label = if (isEn) "Hilly (Ropani)" else "पहाड (रोपनी-आना-पैसा-दाम)",
                                         selected = inputMode == LandInputMode.HILLY,
                                         onClick = { inputMode = LandInputMode.HILLY }
                                     )
                                 }
                                 item {
                                     UnitChip(
-                                        label = if (isEn) "Terai (Bigha • बिघा)" else "तराई (बिघा-कठ्ठा-धुर)",
+                                        label = if (isEn) "Terai (Bigha)" else "तराई (बिघा-कठ्ठा-धुर)",
                                         selected = inputMode == LandInputMode.TERAI,
                                         onClick = { inputMode = LandInputMode.TERAI }
                                     )
                                 }
                                 item {
                                     UnitChip(
-                                        label = if (isEn) "Square Feet (वर्ग फिट)" else "वर्ग फिट (Sq. Ft)",
+                                        label = if (isEn) "Square Feet" else "वर्ग फिट",
                                         selected = inputMode == LandInputMode.SQFT,
                                         onClick = { inputMode = LandInputMode.SQFT }
                                     )
                                 }
                                 item {
                                     UnitChip(
-                                        label = if (isEn) "Square Metre (वर्ग मिटर)" else "वर्ग मिटर (Sq. M)",
+                                        label = if (isEn) "Square Metres" else "वर्ग मिटर",
                                         selected = inputMode == LandInputMode.SQM,
                                         onClick = { inputMode = LandInputMode.SQM }
                                     )
@@ -275,35 +275,35 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             when (inputMode) {
                                 LandInputMode.HILLY -> {
                                     Text(
-                                        text = if (isEn) "Enter Hilly / Valley Land Area (पहाडी जग्गा)" else "पहाडी जग्गाको क्षेत्रफल प्रविष्ट गर्नुहोस्",
+                                        text = if (isEn) "Enter Hilly / Valley Land Area" else "पहाडी जग्गाको क्षेत्रफल प्रविष्ट गर्नुहोस्",
                                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Spacer(Modifier.height(10.dp))
                                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        LandInputField(value = inRopani, onValueChange = { inRopani = it }, label = if (isEn) "Ropani (रोपनी)" else "रोपनी", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inAana, onValueChange = { inAana = it }, label = if (isEn) "Aana (आना)" else "आना", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inPaisa, onValueChange = { inPaisa = it }, label = if (isEn) "Paisa (पैसा)" else "पैसा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inDaam, onValueChange = { inDaam = it }, label = if (isEn) "Daam (दाम)" else "दाम", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inRopani, onValueChange = { inRopani = it }, label = if (isEn) "Ropani" else "रोपनी", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inAana, onValueChange = { inAana = it }, label = if (isEn) "Aana" else "आना", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inPaisa, onValueChange = { inPaisa = it }, label = if (isEn) "Paisa" else "पैसा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inDaam, onValueChange = { inDaam = it }, label = if (isEn) "Daam" else "दाम", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
                                     }
                                 }
                                 LandInputMode.TERAI -> {
                                     Text(
-                                        text = if (isEn) "Enter Terai Land Area (तराई जग्गा)" else "तराई जग्गाको क्षेत्रफल प्रविष्ट गर्नुहोस्",
+                                        text = if (isEn) "Enter Terai Land Area" else "तराई जग्गाको क्षेत्रफल प्रविष्ट गर्नुहोस्",
                                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Spacer(Modifier.height(10.dp))
                                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        LandInputField(value = inBigha, onValueChange = { inBigha = it }, label = if (isEn) "Bigha (बिघा)" else "बिघा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inKatha, onValueChange = { inKatha = it }, label = if (isEn) "Katha (कठ्ठा)" else "कठ्ठा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inDhur, onValueChange = { inDhur = it }, label = if (isEn) "Dhur (धुर)" else "धुर", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
-                                        LandInputField(value = inKanwa, onValueChange = { inKanwa = it }, label = if (isEn) "Kanwa (कन्वा)" else "कन्वा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inBigha, onValueChange = { inBigha = it }, label = if (isEn) "Bigha" else "बिघा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inKatha, onValueChange = { inKatha = it }, label = if (isEn) "Katha" else "कठ्ठा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inDhur, onValueChange = { inDhur = it }, label = if (isEn) "Dhur" else "धुर", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
+                                        LandInputField(value = inKanwa, onValueChange = { inKanwa = it }, label = if (isEn) "Kanwa" else "कन्वा", modifier = Modifier.weight(1f), onDone = { focusManager.clearFocus() })
                                     }
                                 }
                                 LandInputMode.SQFT -> {
                                     Text(
-                                        text = if (isEn) "Enter Square Feet (वर्ग फिट)" else "वर्ग फिट प्रविष्ट गर्नुहोस्",
+                                        text = if (isEn) "Enter Square Feet" else "वर्ग फिट प्रविष्ट गर्नुहोस्",
                                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
@@ -311,14 +311,14 @@ fun LandConverterScreen(onBack: () -> Unit) {
                                     LandInputField(
                                         value = inSqFt,
                                         onValueChange = { inSqFt = it },
-                                        label = if (isEn) "Total Square Feet (वर्ग फिट)" else "जम्मा वर्ग फिट (Sq. Ft)",
+                                        label = if (isEn) "Total Square Feet" else "जम्मा वर्ग फिट",
                                         modifier = Modifier.fillMaxWidth(),
                                         onDone = { focusManager.clearFocus() }
                                     )
                                 }
                                 LandInputMode.SQM -> {
                                     Text(
-                                        text = if (isEn) "Enter Square Metres (वर्ग मिटर)" else "वर्ग मिटर प्रविष्ट गर्नुहोस्",
+                                        text = if (isEn) "Enter Square Metres" else "वर्ग मिटर प्रविष्ट गर्नुहोस्",
                                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
@@ -326,7 +326,7 @@ fun LandConverterScreen(onBack: () -> Unit) {
                                     LandInputField(
                                         value = inSqM,
                                         onValueChange = { inSqM = it },
-                                        label = if (isEn) "Total Square Metres (वर्ग मिटर)" else "जम्मा वर्ग मिटर (Sq. M)",
+                                        label = if (isEn) "Total Square Metres" else "जम्मा वर्ग मिटर",
                                         modifier = Modifier.fillMaxWidth(),
                                         onDone = { focusManager.clearFocus() }
                                     )
@@ -338,19 +338,19 @@ fun LandConverterScreen(onBack: () -> Unit) {
                     // Hilly Output Card
                     item {
                         AreaResultCard(
-                            systemTitle = if (isEn) "Hilly / Valley System (पहाडी प्रणाली)" else "पहाडी प्रणाली (काठमाडौं उपत्यका र पहाड)",
+                            systemTitle = if (isEn) "Hilly / Valley System" else "पहाडी प्रणाली (काठमाडौं उपत्यका र पहाड)",
                             primaryText = calculation.ropaniBreakdown.formatDescriptive(isEn),
                             compactTag = calculation.ropaniBreakdown.formatCompact(),
                             detailLines = listOf(
-                                (if (isEn) "Ropani (रोपनी)" else "रोपनी") to "${calculation.ropaniBreakdown.ropani}",
-                                (if (isEn) "Aana (आना)" else "आना") to "${calculation.ropaniBreakdown.aana}",
-                                (if (isEn) "Paisa (पैसा)" else "पैसा") to "${calculation.ropaniBreakdown.paisa}",
-                                (if (isEn) "Daam (दाम)" else "दाम") to "${calculation.ropaniBreakdown.daam}"
+                                (if (isEn) "Ropani" else "रोपनी") to "${calculation.ropaniBreakdown.ropani}",
+                                (if (isEn) "Aana" else "आना") to "${calculation.ropaniBreakdown.aana}",
+                                (if (isEn) "Paisa" else "पैसा") to "${calculation.ropaniBreakdown.paisa}",
+                                (if (isEn) "Daam" else "दाम") to "${calculation.ropaniBreakdown.daam}"
                             ),
                             accentColor = Color(0xFF0284C7),
                             onCopy = {
                                 clipboardManager.setText(AnnotatedString(calculation.ropaniBreakdown.formatDescriptive(isEn)))
-                                Toast.makeText(context, if (isEn) "Copied Hilly Area (पहाडी विवरण कपी भयो)" else "पहाडी जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, if (isEn) "Copied Hilly Area" else "पहाडी जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
                             }
                         )
                     }
@@ -358,19 +358,19 @@ fun LandConverterScreen(onBack: () -> Unit) {
                     // Terai Output Card
                     item {
                         AreaResultCard(
-                            systemTitle = if (isEn) "Terai System (तराई प्रणाली)" else "तराई प्रणाली (भित्री मधेस तथा तराई)",
+                            systemTitle = if (isEn) "Terai System" else "तराई प्रणाली (भित्री मधेस तथा तराई)",
                             primaryText = calculation.bighaBreakdown.formatDescriptive(isEn),
                             compactTag = calculation.bighaBreakdown.formatCompact(),
                             detailLines = listOf(
-                                (if (isEn) "Bigha (बिघा)" else "बिघा") to "${calculation.bighaBreakdown.bigha}",
-                                (if (isEn) "Katha (कठ्ठा)" else "कठ्ठा") to "${calculation.bighaBreakdown.katha}",
-                                (if (isEn) "Dhur (धुर)" else "धुर") to "${calculation.bighaBreakdown.dhur}",
-                                (if (isEn) "Kanwa (कन्वा)" else "कन्वा") to "${calculation.bighaBreakdown.kanwa}"
+                                (if (isEn) "Bigha" else "बिघा") to "${calculation.bighaBreakdown.bigha}",
+                                (if (isEn) "Katha" else "कठ्ठा") to "${calculation.bighaBreakdown.katha}",
+                                (if (isEn) "Dhur" else "धुर") to "${calculation.bighaBreakdown.dhur}",
+                                (if (isEn) "Kanwa" else "कन्वा") to "${calculation.bighaBreakdown.kanwa}"
                             ),
                             accentColor = Color(0xFF16A34A),
                             onCopy = {
                                 clipboardManager.setText(AnnotatedString(calculation.bighaBreakdown.formatDescriptive(isEn)))
-                                Toast.makeText(context, if (isEn) "Copied Terai Area (तराई विवरण कपी भयो)" else "तराई जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, if (isEn) "Copied Terai Area" else "तराई जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
                             }
                         )
                     }
@@ -392,10 +392,10 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             )
                             Spacer(Modifier.height(10.dp))
 
-                            MetricRow(label = if (isEn) "Square Feet (वर्ग फिट)" else "वर्ग फिट (Sq. Ft)", value = "%.2f".format(calculation.sqFt))
-                            MetricRow(label = if (isEn) "Square Metres (वर्ग मिटर)" else "वर्ग मिटर (Sq. M)", value = "%.2f".format(calculation.sqMeters))
-                            MetricRow(label = if (isEn) "Acres (एकड)" else "एकड (Acres)", value = "%.4f".format(calculation.acres))
-                            MetricRow(label = if (isEn) "Hectares (हेक्टर)" else "हेक्टर (Hectares)", value = "%.4f".format(calculation.hectares))
+                            MetricRow(label = if (isEn) "Square Feet" else "वर्ग फिट", value = "%.2f".format(calculation.sqFt))
+                            MetricRow(label = if (isEn) "Square Metres" else "वर्ग मिटर", value = "%.2f".format(calculation.sqMeters))
+                            MetricRow(label = if (isEn) "Acres" else "एकड", value = "%.4f".format(calculation.acres))
+                            MetricRow(label = if (isEn) "Hectares" else "हेक्टर", value = "%.4f".format(calculation.hectares))
                         }
                     }
                 }
@@ -606,8 +606,8 @@ private fun LandParcelMathSection(isEn: Boolean) {
         }
     }
 
-    val hillyLabels = if (isEn) listOf("Ropani (रोपनी)", "Aana (आना)", "Paisa (पैसा)", "Daam (दाम)") else listOf("रोपनी", "आना", "पैसा", "दाम")
-    val teraiLabels = if (isEn) listOf("Bigha (बिघा)", "Katha (कठ्ठा)", "Dhur (धुर)", "Kanwa (कन्वा)") else listOf("बिघा", "कठ्ठा", "धुर", "कन्वा")
+    val hillyLabels = if (isEn) listOf("Ropani", "Aana", "Paisa", "Daam") else listOf("रोपनी", "आना", "पैसा", "दाम")
+    val teraiLabels = if (isEn) listOf("Bigha", "Katha", "Dhur", "Kanwa") else listOf("बिघा", "कठ्ठा", "धुर", "कन्वा")
     val activeLabels = if (isHillyMath) hillyLabels else teraiLabels
 
     LazyColumn(
@@ -618,12 +618,12 @@ private fun LandParcelMathSection(isEn: Boolean) {
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 UnitChip(
-                    label = if (isEn) "Hilly (Ropani • रोपनी)" else "पहाडी (रोपनी/आना)",
+                    label = if (isEn) "Hilly (Ropani)" else "पहाडी (रोपनी/आना)",
                     selected = isHillyMath,
                     onClick = { isHillyMath = true }
                 )
                 UnitChip(
-                    label = if (isEn) "Terai (Bigha • बिघा)" else "तराई (बिघा/कठ्ठा)",
+                    label = if (isEn) "Terai (Bigha)" else "तराई (बिघा/कठ्ठा)",
                     selected = !isHillyMath,
                     onClick = { isHillyMath = false }
                 )
@@ -641,7 +641,7 @@ private fun LandParcelMathSection(isEn: Boolean) {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = if (isEn) "Net Remaining Land (जम्मा बाँकी जग्गा):" else "जम्मा बाँकी जग्गाको नाप:",
+                    text = if (isEn) "Net Remaining Land:" else "जम्मा बाँकी जग्गाको नाप:",
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -663,7 +663,7 @@ private fun LandParcelMathSection(isEn: Boolean) {
         // Parcel 1 Input
         item {
             ParcelInputCard(
-                title = if (isEn) "Parcel 1 (Primary Land • मुख्य जग्गा)" else "कित्ता १ (मुख्य जग्गा)",
+                title = if (isEn) "Parcel 1 (Primary Land)" else "कित्ता १ (मुख्य जग्गा)",
                 valA = p1A, onValAChange = { p1A = it },
                 valB = p1B, onValBChange = { p1B = it },
                 valC = p1C, onValCChange = { p1C = it },
@@ -676,7 +676,7 @@ private fun LandParcelMathSection(isEn: Boolean) {
         // Parcel 2 Input
         item {
             ParcelInputCard(
-                title = if (isEn) "+ Parcel 2 (Additional Plot • थप जग्गा)" else "+ कित्ता २ (थप जग्गा)",
+                title = if (isEn) "+ Parcel 2 (Additional Plot)" else "+ कित्ता २ (थप जग्गा)",
                 valA = p2A, onValAChange = { p2A = it },
                 valB = p2B, onValBChange = { p2B = it },
                 valC = p2C, onValCChange = { p2C = it },
@@ -689,7 +689,7 @@ private fun LandParcelMathSection(isEn: Boolean) {
         // Parcel 3 Input (Deduction)
         item {
             ParcelInputCard(
-                title = if (isEn) "- Deduct / Road / Partition (कटौति)" else "- बेचिएको वा बाटोमा काटिएको जग्गा",
+                title = if (isEn) "- Deduct / Road / Partition" else "- बेचिएको वा बाटोमा काटिएको जग्गा",
                 valA = p3A, onValAChange = { p3A = it },
                 valB = p3B, onValBChange = { p3B = it },
                 valC = p3C, onValCChange = { p3C = it },
@@ -733,39 +733,39 @@ private fun ParcelInputCard(
 @Composable
 private fun LandReferenceSection(isEn: Boolean) {
     val hillyStandards = if (isEn) listOf(
-        Pair("1 Ropani (१ रोपनी)", "16 Aana = 64 Paisa = 256 Daam = 5,476 Sq. Ft (508.74 m²)"),
-        Pair("1 Aana (१ आना)", "4 Paisa = 16 Daam = 342.25 Sq. Ft (31.80 m²)"),
-        Pair("1 Paisa (१ पैसा)", "4 Daam = 85.56 Sq. Ft (7.95 m²)"),
-        Pair("1 Daam (१ दाम)", "21.39 Sq. Ft (1.99 m²)")
+        Pair("1 Ropani", "16 Aana = 64 Paisa = 256 Daam = 5,476 Sq. Ft (508.74 m²)"),
+        Pair("1 Aana", "4 Paisa = 16 Daam = 342.25 Sq. Ft (31.80 m²)"),
+        Pair("1 Paisa", "4 Daam = 85.56 Sq. Ft (7.95 m²)"),
+        Pair("1 Daam", "21.39 Sq. Ft (1.99 m²)")
     ) else listOf(
-        Pair("१ रोपनी (1 Ropani)", "१६ आना = ६४ पैसा = २५६ दाम = ५,४७६ वर्ग फिट (५०८.७४ वर्ग मिटर)"),
-        Pair("१ आना (1 Aana)", "४ पैसा = १६ दाम = ३४२.२५ वर्ग फिट (३१.८० वर्ग मिटर)"),
-        Pair("१ पैसा (1 Paisa)", "४ दाम = ८५.५६ वर्ग फिट (७.९५ वर्ग मिटर)"),
-        Pair("१ दाम (1 Daam)", "२१.३९ वर्ग फिट (१.९९ वर्ग मिटर)")
+        Pair("१ रोपनी", "१६ आना = ६४ पैसा = २५६ दाम = ५,४७६ वर्ग फिट (५०८.७४ वर्ग मिटर)"),
+        Pair("१ आना", "४ पैसा = १६ दाम = ३४२.२५ वर्ग फिट (३१.८० वर्ग मिटर)"),
+        Pair("१ पैसा", "४ दाम = ८५.५६ वर्ग फिट (७.९५ वर्ग मिटर)"),
+        Pair("१ दाम", "२१.३९ वर्ग फिट (१.९९ वर्ग मिटर)")
     )
 
     val teraiStandards = if (isEn) listOf(
-        Pair("1 Bigha (१ बिघा)", "20 Katha = 400 Dhur = 1,600 Kanwa = 72,900 Sq. Ft (6,772.63 m²)"),
-        Pair("1 Katha (१ कठ्ठा)", "20 Dhur = 80 Kanwa = 3,645 Sq. Ft (338.63 m²)"),
-        Pair("1 Dhur (१ धुर)", "4 Kanwa = 182.25 Sq. Ft (16.93 m²)"),
-        Pair("1 Kanwa (१ कन्वा)", "45.56 Sq. Ft (4.23 m²)")
+        Pair("1 Bigha", "20 Katha = 400 Dhur = 1,600 Kanwa = 72,900 Sq. Ft (6,772.63 m²)"),
+        Pair("1 Katha", "20 Dhur = 80 Kanwa = 3,645 Sq. Ft (338.63 m²)"),
+        Pair("1 Dhur", "4 Kanwa = 182.25 Sq. Ft (16.93 m²)"),
+        Pair("1 Kanwa", "45.56 Sq. Ft (4.23 m²)")
     ) else listOf(
-        Pair("१ बिघा (1 Bigha)", "२० कठ्ठा = ४०० धुर = १,६०० कन्वा = ७२,९०० वर्ग फिट (६,७७२.६३ वर्ग मिटर)"),
-        Pair("१ कठ्ठा (1 Katha)", "२० धुर = ८० कन्वा = ३,६४५ वर्ग फिट (३३८.६३ वर्ग मिटर)"),
-        Pair("१ धुर (1 Dhur)", "४ कन्वा = १८२.२५ वर्ग फिट (१६.९३ वर्ग मिटर)"),
-        Pair("१ कन्वा (1 Kanwa)", "४५.५६ वर्ग फिट (४.२३ वर्ग मिटर)")
+        Pair("१ बिघा", "२० कठ्ठा = ४०० धुर = १,६०० कन्वा = ७२,९०० वर्ग फिट (६,७७२.६३ वर्ग मिटर)"),
+        Pair("१ कठ्ठा", "२० धुर = ८० कन्वा = ३,६४५ वर्ग फिट (३३८.६३ वर्ग मिटर)"),
+        Pair("१ धुर", "४ कन्वा = १८२.२५ वर्ग फिट (१६.९३ वर्ग मिटर)"),
+        Pair("१ कन्वा", "४५.५६ वर्ग फिट (४.२३ वर्ग मिटर)")
     )
 
     val crossStandards = if (isEn) listOf(
-        Pair("1 Bigha (१ बिघा)", "13.31 Ropani (13 Ropani 5 Aana)"),
-        Pair("1 Ropani (१ रोपनी)", "0.075 Bigha (1.50 Katha / 30.05 Dhur)"),
-        Pair("1 Acre (१ एकड)", "43,560 Sq. Ft = 7.95 Ropani = 0.60 Bigha"),
-        Pair("1 Hectare (१ हेक्टर)", "107,639 Sq. Ft = 10,000 m² = 19.66 Ropani = 1.48 Bigha")
+        Pair("1 Bigha", "13.31 Ropani (13 Ropani 5 Aana)"),
+        Pair("1 Ropani", "0.075 Bigha (1.50 Katha / 30.05 Dhur)"),
+        Pair("1 Acre", "43,560 Sq. Ft = 7.95 Ropani = 0.60 Bigha"),
+        Pair("1 Hectare", "107,639 Sq. Ft = 10,000 m² = 19.66 Ropani = 1.48 Bigha")
     ) else listOf(
         Pair("१ बिघा बराबर", "१३.३१ रोपनी (१३ रोपनी ५ आना)"),
         Pair("१ रोपनी बराबर", "०.०७५ बिघा (१.५० कठ्ठा वा ३०.०५ धुर)"),
-        Pair("१ एकड (1 Acre)", "४३,५६० वर्ग फिट = ७.९५ रोपनी = ०.६० बिघा"),
-        Pair("१ हेक्टर (1 Hectare)", "१,०७,६३९ वर्ग फिट = १०,००० वर्ग मिटर = १९.६६ रोपनी = १.४८ बिघा")
+        Pair("१ एकड", "४३,५६० वर्ग फिट = ७.९५ रोपनी = ०.६० बिघा"),
+        Pair("१ हेक्टर", "१,०७,६३९ वर्ग फिट = १०,००० वर्ग मिटर = १९.६६ रोपनी = १.४८ बिघा")
     )
 
     LazyColumn(
@@ -775,7 +775,7 @@ private fun LandReferenceSection(isEn: Boolean) {
     ) {
         item {
             Text(
-                text = if (isEn) "Official Survey Standards (नापी मापदण्ड)" else "नेपाल सरकार नापी विभाग आधिकारिक मापदण्ड",
+                text = if (isEn) "Official Survey Standards" else "नेपाल सरकार नापी विभाग आधिकारिक मापदण्ड",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -783,21 +783,21 @@ private fun LandReferenceSection(isEn: Boolean) {
 
         item {
             ReferenceCard(
-                title = if (isEn) "Hilly / Valley Standards (पहाडी नाप)" else "पहाडी तथा काठमाडौं उपत्यका नाप",
+                title = if (isEn) "Hilly / Valley Standards" else "पहाडी तथा काठमाडौं उपत्यका नाप",
                 items = hillyStandards
             )
         }
 
         item {
             ReferenceCard(
-                title = if (isEn) "Terai Standards (तराई नाप)" else "तराई तथा भित्री मधेस नाप",
+                title = if (isEn) "Terai Standards" else "तराई तथा भित्री मधेस नाप",
                 items = teraiStandards
             )
         }
 
         item {
             ReferenceCard(
-                title = if (isEn) "Cross System & Global Units (आपसी रूपान्तरण)" else "आपसी रूपान्तरण तथा अन्तर्राष्ट्रिय एकाइ",
+                title = if (isEn) "Cross System & Global Units" else "आपसी रूपान्तरण तथा अन्तर्राष्ट्रिय एकाइ",
                 items = crossStandards
             )
         }

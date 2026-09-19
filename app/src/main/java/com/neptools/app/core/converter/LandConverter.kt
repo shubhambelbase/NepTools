@@ -50,7 +50,7 @@ object LandConverter {
         fun formatDescriptive(isEn: Boolean): String {
             val dStr = if (daam % 1.0 == 0.0) daam.toInt().toString() else "%.2f".format(daam)
             return if (isEn) {
-                "$ropani Ropani (रोपनी), $aana Aana (आना), $paisa Paisa (पैसा), $dStr Daam (दाम)"
+                "$ropani Ropani, $aana Aana, $paisa Paisa, $dStr Daam"
             } else {
                 "$ropani रोपनी, $aana आना, $paisa पैसा, $dStr दाम"
             }
@@ -81,7 +81,7 @@ object LandConverter {
         fun formatDescriptive(isEn: Boolean): String {
             val kStr = if (kanwa % 1.0 == 0.0) kanwa.toInt().toString() else "%.2f".format(kanwa)
             return if (isEn) {
-                "$bigha Bigha (बिघा), $katha Katha (कठ्ठा), $dhur Dhur (धुर), $kStr Kanwa (कन्वा)"
+                "$bigha Bigha, $katha Katha, $dhur Dhur, $kStr Kanwa"
             } else {
                 "$bigha बिघा, $katha कठ्ठा, $dhur धुर, $kStr कन्वा"
             }

@@ -116,9 +116,13 @@ private val healthsEn = listOf(
     "Mindful eating and nutritious choices will keep digestion light.",
     "A brief moment of quiet meditation enhances inner tranquility."
 )
-private val luckyColors = listOf(
-    "पिरो · Yellow", "रातो · Red", "हरियो · Green", "निलो · Blue",
-    "सेतो · White", "गुलाबी · Pink", "सुनौलो · Golden"
+private val luckyColorsNp = listOf(
+    "पहेँलो", "रातो", "हरियो", "निलो",
+    "सेतो", "गुलाबी", "सुनौलो"
+)
+private val luckyColorsEn = listOf(
+    "Yellow", "Red", "Green", "Blue",
+    "White", "Pink", "Golden"
 )
 
 @Composable
@@ -233,13 +237,13 @@ fun RashifalScreen(onBack: () -> Unit) {
             Spacer(Modifier.height(8.dp))
             Text(reading, style = MaterialTheme.typography.bodyLarge)
             Spacer(Modifier.height(12.dp))
-            MeterBar(if (isEn) "Love & Romance" else "प्रेम Love", lovePct)
-            MeterBar(if (isEn) "Career & Work" else "करियर Work", workPct)
-            MeterBar(if (isEn) "Health & Vitality" else "स्वास्थ्य Health", healthPct)
-            MeterBar(if (isEn) "Luck & Fortune" else "भाग्य Luck", luckPct)
+            MeterBar(if (isEn) "Love & Romance" else "प्रेम तथा सम्बन्ध", lovePct)
+            MeterBar(if (isEn) "Career & Work" else "करियर तथा व्यवसाय", workPct)
+            MeterBar(if (isEn) "Health & Vitality" else "स्वास्थ्य तथा ऊर्जा", healthPct)
+            MeterBar(if (isEn) "Luck & Fortune" else "भाग्य तथा अवसर", luckPct)
             Spacer(Modifier.height(14.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                LuckyChip(if (isEn) "Lucky Color" else "शुभ रङ", luckyColors[selected % luckyColors.size], Modifier.weight(1.3f))
+                LuckyChip(if (isEn) "Lucky Color" else "शुभ रङ", if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size], Modifier.weight(1.3f))
                 LuckyChip(if (isEn) "Lucky No." else "शुभ अङ्क", if (isEn) "${selected % 9 + 1}" else npNum(selected % 9 + 1), Modifier.weight(0.7f))
                 LuckyChip(if (isEn) "Good Hours" else "शुभ समय", if (isEn) enTimeWindow(selected) else npTimeWindow(selected), Modifier.weight(1f))
             }

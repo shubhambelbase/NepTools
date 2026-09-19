@@ -164,7 +164,7 @@ object WeatherRepo {
         humidity: Int = 70,
         wind: Int = 9,
         aqi: Int = 45,
-        aqiLabelNp: String = "राम्रो (Good)",
+        aqiLabelNp: String = "राम्रो",
         aqiLabelEn: String = "Good"
     ): CityWeather {
         return CityWeather(
@@ -199,12 +199,12 @@ object WeatherRepo {
 
     val nepalCities = listOf(
         // Kathmandu Valley
-        city("kathmandu", "काठमाडौँ", "Kathmandu", "काठमाडौँ", "Kathmandu", "बागमती प्रदेश", "Bagmati", 27.7172, 85.3240, 24, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 72, 9, 48, "राम्रो (Good)", "Good"),
-        city("lalitpur", "ललितपुर (पाटन)", "Lalitpur (Patan)", "ललितपुर", "Lalitpur", "बागमती प्रदेश", "Bagmati", 27.6710, 85.3218, 24, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 70, 8, 46, "राम्रो (Good)", "Good"),
-        city("bhaktapur", "भक्तपुर", "Bhaktapur", "भक्तपुर", "Bhaktapur", "बागमती प्रदेश", "Bagmati", 27.6710, 85.4298, 24, 18, 27, "आंशिक बदली", "Partly Cloudy", "cloud", 74, 8, 44, "राम्रो (Good)", "Good"),
+        city("kathmandu", "काठमाडौँ", "Kathmandu", "काठमाडौँ", "Kathmandu", "बागमती प्रदेश", "Bagmati", 27.7172, 85.3240, 24, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 72, 9, 48, "राम्रो", "Good"),
+        city("lalitpur", "ललितपुर (पाटन)", "Lalitpur (Patan)", "ललितपुर", "Lalitpur", "बागमती प्रदेश", "Bagmati", 27.6710, 85.3218, 24, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 70, 8, 46, "राम्रो", "Good"),
+        city("bhaktapur", "भक्तपुर", "Bhaktapur", "भक्तपुर", "Bhaktapur", "बागमती प्रदेश", "Bagmati", 27.6710, 85.4298, 24, 18, 27, "आंशिक बदली", "Partly Cloudy", "cloud", 74, 8, 44, "राम्रो", "Good"),
 
         // Gandaki Province
-        city("pokhara", "पोखरा", "Pokhara", "कास्की", "Kaski", "गण्डकी प्रदेश", "Gandaki", 28.2096, 83.9856, 27, 21, 30, "हल्का वर्षा", "Light Rain", "rain", 80, 7, 32, "उत्कृष्ट (Clean)", "Clean"),
+        city("pokhara", "पोखरा", "Pokhara", "कास्की", "Kaski", "गण्डकी प्रदेश", "Gandaki", 28.2096, 83.9856, 27, 21, 30, "हल्का वर्षा", "Light Rain", "rain", 80, 7, 32, "उत्कृष्ट", "Clean"),
         city("damauli", "दमौली", "Damauli", "तनहुँ", "Tanahun", "गण्डकी प्रदेश", "Gandaki", 27.9714, 84.2861, 29, 23, 33, "आंशिक बदली", "Partly Cloudy", "cloud", 75, 8, 38),
         city("syangja", "स्याङ्जा (पुतलीबजार)", "Syangja", "स्याङ्जा", "Syangja", "गण्डकी प्रदेश", "Gandaki", 28.0967, 83.8742, 26, 20, 29, "हल्का वर्षा", "Light Rain", "rain", 78, 6, 30),
         city("gorkha", "गोरखा", "Gorkha", "गोरखा", "Gorkha", "गण्डकी प्रदेश", "Gandaki", 28.0053, 84.6294, 25, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 76, 7, 34),
@@ -213,12 +213,12 @@ object WeatherRepo {
         city("beni", "बेनी", "Beni", "म्याग्दी", "Myagdi", "गण्डकी प्रदेश", "Gandaki", 28.3439, 83.5636, 23, 17, 26, "आंशिक बदली", "Partly Cloudy", "cloud", 75, 5, 26),
         city("kusma", "कुश्मा", "Kusma", "पर्वत", "Parbat", "गण्डकी प्रदेश", "Gandaki", 28.2239, 83.6822, 25, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 75, 6, 30),
         city("kawasoti", "कावासोती", "Kawasoti", "नवलपुर", "Nawalpur", "गण्डकी प्रदेश", "Gandaki", 27.6533, 84.1242, 31, 24, 34, "घमाइलो", "Sunny", "sun", 72, 9, 44),
-        city("jomsom", "जोमसोम", "Jomsom", "मुस्ताङ", "Mustang", "गण्डकी प्रदेश", "Gandaki", 28.7844, 83.7289, 16, 9, 19, "सफा तथा चिसो", "Cool & Clear", "sun", 48, 16, 18, "उत्कृष्ट (Pristine)", "Clean"),
-        city("chame", "चामे", "Chame", "मनाङ", "Manang", "गण्डकी प्रदेश", "Gandaki", 28.5528, 84.2403, 15, 8, 18, "सफा तथा चिसो", "Cool & Clear", "sun", 50, 14, 16, "उत्कृष्ट (Pristine)", "Clean"),
+        city("jomsom", "जोमसोम", "Jomsom", "मुस्ताङ", "Mustang", "गण्डकी प्रदेश", "Gandaki", 28.7844, 83.7289, 16, 9, 19, "सफा तथा चिसो", "Cool & Clear", "sun", 48, 16, 18, "उत्कृष्ट", "Clean"),
+        city("chame", "चामे", "Chame", "मनाङ", "Manang", "गण्डकी प्रदेश", "Gandaki", 28.5528, 84.2403, 15, 8, 18, "सफा तथा चिसो", "Cool & Clear", "sun", 50, 14, 16, "उत्कृष्ट", "Clean"),
 
         // Lumbini Province
-        city("butwal", "बुटवल", "Butwal", "रुपन्देही", "Rupandehi", "लुम्बिनी प्रदेश", "Lumbini", 27.7006, 83.4484, 32, 25, 35, "तातो / घमाइलो", "Hot & Sunny", "sun", 65, 10, 58, "मध्यम (Moderate)", "Moderate"),
-        city("bhairahawa", "भैरहवा (सिद्धार्थनगर)", "Bhairahawa", "रुपन्देही", "Rupandehi", "लुम्बिनी प्रदेश", "Lumbini", 27.5044, 83.4506, 33, 26, 36, "घमाइलो", "Sunny & Hot", "sun", 64, 11, 62, "मध्यम (Moderate)", "Moderate"),
+        city("butwal", "बुटवल", "Butwal", "रुपन्देही", "Rupandehi", "लुम्बिनी प्रदेश", "Lumbini", 27.7006, 83.4484, 32, 25, 35, "तातो / घमाइलो", "Hot & Sunny", "sun", 65, 10, 58, "मध्यम", "Moderate"),
+        city("bhairahawa", "भैरहवा (सिद्धार्थनगर)", "Bhairahawa", "रुपन्देही", "Rupandehi", "लुम्बिनी प्रदेश", "Lumbini", 27.5044, 83.4506, 33, 26, 36, "घमाइलो", "Sunny & Hot", "sun", 64, 11, 62, "मध्यम", "Moderate"),
         city("tansen", "तानसेन", "Tansen", "पाल्पा", "Palpa", "लुम्बिनी प्रदेश", "Lumbini", 27.8681, 83.5469, 25, 19, 28, "आंशिक बदली", "Partly Cloudy", "cloud", 74, 8, 34),
         city("ghorahi", "घोराही", "Ghorahi", "दाङ", "Dang", "लुम्बिनी प्रदेश", "Lumbini", 28.0417, 82.4933, 31, 24, 34, "घमाइलो", "Sunny", "sun", 66, 8, 48),
         city("tulsipur", "तुलसीपुर", "Tulsipur", "दाङ", "Dang", "लुम्बिनी प्रदेश", "Lumbini", 28.1311, 82.2961, 31, 24, 34, "घमाइलो", "Sunny", "sun", 65, 9, 46),
@@ -229,12 +229,12 @@ object WeatherRepo {
         city("ramgram", "रामग्राम (परासी)", "Parasi", "नवलपरासी (प)", "Parasi", "लुम्बिनी प्रदेश", "Lumbini", 27.5333, 83.6667, 33, 25, 36, "घमाइलो", "Sunny & Hot", "sun", 66, 9, 56),
         city("pyuthan", "प्युठान", "Pyuthan", "प्युठान", "Pyuthan", "लुम्बिनी प्रदेश", "Lumbini", 28.0833, 82.8833, 26, 20, 29, "आंशिक बदली", "Partly Cloudy", "cloud", 70, 7, 34),
         city("liwang", "लिवाङ", "Liwang", "रोल्पा", "Rolpa", "लुम्बिनी प्रदेश", "Lumbini", 28.3000, 82.6333, 23, 17, 26, "आंशिक बदली", "Partly Cloudy", "cloud", 72, 6, 28),
-        city("nepalgunj", "नेपालगञ्ज", "Nepalgunj", "बाँके", "Banke", "लुम्बिनी प्रदेश", "Lumbini", 28.0500, 81.6167, 34, 27, 38, "घमाइलो", "Sunny & Hot", "sun", 58, 14, 65, "मध्यम (Moderate)", "Moderate"),
+        city("nepalgunj", "नेपालगञ्ज", "Nepalgunj", "बाँके", "Banke", "लुम्बिनी प्रदेश", "Lumbini", 28.0500, 81.6167, 34, 27, 38, "घमाइलो", "Sunny & Hot", "sun", 58, 14, 65, "मध्यम", "Moderate"),
         city("kohalpur", "कोहलपुर", "Kohalpur", "बाँके", "Banke", "लुम्बिनी प्रदेश", "Lumbini", 28.1833, 81.6833, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 60, 12, 62),
         city("gulariya", "गुलरिया", "Gulariya", "बर्दिया", "Bardia", "लुम्बिनी प्रदेश", "Lumbini", 28.2333, 81.3333, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 62, 11, 58),
 
         // Bagmati Province
-        city("chitwan", "चितवन (भरतपुर)", "Chitwan (Bharatpur)", "चितवन", "Chitwan", "बागमती प्रदेश", "Bagmati", 27.6833, 84.4333, 31, 24, 34, "घाम लागेको", "Mostly Sunny", "sun", 75, 6, 42, "राम्रो (Good)", "Good"),
+        city("chitwan", "चितवन (भरतपुर)", "Chitwan (Bharatpur)", "चितवन", "Chitwan", "बागमती प्रदेश", "Bagmati", 27.6833, 84.4333, 31, 24, 34, "घाम लागेको", "Mostly Sunny", "sun", 75, 6, 42, "राम्रो", "Good"),
         city("ratnanagar", "रत्ननगर (सौराह)", "Ratnanagar (Sauraha)", "चितवन", "Chitwan", "बागमती प्रदेश", "Bagmati", 27.6167, 84.5167, 31, 24, 34, "घमाइलो", "Sunny", "sun", 74, 6, 40),
         city("hetauda", "हेटौँडा", "Hetauda", "मकवानपुर", "Makwanpur", "बागमती प्रदेश", "Bagmati", 27.4289, 85.0333, 29, 23, 32, "आंशिक बदली", "Partly Cloudy", "cloud", 75, 7, 44),
         city("banepa", "बनेपा", "Banepa", "काभ्रे", "Kavre", "बागमती प्रदेश", "Bagmati", 27.6297, 85.5217, 24, 18, 27, "आंशिक बदली", "Partly Cloudy", "cloud", 72, 8, 42),
@@ -249,8 +249,8 @@ object WeatherRepo {
         city("dhunche", "धुन्चे", "Dhunche", "रसुवा", "Rasuwa", "बागमती प्रदेश", "Bagmati", 28.1167, 85.3000, 18, 12, 21, "आंशिक बदली", "Partly Cloudy", "cloud", 76, 9, 22),
 
         // Koshi Province
-        city("biratnagar", "विराटनगर", "Biratnagar", "मोरङ", "Morang", "कोशी प्रदेश", "Koshi", 26.4525, 87.2718, 32, 26, 36, "घमाइलो", "Sunny & Clear", "sun", 68, 12, 55, "मध्यम (Moderate)", "Moderate"),
-        city("dharan", "धरान", "Dharan", "सुनसरी", "Sunsari", "कोशी प्रदेश", "Koshi", 26.8124, 87.2834, 29, 23, 32, "आंशिक बदली", "Partly Cloudy", "cloud", 74, 9, 36, "राम्रो (Good)", "Good"),
+        city("biratnagar", "विराटनगर", "Biratnagar", "मोरङ", "Morang", "कोशी प्रदेश", "Koshi", 26.4525, 87.2718, 32, 26, 36, "घमाइलो", "Sunny & Clear", "sun", 68, 12, 55, "मध्यम", "Moderate"),
+        city("dharan", "धरान", "Dharan", "सुनसरी", "Sunsari", "कोशी प्रदेश", "Koshi", 26.8124, 87.2834, 29, 23, 32, "आंशिक बदली", "Partly Cloudy", "cloud", 74, 9, 36, "राम्रो", "Good"),
         city("itahari", "इटहरी", "Itahari", "सुनसरी", "Sunsari", "कोशी प्रदेश", "Koshi", 26.6667, 87.2833, 31, 25, 34, "घमाइलो", "Sunny", "sun", 70, 10, 48),
         city("birtamod", "बिर्तामोड", "Birtamod", "झापा", "Jhapa", "कोशी प्रदेश", "Koshi", 26.6333, 87.9833, 31, 25, 34, "घमाइलो", "Sunny", "sun", 72, 10, 46),
         city("damak", "दमक", "Damak", "झापा", "Jhapa", "कोशी प्रदेश", "Koshi", 26.6667, 87.7000, 31, 25, 34, "घमाइलो", "Sunny", "sun", 71, 9, 45),
@@ -259,15 +259,15 @@ object WeatherRepo {
         city("gaighat", "गाईघाट", "Gaighat", "उदयपुर", "Udayapur", "कोशी प्रदेश", "Koshi", 26.7833, 86.7000, 31, 25, 35, "घमाइलो", "Sunny", "sun", 69, 9, 48),
         city("phidim", "फिदिम", "Phidim", "पाँचथर", "Panchthar", "कोशी प्रदेश", "Koshi", 27.1500, 87.7667, 23, 16, 25, "आंशिक बदली", "Partly Cloudy", "cloud", 80, 6, 24),
         city("taplejung", "ताप्लेजुङ (फुङलिङ)", "Taplejung", "ताप्लेजुङ", "Taplejung", "कोशी प्रदेश", "Koshi", 27.3500, 87.6667, 21, 14, 23, "हल्का वर्षा", "Light Rain", "rain", 82, 7, 22),
-        city("namche", "नाम्चे बजार", "Namche Bazaar", "सोलुखुम्बु", "Solukhumbu", "कोशी प्रदेश", "Koshi", 27.8056, 86.7139, 14, 7, 16, "सफा तथा चिसो", "Cool & Clear", "sun", 62, 14, 12, "उत्कृष्ट (Pristine)", "Clean"),
+        city("namche", "नाम्चे बजार", "Namche Bazaar", "सोलुखुम्बु", "Solukhumbu", "कोशी प्रदेश", "Koshi", 27.8056, 86.7139, 14, 7, 16, "सफा तथा चिसो", "Cool & Clear", "sun", 62, 14, 12, "उत्कृष्ट", "Clean"),
         city("khandbari", "खाँदबारी", "Khandbari", "संखुवासभा", "Sankhuwasabha", "कोशी प्रदेश", "Koshi", 27.3742, 87.2039, 24, 18, 27, "आंशिक बदली", "Partly Cloudy", "cloud", 78, 6, 26),
         city("bhojpur", "भोजपुर", "Bhojpur", "भोजपुर", "Bhojpur", "कोशी प्रदेश", "Koshi", 27.1714, 87.0469, 23, 17, 26, "आंशिक बदली", "Partly Cloudy", "cloud", 76, 6, 25),
         city("diktel", "दिक्तेल", "Diktel", "खोटाङ", "Khotang", "कोशी प्रदेश", "Koshi", 27.2167, 86.7833, 23, 17, 26, "आंशिक बदली", "Partly Cloudy", "cloud", 77, 6, 26),
         city("okhaldhunga", "ओखलढुङ्गा", "Okhaldhunga", "ओखलढुङ्गा", "Okhaldhunga", "कोशी प्रदेश", "Koshi", 27.3167, 86.5000, 22, 16, 25, "आंशिक बदली", "Partly Cloudy", "cloud", 78, 7, 24),
 
         // Madhesh Province
-        city("janakpur", "जनकपुरधाम", "Janakpur", "धनुषा", "Dhanusha", "मधेश प्रदेश", "Madhesh", 26.7288, 85.9244, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 66, 11, 58, "मध्यम (Moderate)", "Moderate"),
-        city("birgunj", "वीरगञ्ज", "Birgunj", "पर्सा", "Parsa", "मधेश प्रदेश", "Madhesh", 27.0139, 84.8789, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 65, 12, 64, "मध्यम (Moderate)", "Moderate"),
+        city("janakpur", "जनकपुरधाम", "Janakpur", "धनुषा", "Dhanusha", "मधेश प्रदेश", "Madhesh", 26.7288, 85.9244, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 66, 11, 58, "मध्यम", "Moderate"),
+        city("birgunj", "वीरगञ्ज", "Birgunj", "पर्सा", "Parsa", "मधेश प्रदेश", "Madhesh", 27.0139, 84.8789, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 65, 12, 64, "मध्यम", "Moderate"),
         city("lahan", "लहान", "Lahan", "सिराहा", "Siraha", "मधेश प्रदेश", "Madhesh", 26.7167, 86.4833, 33, 26, 36, "घमाइलो", "Sunny", "sun", 67, 10, 56),
         city("rajbiraj", "राजविराज", "Rajbiraj", "सप्तरी", "Saptari", "मधेश प्रदेश", "Madhesh", 26.5417, 86.7556, 32, 26, 36, "घमाइलो", "Sunny", "sun", 68, 10, 54),
         city("kalaiya", "कलैया", "Kalaiya", "बारा", "Bara", "मधेश प्रदेश", "Madhesh", 27.0333, 85.0000, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 65, 11, 60),
@@ -276,14 +276,14 @@ object WeatherRepo {
         city("jaleshwor", "जलेश्वर", "Jaleshwor", "महोत्तरी", "Mahottari", "मधेश प्रदेश", "Madhesh", 26.6500, 85.8000, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 67, 10, 58),
 
         // Karnali Province
-        city("surkhet", "सुर्खेत (वीरेन्द्रनगर)", "Surkhet", "सुर्खेत", "Surkhet", "कर्णाली प्रदेश", "Karnali", 28.6000, 81.6333, 29, 22, 32, "घमाइलो", "Sunny", "sun", 68, 8, 38, "राम्रो (Good)", "Good"),
-        city("jumla", "जुम्ला (खलङ्गा)", "Jumla", "जुम्ला", "Jumla", "कर्णाली प्रदेश", "Karnali", 29.2747, 82.1839, 20, 11, 23, "सफा तथा घमाइलो", "Sunny & Pleasant", "sun", 55, 10, 16, "उत्कृष्ट (Pristine)", "Clean"),
+        city("surkhet", "सुर्खेत (वीरेन्द्रनगर)", "Surkhet", "सुर्खेत", "Surkhet", "कर्णाली प्रदेश", "Karnali", 28.6000, 81.6333, 29, 22, 32, "घमाइलो", "Sunny", "sun", 68, 8, 38, "राम्रो", "Good"),
+        city("jumla", "जुम्ला (खलङ्गा)", "Jumla", "जुम्ला", "Jumla", "कर्णाली प्रदेश", "Karnali", 29.2747, 82.1839, 20, 11, 23, "सफा तथा घमाइलो", "Sunny & Pleasant", "sun", 55, 10, 16, "उत्कृष्ट", "Clean"),
         city("dailekh", "दैलेख", "Dailekh", "दैलेख", "Dailekh", "कर्णाली प्रदेश", "Karnali", 28.8333, 81.7167, 26, 19, 29, "आंशिक बदली", "Partly Cloudy", "cloud", 70, 7, 30),
         city("salyan", "सल्यान (खलङ्गा)", "Salyan", "सल्यान", "Salyan", "कर्णाली प्रदेश", "Karnali", 28.3667, 82.1667, 26, 19, 29, "आंशिक बदली", "Partly Cloudy", "cloud", 71, 7, 32),
-        city("simikot", "सिमिकोट", "Simikot", "हुम्ला", "Humla", "कर्णाली प्रदेश", "Karnali", 29.9667, 81.8333, 16, 8, 19, "सफा तथा चिसो", "Cool & Clear", "sun", 50, 15, 14, "उत्कृष्ट (Pristine)", "Clean"),
+        city("simikot", "सिमिकोट", "Simikot", "हुम्ला", "Humla", "कर्णाली प्रदेश", "Karnali", 29.9667, 81.8333, 16, 8, 19, "सफा तथा चिसो", "Cool & Clear", "sun", 50, 15, 14, "उत्कृष्ट", "Clean"),
 
         // Sudurpashchim Province
-        city("dhangadhi", "धनगढी", "Dhangadhi", "कैलाली", "Kailali", "सुदूरपश्चिम प्रदेश", "Sudurpashchim", 28.6833, 80.6000, 34, 26, 38, "घमाइलो", "Sunny & Hot", "sun", 60, 12, 58, "मध्यम (Moderate)", "Moderate"),
+        city("dhangadhi", "धनगढी", "Dhangadhi", "कैलाली", "Kailali", "सुदूरपश्चिम प्रदेश", "Sudurpashchim", 28.6833, 80.6000, 34, 26, 38, "घमाइलो", "Sunny & Hot", "sun", 60, 12, 58, "मध्यम", "Moderate"),
         city("tikapur", "टिकापुर", "Tikapur", "कैलाली", "Kailali", "सुदूरपश्चिम प्रदेश", "Sudurpashchim", 28.5000, 81.1333, 33, 26, 37, "घमाइलो", "Sunny", "sun", 62, 11, 55),
         city("mahendranagar", "महेन्द्रनगर (भीमदत्त)", "Mahendranagar", "कञ्चनपुर", "Kanchanpur", "सुदूरपश्चिम प्रदेश", "Sudurpashchim", 28.9667, 80.1833, 33, 26, 37, "घमाइलो", "Sunny & Hot", "sun", 61, 12, 56),
         city("dadeldhura", "डडेलधुरा (अमरगढी)", "Dadeldhura", "डडेलधुरा", "Dadeldhura", "सुदूरपश्चिम प्रदेश", "Sudurpashchim", 29.3000, 80.5833, 22, 15, 25, "आंशिक बदली", "Partly Cloudy", "cloud", 72, 8, 24),
@@ -566,11 +566,11 @@ object WeatherRepo {
     }
 
     private fun aqiLabelNp(aqi: Int): String = when {
-        aqi <= 50 -> "राम्रो (Good)"
-        aqi <= 100 -> "मध्यम (Moderate)"
-        aqi <= 150 -> "प्रतिकूल (Sensitive)"
-        aqi <= 200 -> "अस्वस्थ (Unhealthy)"
-        else -> "धेरै अस्वस्थ (Very Unhealthy)"
+        aqi <= 50 -> "राम्रो"
+        aqi <= 100 -> "मध्यम"
+        aqi <= 150 -> "प्रतिकूल"
+        aqi <= 200 -> "अस्वस्थ"
+        else -> "धेरै अस्वस्थ"
     }
 
     private fun aqiLabelEn(aqi: Int): String = when {

@@ -44,8 +44,9 @@ fun PlaceSelector(
         Text(T("place_hdr"), style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.primary)
         Spacer(Modifier.height(5.dp))
+        val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
         OutlinedTextField(
-            value = if (open) query else chosen?.let { "${it.en} · ${it.district}" } ?: "",
+            value = if (open) query else chosen?.let { if (isEn) "${it.en} · ${it.district}" else "${it.np.ifBlank { it.en }} · ${it.district}" } ?: "",
             onValueChange = { v ->
                 if (v.length <= 30) { query = v; open = true }
                 else { open = false; query = "" }
@@ -74,7 +75,7 @@ fun PlaceSelector(
                 )
                 Spacer(Modifier.size(width = 8.dp, height = 0.dp))
                 Text(
-                    "${chosen!!.np} · ${chosen!!.district}" +
+                    "${if (isEn) chosen!!.en else chosen!!.np.ifBlank { chosen!!.en }} · ${chosen!!.district}" +
                         (chosen!!.province.takeIf { it.isNotBlank() }?.let { " · $it" } ?: ""),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -122,6 +123,7 @@ fun PlaceSelector(
 
 @Composable
 private fun PlaceRow(p: Place, onClick: () -> Unit) {
+    val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
     Row(
         Modifier
             .fillMaxWidth()
@@ -130,9 +132,7 @@ private fun PlaceRow(p: Place, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f)) {
-            Text(p.en, style = MaterialTheme.typography.titleSmall)
-            Text(p.np, style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(if (isEn) p.en else p.np.ifBlank { p.en }, style = MaterialTheme.typography.titleSmall)
         }
         Text(
             p.district.ifBlank { p.type },

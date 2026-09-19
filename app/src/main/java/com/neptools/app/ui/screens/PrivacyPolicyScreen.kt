@@ -138,7 +138,7 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
                 content = if (isEn)
                     "NepTools does not require user account registration, phone numbers, email addresses, or personal profiling. You can use 100% of the application features anonymously and immediately upon installation without creating a profile."
                 else
-                    "NepTools प्रयोग गर्न कुनै पनि खाता (Account), फोन नम्बर वा इमेल दर्ता गर्नु पर्दैन। एप इन्स्टल गर्नासाथ सम्पूर्ण सुविधाहरू बिना कुनै व्यक्तिगत विवरण पूर्ण रूपमा प्रयोग गर्न सकिन्छ।"
+                    "NepTools प्रयोग गर्न कुनै पनि खाता, फोन नम्बर वा इमेल दर्ता गर्नु पर्दैन। एप इन्स्टल गर्नासाथ सम्पूर्ण सुविधाहरू बिना कुनै व्यक्तिगत विवरण पूर्ण रूपमा प्रयोग गर्न सकिन्छ।"
             )
 
             // Section 2
@@ -154,11 +154,11 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
             // Section 3
             PrivacySectionCard(
                 sectionNumber = "3",
-                title = if (isEn) "Location Permissions & Privacy" else "स्थान अनुमति (GPS) तथा गोपनीयता",
+                title = if (isEn) "Location Permissions & Privacy" else "स्थान अनुमति तथा गोपनीयता",
                 content = if (isEn)
                     "When GPS location permission is granted, coordinates are processed strictly in real-time on-device to determine your local weather forecast and match your Nepal Oil Corporation (NOC) geographic petroleum price category (1st, 2nd, or 3rd category). Coordinates are never logged, stored in databases, or shared with external analytics vendors."
                 else
-                    "स्थान अनुमति (GPS) दिइएमा सो विवरण केवल तपाईँको स्थानीय मौसम र नेपाल आयल निगमको इन्धन मूल्य वर्ग (पहिलो, दोस्रो वा तेस्रो वर्ग) पहिचान गर्न मात्र तत्काल फोनभित्रै प्रयोग हुन्छ। यो डेटा कतै सेभ वा शेयर गरिँदैन।"
+                    "स्थान अनुमति दिइएमा सो विवरण केवल तपाईँको स्थानीय मौसम र नेपाल आयल निगमको इन्धन मूल्य वर्ग (पहिलो, दोस्रो वा तेस्रो वर्ग) पहिचान गर्न मात्र तत्काल फोनभित्रै प्रयोग हुन्छ। यो विवरण कतै सुरक्षित वा आदानप्रदान गरिँदैन।"
             )
 
             // Section 4
@@ -188,7 +188,7 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
                 content = if (isEn)
                     "Network connectivity is utilized only to fetch read-only public market data (Nepal Oil Corporation rates, Kalimati vegetable prices, and Nepal Rastra Bank forex rates). These HTTP requests do not contain any unique user identifiers, hardware serials, or advertising identifiers."
                 else
-                    "इन्टरनेटको प्रयोग केवल सार्वजनिक बजार दर (NOC इन्धन, कालिमाटी तरकारी, NRB विदेशी मुद्रा) डाउनलोड गर्न मात्र गरिन्छ। यसमा प्रयोगकर्ताको कुनै पनि व्यक्तिगत पहिचान पठाइँदैन।"
+                    "इन्टरनेटको प्रयोग केवल सार्वजनिक बजार दर (इन्धन, कालिमाटी तरकारी, विदेशी मुद्रा) डाउनलोड गर्न मात्र गरिन्छ। यसमा प्रयोगकर्ताको कुनै पनि व्यक्तिगत पहिचान पठाइँदैन।"
             )
 
             // Section 7
@@ -208,7 +208,7 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
                 content = if (isEn)
                     "NepTools is built by Shubham Belbase with a strong commitment to user privacy and open utility engineering. For privacy inquiries, developer feedback, or security disclosures, contact Shubham Belbase."
                 else
-                    "NepTools शुभम बेलबासे (Shubham Belbase) द्वारा गोपनीयता-मैत्री प्रविधिमा आधारित भई निर्माण गरिएको हो। कुनै पनि सुझाव वा जिज्ञासाका लागि विकासकर्तालाई सम्पर्क गर्न सक्नुहुन्छ।"
+                    "NepTools शुभम बेलबासे द्वारा गोपनीयता-मैत्री प्रविधिमा आधारित भई निर्माण गरिएको हो। कुनै पनि सुझाव वा जिज्ञासाका लागि विकासकर्तालाई सम्पर्क गर्न सक्नुहुन्छ।"
             )
 
             Spacer(Modifier.height(10.dp))

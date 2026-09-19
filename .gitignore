@@ -27,3 +27,4 @@ keystore.properties
 # Temp
 .tmp/
 .DS_Store
+ses.txt

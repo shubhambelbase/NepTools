@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat
 import com.neptools.app.MainActivity
 import com.neptools.app.R
 import com.neptools.app.ui.navigation.Routes
+import com.neptools.app.ui.theme.ThemePrefs
 
 class RadioService : Service() {
 
@@ -240,26 +241,27 @@ class RadioService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val isEn = ThemePrefs.lang.value == "en"
         val statusText = when {
-            isBuffering -> "Connecting stream • ${station.frequency}"
-            isPlaying -> "Live Broadcast • ${station.frequency} (${station.location})"
-            else -> "Paused • Tap to resume"
+            isBuffering -> if (isEn) "Connecting stream • ${station.frequency}" else "जडान हुँदैछ • ${station.frequency}"
+            isPlaying -> if (isEn) "Live Broadcast • ${station.frequency} (${station.location})" else "प्रत्यक्ष प्रसारण • ${station.frequency} (${station.location})"
+            else -> if (isEn) "Paused • Tap to resume" else "रोकिएको • पुनः बजाउन थिच्नुहोस्"
         }
 
         val playPauseIcon = if (isPlaying) android.R.drawable.ic_media_pause else android.R.drawable.ic_media_play
-        val playPauseTitle = if (isPlaying) "Pause" else "Play"
+        val playPauseTitle = if (isPlaying) (if (isEn) "Pause" else "रोक्नुहोस्") else (if (isEn) "Play" else "बजाउनुहोस्")
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_stat_notify)
             .setColor(0xFFE11D48.toInt())
-            .setContentTitle("${station.nameEn} (${station.nameNp})")
+            .setContentTitle(if (isEn) station.nameEn else station.nameNp)
             .setContentText(statusText)
-            .setSubText("Live FM Radio")
+            .setSubText(if (isEn) "Live FM Radio" else "लाइभ एफएम रेडियो")
             .setContentIntent(contentPendingIntent)
             .setOngoing(isPlaying || isBuffering)
             .setOnlyAlertOnce(true)
             .addAction(playPauseIcon, playPauseTitle, togglePendingIntent)
-            .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Stop", stopPendingIntent)
+            .addAction(android.R.drawable.ic_menu_close_clear_cancel, if (isEn) "Stop" else "बन्द", stopPendingIntent)
             .setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
                     .setShowActionsInCompactView(0, 1)

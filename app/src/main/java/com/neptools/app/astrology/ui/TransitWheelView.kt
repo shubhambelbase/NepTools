@@ -239,7 +239,7 @@ fun TransitWheelView(
             rashiPaint.color = primaryColor.toArgbInt()
             rashiPaint.textSize = outerR * 0.048f
             drawContext.canvas.nativeCanvas.drawText(
-                if (isEn) "Gochar • Transit" else "सजीव गोचर चक्र",
+                if (isEn) "Transit Wheel" else "सजीव गोचर चक्र",
                 cx,
                 cy - outerR * 0.02f,
                 rashiPaint
@@ -247,7 +247,7 @@ fun TransitWheelView(
             degreePaint.color = onSurface.copy(alpha = 0.55f).toArgbInt()
             degreePaint.textSize = outerR * 0.034f
             drawContext.canvas.nativeCanvas.drawText(
-                if (isEn) "Birth (जन्म) ↔ Live (गोचर)" else "जन्म ↔ गोचर",
+                if (isEn) "Birth ↔ Transit" else "जन्म ↔ गोचर",
                 cx,
                 cy + outerR * 0.035f,
                 degreePaint
@@ -419,15 +419,15 @@ fun TransitInspectionCard(
                 Spacer(Modifier.width(10.dp))
                 Column {
                     Text(
-                        text = if (isEn) "${PlanetStyle.nameEn(planet)} (${PlanetStyle.nameNp(planet)})" else PlanetStyle.nameNp(planet),
+                        text = if (isEn) PlanetStyle.nameEn(planet) else PlanetStyle.nameNp(planet),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = if (transit.retrograde) {
-                            if (isEn) "Retrograde (वक्री • Vakri Rx)" else "वक्री चाल (Retrograde)"
+                            if (isEn) "Retrograde (Rx)" else "वक्री चाल"
                         } else {
-                            if (isEn) "Direct (मार्गी • Margi)" else "मार्गी चाल (Direct)"
+                            if (isEn) "Direct" else "मार्गी चाल"
                         },
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.SemiBold,
@@ -448,9 +448,9 @@ fun TransitInspectionCard(
             ) {
                 Text(
                     text = if (transit.favorable) {
-                        if (isEn) "Favorable (अनुकूल)" else "अनुकूल गोचर"
+                        if (isEn) "Favorable" else "अनुकूल गोचर"
                     } else {
-                        if (isEn) "Caution (सावधानी)" else "सावधानी"
+                        if (isEn) "Caution" else "सावधानी"
                     },
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontWeight = FontWeight.Bold,
@@ -476,7 +476,7 @@ fun TransitInspectionCard(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = if (isEn) "Live Transit (गोचर)" else "वर्तमान गोचर स्थिति",
+                    text = if (isEn) "Live Transit" else "वर्तमान गोचर स्थिति",
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -487,7 +487,7 @@ fun TransitInspectionCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = if (isEn) "${transit.natalHouseFromMoon}th from Moon (चन्द्रबाट ${transit.natalHouseFromMoon} औं)" else "चन्द्रबाट ${transit.natalHouseFromMoon} औं घर",
+                    text = if (isEn) "${transit.natalHouseFromMoon}th from Moon" else "चन्द्रबाट ${transit.natalHouseFromMoon} औं घर",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -502,7 +502,7 @@ fun TransitInspectionCard(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = if (isEn) "Natal Birth (जन्म कुण्डली)" else "जन्म कुण्डली स्थिति",
+                    text = if (isEn) "Natal Birth" else "जन्म कुण्डली स्थिति",
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                     color = Color(0xFFD97706)
                 )
@@ -513,7 +513,7 @@ fun TransitInspectionCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = if (isEn) "${natalPos.houseFromLagna}th from Lagna (लग्नबाट ${natalPos.houseFromLagna} औं)" else "लग्नबाट ${natalPos.houseFromLagna} औं घर",
+                    text = if (isEn) "${natalPos.houseFromLagna}th from Lagna" else "लग्नबाट ${natalPos.houseFromLagna} औं घर",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -540,7 +540,7 @@ fun TransitInspectionCard(
                     Spacer(Modifier.width(8.dp))
                     Text(
                         text = if (isEn) {
-                            "Conjunction (युति): Transit ${PlanetStyle.nameEn(planet)} (${PlanetStyle.nameNp(planet)}) conjuncts Natal ${PlanetStyle.nameEn(conjunctionPlanet)} (${PlanetStyle.nameNp(conjunctionPlanet)}) within 8° in $transitSign"
+                            "Conjunction: Transit ${PlanetStyle.nameEn(planet)} conjuncts Natal ${PlanetStyle.nameEn(conjunctionPlanet)} within 8° in $transitSign"
                         } else {
                             "सक्रिय युति: वर्तमान ${PlanetStyle.nameNp(planet)} र जन्म ${PlanetStyle.nameNp(conjunctionPlanet)} एउटै राशिमा (८° भित्र)"
                         },

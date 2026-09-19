@@ -25,15 +25,20 @@ class YogaDetector {
         }
         if (pos.getValue(Planet.MARS).signIndex == moonSign) {
             out.add(YogaFinding(if (en) "Chandra-Mangala" else "चन्द्र-मंगल", "Chandra-Mangala", true,
-                    if (en) "Moon-Mars conjunction — business drive" else "चन्द्र-मंगल युति — व्यावसायिक drive"))
+                    if (en) "Moon-Mars conjunction — business drive" else "चन्द्र-मंगल युति — व्यावसायिक सफलता र साहस"))
         }
 
         run {
             var jupHouseFromMoon = ((pos.getValue(Planet.JUPITER).signIndex - moonSign + 12) % 12) + 1
             if (jupHouseFromMoon in setOf(1, 4, 7, 10)) {
                 out.add(
-                    YogaFinding("गजकेसरी", "Gajakesari", true,
-                        "चन्द्रबाट केन्द्रमा गुरु (house $jupHouseFromMoon)")
+                    YogaFinding(
+                        name = if (en) "Gajakesari" else "गजकेसरी",
+                        nameEn = "Gajakesari",
+                        present = true,
+                        detail = if (en) "Jupiter in Kendra from Moon (house $jupHouseFromMoon)"
+                                 else "चन्द्रबाट केन्द्रमा गुरु (भाव $jupHouseFromMoon)"
+                    )
                 )
             } else jupHouseFromMoon = 0
         }
@@ -68,8 +73,13 @@ class YogaDetector {
             val kendra = ((sp.signIndex - lagnaSign + 12) % 12) in listOf(0, 3, 6, 9)
             if (own && kendra) {
                 out.add(
-                    YogaFinding("$name योग", "Panch Mahapurush — ${nameEn(p)}", true,
-                        "$p केन्द्रमा स्व/उच्च राशि")
+                    YogaFinding(
+                        name = if (en) "${nameEn(p)} Yoga" else "$name योग",
+                        nameEn = "Panch Mahapurush — ${nameEn(p)}",
+                        present = true,
+                        detail = if (en) "${nameEn(p)} in Kendra in own/exalted sign"
+                                 else "${planetNameNp(p)} केन्द्रमा स्व/उच्च राशि"
+                    )
                 )
             }
         }
@@ -94,8 +104,13 @@ class YogaDetector {
                 val dHouse = HouseCalc.houseOf(pos.getValue(dispositor).signIndex, lagnaSign)
                 if (dHouse in setOf(1, 4, 7, 10)) {
                     out.add(
-                        YogaFinding("नीच भंग", "Neecha Bhanga", true,
-                            "$p नीच तर राशि-स्वामी केन्द्रमा")
+                        YogaFinding(
+                            name = if (en) "Neecha Bhanga" else "नीच भंग",
+                            nameEn = "Neecha Bhanga",
+                            present = true,
+                            detail = if (en) "${nameEn(p)} debilitated but dispositor in Kendra"
+                                     else "${planetNameNp(p)} नीच तर राशि-स्वामी केन्द्रमा"
+                        )
                     )
                 }
             }
@@ -108,6 +123,18 @@ class YogaDetector {
         Planet.MARS -> "Ruchaka"; Planet.MERCURY -> "Bhadra"
         Planet.JUPITER -> "Hamsa"; Planet.VENUS -> "Malavya"
         else -> "Shasha"
+    }
+
+    private fun planetNameNp(p: Planet): String = when (p) {
+        Planet.SUN -> "सूर्य"
+        Planet.MOON -> "चन्द्र"
+        Planet.MARS -> "मंगल"
+        Planet.MERCURY -> "बुध"
+        Planet.JUPITER -> "बृहस्पति"
+        Planet.VENUS -> "शुक्र"
+        Planet.SATURN -> "शनि"
+        Planet.RAHU -> "राहु"
+        Planet.KETU -> "केतु"
     }
 
     private fun ownOrExalted(p: Planet, sign: Int): Boolean {

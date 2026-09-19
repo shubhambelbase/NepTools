@@ -127,15 +127,15 @@ fun BirthDetailsScreen(
         )
 
         Spacer(Modifier.height(8.dp))
-        FieldRow(if (isEn) "Latitude (Lat)" else "अक्षांश", "-90..90", latText, KeyboardType.Decimal) { latText = it }
-        FieldRow(if (isEn) "Longitude (Lon)" else "देशान्तर", "-180..180", lonText, KeyboardType.Decimal) { lonText = it }
-        FieldRow(if (isEn) "TZ Offset (hrs)" else "समय क्षेत्र", if (isEn) "Nepal = 5.75 (pre-1986 = 5.5)" else "नेपाल = ५.७५ (१९८६ अघि = ५.५)", tzText, KeyboardType.Decimal) { tzText = it }
+        FieldRow(if (isEn) "Latitude" else "अक्षांश", "-90..90", latText, KeyboardType.Decimal) { latText = it }
+        FieldRow(if (isEn) "Longitude" else "देशान्तर", "-180..180", lonText, KeyboardType.Decimal) { lonText = it }
+        FieldRow(if (isEn) "TZ Offset" else "समय क्षेत्र", if (isEn) "Nepal = 5.75 (pre-1986 = 5.5)" else "नेपाल = ५.७५ (१९८६ अघि = ५.५)", tzText, KeyboardType.Decimal) { tzText = it }
 
         val birthYear = runCatching { java.time.LocalDate.parse(dateText.trim()).year }.getOrNull()
         if (birthYear != null && birthYear < 1986) {
             Text(
                 if (isEn) "Note: Nepal standardized to UTC+5:45 in 1986. Prior births used UTC+5:30 (IST)."
-                else "जानकारी: नेपालले सन् १९८६ मा मात्र UTC+५:४५ अपनाएको हो। सोभन्दा अघि UTC+५:३० (IST) थियो।",
+                else "जानकारी: नेपालले सन् १९८६ मा मात्र युटिसी+५:४५ अपनाएको हो। सोभन्दा अघि युटिसी+५:३० थियो।",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)

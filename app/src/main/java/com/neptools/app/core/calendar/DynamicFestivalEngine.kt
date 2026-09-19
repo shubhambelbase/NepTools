@@ -66,7 +66,7 @@ object DynamicFestivalEngine {
         when (bsMonth) {
             1 -> { // बैशाख (Baisakh)
                 if (bsDay == 1) {
-                    list.add(Festival(bsDay, "नयाँ वर्ष (Nepali New Year)", "Nepali New Year", true))
+                    list.add(Festival(bsDay, "नयाँ वर्ष", "Nepali New Year", true))
                 } else if (bsDay == 11) {
                     list.add(Festival(bsDay, "लोकतन्त्र दिवस", "Loktantra Diwas (Democracy Day)", true))
                 } else if (bsDay == 18) {

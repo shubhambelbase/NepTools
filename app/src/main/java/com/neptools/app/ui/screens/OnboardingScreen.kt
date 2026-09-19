@@ -109,8 +109,8 @@ fun OnboardingScreen(onDone: () -> Unit) {
                         Icon(PIcons.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(14.dp))
                     }
                     Text(
-                        text = if (isEn) "Nepali shows १२३ and English shows 123 everywhere"
-                        else "नेपालीमा १२३ र English मा 123 देखिन्छ",
+                        text = if (isEn) "Nepali shows Devanagari digits (१२३) and English shows 123 everywhere"
+                        else "नेपालीमा १२३ र अंग्रेजीमा 123 देखिन्छ",
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium, fontSize = 12.sp),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

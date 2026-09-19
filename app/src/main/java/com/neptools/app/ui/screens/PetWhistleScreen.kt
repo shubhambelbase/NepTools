@@ -571,7 +571,7 @@ fun PetWhistleScreen(
                     Spacer(Modifier.height(6.dp))
                     Text(
                         if (isEn) "• Dogs can hear up to 45 kHz, while adult humans usually hear up to 15-17 kHz.\n• Pair whistle pulses with positive rewards (treats & praise) for quick recall conditioning.\n• Avoid prolonged continuous playback near pet ears to protect their sensitive hearing."
-                        else "• कुकुरहरूले ४५ kHz सम्मको ध्वनी सुन्न सक्छन् भने बयस्क मानिसले १५-१७ kHz सम्म मात्र सुन्न सक्छन्।\n• सिट्टी बजाएर बोलाउँदा खाजा वा प्रशंसा दिएर तालिम गर्दा कुकुरले छिट्टै सिक्छ।\n• जनावरको कान नजिक लामो समयसम्म ठूलो आवाजमा नबजाउनुहोस्।",
+                        else "• कुकुरहरूले ४५ किलोहर्जसम्मको ध्वनि सुन्न सक्छन् भने वयस्क मानिसले १५-१७ किलोहर्जसम्म मात्र सुन्न सक्छन्।\n• सिट्टी बजाएर बोलाउँदा खाजा वा प्रशंसा दिएर तालिम गर्दा कुकुरले छिट्टै सिक्छ।\n• जनावरको कान नजिक लामो समयसम्म ठूलो आवाजमा नबजाउनुहोस्।",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 18.sp

@@ -464,7 +464,7 @@ fun HomeScreen(
             },
             title = {
                 Text(
-                    text = if (isEn) "New Update Available! (v${info.latestVersionName})" else "नयाँ अपडेट उपलब्ध छ! (v${info.latestVersionName})",
+                    text = if (isEn) "New Update Available! (v${info.latestVersionName})" else "नयाँ अपडेट उपलब्ध छ!",
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )

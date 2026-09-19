@@ -162,7 +162,7 @@ fun VoiceScreen(onBack: () -> Unit) {
             error = if (isEn) {
                 "Speech recognizer not available. Please install Google Speech Services."
             } else {
-                "यस फोनमा आवाज पहिचान उपलब्ध छैन (Google app / Speech Services चाहिन्छ)"
+                "यस फोनमा आवाज पहिचान उपलब्ध छैन। कृपया गुगल स्पिच सेवा स्थापना गर्नुहोस्।"
             }
             return
         }
@@ -196,7 +196,7 @@ fun VoiceScreen(onBack: () -> Unit) {
                     SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> if (isEn) "Speech timed out. Please try again." else "आवाज आएन — माइक नजिक बोल्नुहोस्"
                     SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> if (isEn) "Microphone permission required." else "माइक अनुमति चाहिन्छ"
                     SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> if (isEn) "Network error. Check internet connection." else "इन्टरनेट समस्या — नेटवर्क जाँच गर्नुहोस्"
-                    else -> if (isEn) "Recognition error ($err). Check Google Speech settings." else "सुन्न सकिएन (कोड $err) — Google voice सेवा जाँच गर्नुहोस्"
+                    else -> if (isEn) "Recognition error ($err). Check Google Speech settings." else "सुन्न सकिएन (त्रुटि कोड $err) — कृपया आवाज पहिचान सेवा जाँच गर्नुहोस्"
                 }
             }
             override fun onPartialResults(partialResults: Bundle?) {

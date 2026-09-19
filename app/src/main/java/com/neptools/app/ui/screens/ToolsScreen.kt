@@ -176,7 +176,7 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                 route = Routes.SUBSCRIPTION_TRACKER
             ),
             ToolGridItem(
-                titleNp = "बैंक ऋण EMI",
+                titleNp = "बैंक ऋण ईएमआई",
                 titleEn = "Loan EMI & FD",
                 icon = PIcons.Bank,
                 iconTint = Color(0xFF0284C7),
@@ -338,7 +338,7 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                 route = Routes.DECISION_MAKER
             ),
             ToolGridItem(
-                titleNp = "फोटो KB घटाउने",
+                titleNp = "तस्बिर साइज घटाउने",
                 titleEn = "Image Resizer & KB",
                 icon = PIcons.ImageCompress,
                 iconTint = Color(0xFF059669),
@@ -684,7 +684,7 @@ private fun ToolGridCard(
             ) {
                 Icon(
                     imageVector = if (isFavorite) PIcons.StarFilled else PIcons.Star,
-                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                    contentDescription = if (isFavorite) (if (isEn) "Remove from favorites" else "मनपर्नेबाट हटाउनुहोस्") else (if (isEn) "Add to favorites" else "मनपर्नेमा थप्नुहोस्"),
                     tint = if (isFavorite) Color(0xFFEAB308) else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.35f),
                     modifier = Modifier.size(13.dp)
                 )

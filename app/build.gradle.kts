@@ -32,8 +32,8 @@ android {
         applicationId = "com.neptools.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 25
-        versionName = "2.6.6"
+        versionCode = 26
+        versionName = "2.6.7"
 
         externalNativeBuild {
             cmake {

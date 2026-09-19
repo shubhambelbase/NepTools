@@ -30,6 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -82,6 +83,19 @@ fun GunaMilanScreen(onBack: () -> Unit) {
     // Auto-fill option from user's computed natal chart
     val userMoonPos = savedAstroResult?.chart?.positions?.get(Planet.MOON)
 
+    val context = androidx.compose.ui.platform.LocalContext.current
+
+    val boyDetailsStr = if (isEn) {
+        "${AshtakootaGunaMilan.RASHIS_EN[boyRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_EN[boyNakIdx]}"
+    } else {
+        "${AshtakootaGunaMilan.RASHIS_NP[boyRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_NP[boyNakIdx]}"
+    }
+    val girlDetailsStr = if (isEn) {
+        "${AshtakootaGunaMilan.RASHIS_EN[girlRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_EN[girlNakIdx]}"
+    } else {
+        "${AshtakootaGunaMilan.RASHIS_NP[girlRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_NP[girlNakIdx]}"
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -101,6 +115,20 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(PIcons.ChevronLeft, contentDescription = "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
+                            context = context,
+                            milan = milan,
+                            boyDetails = boyDetailsStr,
+                            girlDetails = girlDetailsStr,
+                            isShare = false,
+                            isEn = isEn
+                        )
+                    }) {
+                        Icon(PIcons.Share, contentDescription = "Export PDF")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
@@ -132,8 +160,11 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                                 color = MaterialTheme.colorScheme.primary
                             )
+                            val savedChartNakIdx = NakshatraCalc.index(userMoonPos.siderealLon)
+                            val savedChartNak = if (isEn) AshtakootaGunaMilan.NAKSHATRAS_EN[savedChartNakIdx] else AshtakootaGunaMilan.NAKSHATRAS_NP[savedChartNakIdx]
+                            val savedChartRashi = if (isEn) AshtakootaGunaMilan.RASHIS_EN[userMoonPos.signIndex] else AshtakootaGunaMilan.RASHIS_NP[userMoonPos.signIndex]
                             Text(
-                                "${if (isEn) "Moon: " else "चन्द्र नक्षत्र: "}${userMoonPos.nakshatraName} (${if (isEn) AshtakootaGunaMilan.RASHIS_EN[userMoonPos.signIndex] else AshtakootaGunaMilan.RASHIS_NP[userMoonPos.signIndex]})",
+                                "${if (isEn) "Moon: " else "चन्द्र नक्षत्र: "}$savedChartNak ($savedChartRashi)",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -196,7 +227,7 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                             value = "${if (isEn) AshtakootaGunaMilan.NAKSHATRAS_EN[boyNakIdx] else AshtakootaGunaMilan.NAKSHATRAS_NP[boyNakIdx]} · ${if (isEn) AshtakootaGunaMilan.RASHIS_EN[boyRashiIdx] else AshtakootaGunaMilan.RASHIS_NP[boyRashiIdx]}",
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text(if (isEn) "Groom's Nakshatra & Sign (वर)" else "वरको नक्षत्र र राशि") },
+                            label = { Text(if (isEn) "Groom's Star & Sign" else "वरको नक्षत्र र राशि") },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = boyExp) },
                             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
@@ -227,7 +258,7 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                             value = "${if (isEn) AshtakootaGunaMilan.NAKSHATRAS_EN[girlNakIdx] else AshtakootaGunaMilan.NAKSHATRAS_NP[girlNakIdx]} · ${if (isEn) AshtakootaGunaMilan.RASHIS_EN[girlRashiIdx] else AshtakootaGunaMilan.RASHIS_NP[girlRashiIdx]}",
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text(if (isEn) "Bride's Nakshatra & Sign (वधु)" else "वधुको नक्षत्र र राशि") },
+                            label = { Text(if (isEn) "Bride's Star & Sign" else "वधुको नक्षत्र र राशि") },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = girlExp) },
                             modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
@@ -340,6 +371,28 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                         )
                     }
                 }
+            }
+
+            OutlinedButton(
+                onClick = {
+                    com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
+                        context = context,
+                        milan = milan,
+                        boyDetails = boyDetailsStr,
+                        girlDetails = girlDetailsStr,
+                        isShare = false,
+                        isEn = isEn
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    if (isEn) "Export Vedic Marriage Compatibility PDF" else "विवाह गुण मिलान PDF प्रतिवेदन छाप्नुहोस् / सेयर",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+                )
             }
 
             // Three Critical Doshas Overview
@@ -552,7 +605,7 @@ private fun ExpandableKootaCard(koota: AshtakootaGunaMilan.KootaScore, isEn: Boo
                     }
                 }
                 Text(
-                    "${if (isEn) "Groom: " else "वर: "}${koota.boyValue}  |  ${if (isEn) "Bride: " else "वधु: "}${koota.girlValue}",
+                    "${if (isEn) "Groom: " else "वर: "}${koota.boyValue(isEn)}  |  ${if (isEn) "Bride: " else "वधु: "}${koota.girlValue(isEn)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

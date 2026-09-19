@@ -254,17 +254,13 @@ private fun DecisionWheelView(isEn: Boolean) {
     val haptic = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
 
-    val defaultChoices = remember {
-        listOf(
-            "Momo (मोमो)",
-            "Thakali (थकाली)",
-            "Chowmein (चाउमिन)",
-            "Pizza (पिझ्जा)",
-            "Sekuwa (सेकुवा)",
-            "Biryani (बिरयानी)",
-            "Burger (बर्गर)",
-            "Dal Bhat (दालभात)"
-        ).mapIndexed { idx, txt ->
+    val defaultChoices = remember(isEn) {
+        val list = if (isEn) {
+            listOf("Momo", "Thakali", "Chowmein", "Pizza", "Sekuwa", "Biryani", "Burger", "Dal Bhat")
+        } else {
+            listOf("मोमो", "थकाली", "चाउमिन", "पिझ्जा", "सेकुवा", "बिरयानी", "बर्गर", "दालभात")
+        }
+        list.mapIndexed { idx, txt ->
             WheelChoice(
                 id = "choice_$idx",
                 text = txt,
@@ -373,59 +369,75 @@ private fun DecisionWheelView(isEn: Boolean) {
             item {
                 PresetChip(if (isEn) "Nepali Food" else "खाना / खाजा", onClick = {
                     choices.clear()
-                    choices.addAll(
-                        listOf("Momo", "Thakali", "Chowmein", "Pizza", "Sekuwa", "Biryani", "Burger", "Khaja Set").mapIndexed { i, t ->
-                            WheelChoice("food_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
-                        }
-                    )
+                    val list = if (isEn) {
+                        listOf("Momo", "Thakali", "Chowmein", "Pizza", "Sekuwa", "Biryani", "Burger", "Khaja Set")
+                    } else {
+                        listOf("मोमो", "थकाली", "चाउमिन", "पिझ्जा", "सेकुवा", "बिरयानी", "बर्गर", "खाजा सेट")
+                    }
+                    choices.addAll(list.mapIndexed { i, t ->
+                        WheelChoice("food_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
+                    })
                 })
             }
             item {
                 PresetChip(if (isEn) "Yes / No / Maybe" else "हो / होइन / सायद", onClick = {
                     choices.clear()
-                    choices.addAll(
-                        listOf("YES (हो)", "NO (होइन)", "MAYBE (सायद)", "DEFINITELY (पक्कै)").mapIndexed { i, t ->
-                            WheelChoice("yn_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
-                        }
-                    )
+                    val list = if (isEn) {
+                        listOf("YES", "NO", "MAYBE", "DEFINITELY")
+                    } else {
+                        listOf("हो", "होइन", "सायद", "पक्कै")
+                    }
+                    choices.addAll(list.mapIndexed { i, t ->
+                        WheelChoice("yn_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
+                    })
                 })
             }
             item {
                 PresetChip(if (isEn) "Who Pays?" else "कसले तिर्ने?", onClick = {
                     choices.clear()
-                    choices.addAll(
-                        listOf("Me (मैले)", "You (तिमीले)", "50 / 50 Split", "Next Time (अर्को पटक)").mapIndexed { i, t ->
-                            WheelChoice("pay_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
-                        }
-                    )
+                    val list = if (isEn) {
+                        listOf("Me", "You", "50 / 50 Split", "Next Time")
+                    } else {
+                        listOf("मैले", "तिमीले", "आधा-आधा", "अर्को पटक")
+                    }
+                    choices.addAll(list.mapIndexed { i, t ->
+                        WheelChoice("pay_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
+                    })
                 })
             }
             item {
                 PresetChip(if (isEn) "Travel Spots" else "घुम्न जाने ठाउँ", onClick = {
                     choices.clear()
-                    choices.addAll(
-                        listOf("Pokhara", "Mustang", "Chitwan", "Nagarkot", "Bandipur", "Illam", "Rara").mapIndexed { i, t ->
-                            WheelChoice("trv_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
-                        }
-                    )
+                    val list = if (isEn) {
+                        listOf("Pokhara", "Mustang", "Chitwan", "Nagarkot", "Bandipur", "Ilam", "Rara")
+                    } else {
+                        listOf("पोखरा", "मुस्ताङ", "चितवन", "नगरकोट", "बन्दीपुर", "इलाम", "रारा")
+                    }
+                    choices.addAll(list.mapIndexed { i, t ->
+                        WheelChoice("trv_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
+                    })
                 })
             }
             item {
                 PresetChip(if (isEn) "Truth or Dare" else "सत्य वा चुनौती", onClick = {
                     choices.clear()
-                    choices.addAll(
-                        listOf("Truth (सत्य)", "Dare (चुनौती)", "Pass (पास)", "Double Dare (दोहोरो चुनौती)").mapIndexed { i, t ->
-                            WheelChoice("td_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
-                        }
-                    )
+                    val list = if (isEn) {
+                        listOf("Truth", "Dare", "Pass", "Double Dare")
+                    } else {
+                        listOf("सत्य", "चुनौती", "पास", "दोहोरो चुनौती")
+                    }
+                    choices.addAll(list.mapIndexed { i, t ->
+                        WheelChoice("td_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
+                    })
                 })
             }
             item {
                 PresetChip(if (isEn) "1 to 6" else "१ देखि ६", onClick = {
                     choices.clear()
+                    val list = if (isEn) (1..6).map { "$it" } else listOf("१", "२", "३", "४", "५", "६")
                     choices.addAll(
-                        (1..6).map { i ->
-                            WheelChoice("num_$i", "$i", WHEEL_PALETTE[(i - 1) % WHEEL_PALETTE.size])
+                        list.mapIndexed { i, t ->
+                            WheelChoice("num_$i", t, WHEEL_PALETTE[i % WHEEL_PALETTE.size])
                         }
                     )
                 })
@@ -847,8 +859,8 @@ private fun CoinFlipperView(isEn: Boolean) {
                     .padding(horizontal = 20.dp, vertical = 6.dp)
             ) {
                 Text(
-                    text = if (isHead) (if (isEn) "Result: HEADS (राजा)" else "नतिजा: राजा (HEADS)")
-                           else (if (isEn) "Result: TAILS (सगरमाथा)" else "नतिजा: सगरमाथा (TAILS)"),
+                    text = if (isHead) (if (isEn) "Result: HEADS" else "नतिजा: राजा")
+                           else (if (isEn) "Result: TAILS" else "नतिजा: सगरमाथा"),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = if (isHead) Color(0xFFB45309) else Color(0xFF334155)
@@ -913,14 +925,14 @@ private fun CoinFlipperView(isEn: Boolean) {
 
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     StatBox(
-                        label = if (isEn) "Heads (राजा)" else "राजा (Heads)",
+                        label = if (isEn) "Heads" else "राजा",
                         count = headsCount,
                         percent = if (totalFlips > 0) (headsCount * 100 / totalFlips) else 0,
                         color = Color(0xFFD97706),
                         isEn = isEn
                     )
                     StatBox(
-                        label = if (isEn) "Tails (सगरमाथा)" else "सगरमाथा (Tails)",
+                        label = if (isEn) "Tails" else "सगरमाथा",
                         count = tailsCount,
                         percent = if (totalFlips > 0) (tailsCount * 100 / totalFlips) else 0,
                         color = Color(0xFF475569),
@@ -989,7 +1001,7 @@ private fun NepaliHeadsCoinFace(isEn: Boolean) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                "श्री भवानी",
+                if (isEn) "SHREE BHAVANI" else "श्री भवानी",
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 11.sp,
@@ -1035,7 +1047,7 @@ private fun NepaliTailsCoinFace(isEn: Boolean) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                "सगरमाथा",
+                if (isEn) "MT. EVEREST" else "सगरमाथा",
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 11.sp,

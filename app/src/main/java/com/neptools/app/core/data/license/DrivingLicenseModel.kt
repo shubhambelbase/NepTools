@@ -32,10 +32,10 @@ data class LicenseQuestion(
 )
 
 enum class SignCategory(val titleNp: String, val titleEn: String, val shapeDesc: String, val colorHex: Long) {
-    MANDATORY("अनिवार्य संकेतहरू (Mandatory)", "Mandatory Signs", "रातो गोलो घेरा (Red Circle)", 0xFFDC2626),
-    CAUTIONARY("सचेतनामूलक संकेतहरू (Warning)", "Cautionary Signs", "रातो त्रिकोण (Red Triangle)", 0xFFEA580C),
-    INFORMATORY("सूचनामूलक संकेतहरू (Informatory)", "Informatory Signs", "नीलो/हरियो आयत (Blue Rectangle)", 0xFF0284C7),
-    ROAD_MARKING("सडक रेखांकन (Road Markings)", "Road Surface Markings", "सडक सतहमा कोरिएका रेखा", 0xFF64748B),
+    MANDATORY("अनिवार्य संकेतहरू", "Mandatory Signs", "रातो गोलो घेरा", 0xFFDC2626),
+    CAUTIONARY("सचेतनामूलक संकेतहरू", "Cautionary Signs", "रातो त्रिकोण", 0xFFEA580C),
+    INFORMATORY("सूचनामूलक संकेतहरू", "Informatory Signs", "नीलो/हरियो आयत", 0xFF0284C7),
+    ROAD_MARKING("सडक रेखांकन", "Road Surface Markings", "सडक सतहमा कोरिएका रेखा", 0xFF64748B),
     TRAFFIC_LIGHT("ट्राफिक लाइट तथा इशारा", "Traffic Lights & Signals", "बत्ती तथा ट्राफिक प्रहरीको इशारा", 0xFF16A34A)
 }
 

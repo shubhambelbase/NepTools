@@ -188,7 +188,7 @@ fun TermsOfServiceScreen(onBack: () -> Unit) {
                 content = if (isEn)
                     "NepTools, including its visual architecture, custom algorithms, user interfaces, branding, and proprietary assets, is built by Shubham Belbase. All rights, title, and intellectual property remain the sole property of Shubham Belbase under applicable international copyright and intellectual property treaties."
                 else
-                    "NepTools एपको सम्पूर्ण सफ्टवेयर संरचना, डिजाइन, अल्गोरिदम, इन्टरफेस तथा ब्रान्डिङ शुभम बेलबासे (Shubham Belbase) द्वारा निर्माण गरिएको हो। यसको सम्पूर्ण प्रतिलिपि अधिकार सुरक्षित छ।"
+                    "NepTools एपको सम्पूर्ण सफ्टवेयर संरचना, डिजाइन, अल्गोरिदम, इन्टरफेस तथा ब्रान्डिङ शुभम बेलबासे द्वारा निर्माण गरिएको हो। यसको सम्पूर्ण प्रतिलिपि अधिकार सुरक्षित छ।"
             )
 
             // Section 7
@@ -208,7 +208,7 @@ fun TermsOfServiceScreen(onBack: () -> Unit) {
                 content = if (isEn)
                     "We reserve the right to modify these Terms of Service at any time. Continued use of the application after modifications constitutes acceptance of the revised terms. For questions regarding these terms, contact Shubham Belbase."
                 else
-                    "यी सेवा सर्तहरू समय-समयमा परिमार्जन हुन सक्छन्। एपको निरन्तर प्रयोगले परिमार्जित सर्तहरूको स्वीकृति जनाउँछ। कुनै जिज्ञासा भएमा निर्माणकर्ता शुभम बेलबासे (Shubham Belbase) लाई सम्पर्क गर्न सक्नुहुन्छ।"
+                    "यी सेवा सर्तहरू समय-समयमा परिमार्जन हुन सक्छन्। एपको निरन्तर प्रयोगले परिमार्जित सर्तहरूको स्वीकृति जनाउँछ। कुनै जिज्ञासा भएमा निर्माणकर्ता शुभम बेलबासेलाई सम्पर्क गर्न सक्नुहुन्छ।"
             )
 
             Spacer(Modifier.height(10.dp))
