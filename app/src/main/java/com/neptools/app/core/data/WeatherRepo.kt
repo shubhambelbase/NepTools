@@ -383,6 +383,17 @@ object WeatherRepo {
                             .toString()
                     )
                 }
+                com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
+                    context = context,
+                    serviceId = "weather",
+                    nameNp = "मौसम पूर्वानुमान",
+                    nameEn = "Weather & Forecast",
+                    route = com.neptools.app.ui.navigation.Routes.WEATHER,
+                    iconType = "sun",
+                    timestampMillis = result.fetchedAtMillis,
+                    statusNp = "${NepaliNames.toDevanagari(result.weather.tempC)}°C · ${result.weather.conditionNp}",
+                    statusEn = "${result.weather.tempC}°C · ${result.weather.conditionEn}"
+                )
             }
             liveHandler.post { onResult(result ?: cached) }
         }

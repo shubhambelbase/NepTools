@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.9 (versionCode: 28)
+- Current Version: v2.7.0 (versionCode: 29)
 - Last Updated: September 19, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,23 +90,17 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.9 (versionCode 28) — Launcher shortcuts, tactile haptics, 1-tap utility sharing, and tools search/recents implemented.
+- Status: v2.7.0 (versionCode 29) — "Recent Updates" live data freshness tracker, HomeScreen compact cards, relative time engine, and dedicated history view implemented.
 - Last Updated: September 19, 2026
 - Recent Updates:
-  - v2.6.9:
-    - Launcher Quick App Shortcuts: Configured Android dynamic shortcuts (shortcuts.xml) for Today's Calendar, Date Converter, Emergency Numbers, and QR Scanner with vector drawables and cold-start route replay in AppNavigator.
-    - Tactile Haptic Micro-Interactions: Added physics-based haptic feedback in DecisionMakerScreen (slice-crossing deceleration ticks on the wheel, crisp snap on coin landing impact, and progressive bounce bumps on dice rolls).
-    - 1-Tap Utility Share Summaries: Added instant calculation sharing for Loan EMI & FD (LoanEmiScreen), Land Area breakdowns across Hilly (R-A-P-D), Terai (B-K-D-K), and Metric units (LandConverterScreen), and group bill splits (BillSplitterScreen) formatted with Devanagari numerals.
-    - Tools Section Discoverability & Instant Search: Added live search bar with bilingual matching and keyword alias mapping (TOOL_SEARCH_KEYWORDS), search result count, and contextual empty state.
-    - Recently Used Tools Section: Built RecentToolsManager (SharedPreferences-backed, reactive mutableStateListOf) showing top-5 recently used tools with 1-tap clear action.
-    - Robust In-App Update Checksum Extraction: Updated SHA-256 regex parser in GitHubUpdateManager to accept all markdown formatting variations.
-  - v2.6.7:
-    - Comprehensive App-Wide Single-Language Enforcement: Pure Devanagari in Nepali mode; 100% English in English mode.
-    - Vedic Marriage Compatibility PDF & Kundali Export Overhaul: Cell clipping, tuned column widths, and language-isolated tables.
-    - Live Choghadiya UI & Vedic Choghadiya Guide: Dynamic solar calculations, pulsating indicator, and 4-step selection guide.
-    - Android 14/15 Predictive Back Navigation & Dark Mode Polish: Enabled OnBackInvokedCallback; midnight OLED palette.
-    - Baseline Profiles & Brand Assets: Cold start optimization and 3D Toolbox splash branding.
-  - v2.6.0: Location-based emergency directory (offline Haversine fallback), Kundali Gochar wheel, Vastu compass, Land Area converter.
+  - v2.7.0:
+    - Recent Updates (Live Data Freshness Tracker): Added RecentUpdatesManager and RelativeTimeFormatter to record genuine timestamps only when fresh data is fetched and verified from Weather, Fuel (NOC), Kalimati wholesale market, and Forex (NRB).
+    - Offline-First & Privacy Preserving: Zero new network calls; seed from disk cache; pure local relative time formatting with live 60-second ticker and strict Devanagari numeral localization in Nepali mode.
+    - Homescreen Compact Section: Positioned after Fuel card with Material 3 Rice Paper palette cards, unread freshness indicator dots, and subtle "View All" ("सबै हेर्नुहोस्") navigation.
+    - Dedicated Recent Updates Screen: Added RecentUpdatesScreen (Routes.RECENT_UPDATES) with full details, exact timestamps, and 1-tap navigation to corresponding services.
+  - v2.6.9: Launcher shortcuts, tactile haptics, 1-tap utility sharing, and tools search/recents.
+  - v2.6.7: Single-language enforcement, Vedic Marriage PDF export, Choghadiya UI, and dark mode polish.
+  - v2.6.0: Location-based emergency directory, Kundali Gochar wheel, Vastu compass, Land Area converter.
   - v2.5.0 - v2.5.9: High-precision ephemeris, 36-Point Guna Milan, sound meter, spy camera detector, offline backup, widgets, and security engine.
 
 

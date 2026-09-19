@@ -216,6 +216,17 @@ object RatesRepo {
             }
 
             File(context.filesDir, FILE).writeText(cacheJson.toString())
+            com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
+                context = context,
+                serviceId = "rates",
+                nameNp = "विदेशी मुद्रा",
+                nameEn = "Forex Currency",
+                route = com.neptools.app.ui.navigation.Routes.CURRENCY,
+                iconType = "coin",
+                timestampMillis = now,
+                statusNp = "नेपाल राष्ट्र बैंक",
+                statusEn = "Nepal Rastra Bank"
+            )
             RateSet(
                 rates = ratesMap,
                 nrbDetails = detailsMap,
@@ -259,6 +270,17 @@ object RatesRepo {
                 put("source", "Exchange Rates API")
             }
             File(context.filesDir, FILE).writeText(cacheJson.toString())
+            com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
+                context = context,
+                serviceId = "rates",
+                nameNp = "विदेशी मुद्रा",
+                nameEn = "Forex Currency",
+                route = com.neptools.app.ui.navigation.Routes.CURRENCY,
+                iconType = "coin",
+                timestampMillis = now,
+                statusNp = "विदेशी विनिमय दर",
+                statusEn = "Exchange Rates"
+            )
             RateSet(
                 rates = map,
                 nrbDetails = defaultDetails,

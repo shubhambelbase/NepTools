@@ -330,6 +330,17 @@ object KalimatiRepo {
             }
 
             File(context.filesDir, FILE).writeText(cacheObj.toString())
+            com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
+                context = context,
+                serviceId = "kalimati",
+                nameNp = "कालिमाटी बजार",
+                nameEn = "Kalimati Market",
+                route = com.neptools.app.ui.navigation.Routes.KALIMATI,
+                iconType = "leaf",
+                timestampMillis = now,
+                statusNp = "दैनिक थोक बजार",
+                statusEn = "Daily Wholesale"
+            )
             loadCached(context)
         } catch (e: Exception) {
             e.printStackTrace()

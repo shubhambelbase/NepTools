@@ -89,6 +89,7 @@ object Routes {
     const val ASTRO_ANALYSIS = "astrology/analysis"
     const val VASTU_COMPASS = "vastu_compass"
     const val LAND_CONVERTER = "land_converter"
+    const val RECENT_UPDATES = "recent_updates"
 
     fun calendar(year: Int, month: Int) = "calendar/$year/$month"
     fun day(year: Int, month: Int, day: Int) = "day/$year/$month/$day"
@@ -302,6 +303,12 @@ fun PatroApp() {
             composable(Routes.UPDATER) { com.neptools.app.ui.screens.AppUpdaterScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.SOUND_METER) { com.neptools.app.ui.screens.SoundMeterScreen(onBack = { navController.popBackStack() }) }
             composable(Routes.SPY_CAMERA) { com.neptools.app.ui.screens.SpyCameraDetectorScreen(onBack = { navController.popBackStack() }) }
+            composable(Routes.RECENT_UPDATES) {
+                com.neptools.app.ui.screens.RecentUpdatesScreen(
+                    onBack = { navController.popBackStack() },
+                    onOpenTool = { route -> navController.navigate(route) }
+                )
+            }
 
             composable(Routes.ASTRO) {
                 com.neptools.app.astrology.ui.AstrologyHomeScreen(

@@ -217,6 +217,17 @@ object FuelRepo {
             }
 
             File(context.filesDir, FILE).writeText(cacheJson.toString())
+            com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
+                context = context,
+                serviceId = "fuel",
+                nameNp = "पेट्रोलियम भाउ",
+                nameEn = "Fuel Prices",
+                route = com.neptools.app.ui.navigation.Routes.FUEL,
+                iconType = "fuel",
+                timestampMillis = now,
+                statusNp = "नेपाल आयल निगम",
+                statusEn = "NOC Retail Rates"
+            )
             loadCached(context)
         } catch (e: Exception) {
             null

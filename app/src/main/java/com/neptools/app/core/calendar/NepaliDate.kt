@@ -33,6 +33,9 @@ object NepaliNames {
     fun toDevanagari(value: Int): String =
         value.toString().map { if (it.isDigit()) digits[it - '0'] else it }.joinToString("")
 
+    fun toDevanagari(value: Long): String =
+        value.toString().map { if (it.isDigit()) digits[it - '0'] else it }.joinToString("")
+
     fun toDevanagari(value: String): String =
         value.map { if (it.isDigit()) digits[it - '0'] else it }.joinToString("")
 

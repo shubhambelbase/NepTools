@@ -26,6 +26,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ripple
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledTonalButton
@@ -41,6 +43,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -71,6 +74,9 @@ import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.navigation.Routes
 import com.neptools.app.ui.theme.ThemePrefs
+import com.neptools.app.core.updates.RecentUpdateRecord
+import com.neptools.app.core.updates.RecentUpdatesManager
+import com.neptools.app.core.updates.RelativeTimeFormatter
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -106,8 +112,17 @@ fun HomeScreen(
     var updateError by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
 
+    var homeRelativeTimeTick by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(60_000L)
+            homeRelativeTimeTick = System.currentTimeMillis()
+        }
+    }
+
     // Auto-refresh market rates & daily services whenever user lands on HomeScreen
     LaunchedEffect(Unit) {
+        RecentUpdatesManager.load(ctx)
         com.neptools.app.core.data.FuelRepo.refresh(ctx) {}
         com.neptools.app.core.data.KalimatiRepo.refresh(ctx) {}
         com.neptools.app.core.data.RatesRepo.refresh(ctx) {}
@@ -424,6 +439,24 @@ fun HomeScreen(
             onClick = { onOpenTool(Routes.FUEL) },
             modifier = Modifier.padding(horizontal = 16.dp)
         )
+
+        // ---- Recent Live Updates ----
+        val recentLiveUpdates = RecentUpdatesManager.updates
+        if (recentLiveUpdates.isNotEmpty()) {
+            Spacer(Modifier.height(18.dp))
+            HomeRecentUpdatesSection(
+                updates = recentLiveUpdates.take(3),
+                hasMore = recentLiveUpdates.size > 3,
+                isEn = isEn,
+                nowMillis = homeRelativeTimeTick,
+                onOpenTool = { route, serviceId ->
+                    RecentUpdatesManager.markSeen(ctx, listOf(serviceId))
+                    onOpenTool(route)
+                },
+                onViewAll = { onOpenTool(Routes.RECENT_UPDATES) },
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
 
         // ---- tools ----
         Spacer(Modifier.height(20.dp))
@@ -1107,6 +1140,184 @@ private fun HomeFuelPriceCard(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun HomeRecentUpdatesSection(
+    updates: List<RecentUpdateRecord>,
+    hasMore: Boolean,
+    isEn: Boolean,
+    nowMillis: Long,
+    onOpenTool: (route: String, serviceId: String) -> Unit,
+    onViewAll: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        SectionTitle(
+            title = if (isEn) "Recent Updates" else "हालै अद्यावधिक",
+            actionLabel = if (hasMore) (if (isEn) "View All" else "सबै हेर्नुहोस्") else null,
+            onAction = if (hasMore) onViewAll else null
+        )
+        Spacer(Modifier.height(8.dp))
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            updates.forEach { item ->
+                HomeRecentUpdateCard(
+                    item = item,
+                    isEn = isEn,
+                    nowMillis = nowMillis,
+                    onClick = { onOpenTool(item.route, item.serviceId) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun HomeRecentUpdateCard(
+    item: RecentUpdateRecord,
+    isEn: Boolean,
+    nowMillis: Long,
+    onClick: () -> Unit
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.98f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMediumLow
+        ),
+        label = "homeUpdateCardScale"
+    )
+
+    val icon = when (item.iconType) {
+        "sun" -> PIcons.Sun
+        "fuel" -> PIcons.Fuel
+        "leaf" -> PIcons.Leaf
+        "coin" -> PIcons.Coin
+        else -> PIcons.Refresh
+    }
+
+    val (iconTint, iconBg) = when (item.iconType) {
+        "sun" -> Color(0xFF0284C7) to Color(0xFFE0F2FE)
+        "fuel" -> Color(0xFFEA580C) to Color(0xFFFFEDD5)
+        "leaf" -> Color(0xFF16A34A) to Color(0xFFDCFCE7)
+        "coin" -> Color(0xFF16A34A) to Color(0xFFDCFCE7)
+        else -> MaterialTheme.colorScheme.primary to MaterialTheme.colorScheme.primaryContainer
+    }
+
+    val relativeTime = remember(item.timestampMillis, isEn, nowMillis) {
+        RelativeTimeFormatter.format(item.timestampMillis, isEn, nowMillis)
+    }
+
+    val statusText = if (isEn) item.statusEn else item.statusNp
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .clip(RoundedCornerShape(14.dp))
+            .clickable(
+                interactionSource = interactionSource,
+                indication = ripple(bounded = true, color = iconTint.copy(alpha = 0.15f)),
+                onClick = onClick
+            ),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = CardDefaults.outlinedCardBorder().copy(
+            brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f))
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isPressed) 0.dp else 0.5.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 11.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(38.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(iconBg),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = iconTint,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+
+            Spacer(Modifier.width(12.dp))
+
+            Column(Modifier.weight(1f)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = if (isEn) item.nameEn else item.nameNp,
+                        style = MaterialTheme.typography.titleSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    if (item.isUnread) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(MaterialTheme.colorScheme.primary, CircleShape)
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(2.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = relativeTime,
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1
+                    )
+                    if (!statusText.isNullOrBlank()) {
+                        Text(
+                            text = "·",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        )
+                        Text(
+                            text = statusText,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+            }
+
+            Icon(
+                imageVector = PIcons.ChevronRight,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                modifier = Modifier.size(16.dp)
+            )
         }
     }
 }
