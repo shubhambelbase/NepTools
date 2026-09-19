@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.6.7 (versionCode: 26)
+- Current Version: v2.6.8 (versionCode: 27)
 - Last Updated: September 19, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -89,9 +89,11 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.6.7 (versionCode 26) — Release build completed, signed, and verified.
+- Status: v2.6.8 (versionCode 27) — Release build completed, signed, and verified.
 - Last Updated: September 19, 2026
 - Recent Updates:
+  - v2.6.8:
+    - Robust In-App Update Checksum Extraction: Updated SHA-256 regex parser in GitHubUpdateManager to seamlessly accept all markdown formatting variations (bold markers, code backticks, colons, and equals signs).
   - v2.6.7:
     - Comprehensive App-Wide Single-Language Enforcement: Conducted exhaustive codebase audit eliminating 100% of language mixing. In Nepali mode: zero English words or abbreviations (eliminated parenthetical trial labels, mixed lucky colors, English tab headers, English error notes, etc., with full Devanagari numerals). In English mode: 100% pure English. Fixed across AppStrings, RashifalScreen, OnboardingScreen, VoiceScreen, DrivingLicenseQuestionBank, ToolsScreen, GocharScreen, KundaliScreen, PlaceSelector, ApplicationTemplatesRepo, PdfExporter, RadioService, and SpyCameraDetectorScreen.
     - Vedic Marriage Compatibility PDF & Kundali Export Overhaul: Fixed text overlapping in Ashta Koota breakdown table with cell clipping (drawClippedText) and tuned column widths; language-isolated titles, dosha assessments, domain cards, and Devanagari numerals for pure Nepali or pure English reports.

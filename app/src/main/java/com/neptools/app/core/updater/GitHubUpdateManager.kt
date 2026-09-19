@@ -127,7 +127,7 @@ class GitHubUpdateManager private constructor(private val context: Context) {
                 }
 
                 // Extract SHA-256 checksum if mentioned in release notes body (e.g. SHA256: 64_HEX_CHARS)
-                val shaRegex = Regex("""(?:sha-?256|hash)\s*[:=]\s*([a-fA-F0-9]{64})""", RegexOption.IGNORE_CASE)
+                val shaRegex = Regex("""(?:sha-?256|hash)[\s*:`=]+([a-fA-F0-9]{64})""", RegexOption.IGNORE_CASE)
                 val match = shaRegex.find(releaseNotes)
                 val foundHash = match?.groupValues?.get(1)?.lowercase() ?: ""
 
