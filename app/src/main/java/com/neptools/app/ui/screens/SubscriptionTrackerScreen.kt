@@ -213,37 +213,24 @@ fun SubscriptionTrackerScreen(
                         )
                     }
                 },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            editingSubscription = null
-                            showCreateModal = true
-                        }
-                    ) {
-                        Icon(
-                            imageVector = PIcons.Plus,
-                            contentDescription = "Add",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    editingSubscription = null
-                    showCreateModal = true
-                },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                shape = CircleShape
-            ) {
-                Icon(PIcons.Plus, contentDescription = "Add", modifier = Modifier.size(24.dp))
+            if (subscriptions.isNotEmpty()) {
+                FloatingActionButton(
+                    onClick = {
+                        editingSubscription = null
+                        showCreateModal = true
+                    },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    shape = CircleShape
+                ) {
+                    Icon(PIcons.Plus, contentDescription = "Add", modifier = Modifier.size(24.dp))
+                }
             }
         },
         containerColor = MaterialTheme.colorScheme.background

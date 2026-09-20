@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.4 (versionCode: 33)
+- Current Version: v2.7.5 (versionCode: 34)
 - Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,13 +90,16 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.4 (versionCode 33) — UI/UX Polish, Category Filtering, Date Presets & Astrology Previews.
+- Status: v2.7.5 (versionCode 34) — Date Converter Redesign, Land Separation & Add Button Clutter Elimination.
 - Last Updated: September 20, 2026
 - Recent Updates:
+  - v2.7.5:
+    - Redesigned Date Converter: Removed displaced Land (Ropani) section, added segmented BS/AD direction tab, unified source date card, circular swap trigger, and rich hero result card with relative time badges and 1-tap share.
+    - Eliminated Add button clutter in Subscription Tracker: Removed duplicate plus button in top bar and suppressed corner FAB when list is empty.
+    - Streamlined Habit Tracker empty state: Removed duplicate starter pills and suppressed corner FAB when habits list is empty, leaving a single unambiguous CTA.
   - v2.7.4:
     - Added horizontal category filter chips in ToolsScreen for 1-tap filtering across 30+ utilities.
     - Added quick date presets (Today, Yesterday, 1st of Month) in ConverterScreen.
-    - Enhanced HabitTrackerScreen with 1-tap starter habit presets (Water, Exercise, Reading) in empty state.
     - Added actionable empty states in KundaliScreen, GocharScreen, and DashaScreen with direct navigation to birth details and 1-tap sample chart load.
   - v2.7.3:
     - Atomic JSON file persistence (temp file write + atomic swap in UserEventManager) to prevent data loss or file corruption.
