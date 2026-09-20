@@ -1,8 +1,11 @@
 package com.neptools.app.ui.screens
 
-import android.content.Intent
+import android.content.ContentValues
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,6 +25,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -36,17 +41,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.neptools.app.ui.components.InkButton
+import com.neptools.app.core.util.QrCodeGenerator
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.theme.ThemePrefs
@@ -54,7 +57,6 @@ import com.neptools.app.ui.theme.ThemePrefs
 @Composable
 fun QrScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
     val isEn = ThemePrefs.lang.value == "en"
 
     var qrType by remember { mutableIntStateOf(0) } // 0 = URL, 1 = Text, 2 = Phone, 3 = Wi-Fi, 4 = eSewa
@@ -62,16 +64,30 @@ fun QrScreen(onBack: () -> Unit) {
     var wifiSsid by remember { mutableStateOf("Home_WiFi") }
     var wifiPassword by remember { mutableStateOf("Namaste@123") }
     var phoneInput by remember { mutableStateOf("9800000000") }
-    var esewaId by remember { mutableStateOf("9841000000") }
+    var esewaId by remember { mutableStateOf("9848028445") }
+    var esewaName by remember { mutableStateOf("Subham Belbase") }
 
-    val payload = remember(qrType, inputText, wifiSsid, wifiPassword, phoneInput, esewaId) {
+    val payload = remember(qrType, inputText, wifiSsid, wifiPassword, phoneInput, esewaId, esewaName) {
         when (qrType) {
             0 -> if (inputText.startsWith("http")) inputText else "https://$inputText"
             1 -> inputText
             2 -> "tel:$phoneInput"
             3 -> "WIFI:S:$wifiSsid;T:WPA;P:$wifiPassword;;"
-            else -> "esewa://pay?to=$esewaId&name=NepTools"
+            else -> {
+                val cleanId = esewaId.trim()
+                val cleanName = esewaName.trim()
+                if (cleanName.isNotBlank()) {
+                    """{"eSewa_id":"$cleanId","name":"$cleanName"}"""
+                } else {
+                    """{"eSewa_id":"$cleanId"}"""
+                }
+            }
         }
+    }
+
+    // Generate real scannable QR bitmap via ZXing
+    val qrBitmap = remember(payload) {
+        QrCodeGenerator.generateQrBitmap(content = payload, size = 512)
     }
 
     val typeOptions = listOf(
@@ -149,7 +165,7 @@ fun QrScreen(onBack: () -> Unit) {
 
         LazyColumn(
             Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 100.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 40.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
@@ -222,8 +238,22 @@ fun QrScreen(onBack: () -> Unit) {
                             OutlinedTextField(
                                 value = esewaId,
                                 onValueChange = { esewaId = it },
-                                label = { Text(T("qr_hint_esewa")) },
+                                label = { Text(if (isEn) "eSewa ID / Mobile Number" else "eSewa ID / मोबाइल नम्बर") },
+                                placeholder = { Text("98xxxxxxxx") },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                                shape = RoundedCornerShape(10.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                                ),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(Modifier.height(10.dp))
+                            OutlinedTextField(
+                                value = esewaName,
+                                onValueChange = { esewaName = it },
+                                label = { Text(if (isEn) "Account Holder Name" else "खातावालाको नाम") },
+                                placeholder = { Text(if (isEn) "e.g. Subham Belbase" else "जस्तै: शुभम बेलबासे") },
                                 shape = RoundedCornerShape(10.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -236,7 +266,7 @@ fun QrScreen(onBack: () -> Unit) {
                 }
             }
 
-            // QR Code Matrix Display Card
+            // QR Code Display Card (real scannable QR via ZXing)
             item {
                 Box(
                     Modifier
@@ -252,9 +282,25 @@ fun QrScreen(onBack: () -> Unit) {
                                 .size(210.dp)
                                 .background(Color.White, RoundedCornerShape(12.dp))
                                 .border(1.dp, Color(0xFFE0E0E0), RoundedCornerShape(12.dp))
-                                .padding(14.dp)
+                                .padding(14.dp),
+                            contentAlignment = Alignment.Center
                         ) {
-                            QrMatrixCanvas(payload = payload)
+                            val bmp = qrBitmap
+                            if (bmp != null) {
+                                Image(
+                                    bitmap = bmp.asImageBitmap(),
+                                    contentDescription = T("qr_scannable"),
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Fit
+                                )
+                            } else {
+                                Text(
+                                    text = if (isEn) "Enter content to generate QR"
+                                    else "QR बनाउन सामग्री लेख्नुहोस्",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
                         }
                         Spacer(Modifier.height(14.dp))
                         Text(
@@ -264,7 +310,7 @@ fun QrScreen(onBack: () -> Unit) {
                         )
                         Spacer(Modifier.height(3.dp))
                         Text(
-                            payload.take(40) + if (payload.length > 40) "…" else "",
+                            payload.take(45) + if (payload.length > 45) "..." else "",
                             style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -272,49 +318,29 @@ fun QrScreen(onBack: () -> Unit) {
                 }
             }
 
-            // Actions (Copy / Share)
+            // ONLY Save QR Image Button (share data and copy qr data removed per user request)
             item {
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    InkButton(
-                        text = T("qr_copy_btn"),
-                        onClick = {
-                            clipboardManager.setText(AnnotatedString(payload))
-                            Toast.makeText(context, if (isEn) "QR payload copied to clipboard" else "क्युआर डेटा क्लिपबोर्डमा कपी भयो", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier.weight(1f)
+                Button(
+                    onClick = {
+                        qrBitmap?.let { bmp -> saveQrBitmap(context, bmp, isEn) }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Icon(
+                        imageVector = PIcons.Download,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
-                    InkButton(
-                        text = T("qr_share_btn"),
-                        onClick = {
-                            val sendIntent = Intent().apply {
-                                action = Intent.ACTION_SEND
-                                putExtra(Intent.EXTRA_TEXT, payload)
-                                type = "text/plain"
-                            }
-                            context.startActivity(Intent.createChooser(sendIntent, "Share QR Payload"))
-                        },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun QrMatrixCanvas(payload: String) {
-    val size = 25
-    val grid = remember(payload) { generateQrGrid(payload, size) }
-
-    Canvas(modifier = Modifier.fillMaxSize()) {
-        val cellSize = this.size.width / size
-        for (r in 0 until size) {
-            for (c in 0 until size) {
-                if (grid[r][c]) {
-                    drawRect(
-                        color = Color.Black,
-                        topLeft = Offset(c * cellSize, r * cellSize),
-                        size = Size(cellSize, cellSize)
+                    Spacer(Modifier.width(10.dp))
+                    Text(
+                        text = if (isEn) "Save QR Image" else "QR तस्विर सेभ गर्नुहोस्",
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
@@ -322,45 +348,73 @@ private fun QrMatrixCanvas(payload: String) {
     }
 }
 
-private fun generateQrGrid(payload: String, size: Int): Array<BooleanArray> {
-    val grid = Array(size) { BooleanArray(size) { false } }
+/** Saves the QR bitmap to the device Pictures/NepTools folder and registers with MediaStore. */
+private fun saveQrBitmap(
+    context: android.content.Context,
+    bitmap: android.graphics.Bitmap,
+    isEn: Boolean
+) {
+    try {
+        val filename = "NepTools_QR_${System.currentTimeMillis()}.png"
+        val mime = "image/png"
+        var savedUri: android.net.Uri? = null
 
-    fun drawFinder(top: Int, left: Int) {
-        for (r in 0 until 7) {
-            for (c in 0 until 7) {
-                val isOuter = r == 0 || r == 6 || c == 0 || c == 6
-                val isInner = r in 2..4 && c in 2..4
-                grid[top + r][left + c] = isOuter || isInner
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val values = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, filename)
+                put(MediaStore.Images.Media.MIME_TYPE, mime)
+                put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/NepTools")
+                put(MediaStore.Images.Media.IS_PENDING, 1)
             }
-        }
-    }
-
-    drawFinder(0, 0)
-    drawFinder(0, size - 7)
-    drawFinder(size - 7, 0)
-
-    for (i in 8 until size - 8) {
-        grid[6][i] = i % 2 == 0
-        grid[i][6] = i % 2 == 0
-    }
-
-    val hash = payload.hashCode().toLong()
-    val bytes = payload.toByteArray()
-    var byteIdx = 0
-    var bitIdx = 0
-
-    for (r in 0 until size) {
-        for (c in 0 until size) {
-            val inFinder = (r < 8 && c < 8) || (r < 8 && c >= size - 8) || (r >= size - 8 && c < 8) || (r == 6 || c == 6)
-            if (!inFinder) {
-                val seed = (r * 31 + c * 17 + hash).hashCode()
-                val b = if (bytes.isNotEmpty()) bytes[byteIdx % bytes.size].toInt() else 0
-                val bit = ((b shr (bitIdx % 8)) and 1) == 1
-                grid[r][c] = (seed % 3 == 0) xor bit
-                bitIdx++
-                if (bitIdx % 8 == 0) byteIdx++
+            val uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            if (uri != null) {
+                context.contentResolver.openOutputStream(uri)?.use { stream ->
+                    bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, stream)
+                }
+                values.clear()
+                values.put(MediaStore.Images.Media.IS_PENDING, 0)
+                context.contentResolver.update(uri, values, null, null)
+                savedUri = uri
             }
+        } else {
+            val dir = java.io.File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "NepTools"
+            )
+            if (!dir.exists()) dir.mkdirs()
+            val file = java.io.File(dir, filename)
+            java.io.FileOutputStream(file).use { stream ->
+                bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, stream)
+            }
+            savedUri = android.net.Uri.fromFile(file)
+            android.media.MediaScannerConnection.scanFile(
+                context,
+                arrayOf(file.absolutePath),
+                arrayOf(mime),
+                null
+            )
         }
+
+        if (savedUri != null) {
+            Toast.makeText(
+                context,
+                if (isEn) "QR image saved to Pictures/NepTools"
+                else "QR तस्विर Pictures/NepTools मा सेभ भयो",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(
+                context,
+                if (isEn) "Failed to save QR image" else "QR सेभ गर्न सकिएन",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        Toast.makeText(
+            context,
+            if (isEn) "Error: ${e.localizedMessage}" else "QR सेभ गर्न समस्या भयो",
+            Toast.LENGTH_SHORT
+        ).show()
     }
-    return grid
 }

@@ -3,11 +3,11 @@ package com.neptools.app.ui.screens
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,34 +21,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,29 +50,45 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.neptools.app.core.data.AppTemplate
 import com.neptools.app.core.data.ApplicationTemplatesRepo
 import com.neptools.app.core.util.PdfExporter
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+// Category color map for visual distinction
+private val CATEGORY_COLORS = mapOf(
+    "ward" to Color(0xFF6C63FF),
+    "legal" to Color(0xFF4CAF50),
+    "bank" to Color(0xFF9C27B0),
+    "leave" to Color(0xFFFF9800)
+)
+
 @Composable
 fun ApplicationTemplatesScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
-    val scope = rememberCoroutineScope()
 
     var selectedTemplate by remember { mutableStateOf(ApplicationTemplatesRepo.templates.first()) }
-    var showSelectorSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState()
+    var selectedCategory by remember { mutableStateOf("all") }
 
     val formValues = remember { mutableStateMapOf<String, String>() }
 
     val activeLetter = remember(selectedTemplate, formValues.toMap()) {
         selectedTemplate.generateLetter(formValues)
     }
+
+    val filteredTemplates = remember(selectedCategory) {
+        if (selectedCategory == "all") ApplicationTemplatesRepo.templates
+        else ApplicationTemplatesRepo.templates.filter { it.category == selectedCategory }
+    }
+
+    val categories = listOf(
+        "all" to (if (isEn) "All" else "सबै"),
+        "ward" to (if (isEn) "Ward Office" else "वडा कार्यालय"),
+        "legal" to (if (isEn) "Legal" else "कानुनी"),
+        "bank" to (if (isEn) "Bank" else "बैंक"),
+        "leave" to (if (isEn) "Leave" else "बिदा")
+    )
 
     fun copyToClipboard(text: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -94,90 +101,202 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
         ).show()
     }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Application Templates" else "सरकारी निवेदन ढाँचा",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = if (isEn) "Back" else "पछाडि")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
-            )
-        }
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        // Compact inline header (matches QR/Level screen pattern)
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Selected Template Card with "Change" button
-            item {
-                Card(
+            Box(
+                Modifier
+                    .size(40.dp)
+                    .background(MaterialTheme.colorScheme.surface, CircleShape)
+                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
+                    .clickable(onClick = onBack),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    PIcons.ChevronLeft,
+                    contentDescription = if (isEn) "Back" else "पछाडि",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Spacer(Modifier.width(14.dp))
+            Text(
+                text = if (isEn) "Govt Templates" else "सरकारी ढाँचा",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Spacer(Modifier.weight(1f))
+            // Verified badge
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(Color(0xFF2E7D32).copy(alpha = 0.12f))
+                    .padding(horizontal = 8.dp, vertical = 3.dp)
+            ) {
+                Text(
+                    text = if (isEn) "Verified" else "प्रमाणित",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = Color(0xFF4CAF50)
+                )
+            }
+        }
+
+        // Category filter chips (horizontal scroll)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            categories.forEach { (catKey, catLabel) ->
+                val isSel = selectedCategory == catKey
+                val catColor = if (catKey == "all") MaterialTheme.colorScheme.primary
+                else CATEGORY_COLORS[catKey] ?: MaterialTheme.colorScheme.primary
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                        .clickable { showSelectorSheet = true },
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.45f))
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(CircleShape)
-                                    .background(MaterialTheme.colorScheme.primary),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = PIcons.Doc,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onPrimary,
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                            Spacer(Modifier.width(12.dp))
-                            Column {
-                                Text(
-                                    text = if (isEn) selectedTemplate.titleEn else selectedTemplate.titleNp,
-                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                                Spacer(Modifier.height(2.dp))
-                                Text(
-                                    text = if (isEn) selectedTemplate.descriptionEn else selectedTemplate.descriptionNp,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(
+                            if (isSel) catColor
+                            else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        )
+                        .border(
+                            1.dp,
+                            if (isSel) catColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+                            RoundedCornerShape(20.dp)
+                        )
+                        .clickable {
+                            selectedCategory = catKey
+                            // If selected template is filtered out, select first visible
+                            val newFiltered = if (catKey == "all") ApplicationTemplatesRepo.templates
+                            else ApplicationTemplatesRepo.templates.filter { it.category == catKey }
+                            if (newFiltered.none { it.id == selectedTemplate.id }) {
+                                newFiltered.firstOrNull()?.let {
+                                    selectedTemplate = it
+                                    formValues.clear()
+                                }
                             }
                         }
+                        .padding(horizontal = 14.dp, vertical = 6.dp)
+                ) {
+                    Text(
+                        text = catLabel,
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = if (isSel) Color.White
+                        else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
 
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(MaterialTheme.colorScheme.primary)
-                                .padding(horizontal = 10.dp, vertical = 6.dp)
-                        ) {
-                            Text(
-                                text = if (isEn) "Change" else "परिवर्तन",
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
+        Spacer(Modifier.height(6.dp))
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+            // Inline Template Selector (replaces bottom sheet)
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(14.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    border = CardDefaults.outlinedCardBorder().copy(
+                        brush = androidx.compose.ui.graphics.SolidColor(
+                            MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                        )
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Text(
+                            text = if (isEn) "Select Template" else "ढाँचा छान्नुहोस्",
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.height(8.dp))
+
+                        filteredTemplates.forEach { tmpl ->
+                            val isSel = tmpl.id == selectedTemplate.id
+                            val catColor = CATEGORY_COLORS[tmpl.category]
+                                ?: MaterialTheme.colorScheme.primary
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 3.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(
+                                        if (isSel) catColor.copy(alpha = 0.10f)
+                                        else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                                    )
+                                    .border(
+                                        if (isSel) 1.dp else 0.dp,
+                                        if (isSel) catColor.copy(alpha = 0.4f) else Color.Transparent,
+                                        RoundedCornerShape(10.dp)
+                                    )
+                                    .clickable {
+                                        selectedTemplate = tmpl
+                                        formValues.clear()
+                                    }
+                                    .padding(10.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    // Color-coded icon
+                                    Box(
+                                        modifier = Modifier
+                                            .size(30.dp)
+                                            .clip(RoundedCornerShape(8.dp))
+                                            .background(catColor.copy(alpha = 0.12f)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            imageVector = PIcons.Doc,
+                                            contentDescription = null,
+                                            tint = catColor,
+                                            modifier = Modifier.size(15.dp)
+                                        )
+                                    }
+                                    Spacer(Modifier.width(10.dp))
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = if (isEn) tmpl.titleEn else tmpl.titleNp,
+                                            style = MaterialTheme.typography.bodyMedium.copy(
+                                                fontWeight = FontWeight.SemiBold
+                                            ),
+                                            color = if (isSel) catColor
+                                            else MaterialTheme.colorScheme.onSurface
+                                        )
+                                        Text(
+                                            text = if (isEn) tmpl.descriptionEn else tmpl.descriptionNp,
+                                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.5.sp),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            maxLines = 1
+                                        )
+                                    }
+                                    if (isSel) {
+                                        Icon(
+                                            imageVector = PIcons.CheckCircle,
+                                            contentDescription = null,
+                                            tint = catColor,
+                                            modifier = Modifier.size(18.dp)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -187,18 +306,20 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(14.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     border = CardDefaults.outlinedCardBorder().copy(
-                        brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                        brush = androidx.compose.ui.graphics.SolidColor(
+                            MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                        )
                     )
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                        modifier = Modifier.padding(14.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Text(
-                            text = if (isEn) "Fill Required Details:" else "आवश्यक विवरण भर्नुहोस्:",
+                            text = if (isEn) "Fill Details" else "विवरण भर्नुहोस्",
                             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -222,18 +343,20 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                 }
             }
 
-            // Official Letter Preview Card
+            // Letter Preview Card
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(14.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     border = CardDefaults.outlinedCardBorder().copy(
-                        brush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
+                        brush = androidx.compose.ui.graphics.SolidColor(
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                        )
                     ),
                     elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
                 ) {
-                    Column(modifier = Modifier.padding(18.dp)) {
+                    Column(modifier = Modifier.padding(14.dp)) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -244,32 +367,32 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                                     imageVector = PIcons.Doc,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(18.dp)
+                                    modifier = Modifier.size(16.dp)
                                 )
-                                Spacer(Modifier.width(8.dp))
+                                Spacer(Modifier.width(6.dp))
                                 Text(
-                                    text = if (isEn) "Letter Preview" else "निवेदनको आधिकारिक रूप",
-                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                    text = if (isEn) "Letter Preview" else "निवेदन पूर्वावलोकन",
+                                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(6.dp))
-                                    .background(Color(0xFFE8F5E9))
+                                    .background(Color(0xFF2E7D32).copy(alpha = 0.12f))
                                     .padding(horizontal = 8.dp, vertical = 3.dp)
                             ) {
                                 Text(
                                     text = if (isEn) "Official Format" else "प्रमाणित ढाँचा",
                                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                                    color = Color(0xFF2E7D32)
+                                    color = Color(0xFF4CAF50)
                                 )
                             }
                         }
 
-                        Spacer(Modifier.height(12.dp))
+                        Spacer(Modifier.height(10.dp))
                         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
-                        Spacer(Modifier.height(12.dp))
+                        Spacer(Modifier.height(10.dp))
 
                         // Formatted Nepali Letter
                         Text(
@@ -282,12 +405,12 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                             color = MaterialTheme.colorScheme.onSurface
                         )
 
-                        Spacer(Modifier.height(18.dp))
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
                         Spacer(Modifier.height(14.dp))
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f))
+                        Spacer(Modifier.height(12.dp))
 
-                        // Action Buttons: Save PDF, Share, Copy
-                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        // Action Buttons
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Button(
                                 onClick = {
                                     PdfExporter.printDocument(
@@ -298,26 +421,26 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(48.dp),
-                                shape = RoundedCornerShape(12.dp),
+                                    .height(44.dp),
+                                shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                             ) {
                                 Icon(
                                     imageVector = PIcons.Pdf,
                                     contentDescription = null,
-                                    modifier = Modifier.size(18.dp),
+                                    modifier = Modifier.size(16.dp),
                                     tint = MaterialTheme.colorScheme.onPrimary
                                 )
-                                Spacer(Modifier.width(8.dp))
+                                Spacer(Modifier.width(6.dp))
                                 Text(
-                                    text = if (isEn) "Print / Save PDF" else "PDF सेभ तथा प्रिन्ट गर्नुहोस्",
+                                    text = if (isEn) "Print / Save PDF" else "PDF सेभ / प्रिन्ट",
                                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
                                 )
                             }
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 OutlinedButton(
                                     onClick = {
@@ -330,118 +453,39 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                                     },
                                     modifier = Modifier
                                         .weight(1f)
-                                        .height(44.dp),
+                                        .height(40.dp),
                                     shape = RoundedCornerShape(10.dp)
                                 ) {
-                                    Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(16.dp))
-                                    Spacer(Modifier.width(6.dp))
-                                    Text(if (isEn) "Share PDF" else "PDF शेयर")
+                                    Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(14.dp))
+                                    Spacer(Modifier.width(5.dp))
+                                    Text(
+                                        if (isEn) "Share PDF" else "PDF शेयर",
+                                        style = MaterialTheme.typography.labelMedium
+                                    )
                                 }
 
                                 OutlinedButton(
                                     onClick = { copyToClipboard(activeLetter) },
                                     modifier = Modifier
                                         .weight(1f)
-                                        .height(44.dp),
+                                        .height(40.dp),
                                     shape = RoundedCornerShape(10.dp)
                                 ) {
-                                    Icon(PIcons.Copy, contentDescription = null, modifier = Modifier.size(16.dp))
-                                    Spacer(Modifier.width(6.dp))
-                                    Text(if (isEn) "Copy Text" else "कपी गर्नुहोस्")
+                                    Icon(PIcons.Copy, contentDescription = null, modifier = Modifier.size(14.dp))
+                                    Spacer(Modifier.width(5.dp))
+                                    Text(
+                                        if (isEn) "Copy Text" else "कपी गर्नुहोस्",
+                                        style = MaterialTheme.typography.labelMedium
+                                    )
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        // Modal Bottom Sheet: Template Selector
-        if (showSelectorSheet) {
-            ModalBottomSheet(
-                onDismissRequest = { showSelectorSheet = false },
-                sheetState = sheetState,
-                containerColor = MaterialTheme.colorScheme.surface
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 10.dp)
-                ) {
-                    Text(
-                        text = if (isEn) "Select Application Template" else "निवेदनको ढाँचा छान्नुहोस्",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        text = if (isEn) "Choose an official template to generate and export" else "प्रमाणित सरकारी तथा औपचारिक ढाँचा रोज्नुहोस्",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(Modifier.height(16.dp))
-
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(420.dp),
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        items(ApplicationTemplatesRepo.templates) { tmpl ->
-                            val isSel = tmpl.id == selectedTemplate.id
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(14.dp))
-                                    .background(
-                                        if (isSel) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
-                                    )
-                                    .border(
-                                        1.dp,
-                                        if (isSel) MaterialTheme.colorScheme.primary else Color.Transparent,
-                                        RoundedCornerShape(14.dp)
-                                    )
-                                    .clickable {
-                                        selectedTemplate = tmpl
-                                        formValues.clear()
-                                        scope.launch { sheetState.hide() }
-                                        showSelectorSheet = false
-                                    }
-                                    .padding(14.dp)
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column(modifier = Modifier.weight(1f)) {
-                                        Text(
-                                            text = if (isEn) tmpl.titleEn else tmpl.titleNp,
-                                            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                                            color = if (isSel) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-                                        )
-                                        Spacer(Modifier.height(2.dp))
-                                        Text(
-                                            text = if (isEn) tmpl.descriptionEn else tmpl.descriptionNp,
-                                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.5.sp),
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                                        )
-                                    }
-                                    if (isSel) {
-                                        Icon(
-                                            imageVector = PIcons.CheckCircle,
-                                            contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.primary,
-                                            modifier = Modifier.size(20.dp)
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Spacer(Modifier.height(20.dp))
-                }
-            }
+            // Bottom spacing
+            item { Spacer(Modifier.height(24.dp)) }
         }
     }
 }

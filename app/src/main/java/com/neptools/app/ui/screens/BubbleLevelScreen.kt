@@ -1,5 +1,10 @@
 package com.neptools.app.ui.screens
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -39,7 +44,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -55,6 +62,7 @@ private val WARN_AMBER = Color(0xFFD97706)
 @Composable
 fun BubbleLevelScreen(onBack: () -> Unit) {
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
 
     var hasSensor by remember { mutableStateOf(true) }
@@ -83,6 +91,32 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
         if (eng.hasSensor) eng.start()
         onDispose { eng.stop() }
     }
+
+    // Spring-animated values for smooth bubble movement (no raw sensor jitter)
+    val animatedPitch by animateFloatAsState(
+        targetValue = pitch,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "pitch"
+    )
+    val animatedRoll by animateFloatAsState(
+        targetValue = roll,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "roll"
+    )
+    val animatedSlope by animateFloatAsState(
+        targetValue = slope,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "slope"
+    )
 
     Column(
         modifier = Modifier
@@ -179,13 +213,28 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
         val effectiveEdge = when (mode) {
             1 -> false
             2 -> true
-            else -> slope > 50f
+            else -> animatedSlope > 50f
         }
+
+        // Compute level state for animated color
+        val maxDeg = if (effectiveEdge) abs(animatedSlope)
+        else maxOf(abs(animatedPitch), abs(animatedRoll))
+        val levelColor by animateColorAsState(
+            targetValue = when {
+                !effectiveEdge && abs(animatedPitch) < 0.6f && abs(animatedRoll) < 0.6f -> OK_GREEN
+                effectiveEdge && (animatedSlope < 0.6f || animatedSlope > 89.4f) -> OK_GREEN
+                maxDeg < 3f -> WARN_AMBER
+                else -> MaterialTheme.colorScheme.primary
+            },
+            animationSpec = tween(300),
+            label = "levelColor"
+        )
 
         if (!effectiveEdge) {
             SurfaceBullseye(
-                pitch = pitch,
-                roll = roll,
+                pitch = animatedPitch,
+                roll = animatedRoll,
+                bubbleColor = levelColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 34.dp)
@@ -193,7 +242,8 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
             )
         } else {
             EdgeVial(
-                slopeDeg = slope,
+                slopeDeg = animatedSlope,
+                bubbleColor = levelColor,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp)
@@ -215,21 +265,21 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
                 } else {
                     if (isEn) "Tilt X" else "झुकाव X"
                 },
-                value = formatSigned(if (effectiveEdge) slope else roll),
-                level = levelState(if (effectiveEdge) abs(slope) else maxOf(abs(pitch), abs(roll))),
+                value = formatSigned(if (effectiveEdge) animatedSlope else animatedRoll),
+                level = levelState(if (effectiveEdge) abs(animatedSlope) else maxOf(abs(animatedPitch), abs(animatedRoll))),
                 modifier = Modifier.weight(1f)
             )
             if (!effectiveEdge) {
                 ReadoutChip(
                     label = if (isEn) "Tilt Y" else "झुकाव Y",
-                    value = formatSigned(pitch),
-                    level = levelState(maxOf(abs(pitch), abs(roll))),
+                    value = formatSigned(animatedPitch),
+                    level = levelState(maxOf(abs(animatedPitch), abs(animatedRoll))),
                     modifier = Modifier.weight(1f)
                 )
             } else {
                 ReadoutChip(
                     label = if (isEn) "vs Vertical" else "ठाडोबाट",
-                    value = formatSigned(90f - abs(slope).coerceIn(0f, 180f)),
+                    value = formatSigned(90f - abs(animatedSlope).coerceIn(0f, 180f)),
                     level = 1,
                     modifier = Modifier.weight(1f)
                 )
@@ -278,11 +328,15 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
 
         Spacer(Modifier.weight(1f))
 
-        val bothLevel = !effectiveEdge && abs(pitch) < 0.6f && abs(roll) < 0.6f
+        // Haptic + sound feedback when perfectly level
+        val bothLevel = !effectiveEdge && abs(animatedPitch) < 0.6f && abs(animatedRoll) < 0.6f
         val prevLevel = remember { mutableStateOf(false) }
         androidx.compose.runtime.LaunchedEffect(bothLevel, soundOn) {
-            if (soundOn && bothLevel && !prevLevel.value) {
-                BubbleLevelEngine.beepLevel(context)
+            if (bothLevel && !prevLevel.value) {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                if (soundOn) {
+                    BubbleLevelEngine.beepLevel(context)
+                }
             }
             prevLevel.value = bothLevel
         }
@@ -307,8 +361,10 @@ fun BubbleLevelScreen(onBack: () -> Unit) {
     }
 }
 
-private fun formatSigned(v: Float): String =
-    "${if (v >= 0) "" else "-"}${kotlin.math.abs(v).toInt()}"
+private fun formatSigned(v: Float): String {
+    val rounded = kotlin.math.round(v).toInt()
+    return if (rounded == 0) "0" else "$rounded"
+}
 
 private fun levelState(maxAbsDeg: Float): Int = when {
     maxAbsDeg < 0.6f -> 0
@@ -318,20 +374,29 @@ private fun levelState(maxAbsDeg: Float): Int = when {
 
 @Composable
 private fun ModeChip(label: String, selected: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val bgColor by animateColorAsState(
+        targetValue = if (selected) MaterialTheme.colorScheme.primary
+        else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
+        animationSpec = tween(250),
+        label = "modeChipBg"
+    )
+    val textColor by animateColorAsState(
+        targetValue = if (selected) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.onSurface,
+        animationSpec = tween(250),
+        label = "modeChipText"
+    )
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(
-                if (selected) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
-            )
+            .background(bgColor)
             .clickable(onClick = onClick)
             .padding(vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = label,
-            color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+            color = textColor,
             fontSize = 13.sp,
             fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
         )
@@ -345,11 +410,15 @@ private fun ReadoutChip(
     level: Int,
     modifier: Modifier = Modifier
 ) {
-    val accent = when (level) {
-        0 -> OK_GREEN
-        1 -> WARN_AMBER
-        else -> MaterialTheme.colorScheme.primary
-    }
+    val accent by animateColorAsState(
+        targetValue = when (level) {
+            0 -> OK_GREEN
+            1 -> WARN_AMBER
+            else -> MaterialTheme.colorScheme.primary
+        },
+        animationSpec = tween(300),
+        label = "readoutAccent"
+    )
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
@@ -385,16 +454,19 @@ private fun ActionPill(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+    val bgColor by animateColorAsState(
+        targetValue = when {
+            active -> MaterialTheme.colorScheme.primary
+            !enabled -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
+            else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
+        },
+        animationSpec = tween(200),
+        label = "actionPillBg"
+    )
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(
-                when {
-                    active -> MaterialTheme.colorScheme.primary
-                    !enabled -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
-                    else -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f)
-                }
-            )
+            .background(bgColor)
             .clickable(enabled = enabled, onClick = onClick)
             .padding(vertical = 10.dp),
         horizontalArrangement = Arrangement.Center,
@@ -417,14 +489,19 @@ private fun ActionPill(
 }
 
 @Composable
-private fun SurfaceBullseye(pitch: Float, roll: Float, modifier: Modifier = Modifier) {
-    val primaryColor = MaterialTheme.colorScheme.primary
+private fun SurfaceBullseye(
+    pitch: Float,
+    roll: Float,
+    bubbleColor: Color,
+    modifier: Modifier = Modifier
+) {
     Canvas(modifier = modifier) {
         val side = minOf(size.width, size.height)
         val cx = size.width / 2f
         val cy = size.height / 2f
         val outerR = side / 2f
 
+        // Background with subtle gradient feel
         drawCircle(color = Color(0x14000000), radius = outerR)
         drawCircle(
             color = Color.White.copy(alpha = 0.55f),
@@ -432,6 +509,16 @@ private fun SurfaceBullseye(pitch: Float, roll: Float, modifier: Modifier = Modi
             style = Stroke(width = outerR * 0.012f)
         )
 
+        // Concentric depth rings
+        for (i in 1..3) {
+            drawCircle(
+                color = Color.Gray.copy(alpha = 0.12f + i * 0.04f),
+                radius = outerR * (i / 4f),
+                style = Stroke(width = outerR * 0.005f)
+            )
+        }
+
+        // Crosshair lines
         drawLine(
             color = Color.Gray.copy(alpha = 0.35f),
             start = Offset(cx - outerR, cy),
@@ -449,44 +536,57 @@ private fun SurfaceBullseye(pitch: Float, roll: Float, modifier: Modifier = Modi
         val targetR = 0.8f * scale
         val warnR = 4f * scale
 
+        // Center target zone
         drawCircle(color = OK_GREEN.copy(alpha = 0.18f), radius = warnR, center = Offset(cx, cy))
         drawCircle(color = OK_GREEN, radius = targetR, center = Offset(cx, cy), style = Stroke(width = outerR * 0.008f))
         drawCircle(color = OK_GREEN.copy(alpha = 0.55f), radius = warnR, center = Offset(cx, cy), style = Stroke(width = outerR * 0.006f))
 
+        // Bubble position (already spring-animated)
         val bubbleX = cx + (roll.coerceIn(-28f, 28f) / 28f) * (outerR * 0.82f)
         val bubbleY = cy + (pitch.coerceIn(-28f, 28f) / 28f) * (outerR * 0.82f)
-        val dist = kotlin.math.hypot((bubbleX - cx) / scale.toDouble(), (bubbleY - cy) / scale.toDouble())
-        val bubbleColor = when {
-            dist < 0.9 -> OK_GREEN
-            dist < 4.2 -> WARN_AMBER
-            else -> primaryColor
-        }
 
+        // Bubble glow (soft outer ring)
         drawCircle(color = bubbleColor.copy(alpha = 0.30f), radius = outerR * 0.085f, center = Offset(bubbleX, bubbleY))
+        // Bubble body
         drawCircle(color = bubbleColor, radius = outerR * 0.062f, center = Offset(bubbleX, bubbleY))
+        // Highlight reflection (glass-like)
         drawCircle(
             color = Color.White.copy(alpha = 0.85f),
             radius = outerR * 0.018f,
             center = Offset(bubbleX - outerR * 0.02f, bubbleY - outerR * 0.02f)
         )
+        // Bubble outline
         drawCircle(
             color = bubbleColor,
             radius = outerR * 0.062f,
             center = Offset(bubbleX, bubbleY),
             style = Stroke(width = outerR * 0.006f)
         )
+
+        // Level glow pulse when near center (green zone)
+        val dist = kotlin.math.hypot((bubbleX - cx) / scale.toDouble(), (bubbleY - cy) / scale.toDouble())
+        if (dist < 0.9) {
+            drawCircle(
+                color = OK_GREEN.copy(alpha = 0.12f),
+                radius = warnR * 1.5f,
+                center = Offset(cx, cy)
+            )
+        }
     }
 }
 
 @Composable
-private fun EdgeVial(slopeDeg: Float, modifier: Modifier = Modifier) {
+private fun EdgeVial(
+    slopeDeg: Float,
+    bubbleColor: Color,
+    modifier: Modifier = Modifier
+) {
     val bigPaint = remember {
         android.graphics.Paint().apply {
             isAntiAlias = true
             textAlign = android.graphics.Paint.Align.CENTER
         }
     }
-    val primaryColor = MaterialTheme.colorScheme.primary
     val onSurfaceColor = MaterialTheme.colorScheme.onSurface
     val onSurfaceVariantColor = MaterialTheme.colorScheme.onSurfaceVariant
     Canvas(modifier = modifier) {
@@ -535,15 +635,12 @@ private fun EdgeVial(slopeDeg: Float, modifier: Modifier = Modifier) {
             }
         }
 
+        // Bubble position (already spring-animated)
         val clamped = slopeDeg.coerceIn(0f, 90f)
         val bx = padX + tubeW * (clamped / 90f)
         val by = tubeTop + tubeH / 2f
-        val bubbleColor = when {
-            clamped <= 0.6f || clamped >= 89.4f -> OK_GREEN
-            clamped < 3f || clamped > 87f -> WARN_AMBER
-            else -> primaryColor
-        }
 
+        // Pointer triangle
         val pointerTop = tubeTop - h * 0.05f
         val tri = Path().apply {
             moveTo(bx, pointerTop + h * 0.055f)
@@ -553,9 +650,11 @@ private fun EdgeVial(slopeDeg: Float, modifier: Modifier = Modifier) {
         }
         drawPath(tri, color = Color.Gray.copy(alpha = 0.75f))
 
+        // Bubble glow + body (color animated externally)
         drawCircle(color = bubbleColor.copy(alpha = 0.30f), radius = tubeH * 0.36f, center = Offset(bx, by))
         drawCircle(color = bubbleColor, radius = tubeH * 0.27f, center = Offset(bx, by))
 
+        // Degree text
         bigPaint.textSize = h * 0.135f
         bigPaint.isFakeBoldText = true
         bigPaint.color = onSurfaceColor.toArgb()

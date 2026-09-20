@@ -371,6 +371,8 @@ private val S: Map<String, Pair<String, String>> = mapOf(
     "qr_scannable" to ("स्क्यान गर्न मिल्ने क्युआर कोड" to "Scannable QR Code"),
     "qr_copy_btn" to ("डेटा कपी गर्नुहोस्" to "Copy QR Data"),
     "qr_share_btn" to ("सेयर गर्नुहोस्" to "Share Data"),
+    "qr_save_btn" to ("QR सेभ गर्नुहोस्" to "Save QR Image"),
+    "qr_esewa_note" to ("यसले तपाईंको eSewa ID को टेक्स्ट QR मात्र बनाउँछ। यो आधिकारिक eSewa पेमेन्ट QR होइन। eSewa पेमेन्ट QR eSewa एपबाट मात्र बन्छ।" to "This generates a text-only QR with your eSewa ID for easy sharing. It is not an official eSewa payment QR. eSewa payment QR can only be generated within the eSewa app."),
 
     // common actions
     "close" to ("बन्द गर्नुहोस्" to "Close"),

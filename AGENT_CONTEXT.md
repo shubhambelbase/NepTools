@@ -90,10 +90,13 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.7 (versionCode 36) — Fuel Calculator Streamlining & Rich Micro-Animations.
+- Status: v2.7.7 (versionCode 36) — Fuel, Templates, QR & Bubble Level Redesigns.
 - Last Updated: September 20, 2026
 - Recent Updates:
   - v2.7.7:
+    - Govt Templates Modernization (ApplicationTemplatesScreen.kt): Replaced bulky top bar with compact inline header with verified badge, category filter chips (All, Ward Office, Legal, Bank, Leave), and direct inline selectable card list replacing modal bottom sheet.
+    - QR Code Generator Enhancements (QrScreen.kt): Powered by ZXing for genuine scannable QR generation. Implemented standard eSewa JSON schema (`{"eSewa_id":"...","name":"..."}`) with dedicated input fields. Cleaned action bar down to a single "Save QR Image" action with MediaStore and scoped storage support.
+    - Bubble Level Micro-Animations & Polish (BubbleLevelScreen.kt): Added smooth spring physics (animateFloatAsState with low stiffness) for pitch/roll/slope to eliminate sensor jitter, animated color transitions, tactile haptics on level lock (<0.5 deg), theme-adaptive concentric rings, and resolved -0 deg formatting glitch.
     - Fuel Calculator Streamlining (FuelPriceScreen.kt): Completely eliminated cluttered 3-tab layout (Amount->Liters, Liters->Amount, Trip Expense). Built a clean two-way converter with 2-pill toggle (By Amount / By Liters), interactive swap button, visible fuel prices on chips (Petrol, Diesel, Kerosene), 1-tap quick presets, and elevated Trip Cost Estimator into a dedicated card with vehicle mileage presets (Bike 35, Scooter 40, Car 14).
     - Fuel Prices Rich Micro-Animations: spring-loaded sliding pill for depot region categories, tactile card scale bounce on press, sequential linear gradient shimmer sweep on live rate refresh, rolling odometer reels for fuel price numerals, kinetic pill selector, and smooth rolling volume/cost transitions.
   - v2.7.6:
