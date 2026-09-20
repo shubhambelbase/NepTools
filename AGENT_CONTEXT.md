@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.7 (versionCode: 36)
+- Current Version: v2.7.8 (versionCode: 37)
 - Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,9 +90,12 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.7 (versionCode 36) — Fuel, Templates, QR & Bubble Level Redesigns.
+- Status: v2.7.8 (versionCode 37) — Official Nepal Govt Application Templates Compliance & Standardization.
 - Last Updated: September 20, 2026
 - Recent Updates:
+  - v2.7.8:
+    - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to the Local Government Operation Act 2074, Nepal Citizenship Act 2063 & Rules, Muluki Civil Code 2074, and Vital Registration Act 2076. Fixed citizenship date of birth bug, added mandatory 3-generation genealogy (बाजेको नाम), added statutory declarations, comprehensive document checklists, and added Relationship Verification (Nata Pramanit) template.
+    - Automatic Bikram Sambat Date Pre-population: Dynamically loads today's live BS date via PatroRepo engine into the application date field across all templates.
   - v2.7.7:
     - Govt Templates Modernization (ApplicationTemplatesScreen.kt): Replaced bulky top bar with compact inline header with verified badge, category filter chips (All, Ward Office, Legal, Bank, Leave), and direct inline selectable card list replacing modal bottom sheet.
     - QR Code Generator Enhancements (QrScreen.kt): Powered by ZXing for genuine scannable QR generation. Implemented standard eSewa JSON schema (`{"eSewa_id":"...","name":"..."}`) with dedicated input fields. Cleaned action bar down to a single "Save QR Image" action with MediaStore and scoped storage support.

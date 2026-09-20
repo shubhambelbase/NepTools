@@ -51,6 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.data.ApplicationTemplatesRepo
+import com.neptools.app.core.data.PatroRepo
 import com.neptools.app.core.util.PdfExporter
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -73,8 +74,21 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
 
     val formValues = remember { mutableStateMapOf<String, String>() }
 
-    val activeLetter = remember(selectedTemplate, formValues.toMap()) {
-        selectedTemplate.generateLetter(formValues)
+    val todayBsDate = remember {
+        try {
+            val t = PatroRepo.d.engine.today()
+            "${t.year}/${t.month.toString().padStart(2, '0')}/${t.day.toString().padStart(2, '0')}"
+        } catch (e: Exception) {
+            "2081/12/10"
+        }
+    }
+
+    val activeLetter = remember(selectedTemplate, formValues.toMap(), todayBsDate) {
+        val m = formValues.toMutableMap()
+        if (m["app_date"].isNullOrBlank()) {
+            m["app_date"] = todayBsDate
+        }
+        selectedTemplate.generateLetter(m)
     }
 
     val filteredTemplates = remember(selectedCategory) {
@@ -325,7 +339,7 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                         )
 
                         selectedTemplate.fields.forEach { field ->
-                            val curVal = formValues[field.key] ?: ""
+                            val curVal = formValues[field.key] ?: if (field.key == "app_date") todayBsDate else ""
                             OutlinedTextField(
                                 value = curVal,
                                 onValueChange = { formValues[field.key] = it },
