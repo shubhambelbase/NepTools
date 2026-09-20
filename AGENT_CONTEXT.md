@@ -90,11 +90,12 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.7 (versionCode 36) — Fuel Prices with Exact UI Matched Micro-Animations.
+- Status: v2.7.7 (versionCode 36) — Fuel Calculator Streamlining & Rich Micro-Animations.
 - Last Updated: September 20, 2026
 - Recent Updates:
   - v2.7.7:
-    - Fuel Prices (FuelPriceScreen.kt) rich micro-animations: spring-loaded sliding pill for depot region categories, tactile card scale bounce on press, sequential linear gradient shimmer sweep on live rate refresh, rolling odometer reels for fuel price numerals, kinetic pill selector in Fuel Calculator, and smooth rolling volume/cost transitions.
+    - Fuel Calculator Streamlining (FuelPriceScreen.kt): Completely eliminated cluttered 3-tab layout (Amount->Liters, Liters->Amount, Trip Expense). Built a clean two-way converter with 2-pill toggle (By Amount / By Liters), interactive swap button, visible fuel prices on chips (Petrol, Diesel, Kerosene), 1-tap quick presets, and elevated Trip Cost Estimator into a dedicated card with vehicle mileage presets (Bike 35, Scooter 40, Car 14).
+    - Fuel Prices Rich Micro-Animations: spring-loaded sliding pill for depot region categories, tactile card scale bounce on press, sequential linear gradient shimmer sweep on live rate refresh, rolling odometer reels for fuel price numerals, kinetic pill selector, and smooth rolling volume/cost transitions.
   - v2.7.6:
     - Implemented full suite of micro-animations for Date Converter (ConverterScreen.kt): 180-degree elastic swap spin with spring overshoot physics, fluid sliding magnetic pill on segmented control, rolling mechanical odometer reels, lithograph stamp pop, tactile button depression physics, and smart clipboard ambient breathing glow.
   - v2.7.5:

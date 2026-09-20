@@ -44,6 +44,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -386,7 +387,10 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                 )
             }
 
-            // Fuel Calculator Section
+            // Fuel Calculator Section (Streamlined Unified Converter)
+            val calcFuels = listOf(fuels[0], fuels[1], fuels[2])
+            val selectedCalcFuel = calcFuels[calcFuelIndex]
+
             item {
                 Spacer(Modifier.height(8.dp))
                 Column(
@@ -396,87 +400,49 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                         .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.6f), RoundedCornerShape(16.dp))
                         .padding(16.dp)
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Header with Title and Live Rate Badge
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                Modifier
+                                    .size(34.dp)
+                                    .background(selectedCalcFuel.primaryColor.copy(alpha = 0.12f), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(PIcons.Zap, null, tint = selectedCalcFuel.primaryColor, modifier = Modifier.size(18.dp))
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Text(
+                                T("fuel_calc_head"),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        // Live Selected Rate Pill
+                        val rateFormatted = if (isEn) "@ Rs. ${"%.2f".format(selectedCalcFuel.price)} / L"
+                        else "@ रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))} / लि"
                         Box(
                             Modifier
-                                .size(34.dp)
-                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f), CircleShape),
-                            contentAlignment = Alignment.Center
+                                .background(selectedCalcFuel.lightColor.copy(alpha = 0.85f), RoundedCornerShape(10.dp))
+                                .border(1.dp, selectedCalcFuel.primaryColor.copy(alpha = 0.3f), RoundedCornerShape(10.dp))
+                                .padding(horizontal = 9.dp, vertical = 4.dp)
                         ) {
-                            Icon(PIcons.Zap, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+                            Text(
+                                rateFormatted,
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                color = selectedCalcFuel.primaryColor
+                            )
                         }
-                        Spacer(Modifier.width(10.dp))
-                        Text(
-                            T("fuel_calc_head"),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
                     }
 
                     Spacer(Modifier.height(14.dp))
-                    // Calculator Mode Selector with Sliding Pill
-                    BoxWithConstraints(
-                        Modifier
-                            .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(10.dp))
-                            .padding(3.dp)
-                    ) {
-                        val tabWidth = (maxWidth - 6.dp) / 3
-                        val tabOffset by animateDpAsState(
-                            targetValue = tabWidth * calcMode,
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioMediumBouncy,
-                                stiffness = Spring.StiffnessLow
-                            ),
-                            label = "calc_mode_tab_offset"
-                        )
 
-                        // Fluid Sliding Tab Surface
-                        Box(
-                            Modifier
-                                .offset(x = tabOffset)
-                                .width(tabWidth)
-                                .height(32.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(MaterialTheme.colorScheme.surface)
-                        )
-
-                        Row(Modifier.fillMaxWidth()) {
-                            listOf(T("fuel_tab_amt"), T("fuel_tab_lit"), T("fuel_tab_trip")).forEachIndexed { i, title ->
-                                val isSel = calcMode == i
-                                val col by animateColorAsState(
-                                    targetValue = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                                    animationSpec = tween(200),
-                                    label = "calc_tab_text_color"
-                                )
-                                Box(
-                                    Modifier
-                                        .weight(1f)
-                                        .height(32.dp)
-                                        .clickable(
-                                            interactionSource = remember { MutableInteractionSource() },
-                                            indication = null
-                                        ) {
-                                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                            calcMode = i
-                                        },
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        title,
-                                        style = MaterialTheme.typography.labelMedium.copy(
-                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                                        ),
-                                        color = col
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    Spacer(Modifier.height(12.dp))
-                    // Fuel Type Pill Selection for Calculator with Kinetic Color & Scale Animation
-                    val calcFuels = listOf(fuels[0], fuels[1], fuels[2])
+                    // Fuel Type Pill Selection with Visible Price on Chips
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         calcFuels.forEachIndexed { idx, f ->
                             val sel = calcFuelIndex == idx
@@ -496,6 +462,9 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                 label = "fuel_chip_scale"
                             )
 
+                            val fuelName = if (isEn) f.nameEn else f.nameNp.substringBefore(" ")
+                            val fuelPriceTag = if (isEn) "Rs. ${f.price.toInt()}" else "रु ${NepaliNames.toDevanagari(f.price.toInt().toString())}"
+
                             Box(
                                 Modifier
                                     .weight(1f)
@@ -503,198 +472,538 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                         scaleX = scale
                                         scaleY = scale
                                     }
-                                    .clip(RoundedCornerShape(8.dp))
+                                    .clip(RoundedCornerShape(10.dp))
                                     .background(bgCol)
                                     .border(
                                         1.dp,
                                         if (sel) f.primaryColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-                                        RoundedCornerShape(8.dp)
+                                        RoundedCornerShape(10.dp)
                                     )
                                     .clickable {
                                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                                         calcFuelIndex = idx
                                     }
-                                    .padding(vertical = 7.dp),
+                                    .padding(vertical = 8.dp),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(
-                                    if (isEn) f.nameEn else f.nameNp.substringBefore(" "),
-                                    style = MaterialTheme.typography.labelMedium.copy(
-                                        fontWeight = if (sel) FontWeight.Bold else FontWeight.Medium
-                                    ),
-                                    color = textCol
-                                )
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        fuelName,
+                                        style = MaterialTheme.typography.labelMedium.copy(
+                                            fontWeight = if (sel) FontWeight.Bold else FontWeight.Medium
+                                        ),
+                                        color = textCol
+                                    )
+                                    Spacer(Modifier.height(2.dp))
+                                    Text(
+                                        fuelPriceTag,
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontWeight = if (sel) FontWeight.SemiBold else FontWeight.Normal,
+                                            fontSize = 10.sp
+                                        ),
+                                        color = if (sel) Color.White.copy(alpha = 0.9f) else MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
                             }
                         }
                     }
 
                     Spacer(Modifier.height(14.dp))
-                    val selectedCalcFuel = calcFuels[calcFuelIndex]
 
-                    when (calcMode) {
-                        0 -> { // Amount -> Liters
-                            OutlinedTextField(
-                                value = inputAmount,
-                                onValueChange = { v -> inputAmount = v.filter { it.isDigit() || it == '.' }.take(7) },
-                                label = { Text(T("fuel_amt_hint")) },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                singleLine = true,
-                                shape = RoundedCornerShape(10.dp),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
-                                ),
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                            Spacer(Modifier.height(12.dp))
-                            val amt = inputAmount.toDoubleOrNull() ?: 0.0
-                            val liters = if (selectedCalcFuel.price > 0) amt / selectedCalcFuel.price else 0.0
+                    // Streamlined 2-Pill Mode Selector (By Amount vs By Liters)
+                    BoxWithConstraints(
+                        Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f), RoundedCornerShape(10.dp))
+                            .padding(3.dp)
+                    ) {
+                        val tabWidth = (maxWidth - 6.dp) / 2
+                        val tabOffset by animateDpAsState(
+                            targetValue = tabWidth * calcMode,
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            ),
+                            label = "calc_mode_tab_offset"
+                        )
 
-                            Box(
-                                Modifier
-                                    .fillMaxWidth()
-                                    .background(selectedCalcFuel.lightColor.copy(alpha = 0.7f), RoundedCornerShape(12.dp))
-                                    .padding(14.dp)
-                            ) {
-                                Row(
-                                    Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column {
-                                        Text(T("fuel_res_lit"), style = MaterialTheme.typography.labelMedium, color = Color(0xFF333333))
-                                        Text(if (isEn) "@ Rs. ${"%.2f".format(selectedCalcFuel.price)} / L" else "@ रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))} / लिटर", style = MaterialTheme.typography.labelSmall, color = Color(0xFF666666))
-                                    }
-                                    AnimatedContent(
-                                        targetState = "%.2f".format(liters),
-                                        transitionSpec = {
-                                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
-                                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                        // Fluid Sliding Tab Surface
+                        Box(
+                            Modifier
+                                .offset(x = tabOffset)
+                                .width(tabWidth)
+                                .height(34.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surface)
+                                .border(0.5.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.25f), RoundedCornerShape(8.dp))
+                        )
+
+                        Row(Modifier.fillMaxWidth()) {
+                            listOf(T("fuel_by_amt"), T("fuel_by_lit")).forEachIndexed { i, title ->
+                                val isSel = calcMode == i
+                                val col by animateColorAsState(
+                                    targetValue = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    animationSpec = tween(200),
+                                    label = "calc_tab_text_color"
+                                )
+                                Box(
+                                    Modifier
+                                        .weight(1f)
+                                        .height(34.dp)
+                                        .clickable(
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            indication = null
+                                        ) {
+                                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                            calcMode = i
                                         },
-                                        label = "calc_liters_result"
-                                    ) { litStr ->
-                                        Text(
-                                            if (isEn) "$litStr L" else "${NepaliNames.toDevanagari(litStr)} लिटर",
-                                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                            color = selectedCalcFuel.primaryColor
-                                        )
-                                    }
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        title,
+                                        style = MaterialTheme.typography.labelMedium.copy(
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium
+                                        ),
+                                        color = col
+                                    )
                                 }
                             }
                         }
-                        1 -> { // Liters -> Amount
-                            OutlinedTextField(
-                                value = inputLiters,
-                                onValueChange = { v -> inputLiters = v.filter { it.isDigit() || it == '.' }.take(6) },
-                                label = { Text(T("fuel_lit_hint")) },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                singleLine = true,
-                                shape = RoundedCornerShape(10.dp),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
-                                ),
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                            Spacer(Modifier.height(12.dp))
-                            val lts = inputLiters.toDoubleOrNull() ?: 0.0
-                            val totalCost = lts * selectedCalcFuel.price
+                    }
 
-                            Box(
-                                Modifier
-                                    .fillMaxWidth()
-                                    .background(selectedCalcFuel.lightColor.copy(alpha = 0.7f), RoundedCornerShape(12.dp))
-                                    .padding(14.dp)
-                            ) {
-                                Row(
-                                    Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Column {
-                                        Text(T("fuel_res_amt"), style = MaterialTheme.typography.labelMedium, color = Color(0xFF333333))
-                                        Text(if (isEn) "${inputLiters} L × Rs. ${"%.2f".format(selectedCalcFuel.price)}" else "${NepaliNames.toDevanagari(inputLiters)} लिटर × रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))}", style = MaterialTheme.typography.labelSmall, color = Color(0xFF666666))
-                                    }
-                                    AnimatedContent(
-                                        targetState = "%.2f".format(totalCost),
-                                        transitionSpec = {
-                                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
-                                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
-                                        },
-                                        label = "calc_cost_result"
-                                    ) { costStr ->
-                                        Text(
-                                            if (isEn) "Rs. $costStr" else "रु ${NepaliNames.toDevanagari(costStr)}",
-                                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                            color = selectedCalcFuel.primaryColor
+                    Spacer(Modifier.height(12.dp))
+
+                    if (calcMode == 0) {
+                        // By Amount Mode
+                        OutlinedTextField(
+                            value = inputAmount,
+                            onValueChange = { v -> inputAmount = v.filter { it.isDigit() || it == '.' }.take(7) },
+                            label = { Text(T("fuel_amt_hint")) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            shape = RoundedCornerShape(10.dp),
+                            trailingIcon = {
+                                IconButton(onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    calcMode = 1
+                                }) {
+                                    Icon(PIcons.Swap, "Swap to Liters", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+                                }
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(Modifier.height(8.dp))
+
+                        // Quick Amount Presets
+                        val amtPresets = listOf(500, 1000, 1500, 2000, 3000)
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            amtPresets.forEach { p ->
+                                val pStr = p.toString()
+                                val isSel = inputAmount == pStr
+                                val chipLabel = if (isEn) "Rs. $p" else "रु ${NepaliNames.toDevanagari(pStr)}"
+                                Box(
+                                    Modifier
+                                        .weight(1f)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(
+                                            if (isSel) selectedCalcFuel.primaryColor.copy(alpha = 0.15f)
+                                            else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
                                         )
-                                    }
+                                        .border(
+                                            1.dp,
+                                            if (isSel) selectedCalcFuel.primaryColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+                                            RoundedCornerShape(8.dp)
+                                        )
+                                        .clickable {
+                                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                            inputAmount = pStr
+                                        }
+                                        .padding(vertical = 6.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        chipLabel,
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium
+                                        ),
+                                        color = if (isSel) selectedCalcFuel.primaryColor else MaterialTheme.colorScheme.onSurface
+                                    )
                                 }
                             }
                         }
-                        else -> { // Trip Cost
-                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                                OutlinedTextField(
-                                    value = inputDistance,
-                                    onValueChange = { v -> inputDistance = v.filter { it.isDigit() || it == '.' }.take(6) },
-                                    label = { Text(T("fuel_dist_hint")) },
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                    singleLine = true,
-                                    shape = RoundedCornerShape(10.dp),
-                                    modifier = Modifier.weight(1f)
-                                )
-                                OutlinedTextField(
-                                    value = inputMileage,
-                                    onValueChange = { v -> inputMileage = v.filter { it.isDigit() || it == '.' }.take(4) },
-                                    label = { Text(T("fuel_mil_hint")) },
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                    singleLine = true,
-                                    shape = RoundedCornerShape(10.dp),
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
-                            Spacer(Modifier.height(12.dp))
-                            val dist = inputDistance.toDoubleOrNull() ?: 0.0
-                            val mileage = (inputMileage.toDoubleOrNull() ?: 1.0).coerceAtLeast(0.1)
-                            val reqLiters = dist / mileage
-                            val tripCost = reqLiters * selectedCalcFuel.price
 
-                            Box(
-                                Modifier
-                                    .fillMaxWidth()
-                                    .background(selectedCalcFuel.lightColor.copy(alpha = 0.7f), RoundedCornerShape(12.dp))
-                                    .padding(14.dp)
+                        Spacer(Modifier.height(12.dp))
+
+                        val amt = inputAmount.toDoubleOrNull() ?: 0.0
+                        val liters = if (selectedCalcFuel.price > 0) amt / selectedCalcFuel.price else 0.0
+
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .background(selectedCalcFuel.lightColor.copy(alpha = 0.75f), RoundedCornerShape(14.dp))
+                                .border(1.dp, selectedCalcFuel.primaryColor.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                                .padding(14.dp)
+                        ) {
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Column {
-                                    Row(
-                                        Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween
-                                    ) {
-                                        Text(T("fuel_res_req"), style = MaterialTheme.typography.bodyMedium, color = Color(0xFF444444))
-                                        Text(if (isEn) "${"%.2f".format(reqLiters)} L" else "${NepaliNames.toDevanagari("%.2f".format(reqLiters))} लिटर", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), color = Color(0xFF222222))
-                                    }
-                                    Spacer(Modifier.height(6.dp))
-                                    Row(
-                                        Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Text(T("fuel_res_est"), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), color = Color(0xFF222222))
-                                        AnimatedContent(
-                                            targetState = "%.2f".format(tripCost),
-                                            transitionSpec = {
-                                                (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
-                                                    .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
-                                            },
-                                            label = "trip_cost_result"
-                                        ) { tripStr ->
-                                            Text(
-                                                if (isEn) "Rs. $tripStr" else "रु ${NepaliNames.toDevanagari(tripStr)}",
-                                                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                                color = selectedCalcFuel.primaryColor
-                                            )
+                                    Text(
+                                        T("fuel_res_lit"),
+                                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium),
+                                        color = Color(0xFF2E2E2E)
+                                    )
+                                    Spacer(Modifier.height(2.dp))
+                                    Text(
+                                        if (isEn) "Rs. ${inputAmount.ifEmpty { "0" }} ÷ Rs. ${"%.2f".format(selectedCalcFuel.price)}"
+                                        else "रु ${NepaliNames.toDevanagari(inputAmount.ifEmpty { "0" })} ÷ रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))}",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = Color(0xFF555555)
+                                    )
+                                }
+                                AnimatedContent(
+                                    targetState = "%.2f".format(liters),
+                                    transitionSpec = {
+                                        (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                            .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                    },
+                                    label = "calc_liters_result"
+                                ) { litStr ->
+                                    Text(
+                                        if (isEn) "$litStr L" else "${NepaliNames.toDevanagari(litStr)} लिटर",
+                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = selectedCalcFuel.primaryColor
+                                    )
+                                }
+                            }
+                        }
+                    } else {
+                        // By Quantity (Liters) Mode
+                        OutlinedTextField(
+                            value = inputLiters,
+                            onValueChange = { v -> inputLiters = v.filter { it.isDigit() || it == '.' }.take(6) },
+                            label = { Text(T("fuel_lit_hint")) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            shape = RoundedCornerShape(10.dp),
+                            trailingIcon = {
+                                IconButton(onClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                    calcMode = 0
+                                }) {
+                                    Icon(PIcons.Swap, "Swap to Amount", tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(20.dp))
+                                }
+                            },
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(Modifier.height(8.dp))
+
+                        // Quick Liter Presets
+                        val litPresets = listOf(1, 2, 5, 10, 20)
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            litPresets.forEach { p ->
+                                val pStr = p.toString()
+                                val isSel = inputLiters == pStr
+                                val chipLabel = if (isEn) "$p L" else "${NepaliNames.toDevanagari(pStr)} लि"
+                                Box(
+                                    Modifier
+                                        .weight(1f)
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .background(
+                                            if (isSel) selectedCalcFuel.primaryColor.copy(alpha = 0.15f)
+                                            else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+                                        )
+                                        .border(
+                                            1.dp,
+                                            if (isSel) selectedCalcFuel.primaryColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+                                            RoundedCornerShape(8.dp)
+                                        )
+                                        .clickable {
+                                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                            inputLiters = pStr
                                         }
+                                        .padding(vertical = 6.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        chipLabel,
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium
+                                        ),
+                                        color = if (isSel) selectedCalcFuel.primaryColor else MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(Modifier.height(12.dp))
+
+                        val lts = inputLiters.toDoubleOrNull() ?: 0.0
+                        val totalCost = lts * selectedCalcFuel.price
+
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .background(selectedCalcFuel.lightColor.copy(alpha = 0.75f), RoundedCornerShape(14.dp))
+                                .border(1.dp, selectedCalcFuel.primaryColor.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                                .padding(14.dp)
+                        ) {
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column {
+                                    Text(
+                                        T("fuel_res_amt"),
+                                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium),
+                                        color = Color(0xFF2E2E2E)
+                                    )
+                                    Spacer(Modifier.height(2.dp))
+                                    Text(
+                                        if (isEn) "${inputLiters.ifEmpty { "0" }} L × Rs. ${"%.2f".format(selectedCalcFuel.price)}"
+                                        else "${NepaliNames.toDevanagari(inputLiters.ifEmpty { "0" })} लि × रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))}",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = Color(0xFF555555)
+                                    )
+                                }
+                                AnimatedContent(
+                                    targetState = "%.2f".format(totalCost),
+                                    transitionSpec = {
+                                        (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                            .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                    },
+                                    label = "calc_cost_result"
+                                ) { costStr ->
+                                    Text(
+                                        if (isEn) "Rs. $costStr" else "रु ${NepaliNames.toDevanagari(costStr)}",
+                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = selectedCalcFuel.primaryColor
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Dedicated Trip Cost Estimator Section
+            item {
+                Spacer(Modifier.height(2.dp))
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
+                        .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.6f), RoundedCornerShape(16.dp))
+                        .padding(16.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(
+                            Modifier
+                                .size(34.dp)
+                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f), CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(PIcons.Car, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+                        }
+                        Spacer(Modifier.width(10.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(
+                                T("fuel_trip_head"),
+                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                T("fuel_trip_sub"),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.height(14.dp))
+
+                    // Distance and Mileage Fields Side by Side
+                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        OutlinedTextField(
+                            value = inputDistance,
+                            onValueChange = { v -> inputDistance = v.filter { it.isDigit() || it == '.' }.take(6) },
+                            label = { Text(T("fuel_dist_hint")) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            shape = RoundedCornerShape(10.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                            ),
+                            modifier = Modifier.weight(1f)
+                        )
+                        OutlinedTextField(
+                            value = inputMileage,
+                            onValueChange = { v -> inputMileage = v.filter { it.isDigit() || it == '.' }.take(4) },
+                            label = { Text(T("fuel_mil_hint")) },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            shape = RoundedCornerShape(10.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                            ),
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+
+                    Spacer(Modifier.height(10.dp))
+
+                    // Vehicle Mileage Quick Presets
+                    val vehiclePresets = listOf(
+                        Triple(T("fuel_preset_bike"), "35", PIcons.Bike),
+                        Triple(T("fuel_preset_scooter"), "40", PIcons.Bike),
+                        Triple(T("fuel_preset_car"), "14", PIcons.Car)
+                    )
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        vehiclePresets.forEach { (label, milVal, ic) ->
+                            val isSel = inputMileage == milVal
+                            Box(
+                                Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(
+                                        if (isSel) MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+                                        else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+                                    )
+                                    .border(
+                                        1.dp,
+                                        if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+                                        RoundedCornerShape(8.dp)
+                                    )
+                                    .clickable {
+                                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                        inputMileage = milVal
                                     }
+                                    .padding(vertical = 7.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+                                    Icon(
+                                        ic,
+                                        null,
+                                        tint = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(14.dp)
+                                    )
+                                    Spacer(Modifier.width(4.dp))
+                                    Text(
+                                        label,
+                                        style = MaterialTheme.typography.labelSmall.copy(
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium
+                                        ),
+                                        color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(Modifier.height(14.dp))
+
+                    val dist = inputDistance.toDoubleOrNull() ?: 0.0
+                    val mileage = (inputMileage.toDoubleOrNull() ?: 1.0).coerceAtLeast(0.1)
+                    val reqLiters = dist / mileage
+                    val tripCost = reqLiters * selectedCalcFuel.price
+
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
+                            .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
+                            .padding(14.dp)
+                    ) {
+                        Column {
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    T("fuel_res_req"),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                AnimatedContent(
+                                    targetState = "%.2f".format(reqLiters),
+                                    transitionSpec = {
+                                        (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                            .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                    },
+                                    label = "trip_liters_result"
+                                ) { reqStr ->
+                                    Text(
+                                        if (isEn) "$reqStr L" else "${NepaliNames.toDevanagari(reqStr)} लिटर",
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+
+                            Spacer(Modifier.height(8.dp))
+                            Box(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(1.dp)
+                                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.25f))
+                            )
+                            Spacer(Modifier.height(8.dp))
+
+                            Row(
+                                Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    T("fuel_res_est"),
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                AnimatedContent(
+                                    targetState = "%.2f".format(tripCost),
+                                    transitionSpec = {
+                                        (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                            .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                    },
+                                    label = "trip_cost_result"
+                                ) { tripStr ->
+                                    Text(
+                                        if (isEn) "Rs. $tripStr" else "रु ${NepaliNames.toDevanagari(tripStr)}",
+                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                        color = selectedCalcFuel.primaryColor
+                                    )
                                 }
                             }
                         }
