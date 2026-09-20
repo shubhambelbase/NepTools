@@ -42,7 +42,7 @@ class NepaliDateStickyService : Service() {
             return
         }
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 startForeground(
                     NepaliDateNotificationManager.NOTIFICATION_ID,
                     notification,

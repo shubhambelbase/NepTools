@@ -8,9 +8,9 @@
 
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
-- Target Platform: Android (minSdk: 26, targetSdk: 34, compileSdk: 34)
-- Current Version: v2.7.1 (versionCode: 30)
-- Last Updated: September 19, 2026
+- Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
+- Current Version: v2.7.2 (versionCode: 31)
+- Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -90,17 +90,19 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.1 (versionCode 30) — Recent Updates card positioning locked permanently to prevent shuffling; unread status preserved across routine screen refreshes.
-- Last Updated: September 19, 2026
+- Status: v2.7.2 (versionCode 31) — Comprehensive production audit and hardening pass.
+- Last Updated: September 20, 2026
 - Recent Updates:
-  - v2.7.1:
-    - Card Position Stability: Anchored Recent Updates cards in a fixed canonical order (Forex -> Fuel -> Kalimati -> Weather) to completely prevent shuffling or layout jumps when cards are tapped and returned from.
-    - Smart Unread Status Preservation: Routine screen-load refreshes now preserve read status rather than reappearing as unread dots immediately upon navigation return.
-  - v2.7.0:
-    - Recent Updates (Live Data Freshness Tracker): Added RecentUpdatesManager and RelativeTimeFormatter to record genuine timestamps only when fresh data is fetched and verified from Weather, Fuel (NOC), Kalimati wholesale market, and Forex (NRB).
-    - Offline-First & Privacy Preserving: Zero new network calls; seed from disk cache; pure local relative time formatting with live 60-second ticker and strict Devanagari numeral localization in Nepali mode.
-    - Homescreen Compact Section: Positioned after Fuel card with Material 3 Rice Paper palette cards, unread freshness indicator dots, and subtle "View All" ("सबै हेर्नुहोस्") navigation.
-    - Dedicated Recent Updates Screen: Added RecentUpdatesScreen (Routes.RECENT_UPDATES) with full details, exact timestamps, and 1-tap navigation to corresponding services.
+  - v2.7.2:
+    - Fixed RemoteViews Widget crash (replaced unsupported View tags with FrameLayout in widget_quick_glance.xml).
+    - Audio Focus integration for RadioService with ducking and transient call pause/resume.
+    - Android 14/13 API level crash guards in PasswordVaultScreen and NepaliDateStickyService.
+    - Compose StateFlow reactive recomposition fixes in BirthDetailsScreen, DayDetailScreen, and HomeScreen.
+    - Full Devanagari numerals and localized Gregorian month names across Home, DayDetail, and Calendar.
+    - Cleaned up sensor listener scopes in CompassScreen and VastuCompassScreen.
+    - Passed all unit tests and Android Lint with zero errors.
+  - v2.7.1: Card position stability (fixed canonical order) and unread state preservation across refreshes.
+  - v2.7.0: Recent Updates live freshness tracker, disk cache seeding, zero new network calls.
   - v2.6.9: Launcher shortcuts, tactile haptics, 1-tap utility sharing, and tools search/recents.
   - v2.6.7: Single-language enforcement, Vedic Marriage PDF export, Choghadiya UI, and dark mode polish.
   - v2.6.0: Location-based emergency directory, Kundali Gochar wheel, Vastu compass, Land Area converter.

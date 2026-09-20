@@ -74,7 +74,7 @@ fun VastuCompassScreen(
     var hasSensor by remember { mutableStateOf(true) }
     var magneticHeading by remember { mutableFloatStateOf(0f) }
     var tilt by remember { mutableFloatStateOf(0f) }
-    var unreliable by remember { mutableStateOf(false) }
+    var isSensorUnreliable by remember { mutableStateOf(false) }
     var selectedTab by remember { mutableIntStateOf(0) }
     var selectedRoomId by remember { mutableStateOf("pooja") }
 
@@ -85,8 +85,8 @@ fun VastuCompassScreen(
                 tilt = tiltDeg
             }
 
-            override fun onUnreliable(unreliableFlag: Boolean) {
-                unreliable = unreliableFlag
+            override fun onUnreliable(unreliable: Boolean) {
+                isSensorUnreliable = unreliable
             }
         })
         hasSensor = eng.hasSensor
@@ -262,7 +262,7 @@ fun VastuCompassScreen(
                     }
                 }
 
-                if (unreliable || tilt > 25f) {
+                if (isSensorUnreliable || tilt > 25f) {
                     item {
                         Box(
                             modifier = Modifier

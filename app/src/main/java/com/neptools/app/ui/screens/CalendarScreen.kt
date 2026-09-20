@@ -92,7 +92,7 @@ fun CalendarScreen(
                 }
                 Text(
                     if (isEn) "${firstAd.month.name.take(3)} ${firstAd.dayOfMonth} – ${lastAd.month.name.take(3)} ${lastAd.dayOfMonth}, ${lastAd.year}"
-                    else "${npNum(firstAd.dayOfMonth)} – ${npNum(lastAd.dayOfMonth)}, ${npNum(lastAd.year)}",
+                    else "${NepaliNames.adMonthsNpShort[firstAd.monthValue - 1]} ${npNum(firstAd.dayOfMonth)} – ${NepaliNames.adMonthsNpShort[lastAd.monthValue - 1]} ${npNum(lastAd.dayOfMonth)}, ${npNum(lastAd.year)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

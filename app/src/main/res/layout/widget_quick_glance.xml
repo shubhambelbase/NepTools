@@ -48,7 +48,7 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <View
+    <FrameLayout
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginVertical="4dp"
@@ -95,7 +95,7 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <View
+    <FrameLayout
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginVertical="4dp"

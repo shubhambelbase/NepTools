@@ -24,6 +24,14 @@ object NepaliNames {
         "Baishakh", "Jestha", "Ashadh", "Shrawan", "Bhadra", "Ashwin",
         "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra"
     )
+    val adMonthsNp = listOf(
+        "जनवरी", "फेब्रुअरी", "मार्च", "अप्रिल", "मे", "जुन",
+        "जुलाई", "अगस्ट", "सेप्टेम्बर", "अक्टोबर", "नोभेम्बर", "डिसेम्बर"
+    )
+    val adMonthsNpShort = listOf(
+        "जन", "फेब", "मार्च", "अप्रि", "मे", "जुन",
+        "जुल", "अग", "सेप्ट", "अक्टो", "नोभे", "डिसे"
+    )
     val weekdaysNp = listOf("आइतबार", "सोमबार", "मङ्गलबार", "बुधबार", "बिहीबार", "शुक्रबार", "शनिबार")
     val weekdaysNpShort = listOf("आइत", "सोम", "मंगल", "बुध", "बिही", "शुक्र", "शनि")
     val weekdaysEn = listOf("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")

@@ -40,7 +40,7 @@ fun BirthDetailsScreen(
     onDone: () -> Unit,
     onBack: () -> Unit
 ) {
-    val saved = AstroRepo.birth.value
+    val saved = remember { AstroRepo.birth.value }
     val context = LocalContext.current
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
 

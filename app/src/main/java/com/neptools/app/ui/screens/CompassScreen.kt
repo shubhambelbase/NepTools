@@ -60,7 +60,7 @@ fun CompassScreen(
     var hasSensor by remember { mutableStateOf(true) }
     var magneticHeading by remember { mutableFloatStateOf(0f) }
     var tilt by remember { mutableFloatStateOf(0f) }
-    var unreliable by remember { mutableStateOf(false) }
+    var isSensorUnreliable by remember { mutableStateOf(false) }
     var trueNorth by remember { mutableStateOf(false) }
     var declination by remember { mutableFloatStateOf(0f) }
 
@@ -71,8 +71,8 @@ fun CompassScreen(
                 tilt = tiltDeg
             }
 
-            override fun onUnreliable(unreliableFlag: Boolean) {
-                unreliable = unreliableFlag
+            override fun onUnreliable(unreliable: Boolean) {
+                isSensorUnreliable = unreliable
             }
         })
         hasSensor = eng.hasSensor
@@ -252,22 +252,22 @@ fun CompassScreen(
 
             Text(
                 text = when {
-                    unreliable -> if (isEn) "Needs calibration" else "क्यालिब्रेसन आवश्यक"
+                    isSensorUnreliable -> if (isEn) "Needs calibration" else "क्यालिब्रेसन आवश्यक"
                     tilt > 25f -> if (isEn) "Hold phone flat" else "फोन समतल राख्नुहोस्"
                     trueNorth -> if (isEn) "True north" else "साँचो उत्तर"
                     else -> if (isEn) "Magnetic north" else "चुम्बकीय उत्तर"
                 },
                 fontSize = 12.5.sp,
                 color = when {
-                    unreliable -> MaterialTheme.colorScheme.primary
+                    isSensorUnreliable -> MaterialTheme.colorScheme.primary
                     tilt > 25f -> MaterialTheme.colorScheme.onSurfaceVariant
                     else -> MaterialTheme.colorScheme.onSurfaceVariant
                 },
-                fontWeight = if (unreliable) FontWeight.SemiBold else FontWeight.Normal
+                fontWeight = if (isSensorUnreliable) FontWeight.SemiBold else FontWeight.Normal
             )
         }
 
-        if (unreliable) {
+        if (isSensorUnreliable) {
             Text(
                 text = if (isEn)
                     "Move the phone in a figure-8 motion to recalibrate the sensor."

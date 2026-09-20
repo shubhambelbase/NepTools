@@ -9,6 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -37,10 +39,58 @@ class RadioService : Service() {
     private var currentStation: RadioStation? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
+    private var audioManager: AudioManager? = null
+    private var focusRequest: AudioFocusRequest? = null
+    private var resumeOnFocusGain = false
+
+    private val audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        when (focusChange) {
+            AudioManager.AUDIOFOCUS_LOSS -> {
+                resumeOnFocusGain = false
+                stopPlayback()
+            }
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                mediaPlayer?.let { mp ->
+                    if (mp.isPlaying) {
+                        resumeOnFocusGain = true
+                        try { mp.pause() } catch (_: Exception) {}
+                        currentStation?.let { st ->
+                            RadioManager.updateState(station = st, isPlaying = false, isBuffering = false)
+                            updateNotification(st, isPlaying = false, isBuffering = false)
+                        }
+                    }
+                }
+            }
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                try {
+                    mediaPlayer?.setVolume(0.2f, 0.2f)
+                } catch (_: Exception) {}
+            }
+            AudioManager.AUDIOFOCUS_GAIN -> {
+                try {
+                    mediaPlayer?.setVolume(1.0f, 1.0f)
+                } catch (_: Exception) {}
+                if (resumeOnFocusGain) {
+                    resumeOnFocusGain = false
+                    mediaPlayer?.let { mp ->
+                        try {
+                            mp.start()
+                            currentStation?.let { st ->
+                                RadioManager.updateState(station = st, isPlaying = true, isBuffering = false)
+                                updateNotification(st, isPlaying = true, isBuffering = false)
+                            }
+                        } catch (_: Exception) {}
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "NepTools::RadioWakeLock").apply {
@@ -86,7 +136,50 @@ class RadioService : Service() {
         return START_NOT_STICKY
     }
 
+    private fun requestAudioFocus(): Boolean {
+        val am = audioManager ?: return true
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val req = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+                .setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+                )
+                .setAcceptsDelayedFocusGain(false)
+                .setOnAudioFocusChangeListener(audioFocusChangeListener)
+                .build()
+            focusRequest = req
+            am.requestAudioFocus(req) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        } else {
+            @Suppress("DEPRECATION")
+            am.requestAudioFocus(
+                audioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN
+            ) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+        }
+    }
+
+    private fun abandonAudioFocus() {
+        val am = audioManager ?: return
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            focusRequest?.let { req ->
+                am.abandonAudioFocusRequest(req)
+                focusRequest = null
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            am.abandonAudioFocus(audioFocusChangeListener)
+        }
+    }
+
     private fun startPlayback(station: RadioStation, useFallback: Boolean = false) {
+        if (!requestAudioFocus()) {
+            RadioManager.updateState(station = station, isPlaying = false, isBuffering = false, errorMessage = "Audio focus denied")
+            return
+        }
+
         val targetUrl = if (useFallback && station.fallbackUrl != null) station.fallbackUrl else station.streamUrl
 
         wakeLock?.acquire(3600_000L) // 1 hr max lock
@@ -115,6 +208,7 @@ class RadioService : Service() {
                     RadioManager.updateState(station = station, isPlaying = true, isBuffering = false)
                     updateNotification(station, isPlaying = true, isBuffering = false)
                 } catch (e: Exception) {
+                    abandonAudioFocus()
                     RadioManager.updateState(station = station, isPlaying = false, isBuffering = false, errorMessage = e.message)
                     updateNotification(station, isPlaying = false, isBuffering = false)
                 }
@@ -124,6 +218,7 @@ class RadioService : Service() {
                 if (!useFallback && station.fallbackUrl != null) {
                     startPlayback(station, useFallback = true)
                 } else {
+                    abandonAudioFocus()
                     RadioManager.updateState(
                         station = station,
                         isPlaying = false,
@@ -140,6 +235,7 @@ class RadioService : Service() {
             if (!useFallback && station.fallbackUrl != null) {
                 startPlayback(station, useFallback = true)
             } else {
+                abandonAudioFocus()
                 RadioManager.updateState(station = station, isPlaying = false, isBuffering = false, errorMessage = e.message)
                 updateNotification(station, isPlaying = false, isBuffering = false)
             }
@@ -157,6 +253,7 @@ class RadioService : Service() {
             RadioManager.updateState(station = station, isPlaying = false, isBuffering = false)
             updateNotification(station, isPlaying = false, isBuffering = false)
         } else if (player != null) {
+            if (!requestAudioFocus()) return
             try {
                 player.start()
                 RadioManager.updateState(station = station, isPlaying = true, isBuffering = false)
@@ -170,6 +267,7 @@ class RadioService : Service() {
     }
 
     private fun stopPlayback() {
+        abandonAudioFocus()
         releasePlayer()
         RadioManager.updateState(station = null, isPlaying = false, isBuffering = false)
         if (wakeLock?.isHeld == true) wakeLock?.release()

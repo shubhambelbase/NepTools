@@ -138,8 +138,9 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
+                val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
                 Text(
-                    adDay.toString(),
+                    if (isEn) adDay.toString() else com.neptools.app.core.calendar.NepaliNames.toDevanagari(adDay),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Medium

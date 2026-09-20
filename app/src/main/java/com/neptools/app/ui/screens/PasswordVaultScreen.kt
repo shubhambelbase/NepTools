@@ -6,6 +6,7 @@ import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.ContextWrapper
+import android.os.Build
 import android.os.PersistableBundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -96,8 +97,10 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
  */
 private fun sensitiveClip(label: String, text: String): ClipData {
     val clip = ClipData.newPlainText(label, text)
-    clip.description.extras = PersistableBundle().apply {
-        putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        clip.description.extras = PersistableBundle().apply {
+            putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
+        }
     }
     return clip
 }

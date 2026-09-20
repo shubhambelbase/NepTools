@@ -27,6 +27,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -68,7 +69,7 @@ fun DayDetailScreen(
     }
     val adDate = remember(date) { engine.bsToAd(date) }
     val weekdayIdx = remember(date) { engine.weekdayIndexOf(date) }
-    val currentWeather = com.neptools.app.core.util.WeatherLocationManager.currentWeather.value
+    val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
     val solar = remember(adDate, currentWeather) { SolarCalc.compute(adDate, currentWeather.lat, currentWeather.lon) }
     val panchang = remember(adDate) { PanchangCalc.compute(adDate) }
     val festival = PatroRepo.d.festivalsFor(date.year, date.month)[date.day]
@@ -78,6 +79,7 @@ fun DayDetailScreen(
     var userEvents by remember(date) {
         mutableStateOf(UserEventManager.getEventsForDate(context, date.year, date.month, date.day))
     }
+
     var showAddEventDialog by remember { mutableStateOf(false) }
     var newEventTitle by remember { mutableStateOf("") }
     var newEventNote by remember { mutableStateOf("") }
@@ -87,9 +89,8 @@ fun DayDetailScreen(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 18.dp)
+            .padding(16.dp)
     ) {
-        Spacer(Modifier.height(8.dp))
         Row(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -116,7 +117,8 @@ fun DayDetailScreen(
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Text(
-                        "${adDate.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${adDate.dayOfMonth}, ${adDate.year}",
+                        if (isEn) "${adDate.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${adDate.dayOfMonth}, ${adDate.year}"
+                        else "${NepaliNames.adMonthsNp[adDate.monthValue - 1]} ${NepaliNames.toDevanagari(adDate.dayOfMonth)}, ${NepaliNames.toDevanagari(adDate.year)}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

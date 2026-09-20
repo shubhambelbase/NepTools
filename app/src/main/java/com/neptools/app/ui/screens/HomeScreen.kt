@@ -91,7 +91,7 @@ fun HomeScreen(
     val todayAd = remember { engine.bsToAd(today) }
     val weekdayIdx = remember { engine.weekdayIndexOf(today) }
     val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
-    val birthLoc = com.neptools.app.astrology.data.AstroRepo.birth.value
+    val birthLoc by com.neptools.app.astrology.data.AstroRepo.birth.collectAsState()
     val lat = birthLoc?.latitude ?: currentWeather.lat
     val lon = birthLoc?.longitude ?: currentWeather.lon
     val solar = remember(todayAd, lat, lon) { SolarCalc.compute(todayAd, lat, lon) }
@@ -283,7 +283,8 @@ fun HomeScreen(
                                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
                             )
                             Text(
-                                "${todayAd.dayOfMonth} ${todayAd.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${todayAd.year}",
+                                if (isEn) "${todayAd.dayOfMonth} ${todayAd.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${todayAd.year}"
+                                else "${NepaliNames.toDevanagari(todayAd.dayOfMonth)} ${NepaliNames.adMonthsNp[todayAd.monthValue - 1]} ${NepaliNames.toDevanagari(todayAd.year)}",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

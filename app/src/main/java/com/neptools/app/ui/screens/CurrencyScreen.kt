@@ -83,10 +83,9 @@ fun CurrencyScreen(onBack: () -> Unit) {
         error = null
         RatesRepo.refresh(context) { rs ->
             loading = false
-            if (rs != null) {
-                rates = rs
-            } else {
-                error = if (isEn) "Could not update rates — check internet connection" else "दर अपडेट गर्न सकिएन — इन्टरनेट जडान जाँच गर्नुहोस्"
+            rates = rs
+            if (RatesRepo.isStale(rs)) {
+                error = if (isEn) "Using cached rates — check internet connection for live update" else "क्यास गरिएको दर प्रयोगमा — ताजा दरका लागि इन्टरनेट जाँच गर्नुहोस्"
             }
         }
     }
