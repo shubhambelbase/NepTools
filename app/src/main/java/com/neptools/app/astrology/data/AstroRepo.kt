@@ -89,4 +89,14 @@ object AstroRepo {
             birthTimeUncertain = p[8].toBoolean()
         )
     }
+
+    fun sampleBirth(): BirthData = BirthData(
+        date = LocalDate.of(1998, 8, 15),
+        time = LocalTime.of(6, 30),
+        latitude = 27.7172,
+        longitude = 85.3240,
+        tzOffsetHours = 5.75,
+        placeLabel = "Kathmandu, Nepal",
+        birthTimeUncertain = false
+    )
 }

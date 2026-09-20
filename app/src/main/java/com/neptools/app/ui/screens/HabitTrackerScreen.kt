@@ -342,6 +342,26 @@ fun HabitTrackerScreen(
                         onAddClick = {
                             editingHabit = null
                             showCreateModal = true
+                        },
+                        onQuickAdd = { nameNp, nameEn, type, targetVal, unitNp, unitEn ->
+                            val iconKey = when {
+                                nameEn.contains("Water", ignoreCase = true) -> "WATER"
+                                nameEn.contains("Exercise", ignoreCase = true) -> "FIT"
+                                nameEn.contains("Read", ignoreCase = true) -> "READ"
+                                else -> "TASK"
+                            }
+                            repo.createNewHabit(
+                                nameNp = nameNp,
+                                nameEn = nameEn,
+                                icon = iconKey,
+                                colorHex = 0xFFEA580CL,
+                                type = type,
+                                targetValue = targetVal,
+                                unitNp = unitNp,
+                                unitEn = unitEn,
+                                frequencyDays = listOf(0, 1, 2, 3, 4, 5, 6)
+                            )
+                            refresh()
                         }
                     )
                 }
@@ -1208,7 +1228,8 @@ private fun HabitItemCard(
 @Composable
 private fun EmptyHabitsCard(
     isEn: Boolean,
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    onQuickAdd: (nameNp: String, nameEn: String, type: HabitType, targetVal: Float, unitNp: String, unitEn: String) -> Unit = { _, _, _, _, _, _ -> }
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -1258,6 +1279,80 @@ private fun EmptyHabitsCard(
                 Icon(PIcons.Plus, contentDescription = null, modifier = Modifier.size(16.dp))
                 Spacer(Modifier.width(6.dp))
                 Text(if (isEn) "Create First Habit" else "पहिलो बानी थप्नुहोस्")
+            }
+
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = if (isEn) "Quick Starter Suggestions:" else "सुरु गर्नका लागि सुझावहरू:",
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.primary
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    modifier = Modifier.clickable {
+                        onQuickAdd(
+                            "दैनिक पानी (२ लि.)",
+                            "Drink Water (2L)",
+                            HabitType.NUMERIC,
+                            2f,
+                            "लिटर",
+                            "Liters"
+                        )
+                    }
+                ) {
+                    Text(
+                        text = if (isEn) "Water (2L)" else "पानी (२ लि.)",
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+                    )
+                }
+
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    modifier = Modifier.clickable {
+                        onQuickAdd(
+                            "दैनिक व्यायाम",
+                            "Daily Exercise",
+                            HabitType.TIMER,
+                            30f,
+                            "मिनेट",
+                            "Min"
+                        )
+                    }
+                ) {
+                    Text(
+                        text = if (isEn) "Exercise (30m)" else "व्यायाम (३० मि.)",
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+                    )
+                }
+
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    modifier = Modifier.clickable {
+                        onQuickAdd(
+                            "किताब अध्ययन",
+                            "Read Book",
+                            HabitType.BOOLEAN,
+                            1f,
+                            "",
+                            ""
+                        )
+                    }
+                ) {
+                    Text(
+                        text = if (isEn) "Read Book" else "किताब",
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+                    )
+                }
             }
         }
     }

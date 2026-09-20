@@ -116,8 +116,33 @@ fun KundaliScreen(onBack: () -> Unit) {
         Spacer(Modifier.height(14.dp))
 
         when {
-            birth == null -> EmptyState(
-                PIcons.Calendar, T("empty_need_birth"), T("empty_need_birth_s"))
+            birth == null -> {
+                val context = androidx.compose.ui.platform.LocalContext.current
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    EmptyState(PIcons.Calendar, T("empty_need_birth"), T("empty_need_birth_s"))
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        androidx.compose.material3.Button(
+                            onClick = { com.neptools.app.ui.navigation.AppNavigator.navigateTo(com.neptools.app.ui.navigation.Routes.ASTRO_BIRTH) },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        ) {
+                            Text(if (isEn) "Enter Birth Details" else "जन्म विवरण भर्नुहोस्")
+                        }
+                        androidx.compose.material3.OutlinedButton(
+                            onClick = { AstroRepo.saveBirth(context, AstroRepo.sampleBirth()) },
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        ) {
+                            Text(if (isEn) "Sample Chart" else "नमुना कुण्डली")
+                        }
+                    }
+                }
+            }
             busy && result == null -> PulsingLoader(T("computing"))
             else -> {
                 val r = result!!

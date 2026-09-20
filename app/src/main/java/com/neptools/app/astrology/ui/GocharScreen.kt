@@ -113,11 +113,35 @@ fun GocharScreen(onBack: () -> Unit) {
 
         val r = result
         if (r == null) {
-            EmptyState(
-                PIcons.SunUp,
-                if (isEn) "No Chart Data" else "कुण्डली विवरण छैन",
-                if (isEn) "Fill birth details to calculate transits" else "जन्म विवरण भरेर कुण्डली बनाउनुहोस्"
-            )
+            val context = androidx.compose.ui.platform.LocalContext.current
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                EmptyState(
+                    PIcons.SunUp,
+                    if (isEn) "No Chart Data" else "कुण्डली विवरण छैन",
+                    if (isEn) "Fill birth details to calculate transits" else "जन्म विवरण भरेर कुण्डली बनाउनुहोस्"
+                )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    androidx.compose.material3.Button(
+                        onClick = { com.neptools.app.ui.navigation.AppNavigator.navigateTo(com.neptools.app.ui.navigation.Routes.ASTRO_BIRTH) },
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Text(if (isEn) "Enter Birth Details" else "जन्म विवरण भर्नुहोस्")
+                    }
+                    androidx.compose.material3.OutlinedButton(
+                        onClick = { AstroRepo.saveBirth(context, AstroRepo.sampleBirth()) },
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                    ) {
+                        Text(if (isEn) "Sample Chart" else "नमुना कुण्डली")
+                    }
+                }
+            }
             return@Column
         }
 

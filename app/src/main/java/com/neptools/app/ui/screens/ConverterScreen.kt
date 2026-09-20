@@ -381,7 +381,84 @@ fun ConverterScreen(onBack: () -> Unit) {
                         color = MaterialTheme.colorScheme.primary
                     )
 
-                    Spacer(Modifier.height(14.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp, bottom = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                                .clickable {
+                                    if (bsToAdMode) {
+                                        bsYear = todayNp.year
+                                        bsMonth = todayNp.month
+                                        bsDay = todayNp.day
+                                    } else {
+                                        adYear = todayAd.year
+                                        adMonth = todayAd.monthValue
+                                        adDay = todayAd.dayOfMonth
+                                    }
+                                }
+                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                        ) {
+                            Text(
+                                text = if (isEn) "Today" else "आज",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                                .clickable {
+                                    val yestAd = todayAd.minusDays(1)
+                                    if (bsToAdMode) {
+                                        val yestBs = engine.adToBs(yestAd)
+                                        bsYear = yestBs.year
+                                        bsMonth = yestBs.month
+                                        bsDay = yestBs.day
+                                    } else {
+                                        adYear = yestAd.year
+                                        adMonth = yestAd.monthValue
+                                        adDay = yestAd.dayOfMonth
+                                    }
+                                }
+                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                        ) {
+                            Text(
+                                text = if (isEn) "Yesterday" else "हिजो",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                                .clickable {
+                                    if (bsToAdMode) {
+                                        bsDay = 1
+                                    } else {
+                                        adDay = 1
+                                    }
+                                }
+                                .padding(horizontal = 10.dp, vertical = 5.dp)
+                        ) {
+                            Text(
+                                text = if (isEn) "1st of Month" else "१ गते",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Medium),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.height(10.dp))
 
                     if (bsToAdMode) {
                         val dSafe = if (bsDay > currentMaxBsDay) currentMaxBsDay else bsDay

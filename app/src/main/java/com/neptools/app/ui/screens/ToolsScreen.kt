@@ -118,6 +118,20 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     var searchQuery by rememberSaveable { mutableStateOf("") }
+    var selectedCategoryIndex by rememberSaveable { androidx.compose.runtime.mutableIntStateOf(0) }
+
+    val isEn = ThemePrefs.lang.value == "en"
+
+    val categories = remember(isEn) {
+        listOf(
+            if (isEn) "All" else "सबै",
+            if (isEn) "Daily" else "दैनिक",
+            if (isEn) "Civic" else "नागरिक",
+            if (isEn) "Finance" else "आर्थिक",
+            if (isEn) "Astrology" else "ज्योतिष",
+            if (isEn) "Utilities" else "उपकरण"
+        )
+    }
 
     LaunchedEffect(Unit) {
         FavoriteToolsManager.load(context)
@@ -128,8 +142,6 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
         RecentToolsManager.recordToolUsed(context, route)
         onOpenTool(route)
     }
-
-    val isEn = ThemePrefs.lang.value == "en"
 
     val dailyTools = remember {
         listOf(
@@ -538,6 +550,32 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() })
                 )
+
+                if (searchQuery.isEmpty()) {
+                    androidx.compose.foundation.lazy.LazyRow(
+                        modifier = Modifier.fillMaxWidth().padding(top = 2.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(categories.size) { index ->
+                            val catName = categories[index]
+                            val isSelected = selectedCategoryIndex == index
+                            androidx.compose.material3.Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                                modifier = Modifier.clickable { selectedCategoryIndex = index }
+                            ) {
+                                Text(
+                                    text = catName,
+                                    style = MaterialTheme.typography.labelSmall.copy(
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                    ),
+                                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -615,7 +653,7 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
             // Normal Categorized View
 
             // Section: Recently Used Tools
-            if (recentItems.isNotEmpty()) {
+            if (selectedCategoryIndex == 0 && recentItems.isNotEmpty()) {
                 item {
                     ToolSectionHeader(
                         title = if (isEn) "Recently Used" else "भर्खरै प्रयोग गरिएका",
@@ -636,7 +674,7 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
             }
 
             // Section: Favorite Tools (appears dynamically at top when user favorites any tool)
-            if (favoriteItems.isNotEmpty()) {
+            if (selectedCategoryIndex == 0 && favoriteItems.isNotEmpty()) {
                 item {
                     ToolSectionHeader(
                         title = if (isEn) "Favorite Tools" else "मनपर्ने सेवाहरू",
@@ -655,88 +693,98 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
             }
 
             // Section 1: Daily Services
-            item {
-                ToolSectionHeader(
-                    title = if (isEn) "Daily Services" else "दैनिक सेवाहरू",
-                    icon = PIcons.Sun
-                )
-                Spacer(Modifier.height(8.dp))
-                ToolsGrid(
-                    items = dailyTools,
-                    isEn = isEn,
-                    onOpenTool = handleOpenTool,
-                    onToggleFavorite = { route ->
-                        FavoriteToolsManager.toggleFavorite(context, route)
-                    }
-                )
+            if (selectedCategoryIndex == 0 || selectedCategoryIndex == 1) {
+                item {
+                    ToolSectionHeader(
+                        title = if (isEn) "Daily Services" else "दैनिक सेवाहरू",
+                        icon = PIcons.Sun
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    ToolsGrid(
+                        items = dailyTools,
+                        isEn = isEn,
+                        onOpenTool = handleOpenTool,
+                        onToggleFavorite = { route ->
+                            FavoriteToolsManager.toggleFavorite(context, route)
+                        }
+                    )
+                }
             }
 
             // Section 2: Citizen Services
-            item {
-                ToolSectionHeader(
-                    title = if (isEn) "Citizen Services" else "नागरिक सेवा",
-                    icon = PIcons.Shield
-                )
-                Spacer(Modifier.height(8.dp))
-                ToolsGrid(
-                    items = citizenTools,
-                    isEn = isEn,
-                    onOpenTool = handleOpenTool,
-                    onToggleFavorite = { route ->
-                        FavoriteToolsManager.toggleFavorite(context, route)
-                    }
-                )
+            if (selectedCategoryIndex == 0 || selectedCategoryIndex == 2) {
+                item {
+                    ToolSectionHeader(
+                        title = if (isEn) "Citizen Services" else "नागरिक सेवा",
+                        icon = PIcons.Shield
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    ToolsGrid(
+                        items = citizenTools,
+                        isEn = isEn,
+                        onOpenTool = handleOpenTool,
+                        onToggleFavorite = { route ->
+                            FavoriteToolsManager.toggleFavorite(context, route)
+                        }
+                    )
+                }
             }
 
             // Section 3: Calculators & Finance
-            item {
-                ToolSectionHeader(
-                    title = if (isEn) "Finance & Calculators" else "वित्तीय तथा क्यालकुलेटर",
-                    icon = PIcons.Bank
-                )
-                Spacer(Modifier.height(8.dp))
-                ToolsGrid(
-                    items = calcTools,
-                    isEn = isEn,
-                    onOpenTool = handleOpenTool,
-                    onToggleFavorite = { route ->
-                        FavoriteToolsManager.toggleFavorite(context, route)
-                    }
-                )
+            if (selectedCategoryIndex == 0 || selectedCategoryIndex == 3) {
+                item {
+                    ToolSectionHeader(
+                        title = if (isEn) "Finance & Calculators" else "वित्तीय तथा क्यालकुलेटर",
+                        icon = PIcons.Bank
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    ToolsGrid(
+                        items = calcTools,
+                        isEn = isEn,
+                        onOpenTool = handleOpenTool,
+                        onToggleFavorite = { route ->
+                            FavoriteToolsManager.toggleFavorite(context, route)
+                        }
+                    )
+                }
             }
 
             // Section 4: Panchang & Jyotish
-            item {
-                ToolSectionHeader(
-                    title = if (isEn) "Panchang & Jyotish" else "पञ्चाङ्ग तथा ज्योतिष",
-                    icon = PIcons.Stars
-                )
-                Spacer(Modifier.height(8.dp))
-                ToolsGrid(
-                    items = jyotishTools,
-                    isEn = isEn,
-                    onOpenTool = handleOpenTool,
-                    onToggleFavorite = { route ->
-                        FavoriteToolsManager.toggleFavorite(context, route)
-                    }
-                )
+            if (selectedCategoryIndex == 0 || selectedCategoryIndex == 4) {
+                item {
+                    ToolSectionHeader(
+                        title = if (isEn) "Panchang & Jyotish" else "पञ्चाङ्ग तथा ज्योतिष",
+                        icon = PIcons.Stars
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    ToolsGrid(
+                        items = jyotishTools,
+                        isEn = isEn,
+                        onOpenTool = handleOpenTool,
+                        onToggleFavorite = { route ->
+                            FavoriteToolsManager.toggleFavorite(context, route)
+                        }
+                    )
+                }
             }
 
             // Section 5: Productivity, Network & Media
-            item {
-                ToolSectionHeader(
-                    title = if (isEn) "Digital Utilities & Network" else "डिजिटल युटिलिटी तथा नेटवर्क",
-                    icon = PIcons.Sparkle
-                )
-                Spacer(Modifier.height(8.dp))
-                ToolsGrid(
-                    items = prodTools,
-                    isEn = isEn,
-                    onOpenTool = handleOpenTool,
-                    onToggleFavorite = { route ->
-                        FavoriteToolsManager.toggleFavorite(context, route)
-                    }
-                )
+            if (selectedCategoryIndex == 0 || selectedCategoryIndex == 5) {
+                item {
+                    ToolSectionHeader(
+                        title = if (isEn) "Digital Utilities & Network" else "डिजिटल युटिलिटी तथा नेटवर्क",
+                        icon = PIcons.Sparkle
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    ToolsGrid(
+                        items = prodTools,
+                        isEn = isEn,
+                        onOpenTool = handleOpenTool,
+                        onToggleFavorite = { route ->
+                            FavoriteToolsManager.toggleFavorite(context, route)
+                        }
+                    )
+                }
             }
         }
 

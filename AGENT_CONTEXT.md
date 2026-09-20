@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.3 (versionCode: 32)
+- Current Version: v2.7.4 (versionCode: 33)
 - Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,16 +90,20 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.3 (versionCode 32) — Comprehensive production quality audit, accessibility & hardware resilience hardening.
+- Status: v2.7.4 (versionCode 33) — UI/UX Polish, Category Filtering, Date Presets & Astrology Previews.
 - Last Updated: September 20, 2026
 - Recent Updates:
+  - v2.7.4:
+    - Added horizontal category filter chips in ToolsScreen for 1-tap filtering across 30+ utilities.
+    - Added quick date presets (Today, Yesterday, 1st of Month) in ConverterScreen.
+    - Enhanced HabitTrackerScreen with 1-tap starter habit presets (Water, Exercise, Reading) in empty state.
+    - Added actionable empty states in KundaliScreen, GocharScreen, and DashaScreen with direct navigation to birth details and 1-tap sample chart load.
   - v2.7.3:
-    - Atomic JSON file persistence (temp file write + atomic swap in UserEventManager) to prevent data loss or file corruption during process death.
+    - Atomic JSON file persistence (temp file write + atomic swap in UserEventManager) to prevent data loss or file corruption.
     - Added hardware sensor detection and bilingual fallback banner in SpyCameraDetectorScreen for devices without a magnetometer.
     - Implemented full TalkBack Compose semantics across Calendar month grid cells and navigation buttons for screen-reader accessibility.
     - Guarded emergency dialer action with try-catch and clipboard fallback on non-cellular devices (tablets/emulators).
     - Hardened ImageCompressor with safe null handling and user decode error feedback.
-    - Cleaned up deprecated location listener overrides and eliminated hardcoded /sdcard/ paths in LanDropServer.
   - v2.7.2: RemoteViews widget crash fix, audio focus management, API 33/34 compatibility guards, Compose StateFlow recomposition fixes, Devanagari numerals.
   - v2.7.1: Card position stability (fixed canonical order) and unread state preservation across refreshes.
   - v2.7.0: Recent Updates live freshness tracker, disk cache seeding, zero new network calls.
