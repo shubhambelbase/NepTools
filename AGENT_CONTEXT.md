@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.5 (versionCode: 34)
+- Current Version: v2.7.6 (versionCode: 35)
 - Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,9 +90,11 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.5 (versionCode 34) — Date Converter Redesign, Land Separation & Add Button Clutter Elimination.
+- Status: v2.7.6 (versionCode 35) — Heritage Lithograph Date Converter with Rich Micro-Animations.
 - Last Updated: September 20, 2026
 - Recent Updates:
+  - v2.7.6:
+    - Implemented full suite of micro-animations for Date Converter (ConverterScreen.kt): 180-degree elastic swap spin with spring overshoot physics, fluid sliding magnetic pill on segmented control, rolling mechanical odometer reels, lithograph stamp pop, tactile button depression physics, and smart clipboard ambient breathing glow.
   - v2.7.5:
     - Redesigned Date Converter: Removed displaced Land (Ropani) section, added segmented BS/AD direction tab, unified source date card, circular swap trigger, and rich hero result card with relative time badges and 1-tap share.
     - Eliminated Add button clutter in Subscription Tracker: Removed duplicate plus button in top bar and suppressed corner FAB when list is empty.
