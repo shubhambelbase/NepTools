@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.6 (versionCode: 35)
+- Current Version: v2.7.7 (versionCode: 36)
 - Last Updated: September 20, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,9 +90,11 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.6 (versionCode 35) — Heritage Lithograph Date Converter with Rich Micro-Animations.
+- Status: v2.7.7 (versionCode 36) — Fuel Prices with Exact UI Matched Micro-Animations.
 - Last Updated: September 20, 2026
 - Recent Updates:
+  - v2.7.7:
+    - Fuel Prices (FuelPriceScreen.kt) rich micro-animations: spring-loaded sliding pill for depot region categories, tactile card scale bounce on press, sequential linear gradient shimmer sweep on live rate refresh, rolling odometer reels for fuel price numerals, kinetic pill selector in Fuel Calculator, and smooth rolling volume/cost transitions.
   - v2.7.6:
     - Implemented full suite of micro-animations for Date Converter (ConverterScreen.kt): 180-degree elastic swap spin with spring overshoot physics, fluid sliding magnetic pill on segmented control, rolling mechanical odometer reels, lithograph stamp pop, tactile button depression physics, and smart clipboard ambient breathing glow.
   - v2.7.5:

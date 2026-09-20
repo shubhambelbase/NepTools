@@ -1,11 +1,31 @@
 package com.neptools.app.ui.screens
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +33,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +51,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,9 +59,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -68,6 +94,7 @@ private data class FuelProduct(
 @Composable
 fun FuelPriceScreen(onBack: () -> Unit) {
     val context = LocalContext.current
+    val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
 
     val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
@@ -84,6 +111,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
     }
 
     fun refreshRates() {
+        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         loading = true
         com.neptools.app.core.util.WeatherLocationManager.requestLocationWeather(context, force = true)
         FuelRepo.refresh(context) { rs ->
@@ -257,45 +285,81 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                         }
                     }
                     Spacer(Modifier.height(8.dp))
-                    Row(
+                    val selectedIndex = regions.indexOfFirst { it.first == selectedRegion }.coerceAtLeast(0)
+                    BoxWithConstraints(
                         Modifier
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), RoundedCornerShape(14.dp))
-                            .padding(4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            .padding(4.dp)
                     ) {
-                        regions.forEach { (key, shortTitle, desc) ->
-                            val isSelected = selectedRegion == key
-                            Box(
-                                Modifier
-                                    .weight(1f)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(
-                                        if (isSelected) MaterialTheme.colorScheme.surface else Color.Transparent
-                                    )
-                                    .border(
-                                        if (isSelected) 1.dp else 0.dp,
-                                        if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.3f) else Color.Transparent,
-                                        RoundedCornerShape(10.dp)
-                                    )
-                                    .clickable { selectedRegion = key }
-                                    .padding(vertical = 8.dp, horizontal = 4.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        shortTitle,
-                                        style = MaterialTheme.typography.labelMedium.copy(
-                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
-                                        ),
-                                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        desc.take(16) + if (desc.length > 16) "…" else "",
-                                        style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
-                                        maxLines = 1
-                                    )
+                        val pillWidth = (maxWidth - 8.dp) / regions.size
+                        val pillOffset by animateDpAsState(
+                            targetValue = pillWidth * selectedIndex,
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            ),
+                            label = "depot_pill_offset"
+                        )
+
+                        // Fluid Sliding Pill Surface
+                        Box(
+                            Modifier
+                                .offset(x = pillOffset)
+                                .width(pillWidth)
+                                .height(52.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(MaterialTheme.colorScheme.surface)
+                                .border(
+                                    1.dp,
+                                    MaterialTheme.colorScheme.primary.copy(alpha = 0.35f),
+                                    RoundedCornerShape(10.dp)
+                                )
+                        )
+
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            regions.forEachIndexed { idx, (key, shortTitle, desc) ->
+                                val isSelected = selectedRegion == key
+                                val textCol by animateColorAsState(
+                                    targetValue = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    animationSpec = tween(200),
+                                    label = "tab_text_color"
+                                )
+
+                                Box(
+                                    Modifier
+                                        .weight(1f)
+                                        .height(52.dp)
+                                        .clickable(
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            indication = null
+                                        ) {
+                                            if (selectedRegion != key) {
+                                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                                selectedRegion = key
+                                            }
+                                        }
+                                        .padding(vertical = 6.dp, horizontal = 4.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Text(
+                                            shortTitle,
+                                            style = MaterialTheme.typography.labelMedium.copy(
+                                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                            ),
+                                            color = textCol
+                                        )
+                                        Text(
+                                            desc.take(16) + if (desc.length > 16) "…" else "",
+                                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                                            maxLines = 1
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -306,8 +370,8 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             // Fuel Product Rate Cards
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    fuels.forEach { fuel ->
-                        FuelPriceCard(fuel = fuel, isEn = isEn)
+                    fuels.forEachIndexed { index, fuel ->
+                        FuelPriceCard(fuel = fuel, isEn = isEn, isUpdating = loading, index = index)
                     }
                 }
             }
@@ -350,54 +414,106 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                     }
 
                     Spacer(Modifier.height(14.dp))
-                    // Calculator Mode Selector
-                    Row(
+                    // Calculator Mode Selector with Sliding Pill
+                    BoxWithConstraints(
                         Modifier
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(10.dp))
                             .padding(3.dp)
                     ) {
-                        listOf(T("fuel_tab_amt"), T("fuel_tab_lit"), T("fuel_tab_trip")).forEachIndexed { i, title ->
-                            val isSel = calcMode == i
-                            Box(
-                                Modifier
-                                    .weight(1f)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(if (isSel) MaterialTheme.colorScheme.surface else Color.Transparent)
-                                    .clickable { calcMode = i }
-                                    .padding(vertical = 7.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    title,
-                                    style = MaterialTheme.typography.labelMedium.copy(
-                                        fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
-                                    ),
-                                    color = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                        val tabWidth = (maxWidth - 6.dp) / 3
+                        val tabOffset by animateDpAsState(
+                            targetValue = tabWidth * calcMode,
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            ),
+                            label = "calc_mode_tab_offset"
+                        )
+
+                        // Fluid Sliding Tab Surface
+                        Box(
+                            Modifier
+                                .offset(x = tabOffset)
+                                .width(tabWidth)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surface)
+                        )
+
+                        Row(Modifier.fillMaxWidth()) {
+                            listOf(T("fuel_tab_amt"), T("fuel_tab_lit"), T("fuel_tab_trip")).forEachIndexed { i, title ->
+                                val isSel = calcMode == i
+                                val col by animateColorAsState(
+                                    targetValue = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    animationSpec = tween(200),
+                                    label = "calc_tab_text_color"
                                 )
+                                Box(
+                                    Modifier
+                                        .weight(1f)
+                                        .height(32.dp)
+                                        .clickable(
+                                            interactionSource = remember { MutableInteractionSource() },
+                                            indication = null
+                                        ) {
+                                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                            calcMode = i
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        title,
+                                        style = MaterialTheme.typography.labelMedium.copy(
+                                            fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
+                                        ),
+                                        color = col
+                                    )
+                                }
                             }
                         }
                     }
 
                     Spacer(Modifier.height(12.dp))
-                    // Fuel Type Pill Selection for Calculator
+                    // Fuel Type Pill Selection for Calculator with Kinetic Color & Scale Animation
                     val calcFuels = listOf(fuels[0], fuels[1], fuels[2])
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         calcFuels.forEachIndexed { idx, f ->
                             val sel = calcFuelIndex == idx
+                            val bgCol by animateColorAsState(
+                                targetValue = if (sel) f.primaryColor else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                                animationSpec = tween(200),
+                                label = "fuel_chip_bg"
+                            )
+                            val textCol by animateColorAsState(
+                                targetValue = if (sel) Color.White else MaterialTheme.colorScheme.onSurface,
+                                animationSpec = tween(200),
+                                label = "fuel_chip_text"
+                            )
+                            val scale by animateFloatAsState(
+                                targetValue = if (sel) 1.02f else 1f,
+                                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
+                                label = "fuel_chip_scale"
+                            )
+
                             Box(
                                 Modifier
                                     .weight(1f)
+                                    .graphicsLayer {
+                                        scaleX = scale
+                                        scaleY = scale
+                                    }
                                     .clip(RoundedCornerShape(8.dp))
-                                    .background(
-                                        if (sel) f.primaryColor else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                                    )
+                                    .background(bgCol)
                                     .border(
                                         1.dp,
                                         if (sel) f.primaryColor else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
                                         RoundedCornerShape(8.dp)
                                     )
-                                    .clickable { calcFuelIndex = idx }
+                                    .clickable {
+                                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                        calcFuelIndex = idx
+                                    }
                                     .padding(vertical = 7.dp),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -406,7 +522,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                     style = MaterialTheme.typography.labelMedium.copy(
                                         fontWeight = if (sel) FontWeight.Bold else FontWeight.Medium
                                     ),
-                                    color = if (sel) Color.White else MaterialTheme.colorScheme.onSurface
+                                    color = textCol
                                 )
                             }
                         }
@@ -449,11 +565,20 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                         Text(T("fuel_res_lit"), style = MaterialTheme.typography.labelMedium, color = Color(0xFF333333))
                                         Text(if (isEn) "@ Rs. ${"%.2f".format(selectedCalcFuel.price)} / L" else "@ रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))} / लिटर", style = MaterialTheme.typography.labelSmall, color = Color(0xFF666666))
                                     }
-                                    Text(
-                                        if (isEn) "${"%.2f".format(liters)} L" else "${NepaliNames.toDevanagari("%.2f".format(liters))} लिटर",
-                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                        color = selectedCalcFuel.primaryColor
-                                    )
+                                    AnimatedContent(
+                                        targetState = "%.2f".format(liters),
+                                        transitionSpec = {
+                                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                        },
+                                        label = "calc_liters_result"
+                                    ) { litStr ->
+                                        Text(
+                                            if (isEn) "$litStr L" else "${NepaliNames.toDevanagari(litStr)} लिटर",
+                                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                            color = selectedCalcFuel.primaryColor
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -490,11 +615,20 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                         Text(T("fuel_res_amt"), style = MaterialTheme.typography.labelMedium, color = Color(0xFF333333))
                                         Text(if (isEn) "${inputLiters} L × Rs. ${"%.2f".format(selectedCalcFuel.price)}" else "${NepaliNames.toDevanagari(inputLiters)} लिटर × रु ${NepaliNames.toDevanagari("%.2f".format(selectedCalcFuel.price))}", style = MaterialTheme.typography.labelSmall, color = Color(0xFF666666))
                                     }
-                                    Text(
-                                        if (isEn) "Rs. ${"%.2f".format(totalCost)}" else "रु ${NepaliNames.toDevanagari("%.2f".format(totalCost))}",
-                                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                        color = selectedCalcFuel.primaryColor
-                                    )
+                                    AnimatedContent(
+                                        targetState = "%.2f".format(totalCost),
+                                        transitionSpec = {
+                                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                        },
+                                        label = "calc_cost_result"
+                                    ) { costStr ->
+                                        Text(
+                                            if (isEn) "Rs. $costStr" else "रु ${NepaliNames.toDevanagari(costStr)}",
+                                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                            color = selectedCalcFuel.primaryColor
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -546,11 +680,20 @@ fun FuelPriceScreen(onBack: () -> Unit) {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(T("fuel_res_est"), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), color = Color(0xFF222222))
-                                        Text(
-                                            if (isEn) "Rs. ${"%.2f".format(tripCost)}" else "रु ${NepaliNames.toDevanagari("%.2f".format(tripCost))}",
-                                            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-                                            color = selectedCalcFuel.primaryColor
-                                        )
+                                        AnimatedContent(
+                                            targetState = "%.2f".format(tripCost),
+                                            transitionSpec = {
+                                                (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it / 2 } + fadeIn())
+                                                    .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it / 2 } + fadeOut())
+                                            },
+                                            label = "trip_cost_result"
+                                        ) { tripStr ->
+                                            Text(
+                                                if (isEn) "Rs. $tripStr" else "रु ${NepaliNames.toDevanagari(tripStr)}",
+                                                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                                                color = selectedCalcFuel.primaryColor
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -575,55 +718,123 @@ fun FuelPriceScreen(onBack: () -> Unit) {
 @Composable
 private fun FuelPriceCard(
     fuel: FuelProduct,
-    isEn: Boolean
+    isEn: Boolean,
+    isUpdating: Boolean = false,
+    index: Int = 0
 ) {
-    Row(
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val cardScale by animateFloatAsState(
+        targetValue = if (isPressed) 0.97f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        ),
+        label = "fuel_card_press"
+    )
+
+    val shimmerTransition = rememberInfiniteTransition(label = "fuel_card_shimmer")
+    val shimmerOffset by if (isUpdating) {
+        shimmerTransition.animateFloat(
+            initialValue = -350f,
+            targetValue = 900f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(1200, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart
+            ),
+            label = "shimmer_offset"
+        )
+    } else {
+        remember { mutableFloatStateOf(-350f) }
+    }
+
+    val shimmerBrush = if (isUpdating) {
+        Brush.linearGradient(
+            colors = listOf(
+                Color.Transparent,
+                fuel.primaryColor.copy(alpha = 0.14f),
+                Color.Transparent
+            ),
+            start = Offset(shimmerOffset + (index * 60f), 0f),
+            end = Offset(shimmerOffset + 240f + (index * 60f), 240f)
+        )
+    } else null
+
+    Box(
         Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(14.dp))
+            .graphicsLayer {
+                scaleX = cardScale
+                scaleY = cardScale
+            }
+            .clip(RoundedCornerShape(14.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .then(if (shimmerBrush != null) Modifier.background(shimmerBrush) else Modifier)
             .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
-            .padding(horizontal = 14.dp, vertical = 14.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) { }
+            .padding(horizontal = 14.dp, vertical = 14.dp)
     ) {
-        // Icon Circle
-        Box(
-            Modifier
-                .size(42.dp)
-                .background(fuel.lightColor, CircleShape)
-                .border(1.dp, fuel.primaryColor.copy(alpha = 0.25f), CircleShape),
-            contentAlignment = Alignment.Center
+        Row(
+            Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(PIcons.Fuel, null, tint = fuel.primaryColor, modifier = Modifier.size(20.dp))
-        }
+            // Icon Circle
+            Box(
+                Modifier
+                    .size(42.dp)
+                    .background(fuel.lightColor, CircleShape)
+                    .border(1.dp, fuel.primaryColor.copy(alpha = 0.25f), CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(PIcons.Fuel, null, tint = fuel.primaryColor, modifier = Modifier.size(20.dp))
+            }
 
-        Spacer(Modifier.width(12.dp))
+            Spacer(Modifier.width(12.dp))
 
-        // Product Name (Clean single label)
-        Text(
-            if (isEn) fuel.nameEn else fuel.nameNp,
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f)
-        )
-
-        Spacer(Modifier.width(10.dp))
-
-        // Price Block (Clean Right-Aligned Box with No Squishing)
-        Column(horizontalAlignment = Alignment.End) {
+            // Product Name (Clean single label)
             Text(
-                if (isEn) "Rs. ${"%.2f".format(fuel.price)}" else "रु ${NepaliNames.toDevanagari("%.2f".format(fuel.price))}",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = fuel.primaryColor,
-                softWrap = false
+                if (isEn) fuel.nameEn else fuel.nameNp,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f)
             )
-            Spacer(Modifier.height(1.dp))
-            Text(
-                if (isEn) fuel.unitEn else fuel.unitNp,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+
+            Spacer(Modifier.width(10.dp))
+
+            // Price Block (Clean Right-Aligned Box with Odometer Tumbler)
+            Column(horizontalAlignment = Alignment.End) {
+                AnimatedContent(
+                    targetState = fuel.price,
+                    transitionSpec = {
+                        if (targetState >= initialState) {
+                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it } + fadeIn())
+                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it } + fadeOut())
+                        } else {
+                            (slideInVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { it } + fadeIn())
+                                .togetherWith(slideOutVertically(animationSpec = spring(stiffness = Spring.StiffnessMediumLow)) { -it } + fadeOut())
+                        }
+                    },
+                    label = "fuel_price_odometer"
+                ) { targetPrice ->
+                    Text(
+                        if (isEn) "Rs. ${"%.2f".format(targetPrice)}" else "रु ${NepaliNames.toDevanagari("%.2f".format(targetPrice))}",
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        color = fuel.primaryColor,
+                        softWrap = false
+                    )
+                }
+                Spacer(Modifier.height(1.dp))
+                Text(
+                    if (isEn) fuel.unitEn else fuel.unitNp,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
