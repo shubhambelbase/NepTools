@@ -98,10 +98,18 @@ fun CalendarScreen(
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                NavArrow("‹", enabled = month > 1 || year > engine.supportedRange().first) {
+                NavArrow(
+                    glyph = "‹",
+                    contentDescription = if (isEn) "Previous month" else "अघिल्लो महिना",
+                    enabled = month > 1 || year > engine.supportedRange().first
+                ) {
                     if (month == 1) { year -= 1; month = 12 } else month -= 1
                 }
-                NavArrow("›", enabled = month < 12 || year < engine.supportedRange().last) {
+                NavArrow(
+                    glyph = "›",
+                    contentDescription = if (isEn) "Next month" else "पछिल्लो महिना",
+                    enabled = month < 12 || year < engine.supportedRange().last
+                ) {
                     if (month == 12) { year += 1; month = 1 } else month += 1
                 }
             }

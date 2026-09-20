@@ -205,6 +205,39 @@ private fun EmfSnifferView(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        if (!engine.hasSensor) {
+            item {
+                Card(
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)),
+                    border = CardDefaults.outlinedCardBorder()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = PIcons.Alert,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(Modifier.width(12.dp))
+                        Text(
+                            text = if (isEn)
+                                "Magnetometer not detected on this phone. Optical strobe and manual inspection tools are still available."
+                            else
+                                "यस फोनमा म्याग्नेटोमिटर सेन्सर उपलब्ध छैन। अप्टिकल स्ट्रोब र अन्य सुरक्षा जाँचहरू अझै प्रयोग गर्न सकिन्छ।",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+        }
+
         // Main EMF Gauge
         item {
             Card(

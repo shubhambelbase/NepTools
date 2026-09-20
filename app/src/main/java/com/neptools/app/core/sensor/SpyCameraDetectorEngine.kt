@@ -56,6 +56,7 @@ class SpyCameraDetectorEngine(private val context: Context) : SensorEventListene
     val emfState: StateFlow<EmfSensorState> = _emfState.asStateFlow()
 
     private var magneticSensor: Sensor? = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+    val hasSensor: Boolean get() = magneticSensor != null
     private var isEmfRunning = false
     private var peakMagnitude = 0f
     private val emfHistory = ArrayDeque<Float>(50)

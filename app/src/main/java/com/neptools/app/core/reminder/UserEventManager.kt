@@ -119,7 +119,13 @@ object UserEventManager {
                     }
                 )
             }
-            File(context.filesDir, FILE).writeText(arr.toString())
+            val target = File(context.filesDir, FILE)
+            val tmp = File(context.filesDir, "$FILE.tmp")
+            tmp.writeText(arr.toString())
+            if (tmp.exists()) {
+                if (target.exists()) target.delete()
+                tmp.renameTo(target)
+            }
         } catch (_: Exception) {
         }
     }

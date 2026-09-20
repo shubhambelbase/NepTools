@@ -345,8 +345,17 @@ fun EmergencyScreen(onBack: () -> Unit) {
                     isLocal = isLocal,
                     isEn = isEn,
                     onCall = {
-                        val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.number}"))
-                        context.startActivity(dialIntent)
+                        try {
+                            val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.number}"))
+                            context.startActivity(dialIntent)
+                        } catch (_: Exception) {
+                            clipboardManager.setText(AnnotatedString(contact.number))
+                            Toast.makeText(
+                                context,
+                                if (isEn) "Dialer unavailable. Number copied: ${contact.number}" else "डायलर उपलब्ध छैन। नम्बर कपी भयो: ${contact.number}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     },
                     onCopy = {
                         clipboardManager.setText(AnnotatedString(contact.number))

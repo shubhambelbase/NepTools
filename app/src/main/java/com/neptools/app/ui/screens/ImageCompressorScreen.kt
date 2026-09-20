@@ -128,6 +128,9 @@ fun ImageCompressorScreen(onBack: () -> Unit) {
                 val meta = ImageCompressorEngine.extractMetadata(context, uri)
                 val bmp = ImageCompressorEngine.loadBitmap(context, uri)
                 withContext(Dispatchers.Main) {
+                    if (bmp == null) {
+                        Toast.makeText(context, if (isEn) "Unable to decode image" else "फोटो लोड गर्न सकिएन", Toast.LENGTH_SHORT).show()
+                    }
                     originalMeta = meta
                     loadedBitmap = bmp
                     if (meta != null) {
@@ -257,14 +260,16 @@ fun ImageCompressorScreen(onBack: () -> Unit) {
                         Modifier.padding(14.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Image(
-                            bitmap = loadedBitmap!!.asImageBitmap(),
-                            contentDescription = "Selected",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(68.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                        )
+                        loadedBitmap?.let { bmp ->
+                            Image(
+                                bitmap = bmp.asImageBitmap(),
+                                contentDescription = "Selected",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(68.dp)
+                                    .clip(RoundedCornerShape(12.dp))
+                            )
+                        }
                         Spacer(Modifier.width(14.dp))
                         Column(Modifier.weight(1f)) {
                             Text(

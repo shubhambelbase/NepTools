@@ -31,11 +31,18 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.neptools.app.core.calendar.CalendarCell
 import com.neptools.app.ui.components.npNum
 
 @Composable
-internal fun NavArrow(glyph: String, enabled: Boolean, onClick: () -> Unit) {
+internal fun NavArrow(
+    glyph: String,
+    contentDescription: String? = null,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
@@ -58,6 +65,11 @@ internal fun NavArrow(glyph: String, enabled: Boolean, onClick: () -> Unit) {
                 if (enabled) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant,
                 MaterialTheme.shapes.small
             )
+            .semantics(mergeDescendants = true) {
+                if (contentDescription != null) {
+                    this.contentDescription = contentDescription
+                }
+            }
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(bounded = true, color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)),
@@ -79,6 +91,13 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
     val hasFest = cell.festivals.isNotEmpty()
     val isToday = cell.isToday
     val adDay = cell.adDate.dayOfMonth
+    val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
+
+    val cellDescription = if (isEn) {
+        "${cell.dayOfMonth} ${com.neptools.app.core.calendar.NepaliNames.monthsEn[cell.nepaliDate.month - 1]}${if (isToday) ", Today" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull() ?: ""}" else ""}${if (cell.isSaturday) ", Saturday" else ""}"
+    } else {
+        "${npNum(cell.dayOfMonth)} ${com.neptools.app.core.calendar.NepaliNames.monthsNp[cell.nepaliDate.month - 1]}${if (isToday) ", आज" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull() ?: ""}" else ""}${if (cell.isSaturday) ", शनिबार" else ""}"
+    }
 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
@@ -98,6 +117,9 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
                 scaleY = scale
             }
             .fillMaxSize()
+            .semantics(mergeDescendants = true) {
+                this.contentDescription = cellDescription
+            }
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(

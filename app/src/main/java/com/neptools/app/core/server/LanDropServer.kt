@@ -114,8 +114,7 @@ object LanDropServer {
         } catch (e: Exception) { e.printStackTrace() }
         val candidates = listOf(
             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "NepTools"),
-            File("/storage/emulated/0/Download/NepTools"),
-            File("/sdcard/Download/NepTools")
+            File("/storage/emulated/0/Download/NepTools")
         )
         for (cand in candidates) {
             if (cand.exists() && cand.isDirectory && cand.canWrite()) return cand

@@ -169,9 +169,6 @@ object EmergencyLocationResolver {
                     listener?.let { try { lm.removeUpdates(it) } catch (_: Exception) {} }
                     onComplete?.invoke(true)
                 }
-                @Deprecated("Deprecated in Java")
-                override fun onStatusChanged(provider: String?, status: Int, extras: android.os.Bundle?) {}
-                override fun onProviderEnabled(provider: String) {}
                 override fun onProviderDisabled(provider: String) {
                     _isLocating.value = false
                     listener?.let { try { lm.removeUpdates(it) } catch (_: Exception) {} }
