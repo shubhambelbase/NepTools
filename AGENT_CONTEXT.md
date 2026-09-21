@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.1 (versionCode: 40)
+- Current Version: v2.8.2 (versionCode: 41)
 - Last Updated: September 21, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,11 +90,13 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.1 (versionCode 40) — 11-Year Panchanga Dataset Forensic Audit & Sanitization Complete.
+- Status: v2.8.2 (versionCode 41) — Full 11-Year Festival Deduplication & Gazette Holiday Enforcement Complete.
 - Last Updated: September 21, 2026
 - Recent Updates:
+  - v2.8.2:
+    - Full 11-Year Festival Deduplication & Gazette Holiday Enforcement (festivals_sample.json): Eliminated all same-day substring and constituent overlaps (Buddha Jayanti, Swasthani Start/End, Maha Shivaratri, Udhauli, Chhath, Gai/Laxmi Puja, Dhan Diwas, Teej, Ekadashis). Standardized all spelling variations and abbreviations across 132 months into 1,820 canonical entries. Strictly aligned all publicHoliday flags with the official Nepal Gazette (purged non-holidays like shraddhas, melas, and awareness days). 100% Devanagari-free English translations.
   - v2.8.1:
-    - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085, 1,910 entries). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates (Vijaya Dashami, Teej, Kushe Aunsi, Janai Purnima, Maghe Sankranti, Tihar days), achieved 100% English translation coverage (zero empty nameEn fields), and injected full verified festival calendar for BS 2084 and 2085.
+    - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates, achieved 100% English translation coverage, and injected full verified festival calendar for BS 2084 and 2085.
   - v2.8.0:
     - Bikram Sambat Lunar Festival Engine Overhaul (PanchangCalc.kt, DynamicFestivalEngine.kt): Re-architected dynamic festival determination from simplistic solar month checks to authentic astronomical Lunar Masa indexing (Amanta / Purnimanta via sidereal Sun position at New Moon). Resolves Adhik Maas years (e.g. 2080, 2083 BS) where major festivals like Dashain, Tihar, Buddha Jayanti, Janai Purnima were previously placed in wrong months.
     - Screen-Reader Accessibility Fix (CalendarCells.kt): Cleaned TalkBack content descriptions to speak localized festival names properly instead of printing raw object instances.

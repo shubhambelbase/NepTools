@@ -9,7 +9,7 @@
     {
       "day": 3,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
@@ -38,14 +38,14 @@
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 28,
-      "nameNp": "अपरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अपरा एकादशी",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
@@ -58,14 +58,14 @@
   "2075-2": [
     {
       "day": 2,
-      "nameNp": "गोसाईकुण्ड स्नान आरम्भ",
+      "nameNp": "गोसाइँकुण्ड स्नान आरम्भ",
       "nameEn": "Gosaikunda Snan Begins",
       "publicHoliday": false
     },
     {
       "day": 10,
-      "nameNp": "गोसाईकुण्ड स्नान समाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
+      "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
@@ -77,7 +77,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
@@ -127,13 +127,7 @@
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
-      "nameNp": "राष्ट्रिय धान दिवस",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -144,8 +138,8 @@
     },
     {
       "day": 25,
-      "nameNp": "योगिनी एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -171,7 +165,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -188,8 +182,8 @@
     },
     {
       "day": 7,
-      "nameNp": "हरिशयनी एकादशी व्रत",
-      "nameEn": "Harishayani Ekadashi",
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
@@ -225,13 +219,13 @@
     {
       "day": 22,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -269,37 +263,37 @@
     {
       "day": 6,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 10,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 11,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 17,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
       "day": 21,
-      "nameNp": "अजा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अजा एकादशी",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
@@ -311,7 +305,7 @@
     {
       "day": 24,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -322,14 +316,14 @@
     },
     {
       "day": 26,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din (Teej Eve)",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 27,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -361,25 +355,25 @@
     {
       "day": 4,
       "nameNp": "हरिपरिवर्तिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "इन्द्रध्वजोत्थान",
-      "nameEn": "Indra Dhwaja Utthan (Indra Jatra Begins)",
+      "nameNp": "इन्द्रध्वज उत्थान",
+      "nameEn": "Indradhwoj Utthan (Erection of Indra's Flag)",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "ईन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
-      "publicHoliday": false
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
+      "publicHoliday": true
     },
     {
       "day": 9,
       "nameNp": "सोह्र श्राद्ध प्रारम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -396,8 +390,8 @@
     },
     {
       "day": 19,
-      "nameNp": "इन्दिरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
@@ -409,13 +403,13 @@
     {
       "day": 30,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 31,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     }
   ],
@@ -423,7 +417,7 @@
     {
       "day": 1,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -434,20 +428,20 @@
     },
     {
       "day": 3,
-      "nameNp": "पापांकुशा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
+      "publicHoliday": true
     },
     {
       "day": 4,
       "nameNp": "द्वादशी",
       "nameEn": "Dwadashi Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 7,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -458,8 +452,8 @@
     },
     {
       "day": 17,
-      "nameNp": "स्मार्तहरुको रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "रमा एकादशी (स्मार्त)",
+      "nameEn": "Rama Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -471,14 +465,14 @@
     {
       "day": 19,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 20,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 21,
@@ -489,13 +483,13 @@
     {
       "day": 22,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 23,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
@@ -507,21 +501,21 @@
     {
       "day": 27,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     }
   ],
   "2075-8": [
     {
       "day": 3,
-      "nameNp": "हरिबोधिनी एकादशी व्रत",
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
       "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
       "day": 4,
-      "nameNp": "रु रु क्षेत्र ऋषिकेश रथ यात्रा",
-      "nameEn": "Ruru Kshetra Rishikesh Rath Jatra",
+      "nameNp": "रुरु क्षेत्र ऋषिकेश रथयात्रा",
+      "nameEn": "Ruru Kshetra Rishikesh Rath Yatra",
       "publicHoliday": false
     },
     {
@@ -538,8 +532,8 @@
     },
     {
       "day": 17,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -568,28 +562,28 @@
     },
     {
       "day": 25,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 26,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     }
   ],
   "2075-9": [
     {
       "day": 2,
-      "nameNp": "कीर्तिपुरे इन्द्रायणी जात्रा",
+      "nameNp": "कीर्तिपुर इन्द्रायणी जात्रा",
       "nameEn": "Kirtipur Indrayani Jatra",
       "publicHoliday": false
     },
     {
       "day": 3,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -601,12 +595,12 @@
     {
       "day": 7,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
       "day": 10,
-      "nameNp": "क्रिसमस-डे",
+      "nameNp": "क्रिसमस डे",
       "nameEn": "Christmas Day",
       "publicHoliday": true
     },
@@ -625,7 +619,7 @@
     {
       "day": 17,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -657,7 +651,7 @@
     {
       "day": 3,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -669,13 +663,13 @@
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 17,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
@@ -686,8 +680,8 @@
     },
     {
       "day": 27,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     }
   ],
@@ -700,8 +694,8 @@
     },
     {
       "day": 3,
-      "nameNp": "स्मार्तहरुको भीमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "भीमा एकादशी (स्मार्त)",
+      "nameEn": "Bhima Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -719,13 +713,13 @@
     {
       "day": 7,
       "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Concludes",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
       "day": 18,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -737,13 +731,13 @@
     {
       "day": 23,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     }
   ],
@@ -751,25 +745,25 @@
     {
       "day": 3,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 6,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
       "day": 7,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - तराई)",
+      "nameEn": "Holi Festival (Terai Regions)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
@@ -780,8 +774,8 @@
     },
     {
       "day": 22,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -792,8 +786,8 @@
     },
     {
       "day": 27,
-      "nameNp": "भू पु भैरब भद्रकाली यात्रा",
-      "nameEn": "Bhaktapur Bhairav Bhadrakali Jatra",
+      "nameNp": "भक्तपुर भैरव भद्रकाली रथयात्रा आरम्भ",
+      "nameEn": "Bhaktapur Bhairav Bhadrakali Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -804,7 +798,7 @@
     },
     {
       "day": 30,
-      "nameNp": "श्री राम नवमी ब्रतम",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     }
@@ -818,8 +812,8 @@
     },
     {
       "day": 2,
-      "nameNp": "स्मार्तहरुको कामदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "कामदा एकादशी (स्मार्त)",
+      "nameEn": "Kamada Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -854,14 +848,14 @@
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 21,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
@@ -887,18 +881,18 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
       "day": 16,
-      "nameNp": "अपरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अपरा एकादशी",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 21,
-      "nameNp": "गोसाईकुण्ड स्नान आरम्भ",
+      "nameNp": "गोसाइँकुण्ड स्नान आरम्भ",
       "nameEn": "Gosaikunda Snan Begins",
       "publicHoliday": false
     },
@@ -930,8 +924,8 @@
     },
     {
       "day": 13,
-      "nameNp": "स्मार्तहरुको योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी (स्मार्त)",
+      "nameEn": "Yogini Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -943,19 +937,13 @@
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
-      "nameNp": "राष्ट्रिय धान दिवस",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
       "day": 17,
-      "nameNp": "सुर्य ग्रहण",
-      "nameEn": "Solar Eclipse",
+      "nameNp": "सूर्य ग्रहण",
+      "nameEn": "Solar Eclipse (Surya Grahan)",
       "publicHoliday": false
     },
     {
@@ -966,14 +954,8 @@
     },
     {
       "day": 27,
-      "nameNp": "हरिशयनी एकादशी व्रत",
-      "nameEn": "Harishayani Ekadashi",
-      "publicHoliday": false
-    },
-    {
-      "day": 27,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
@@ -999,7 +981,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -1017,13 +999,13 @@
     {
       "day": 12,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 14,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -1065,19 +1047,19 @@
     {
       "day": 26,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 30,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 31,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     }
   ],
@@ -1085,25 +1067,25 @@
     {
       "day": 6,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 6,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
       "day": 9,
-      "nameNp": "अजा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अजा एकादशी",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 13,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -1114,14 +1096,14 @@
     },
     {
       "day": 15,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din (Teej Eve)",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -1138,20 +1120,20 @@
     },
     {
       "day": 23,
-      "nameNp": "हरिपरिवर्तिनी एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 27,
-      "nameNp": "ईन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
-      "publicHoliday": false
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
+      "publicHoliday": true
     },
     {
       "day": 28,
       "nameNp": "सोह्र श्राद्ध प्रारम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -1182,15 +1164,15 @@
     },
     {
       "day": 8,
-      "nameNp": "इन्दिरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 8,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 12,
@@ -1199,33 +1181,21 @@
       "publicHoliday": true
     },
     {
-      "day": 12,
-      "nameNp": "नवरात्री आरम्भ",
-      "nameEn": "Navaratri Begins",
-      "publicHoliday": false
-    },
-    {
       "day": 18,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
-    },
-    {
-      "day": 18,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
-      "publicHoliday": false
     },
     {
       "day": 19,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 20,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -1236,14 +1206,14 @@
     },
     {
       "day": 22,
-      "nameNp": "पापांकुशा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 26,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -1257,19 +1227,19 @@
     {
       "day": 7,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 8,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 9,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -1282,7 +1252,7 @@
       "day": 10,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 10,
@@ -1293,38 +1263,32 @@
     {
       "day": 11,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 11,
       "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
       "day": 12,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 12,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 16,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
-    },
-    {
-      "day": 22,
-      "nameNp": "हरिबोधिनी एकादशी व्रत",
-      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
-      "publicHoliday": false
     },
     {
       "day": 22,
@@ -1334,8 +1298,8 @@
     },
     {
       "day": 23,
-      "nameNp": "रुरु क्षेत्र ऋषिकेश रथ यात्रा",
-      "nameEn": "Ruru Kshetra Rishikesh Rath Jatra",
+      "nameNp": "रुरु क्षेत्र ऋषिकेश रथयात्रा",
+      "nameEn": "Ruru Kshetra Rishikesh Rath Yatra",
       "publicHoliday": false
     },
     {
@@ -1360,8 +1324,8 @@
     },
     {
       "day": 6,
-      "nameNp": "स्मार्तहरुको उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी (स्मार्त)",
+      "nameEn": "Utpattika Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -1384,8 +1348,8 @@
     },
     {
       "day": 15,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -1402,14 +1366,14 @@
     },
     {
       "day": 20,
-      "nameNp": "कीर्तिपुरे इन्द्रायणी जात्रा",
+      "nameNp": "कीर्तिपुर इन्द्रायणी जात्रा",
       "nameEn": "Kirtipur Indrayani Jatra",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1427,7 +1391,7 @@
     {
       "day": 26,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     }
   ],
@@ -1447,7 +1411,7 @@
     {
       "day": 6,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1483,7 +1447,7 @@
     {
       "day": 21,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1495,7 +1459,7 @@
     {
       "day": 25,
       "nameNp": "चन्द्र ग्रहण",
-      "nameEn": "Lunar Eclipse",
+      "nameEn": "Lunar Eclipse (Chandra Grahan)",
       "publicHoliday": false
     },
     {
@@ -1527,7 +1491,7 @@
     {
       "day": 6,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1545,25 +1509,25 @@
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 16,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "भीमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Bhima Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 26,
       "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Concludes",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     }
   ],
@@ -1583,7 +1547,7 @@
     {
       "day": 7,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1595,31 +1559,31 @@
     {
       "day": 12,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
       "day": 23,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 25,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 26,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
       "day": 27,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - तराई)",
+      "nameEn": "Holi Festival (Terai Regions)",
       "publicHoliday": true
     }
   ],
@@ -1633,13 +1597,13 @@
     {
       "day": 7,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -1650,14 +1614,14 @@
     },
     {
       "day": 20,
-      "nameNp": "श्री राम नवमी",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     },
     {
       "day": 22,
       "nameNp": "कामदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -1680,8 +1644,8 @@
     },
     {
       "day": 27,
-      "nameNp": "भ पु भैरब भद्रकाली यात्रा",
-      "nameEn": "Bhaktapur Bhairav Bhadrakali Jatra",
+      "nameNp": "भक्तपुर भैरव भद्रकाली रथयात्रा आरम्भ",
+      "nameEn": "Bhaktapur Bhairav Bhadrakali Rath Yatra Begins",
       "publicHoliday": false
     }
   ],
@@ -1701,7 +1665,7 @@
     {
       "day": 11,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
@@ -1718,8 +1682,8 @@
     },
     {
       "day": 19,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
@@ -1745,19 +1709,19 @@
     {
       "day": 5,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
       "day": 20,
-      "nameNp": "निर्जला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     }
   ],
@@ -1765,25 +1729,25 @@
     {
       "day": 3,
       "nameNp": "योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
       "day": 17,
-      "nameNp": "हरिसयनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "गुरु पूर्णिमा",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameEn": "Guru Purnima",
       "publicHoliday": false
     },
     {
@@ -1797,7 +1761,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -1815,31 +1779,31 @@
     {
       "day": 15,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 19,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 20,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 31,
       "nameNp": "अजा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -1847,19 +1811,19 @@
     {
       "day": 3,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
       "day": 4,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din (Teej Eve)",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 5,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -1876,15 +1840,15 @@
     },
     {
       "day": 13,
-      "nameNp": "हरिपरिवर्तनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 16,
-      "nameNp": "ईन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
-      "publicHoliday": false
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
+      "publicHoliday": true
     },
     {
       "day": 22,
@@ -1895,7 +1859,7 @@
     {
       "day": 28,
       "nameNp": "इन्दिरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -1933,33 +1897,21 @@
       "publicHoliday": true
     },
     {
-      "day": 1,
-      "nameNp": "नवरात्री आरम्भ",
-      "nameEn": "Navaratri Begins",
-      "publicHoliday": false
-    },
-    {
       "day": 7,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
-      "publicHoliday": true
-    },
-    {
-      "day": 7,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 8,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 9,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -1970,14 +1922,14 @@
     },
     {
       "day": 11,
-      "nameNp": "पापांकुशा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -1995,19 +1947,19 @@
     {
       "day": 26,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 27,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 28,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -2020,7 +1972,7 @@
       "day": 29,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 29,
@@ -2031,13 +1983,13 @@
     {
       "day": 30,
       "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
       "day": 30,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     }
   ],
@@ -2045,37 +1997,37 @@
     {
       "day": 1,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 1,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 2,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 5,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
       "day": 10,
-      "nameNp": "हरिबोधिनी एकादशी",
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
       "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
       "day": 11,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
@@ -2098,22 +2050,22 @@
     },
     {
       "day": 26,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     }
   ],
   "2077-9": [
     {
       "day": 4,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
       "day": 10,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2137,7 +2089,7 @@
     {
       "day": 25,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2163,7 +2115,7 @@
     {
       "day": 11,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2175,13 +2127,13 @@
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2200,8 +2152,8 @@
     },
     {
       "day": 4,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
@@ -2213,19 +2165,19 @@
     {
       "day": 11,
       "nameNp": "जया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Jaya Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2239,7 +2191,7 @@
     {
       "day": 1,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
@@ -2251,30 +2203,30 @@
     {
       "day": 12,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 15,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
       "day": 16,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - तराई)",
+      "nameEn": "Holi Festival (Terai Regions)",
       "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 29,
-      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका बिदा)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
       "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     }
@@ -2288,20 +2240,20 @@
     },
     {
       "day": 7,
-      "nameNp": "चैते दशै",
+      "nameNp": "चैते दशैं",
       "nameEn": "Chaite Dashain",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "राम नवमी",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     },
     {
       "day": 10,
-      "nameNp": "कामदा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "कामदा एकादशी",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2330,14 +2282,14 @@
     },
     {
       "day": 15,
-      "nameNp": "ल पु मत्स्येन्द्रनाथ स्नान",
-      "nameEn": "Rato Machhendranath Snan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
       "publicHoliday": false
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
@@ -2361,13 +2313,13 @@
     {
       "day": 28,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 29,
-      "nameNp": "ल.पु. मत्स्येन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
       "publicHoliday": false
     },
     {
@@ -2399,7 +2351,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
@@ -2411,7 +2363,7 @@
     {
       "day": 23,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2424,20 +2376,20 @@
   "2078-3": [
     {
       "day": 7,
-      "nameNp": "निर्जला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2451,19 +2403,19 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti (Luto Phalne Din)",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "हरिसयनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
       "day": 9,
       "nameNp": "गुरु पूर्णिमा",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameEn": "Guru Purnima",
       "publicHoliday": false
     },
     {
@@ -2475,19 +2427,13 @@
     {
       "day": 20,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
-      "publicHoliday": false
-    },
-    {
-      "day": 22,
-      "nameNp": "गठेमंगल (घण्टाकर्ण)",
-      "nameEn": "Gathamuga (Ghantakarna)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -2501,43 +2447,43 @@
     {
       "day": 2,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 6,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 7,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 17,
-      "nameNp": "अजा एकादशी (स्मार्त)",
-      "nameEn": "Aja Ekadashi (Smartha)",
+      "nameNp": "अजा एकादशी",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 18,
       "nameNp": "अजा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -2548,14 +2494,14 @@
     },
     {
       "day": 23,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din (Teej Eve)",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -2592,8 +2538,8 @@
     },
     {
       "day": 1,
-      "nameNp": "हरिपरिवर्तनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2604,8 +2550,8 @@
     },
     {
       "day": 5,
-      "nameNp": "सोह्रश्राद्ध आरम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameNp": "सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -2617,25 +2563,19 @@
     {
       "day": 16,
       "nameNp": "इन्दिरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 20,
       "nameNp": "सोह्र श्राद्ध समापन",
-      "nameEn": "Sohra Shraddha Ends",
+      "nameEn": "Sohra Shraddha Concludes (Mahalaya Amavasya)",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
       "nameEn": "Ghatasthapana (Dashain Begins)",
-      "publicHoliday": true
-    },
-    {
-      "day": 21,
-      "nameNp": "नवरात्री आरम्भ",
-      "nameEn": "Navaratri Begins",
       "publicHoliday": true
     },
     {
@@ -2647,25 +2587,19 @@
     {
       "day": 26,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
-      "publicHoliday": true
-    },
-    {
-      "day": 26,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 28,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -2685,7 +2619,7 @@
     {
       "day": 2,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -2697,7 +2631,7 @@
     {
       "day": 15,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2709,14 +2643,14 @@
     {
       "day": 17,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 18,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 18,
@@ -2727,31 +2661,25 @@
     {
       "day": 19,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja",
-      "publicHoliday": true
-    },
-    {
-      "day": 19,
-      "nameNp": "म्ह: पूजा",
-      "nameEn": "Mha Puja (Nepal Sambat New Year)",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 20,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 21,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -2762,7 +2690,7 @@
     },
     {
       "day": 29,
-      "nameNp": "हरिबोधिनी एकादशी",
+      "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
       "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     }
@@ -2771,7 +2699,7 @@
     {
       "day": 3,
       "nameNp": "चन्द्र ग्रहण",
-      "nameEn": "Lunar Eclipse",
+      "nameEn": "Lunar Eclipse (Chandra Grahan)",
       "publicHoliday": false
     },
     {
@@ -2782,8 +2710,8 @@
     },
     {
       "day": 14,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2801,13 +2729,13 @@
     {
       "day": 18,
       "nameNp": "सूर्य ग्रहण",
-      "nameEn": "Solar Eclipse",
+      "nameEn": "Solar Eclipse (Surya Grahan)",
       "publicHoliday": false
     },
     {
       "day": 22,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -2819,7 +2747,7 @@
     {
       "day": 28,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -2827,7 +2755,7 @@
     {
       "day": 4,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
@@ -2845,7 +2773,7 @@
     {
       "day": 15,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -2869,7 +2797,7 @@
     {
       "day": 29,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -2882,21 +2810,21 @@
     },
     {
       "day": 3,
-      "nameNp": "श्री स्वस्थानी पूर्णिमा",
-      "nameEn": "Purnima Vrata",
+      "nameNp": "स्वस्थानी व्रत समाप्ति",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
       "day": 14,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 19,
@@ -2906,14 +2834,14 @@
     },
     {
       "day": 23,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
       "day": 29,
       "nameNp": "जया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Jaya Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -2927,7 +2855,7 @@
     {
       "day": 4,
       "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Concludes",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
@@ -2951,57 +2879,57 @@
     {
       "day": 19,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 30,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     }
   ],
   "2078-12": [
     {
       "day": 3,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
       "day": 4,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - तराई)",
+      "nameEn": "Holi Festival (Terai Regions)",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 18,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 27,
-      "nameNp": "राम नवमी",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     },
     {
       "day": 29,
       "nameNp": "कामदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -3016,7 +2944,7 @@
       "day": 1,
       "nameNp": "महावीर जयन्ती",
       "nameEn": "Mahavir Jayanti",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 3,
@@ -3026,20 +2954,20 @@
     },
     {
       "day": 3,
-      "nameNp": "वैशाखस्नान सुरू",
+      "nameNp": "वैशाख स्नान सुरू",
       "nameEn": "Baisakh Snan Begins",
       "publicHoliday": false
     },
     {
       "day": 4,
-      "nameNp": "ल.पु. मत्स्येन्द्रनाथस्नान",
-      "nameEn": "Rato Machhendranath Snan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
       "publicHoliday": false
     },
     {
       "day": 6,
-      "nameNp": "स्वामी शशिधर जन्मजयन्ती",
-      "nameEn": "Swami Shashidhar Birth Anniversary",
+      "nameNp": "स्वामी शशिधर जयन्ती",
+      "nameEn": "Swami Shashidhar Jayanti",
       "publicHoliday": false
     },
     {
@@ -3074,8 +3002,8 @@
     },
     {
       "day": 13,
-      "nameNp": "स्मार्तहरूको बरूथिनी एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "बरुथिनी एकादशी (स्मार्त)",
+      "nameEn": "Baruthini Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -3087,20 +3015,20 @@
     {
       "day": 17,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 18,
-      "nameNp": "ल.पु. मत्स्येन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
-      "publicHoliday": true
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
+      "publicHoliday": false
     },
     {
       "day": 20,
@@ -3110,8 +3038,8 @@
     },
     {
       "day": 21,
-      "nameNp": "ल.पु. मत्स्येन्द्रनाथ रथयात्रारम्भ",
-      "nameEn": "Rato Machhendranath Rath Jatra Begins",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -3191,24 +3119,24 @@
     {
       "day": 12,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
       "day": 15,
       "nameNp": "वटसावित्रीव्रत",
       "nameEn": "Vata Savitri Vrata",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 17,
-      "nameNp": "गोसाइकुण्ड स्नानारम्भ",
+      "nameNp": "गोसाइँकुण्ड स्नान आरम्भ",
       "nameEn": "Gosaikunda Snan Begins",
       "publicHoliday": false
     },
@@ -3250,8 +3178,8 @@
     },
     {
       "day": 26,
-      "nameNp": "गोसाइँकुण्ड स्नानसमाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
+      "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
@@ -3262,14 +3190,8 @@
     },
     {
       "day": 27,
-      "nameNp": "निर्जला एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 27,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
-      "nameEn": "Nirjala Ekadashi",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
@@ -3294,8 +3216,8 @@
     },
     {
       "day": 7,
-      "nameNp": "देउपाटनमा त्रिशूलयात्रा",
-      "nameEn": "Deopatan Trishul Jatra",
+      "nameNp": "देउपाटनमा त्रिशूल जात्रा",
+      "nameEn": "Deupatan Trishul Jatra",
       "publicHoliday": false
     },
     {
@@ -3307,25 +3229,19 @@
     {
       "day": 10,
       "nameNp": "योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "भूमिपूजा",
+      "nameNp": "भूमि पूजा",
       "nameEn": "Bhumi Puja",
       "publicHoliday": false
     },
     {
       "day": 15,
-      "nameNp": "दही चिउरा खाने दिन",
-      "nameEn": "National Paddy Day (Dahi Chiura)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
-      "nameNp": "राष्ट्रिय धान दिवस",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -3348,14 +3264,8 @@
     },
     {
       "day": 26,
-      "nameNp": "हरिशयनी एकादशीव्रत",
-      "nameEn": "Harishayani Ekadashi",
-      "publicHoliday": false
-    },
-    {
-      "day": 26,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
@@ -3375,13 +3285,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "लुतो फाल्ने एवं राँको बाल्ने",
-      "nameEn": "Saune Sankranti (Luto Phalne)",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -3393,13 +3297,13 @@
     {
       "day": 8,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 10,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -3416,7 +3320,7 @@
     },
     {
       "day": 15,
-      "nameNp": "वराहजयन्ती",
+      "nameNp": "वराह जयन्ती",
       "nameEn": "Varaha Jayanti",
       "publicHoliday": false
     },
@@ -3441,7 +3345,7 @@
     {
       "day": 23,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -3453,69 +3357,69 @@
     {
       "day": 27,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 28,
-      "nameNp": "रोपाईजात्रा",
+      "nameNp": "रोपाइँ जात्रा",
       "nameEn": "Ropain Jatra",
       "publicHoliday": false
     },
     {
       "day": 28,
-      "nameNp": "यलमतया",
+      "nameNp": "यल मत्या",
       "nameEn": "Yala Mataya (Patan Light Festival)",
       "publicHoliday": false
     },
     {
       "day": 31,
-      "nameNp": "ल.पु. नृसिंहयात्रा",
-      "nameEn": "Lalitpur Narsimha Jatra",
+      "nameNp": "ललितपुर नृसिंह जात्रा",
+      "nameEn": "Lalitpur Narsingh Jatra",
       "publicHoliday": false
     }
   ],
   "2079-5": [
     {
       "day": 3,
-      "nameNp": "श्रीकृष्ण जन्माष्टमीव्रत",
-      "nameEn": "Krishna Janmashtami",
+      "nameNp": "श्रीकृष्ण जन्माष्टमी",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 3,
       "nameNp": "गोरखकाली पूजा",
       "nameEn": "Gorakhkali Puja",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 7,
       "nameNp": "अजा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 11,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
       "day": 11,
-      "nameNp": "कुशेऔंसी",
-      "nameEn": "Aunsi (Amavasya)",
+      "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
       "day": 13,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 14,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -3532,7 +3436,7 @@
     },
     {
       "day": 16,
-      "nameNp": "ऋषिपञ्चमी",
+      "nameNp": "ऋषि पञ्चमी",
       "nameEn": "Rishi Panchami",
       "publicHoliday": false
     },
@@ -3545,7 +3449,7 @@
     {
       "day": 18,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
@@ -3568,14 +3472,14 @@
     },
     {
       "day": 20,
-      "nameNp": "मानव बेचविखनविरूद्धको राष्ट्रिय दिवस",
+      "nameNp": "मानव बेचबिखन विरुद्धको राष्ट्रिय दिवस",
       "nameEn": "National Anti-Human Trafficking Day",
       "publicHoliday": false
     },
     {
       "day": 21,
-      "nameNp": "हरिपरिवर्तनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -3586,9 +3490,9 @@
     },
     {
       "day": 24,
-      "nameNp": "कुमारी इन्द्रजात्रा",
-      "nameEn": "Indra Jatra",
-      "publicHoliday": true
+      "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Kumari Indra Jatra (Valley Holiday)",
+      "publicHoliday": false
     },
     {
       "day": 24,
@@ -3598,8 +3502,8 @@
     },
     {
       "day": 25,
-      "nameNp": "यँन्याः पुन्ही",
-      "nameEn": "Yenya Punhi (Indra Jatra Day)",
+      "nameNp": "यँन्या पुन्हिः",
+      "nameEn": "Yenya Punhi (Indra Jatra Full Moon)",
       "publicHoliday": false
     },
     {
@@ -3611,7 +3515,7 @@
     {
       "day": 26,
       "nameNp": "सोह्र श्राद्ध प्रारम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -3640,8 +3544,8 @@
     },
     {
       "day": 29,
-      "nameNp": "इन्द्रध्वजपातन",
-      "nameEn": "Indra Dhwaja Patan (Indra Jatra Ends)",
+      "nameNp": "इन्द्रध्वज पातन",
+      "nameEn": "Indradhwoj Patan (Lowering of Indra's Flag)",
       "publicHoliday": false
     },
     {
@@ -3692,7 +3596,7 @@
       "day": 3,
       "nameNp": "नवमी श्राद्ध",
       "nameEn": "Navami Shraddha (Matri Navami)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 4,
@@ -3702,13 +3606,13 @@
     },
     {
       "day": 5,
-      "nameNp": "इन्दिरा एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "एकादशीश्राद्ध",
+      "nameNp": "एकादशी श्राद्ध",
       "nameEn": "Ekadashi Vrata",
       "publicHoliday": false
     },
@@ -3716,7 +3620,7 @@
       "day": 6,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 7,
@@ -3738,8 +3642,8 @@
     },
     {
       "day": 9,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -3750,7 +3654,7 @@
     },
     {
       "day": 10,
-      "nameNp": "नव रात्रारम्भः घटस्थापना",
+      "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
       "nameEn": "Ghatasthapana (Dashain Begins)",
       "publicHoliday": true
     },
@@ -3758,7 +3662,7 @@
       "day": 10,
       "nameNp": "मातामहाश्राद्ध",
       "nameEn": "Matamaha Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 15,
@@ -3769,38 +3673,26 @@
     {
       "day": 16,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
-      "publicHoliday": true
-    },
-    {
-      "day": 16,
-      "nameNp": "नवत्रिका प्रवेश",
-      "nameEn": "Navapatrika Pravesh",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 17,
-      "nameNp": "महाष्टमीव्रत",
-      "nameEn": "Maha Ashtami Vrata",
-      "publicHoliday": true
-    },
-    {
-      "day": 17,
-      "nameNp": "कालरात्रि",
-      "nameEn": "Kalaratri (Maha Ashtami)",
+      "nameNp": "महाअष्टमी (कालरात्रि)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "बौद्धावतार",
       "nameEn": "Bauddhavatar",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 19,
@@ -3810,20 +3702,20 @@
     },
     {
       "day": 20,
-      "nameNp": "पापाङ्कुशा एकादशीव्रत",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 20,
       "nameNp": "अन्नपूर्णा यात्रा",
-      "nameEn": "Annapurna Jatra (Asan)",
-      "publicHoliday": true
+      "nameEn": "Annapurna Jatra",
+      "publicHoliday": false
     },
     {
       "day": 23,
-      "nameNp": "कोजाग्रत व्रत",
-      "nameEn": "Kojagrat Vrata",
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -3849,12 +3741,12 @@
     {
       "day": 4,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "यमदीपदान",
+      "nameNp": "यमदीप दान",
       "nameEn": "Yamadeep Daan",
       "publicHoliday": false
     },
@@ -3872,62 +3764,56 @@
     },
     {
       "day": 6,
-      "nameNp": "कागतिहार",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 7,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 8,
       "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
       "day": 8,
       "nameNp": "खण्डग्रस सूर्यग्रहण",
       "nameEn": "Partial Solar Eclipse",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 9,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 10,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 10,
-      "nameNp": "किजापूजा",
-      "nameEn": "Kija Puja (Bhai Tika)",
+      "nameNp": "किजापूजा (भाइटीका)",
+      "nameEn": "Kija Puja (Newari Bhai Tika)",
       "publicHoliday": true
     },
     {
       "day": 11,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 13,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 13,
-      "nameNp": "डाला पूजा",
-      "nameEn": "Dala Puja (Chhath)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -3950,20 +3836,14 @@
     },
     {
       "day": 18,
-      "nameNp": "हरिवोधिनी एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 18,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
       "day": 20,
-      "nameNp": "विष्णुबैकुण्ठ चतुर्दशीव्रत",
-      "nameEn": "Vishnu Vaikuntha Chaturdashi Vrata",
+      "nameNp": "वैकुण्ठ चतुर्दशी",
+      "nameEn": "Vaikuntha Chaturdashi",
       "publicHoliday": false
     },
     {
@@ -3974,8 +3854,8 @@
     },
     {
       "day": 21,
-      "nameNp": "शिवबैकुण्ठ चतुर्दशीव्रत",
-      "nameEn": "Shiva Vaikuntha Chaturdashi Vrata",
+      "nameNp": "वैकुण्ठ चतुर्दशी",
+      "nameEn": "Vaikuntha Chaturdashi",
       "publicHoliday": false
     },
     {
@@ -4006,14 +3886,14 @@
   "2079-8": [
     {
       "day": 2,
-      "nameNp": "गुह्यश्वरीयात्रा",
+      "nameNp": "गुह्येश्वरी यात्रा",
       "nameEn": "Guhyeshwari Jatra",
       "publicHoliday": false
     },
     {
       "day": 4,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4036,14 +3916,8 @@
     },
     {
       "day": 12,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
-      "publicHoliday": false
-    },
-    {
-      "day": 12,
-      "nameNp": "सीता विवाह पञ्चमी मेला",
-      "nameEn": "Janakpur Vivaha Panchami Mela",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -4066,14 +3940,14 @@
     },
     {
       "day": 18,
-      "nameNp": "मोक्षदा एकादशीव्रत",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameNp": "मोक्षदा एकादशी",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
@@ -4099,7 +3973,7 @@
     {
       "day": 4,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4116,7 +3990,7 @@
     },
     {
       "day": 12,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -4130,7 +4004,7 @@
       "day": 15,
       "nameNp": "सेतो मच्छेन्द्रनाथ स्नान",
       "nameEn": "Seto Machhendranath Snan",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 17,
@@ -4141,7 +4015,7 @@
     {
       "day": 18,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4152,7 +4026,7 @@
     },
     {
       "day": 22,
-      "nameNp": "श्रीस्वस्थानीव्रत सुरू",
+      "nameNp": "स्वस्थानी व्रत प्रारम्भ",
       "nameEn": "Swasthani Brata Begins",
       "publicHoliday": false
     },
@@ -4203,7 +4077,7 @@
     {
       "day": 4,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4214,20 +4088,14 @@
     },
     {
       "day": 8,
-      "nameNp": "श्रीवल्लभजयन्ती",
+      "nameNp": "श्रीवल्लभ जयन्ती",
       "nameEn": "Shri Vallabhacharya Jayanti",
-      "publicHoliday": true
-    },
-    {
-      "day": 12,
-      "nameNp": "वसन्तपञ्यमी",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
       "publicHoliday": false
     },
     {
       "day": 12,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
@@ -4238,9 +4106,9 @@
     },
     {
       "day": 16,
-      "nameNp": "शाहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 17,
@@ -4250,8 +4118,8 @@
     },
     {
       "day": 18,
-      "nameNp": "भीमा एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "भीमा एकादशी",
+      "nameEn": "Bhima Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4289,7 +4157,7 @@
     {
       "day": 4,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4314,12 +4182,12 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 9,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
@@ -4332,7 +4200,7 @@
       "day": 15,
       "nameNp": "होलिकारम्भ",
       "nameEn": "Holi Begins (Chir Utthan)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 16,
@@ -4343,7 +4211,7 @@
     {
       "day": 19,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4373,7 +4241,7 @@
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     }
   ],
@@ -4387,13 +4255,13 @@
     {
       "day": 4,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -4404,8 +4272,8 @@
     },
     {
       "day": 15,
-      "nameNp": "सेतो मत्स्यन्द्रनाथ रथयात्रा",
-      "nameEn": "Seto Machhendranath Rath Jatra",
+      "nameNp": "सेतो मच्छेन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Seto Machhendranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -4416,20 +4284,14 @@
     },
     {
       "day": 16,
-      "nameNp": "श्रीराम जयन्ती",
-      "nameEn": "Shri Ram Jayanti",
-      "publicHoliday": false
-    },
-    {
-      "day": 16,
-      "nameNp": "रामनवमीव्रत",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     },
     {
       "day": 18,
-      "nameNp": "स्मार्तहरूको कामदाएकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "कामदा एकादशी (स्मार्त)",
+      "nameEn": "Kamada Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -4464,14 +4326,14 @@
     },
     {
       "day": 24,
-      "nameNp": "ल.पु. मत्स्येन्द्रनाथ स्नान",
-      "nameEn": "Rato Machhendranath Snan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
       "publicHoliday": false
     },
     {
       "day": 27,
-      "nameNp": "भ.पू. भैरव भद्रकाली रथयात्रा आरम्भ",
-      "nameEn": "Bisket Jatra (Bhairav Bhadrakali Rath Jatra)",
+      "nameNp": "भक्तपुर भैरव भद्रकाली रथयात्रा आरम्भ",
+      "nameEn": "Bhaktapur Bhairav Bhadrakali Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -4482,7 +4344,7 @@
     },
     {
       "day": 30,
-      "nameNp": "भ.पु.विश्वध्वजोत्थान",
+      "nameNp": "भक्तपुर विश्वध्वजोत्थान",
       "nameEn": "Bisket Jatra Pole Raising (Bhaktapur)",
       "publicHoliday": false
     }
@@ -4498,7 +4360,7 @@
       "day": 1,
       "nameNp": "विश्वध्वजपातन",
       "nameEn": "Biska Jatra (Pole Lowering)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 2,
@@ -4515,13 +4377,13 @@
     {
       "day": 7,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "ललितपुर मत्स्येन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
       "publicHoliday": false
     },
     {
@@ -4550,8 +4412,8 @@
     },
     {
       "day": 11,
-      "nameNp": "ललितपुर मत्स्येन्द्रनाथ रथयात्रा आरम्भ",
-      "nameEn": "Rato Machhendranath Rath Jatra Begins",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -4574,15 +4436,15 @@
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "मोहिनी एकादशी",
       "nameEn": "Ekadashi Vrata",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 19,
@@ -4604,14 +4466,8 @@
     },
     {
       "day": 22,
-      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
-      "nameEn": "Buddha Jayanti & Ubhauli Parva",
-      "publicHoliday": true
-    },
-    {
-      "day": 22,
-      "nameNp": "चण्डीपूर्णिमा",
-      "nameEn": "Purnima Vrata",
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व (चण्डी पूर्णिमा)",
+      "nameEn": "Buddha Jayanti & Ubhauli Parva (Chandi Purnima)",
       "publicHoliday": true
     },
     {
@@ -4628,7 +4484,7 @@
     },
     {
       "day": 26,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -4655,7 +4511,7 @@
     {
       "day": 1,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4666,13 +4522,13 @@
     },
     {
       "day": 6,
-      "nameNp": "गोसाइकुण्डस्नान आरम्भ",
+      "nameNp": "गोसाइँकुण्ड स्नान आरम्भ",
       "nameEn": "Gosaikunda Snan Begins",
       "publicHoliday": false
     },
     {
       "day": 9,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -4697,25 +4553,19 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
       "day": 16,
-      "nameNp": "गोसाइँकुण्डस्नान समाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
-      "publicHoliday": false
-    },
-    {
-      "day": 17,
-      "nameNp": "निर्जला एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
       "day": 17,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
-      "nameEn": "Nirjala Ekadashi",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
@@ -4751,7 +4601,7 @@
     {
       "day": 31,
       "nameNp": "योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -4776,26 +4626,14 @@
     },
     {
       "day": 14,
-      "nameNp": "हरिशयनी एकादशी व्रत",
-      "nameEn": "Harishayani Ekadashi",
-      "publicHoliday": false
-    },
-    {
-      "day": 14,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
       "day": 15,
-      "nameNp": "दही चिउरा खाने दिन",
-      "nameEn": "National Paddy Day (Dahi Chiura)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
-      "nameNp": "राष्ट्रिय धान दिवस",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -4819,7 +4657,7 @@
     {
       "day": 28,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4831,7 +4669,7 @@
     {
       "day": 30,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     }
   ],
@@ -4839,13 +4677,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "लुतो फाल्ने एवं राँको बाल्ने",
-      "nameEn": "Saune Sankranti (Luto Phalne)",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -4931,13 +4763,13 @@
     {
       "day": 7,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
       "day": 10,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -4949,12 +4781,12 @@
     {
       "day": 14,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 15,
-      "nameNp": "रोपाई जात्रा",
+      "nameNp": "रोपाइँ जात्रा",
       "nameEn": "Ropain Jatra",
       "publicHoliday": false
     },
@@ -4966,21 +4798,21 @@
     },
     {
       "day": 18,
-      "nameNp": "ललितपुर नृसिंह यात्रा",
-      "nameEn": "Lalitpur Narsimha Jatra",
+      "nameNp": "ललितपुर नृसिंह जात्रा",
+      "nameEn": "Lalitpur Narsingh Jatra",
       "publicHoliday": false
     },
     {
       "day": 20,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 20,
-      "nameNp": "मानव बेचविखनविरुद्धको राष्ट्रिय दिवस",
+      "nameNp": "मानव बेचबिखन विरुद्धको राष्ट्रिय दिवस",
       "nameEn": "National Anti-Human Trafficking Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 21,
@@ -5003,7 +4835,7 @@
     {
       "day": 24,
       "nameNp": "अजा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5015,7 +4847,7 @@
     {
       "day": 28,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -5032,8 +4864,8 @@
     },
     {
       "day": 31,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     }
   ],
@@ -5041,18 +4873,18 @@
     {
       "day": 1,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
       "day": 2,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 2,
-      "nameNp": "ऋषिपञ्चमी",
+      "nameNp": "ऋषि पञ्चमी",
       "nameEn": "Rishi Panchami",
       "publicHoliday": false
     },
@@ -5076,21 +4908,21 @@
     },
     {
       "day": 8,
-      "nameNp": "हरिपरिवर्तनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 9,
-      "nameNp": "इन्द्रध्वजोत्थान",
-      "nameEn": "Indra Dhwaja Utthan (Indra Jatra Begins)",
+      "nameNp": "इन्द्रध्वज उत्थान",
+      "nameEn": "Indradhwoj Utthan (Erection of Indra's Flag)",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "कुमारी इन्द्रजात्रा",
-      "nameEn": "Indra Jatra",
-      "publicHoliday": true
+      "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Kumari Indra Jatra (Valley Holiday)",
+      "publicHoliday": false
     },
     {
       "day": 11,
@@ -5106,14 +4938,14 @@
     },
     {
       "day": 12,
-      "nameNp": "चेपाङ चोनामपर्व",
+      "nameNp": "चेपाङ चोनाम पर्व",
       "nameEn": "Chepang Chonam Parva",
       "publicHoliday": false
     },
     {
       "day": 13,
-      "nameNp": "सोह्रश्राद्ध आरम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameNp": "सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -5136,8 +4968,8 @@
     },
     {
       "day": 15,
-      "nameNp": "इन्द्रध्वजपातन",
-      "nameEn": "Indra Dhwaja Patan (Indra Jatra Ends)",
+      "nameNp": "इन्द्रध्वज पातन",
+      "nameEn": "Indradhwoj Patan (Lowering of Indra's Flag)",
       "publicHoliday": false
     },
     {
@@ -5148,7 +4980,7 @@
     },
     {
       "day": 16,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -5178,7 +5010,7 @@
     },
     {
       "day": 20,
-      "nameNp": "जितियापर्व",
+      "nameNp": "जितिया पर्व",
       "nameEn": "Jitiya Parva",
       "publicHoliday": false
     },
@@ -5202,8 +5034,8 @@
     },
     {
       "day": 23,
-      "nameNp": "इन्दिरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5216,7 +5048,7 @@
       "day": 24,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 25,
@@ -5238,8 +5070,8 @@
     },
     {
       "day": 27,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -5247,12 +5079,6 @@
       "nameNp": "औँसी श्राद्ध",
       "nameEn": "Aunsi Shraddha (Sarvapitri Moksha)",
       "publicHoliday": false
-    },
-    {
-      "day": 28,
-      "nameNp": "नवरात्र आरम्भ",
-      "nameEn": "Navaratri Begins",
-      "publicHoliday": true
     },
     {
       "day": 28,
@@ -5265,38 +5091,26 @@
     {
       "day": 4,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
-    },
-    {
-      "day": 4,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
-      "publicHoliday": false
     },
     {
       "day": 5,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
-      "publicHoliday": true
-    },
-    {
-      "day": 5,
-      "nameNp": "कालरात्रि",
-      "nameEn": "Kalaratri (Maha Ashtami)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 6,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 6,
       "nameNp": "बौद्धावतार",
       "nameEn": "Bauddhavatar",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 7,
@@ -5306,26 +5120,26 @@
     },
     {
       "day": 8,
-      "nameNp": "पापाङ्कुशा एकादशी व्रत",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 8,
-      "nameNp": "अन्नपूर्णायात्रा",
-      "nameEn": "Annapurna Jatra (Asan)",
-      "publicHoliday": true
+      "nameNp": "अन्नपूर्णा यात्रा",
+      "nameEn": "Annapurna Jatra",
+      "publicHoliday": false
     },
     {
       "day": 9,
       "nameNp": "द्वादशी",
       "nameEn": "Dwadashi Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "कोजाग्रत व्रत",
-      "nameEn": "Kojagrat Vrata",
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -5355,24 +5169,24 @@
     {
       "day": 23,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 25,
-      "nameNp": "कागतिहार",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 25,
-      "nameNp": "यमदीपदान",
+      "nameNp": "यमदीप दान",
       "nameEn": "Yamadeep Daan",
       "publicHoliday": false
     },
@@ -5380,7 +5194,7 @@
       "day": 26,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 26,
@@ -5391,45 +5205,39 @@
     {
       "day": 27,
       "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
       "day": 28,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 29,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 29,
-      "nameNp": "किजापूजा",
-      "nameEn": "Kija Puja (Bhai Tika)",
+      "nameNp": "किजापूजा (भाइटीका)",
+      "nameEn": "Kija Puja (Newari Bhai Tika)",
       "publicHoliday": true
     },
     {
       "day": 30,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     }
   ],
   "2080-8": [
     {
       "day": 3,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 3,
-      "nameNp": "डाला पूजा",
-      "nameEn": "Dala Puja (Chhath)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -5452,26 +5260,20 @@
     },
     {
       "day": 7,
-      "nameNp": "हरिवोधिनी एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 7,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
       "day": 9,
-      "nameNp": "विष्णु वैकुण्ठ चतुर्दशी व्रत",
-      "nameEn": "Vishnu Vaikuntha Chaturdashi Vrata",
+      "nameNp": "वैकुण्ठ चतुर्दशी",
+      "nameEn": "Vaikuntha Chaturdashi",
       "publicHoliday": false
     },
     {
       "day": 10,
-      "nameNp": "शिव वैकुण्ठ चतुर्दशी व्रत",
-      "nameEn": "Shiva Vaikuntha Chaturdashi Vrata",
+      "nameNp": "वैकुण्ठ चतुर्दशी",
+      "nameEn": "Vaikuntha Chaturdashi",
       "publicHoliday": false
     },
     {
@@ -5512,8 +5314,8 @@
     },
     {
       "day": 22,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5532,14 +5334,8 @@
   "2080-9": [
     {
       "day": 1,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "सीता विवाहपञ्चमी मेला",
-      "nameEn": "Janakpur Vivaha Panchami Mela",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -5550,14 +5346,14 @@
     },
     {
       "day": 6,
-      "nameNp": "किर्तिपुरमा ईन्द्राणी यात्रा",
+      "nameNp": "कीर्तिपुर इन्द्रायणी जात्रा",
       "nameEn": "Kirtipur Indrayani Jatra",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "मोक्षदा एकादशी व्रत",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameNp": "मोक्षदा एकादशी",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5575,13 +5371,7 @@
     {
       "day": 10,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Yomari Punhi",
-      "publicHoliday": true
-    },
-    {
-      "day": 10,
-      "nameNp": "उधौलीपर्व",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
@@ -5594,7 +5384,7 @@
       "day": 15,
       "nameNp": "कविशिरोमणि लेखनाथ जयन्ती",
       "nameEn": "Lekhnath Poudyal Jayanti",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 16,
@@ -5610,14 +5400,14 @@
     },
     {
       "day": 20,
-      "nameNp": "गुरू गोविन्दसिंह जयन्ती",
+      "nameNp": "गुरु गोविन्दसिंह जयन्ती",
       "nameEn": "Guru Gobind Singh Jayanti",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5667,12 +5457,12 @@
     {
       "day": 7,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "श्रीस्वस्थानीव्रत सुरू",
+      "nameNp": "स्वस्थानी व्रत प्रारम्भ",
       "nameEn": "Swasthani Brata Begins",
       "publicHoliday": false
     },
@@ -5684,9 +5474,9 @@
     },
     {
       "day": 16,
-      "nameNp": "शाहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 20,
@@ -5697,12 +5487,12 @@
     {
       "day": 23,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 26,
-      "nameNp": "माधवनारायण मेला",
+      "nameNp": "माधव नारायण मेला",
       "nameEn": "Madhav Narayan Mela",
       "publicHoliday": false
     },
@@ -5720,13 +5510,13 @@
     },
     {
       "day": 27,
-      "nameNp": "श्रीवल्लभजयन्ती",
+      "nameNp": "श्रीवल्लभ जयन्ती",
       "nameEn": "Shri Vallabhacharya Jayanti",
       "publicHoliday": false
     },
     {
       "day": 29,
-      "nameNp": "देवघाटमा मकरस्नान समाप्ति",
+      "nameNp": "देवघाट मकर स्नान समाप्ति",
       "nameEn": "Devghat Makar Snan Concludes",
       "publicHoliday": false
     }
@@ -5740,20 +5530,14 @@
     },
     {
       "day": 1,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 2,
-      "nameNp": "वसन्तपञ्यमी",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
-      "publicHoliday": false
-    },
-    {
-      "day": 2,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
@@ -5772,18 +5556,18 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 8,
       "nameNp": "भीमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Bhima Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 12,
       "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Concludes",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
@@ -5807,7 +5591,7 @@
     {
       "day": 23,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5820,12 +5604,12 @@
       "day": 25,
       "nameNp": "नेपाली सेना दिवस",
       "nameEn": "Nepali Army Day (Maha Shivaratri)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 28,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     }
   ],
@@ -5845,7 +5629,7 @@
     {
       "day": 7,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5869,30 +5653,30 @@
     {
       "day": 23,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 26,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 29,
       "nameNp": "मत्स्येनारायण मेला",
       "nameEn": "Matsyanarayan Mela",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 29,
       "nameNp": "मत्स्यजयन्ती",
       "nameEn": "Matsya Jayanti",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 30,
-      "nameNp": "भ.पु. विश्वध्वजोत्थान",
+      "nameNp": "भक्तपुर विश्वध्वजोत्थान",
       "nameEn": "Bisket Jatra Pole Raising (Bhaktapur)",
       "publicHoliday": false
     }
@@ -5906,7 +5690,7 @@
     },
     {
       "day": 1,
-      "nameNp": "भ.पु. विश्वध्वजपातन",
+      "nameNp": "भक्तपुर विश्वध्वजपातन",
       "nameEn": "Biska Jatra (Pole Lowering)",
       "publicHoliday": false
     },
@@ -5918,7 +5702,7 @@
     },
     {
       "day": 3,
-      "nameNp": "भ.पु. ब्रम्हायणी यात्रा",
+      "nameNp": "भक्तपुर ब्रह्मायणी जात्रा",
       "nameEn": "Bhaktapur Brahmayani Jatra",
       "publicHoliday": false
     },
@@ -5930,7 +5714,7 @@
     },
     {
       "day": 4,
-      "nameNp": "चैतेदशैं",
+      "nameNp": "चैते दशैं",
       "nameEn": "Chaite Dashain",
       "publicHoliday": false
     },
@@ -5943,7 +5727,7 @@
     {
       "day": 7,
       "nameNp": "कामदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -5966,14 +5750,14 @@
     },
     {
       "day": 11,
-      "nameNp": "ल्हुति पुन्हिः",
+      "nameNp": "ल्हुतिपुन्हीः",
       "nameEn": "Lhuti Punhi (Balaju Baise Dhara)",
       "publicHoliday": false
     },
     {
       "day": 12,
-      "nameNp": "ल.पु. रातो मच्छिन्द्रनाथ स्नान",
-      "nameEn": "Rato Machhendranath Snan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
       "publicHoliday": false
     },
     {
@@ -5991,14 +5775,14 @@
     {
       "day": 19,
       "nameNp": "विश्व श्रमिक दिवस",
-      "nameEn": "International Labour Day",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 19,
       "nameNp": "बुधाष्टमी व्रत",
       "nameEn": "Budhashtami Vrata",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 20,
@@ -6027,13 +5811,13 @@
     {
       "day": 26,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 27,
-      "nameNp": "ल.पु. मच्छिन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
       "publicHoliday": false
     },
     {
@@ -6050,13 +5834,13 @@
     },
     {
       "day": 29,
-      "nameNp": "ललितपुर रातो मत्स्येन्द्रनाथ रथयात्रा आरम्भ",
-      "nameEn": "Rato Machhendranath Rath Jatra Begins",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
       "day": 30,
-      "nameNp": "आद्यगुरू शङ्कराचार्य जयन्ती",
+      "nameNp": "आद्यगुरु शङ्कराचार्य जयन्ती",
       "nameEn": "Adi Shankaracharya Jayanti",
       "publicHoliday": false
     }
@@ -6094,20 +5878,14 @@
     },
     {
       "day": 10,
-      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
-      "nameEn": "Buddha Jayanti & Ubhauli Parva",
-      "publicHoliday": true
-    },
-    {
-      "day": 10,
-      "nameNp": "स्वाँया पून्हिः",
-      "nameEn": "Swanya Punhi (Buddha Jayanti)",
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व (स्वाँया पुन्हि)",
+      "nameEn": "Buddha Jayanti & Ubhauli Parva (Swaya Punhi)",
       "publicHoliday": true
     },
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
@@ -6124,8 +5902,8 @@
     },
     {
       "day": 20,
-      "nameNp": "स्मार्तहरूको अपरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अपरा एकादशी (स्मार्त)",
+      "nameEn": "Apara Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
@@ -6142,14 +5920,14 @@
     },
     {
       "day": 23,
-      "nameNp": "सिथिचःह्रे",
-      "nameEn": "Sithi Chahre",
+      "nameNp": "सिथिचह्रे पूजा",
+      "nameEn": "Sithi Chahre Puja",
       "publicHoliday": false
     },
     {
       "day": 24,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -6160,7 +5938,7 @@
     },
     {
       "day": 25,
-      "nameNp": "गोसाइँकुण्डस्नान आरम्भ",
+      "nameNp": "गोसाइँकुण्ड स्नान आरम्भ",
       "nameEn": "Gosaikunda Snan Begins",
       "publicHoliday": false
     },
@@ -6204,26 +5982,20 @@
     },
     {
       "day": 2,
-      "nameNp": "गोसाइँकुण्ड स्नानसमाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
+      "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
       "day": 3,
-      "nameNp": "स्मार्तहरूको निर्जला एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": true
-    },
-    {
-      "day": 4,
-      "nameNp": "बैष्णवहरूको निर्जला एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
       "day": 4,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
-      "nameEn": "Nirjala Ekadashi",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
@@ -6252,13 +6024,13 @@
     },
     {
       "day": 11,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "भूमिपूजा",
+      "nameNp": "भूमि पूजा",
       "nameEn": "Bhumi Puja",
       "publicHoliday": false
     },
@@ -6270,8 +6042,8 @@
     },
     {
       "day": 15,
-      "nameNp": "दही चिउरा खाने दिन",
-      "nameEn": "National Paddy Day (Dahi Chiura)",
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -6282,8 +6054,8 @@
     },
     {
       "day": 18,
-      "nameNp": "योगिनी एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी",
+      "nameEn": "Yogini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -6294,8 +6066,8 @@
     },
     {
       "day": 21,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -6327,25 +6099,13 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "लुतो फाल्ने एवं राँको बाल्ने",
-      "nameEn": "Saune Sankranti (Luto Phalne)",
-      "publicHoliday": false
-    },
-    {
-      "day": 2,
-      "nameNp": "हरिशयनी एकादशी व्रत",
-      "nameEn": "Harishayani Ekadashi",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
       "day": 2,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
@@ -6356,8 +6116,8 @@
     },
     {
       "day": 6,
-      "nameNp": "गुरू पूर्णिमा",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameNp": "गुरु पूर्णिमा",
+      "nameEn": "Guru Purnima",
       "publicHoliday": false
     },
     {
@@ -6380,14 +6140,14 @@
     },
     {
       "day": 16,
-      "nameNp": "कामिका एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "कामिका एकादशी",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 18,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -6443,18 +6203,18 @@
     {
       "day": 3,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 4,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 5,
-      "nameNp": "रोपाईं जात्रा",
+      "nameNp": "रोपाइँ जात्रा",
       "nameEn": "Ropain Jatra",
       "publicHoliday": false
     },
@@ -6472,8 +6232,8 @@
     },
     {
       "day": 8,
-      "nameNp": "ल.पु. नृसिंह यात्रा",
-      "nameEn": "Lalitpur Narsimha Jatra",
+      "nameNp": "ललितपुर नृसिंह जात्रा",
+      "nameEn": "Lalitpur Narsingh Jatra",
       "publicHoliday": false
     },
     {
@@ -6485,13 +6245,13 @@
     {
       "day": 10,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 10,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
@@ -6502,8 +6262,8 @@
     },
     {
       "day": 13,
-      "nameNp": "अजा एकादशी (स्मार्त)",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अजा एकादशी",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
@@ -6520,7 +6280,7 @@
     },
     {
       "day": 15,
-      "nameNp": "यँ पञ्चदान",
+      "nameNp": "येँ पञ्चदान",
       "nameEn": "Yen Panchadan (Kathmandu)",
       "publicHoliday": false
     },
@@ -6533,7 +6293,7 @@
     {
       "day": 17,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -6544,20 +6304,20 @@
     },
     {
       "day": 20,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 20,
-      "nameNp": "मानव वेचविखन विरूद्धको राष्ट्रिय दिवस",
+      "nameNp": "मानव बेचबिखन विरुद्धको राष्ट्रिय दिवस",
       "nameEn": "National Anti-Human Trafficking Day",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -6574,7 +6334,7 @@
     },
     {
       "day": 23,
-      "nameNp": "ऋषिपञ्चमी",
+      "nameNp": "ऋषि पञ्चमी",
       "nameEn": "Rishi Panchami",
       "publicHoliday": false
     },
@@ -6598,8 +6358,8 @@
     },
     {
       "day": 29,
-      "nameNp": "हरिपरिवर्तिनी एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
@@ -6612,12 +6372,12 @@
       "day": 30,
       "nameNp": "वामन द्वादशी",
       "nameEn": "Vamana Dwadashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 30,
-      "nameNp": "इन्द्रध्वजोत्थान",
-      "nameEn": "Indra Dhwaja Utthan (Indra Jatra Begins)",
+      "nameNp": "इन्द्रध्वज उत्थान",
+      "nameEn": "Indradhwoj Utthan (Erection of Indra's Flag)",
       "publicHoliday": false
     }
   ],
@@ -6630,20 +6390,20 @@
     },
     {
       "day": 1,
-      "nameNp": "कुमारी इन्द्रजात्रा",
-      "nameEn": "Indra Jatra",
-      "publicHoliday": true
-    },
-    {
-      "day": 2,
-      "nameNp": "सोह्रश्राद्ध आरम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Kumari Indra Jatra (Valley Holiday)",
       "publicHoliday": false
     },
     {
       "day": 2,
-      "nameNp": "यँया पुन्हिः",
-      "nameEn": "Yenya Punhi (Indra Jatra Day)",
+      "nameNp": "सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "यँन्या पुन्हिः",
+      "nameEn": "Yenya Punhi (Indra Jatra Full Moon)",
       "publicHoliday": false
     },
     {
@@ -6656,7 +6416,7 @@
       "day": 3,
       "nameNp": "द्वितीया श्राद्ध",
       "nameEn": "Dwitiya Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 4,
@@ -6672,8 +6432,8 @@
     },
     {
       "day": 5,
-      "nameNp": "ईन्द्रध्वजपातन",
-      "nameEn": "Indra Dhwaja Patan (Indra Jatra Ends)",
+      "nameNp": "इन्द्रध्वज पातन",
+      "nameEn": "Indradhwoj Patan (Lowering of Indra's Flag)",
       "publicHoliday": false
     },
     {
@@ -6696,7 +6456,7 @@
     },
     {
       "day": 9,
-      "nameNp": "जितियापर्व",
+      "nameNp": "जितिया पर्व",
       "nameEn": "Jitiya Parva",
       "publicHoliday": false
     },
@@ -6720,8 +6480,8 @@
     },
     {
       "day": 12,
-      "nameNp": "इन्दिरा एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
@@ -6734,7 +6494,7 @@
       "day": 13,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 14,
@@ -6762,8 +6522,8 @@
     },
     {
       "day": 16,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -6773,33 +6533,15 @@
       "publicHoliday": true
     },
     {
-      "day": 17,
-      "nameNp": "नवरात्र आरम्भ",
-      "nameEn": "Navaratri Begins",
-      "publicHoliday": true
-    },
-    {
       "day": 24,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
-      "publicHoliday": true
-    },
-    {
-      "day": 24,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
-      "publicHoliday": true
-    },
-    {
-      "day": 25,
-      "nameNp": "कालरात्रि",
-      "nameEn": "Kalaratri (Maha Ashtami)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -6811,31 +6553,31 @@
     {
       "day": 27,
       "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "अन्नपूर्णा यात्रा",
-      "nameEn": "Annapurna Jatra (Asan)",
-      "publicHoliday": true
+      "nameEn": "Annapurna Jatra",
+      "publicHoliday": false
     },
     {
       "day": 28,
       "nameNp": "द्वादशी",
       "nameEn": "Dwadashi Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 28,
       "nameNp": "विश्व गुणस्तर दिवस",
       "nameEn": "World Quality Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 30,
-      "nameNp": "कोजाग्रत व्रत",
-      "nameEn": "Kojagrat Vrata",
+      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -6849,7 +6591,7 @@
     {
       "day": 1,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -6879,13 +6621,13 @@
     {
       "day": 12,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 13,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -6896,13 +6638,13 @@
     },
     {
       "day": 14,
-      "nameNp": "कागतिहार",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameNp": "काग तिहार तथा धनतेरस",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 14,
-      "nameNp": "यमदीपदान",
+      "nameNp": "यमदीप दान",
       "nameEn": "Yamadeep Daan",
       "publicHoliday": false
     },
@@ -6910,60 +6652,54 @@
       "day": 15,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "दर्श श्राद्ध",
       "nameEn": "Darsha Shraddha / Aunsi",
-      "publicHoliday": true
-    },
-    {
-      "day": 17,
-      "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship)",
       "publicHoliday": false
     },
     {
       "day": 17,
+      "nameNp": "गाई पूजा (तिहार)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
+      "publicHoliday": true
+    },
+    {
+      "day": 17,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 18,
-      "nameNp": "किजापूजा",
-      "nameEn": "Kija Puja (Bhai Tika)",
+      "nameNp": "किजापूजा (भाइटीका)",
+      "nameEn": "Kija Puja (Newari Bhai Tika)",
       "publicHoliday": true
     },
     {
       "day": 19,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 20,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 22,
-      "nameNp": "डाला पूजा",
-      "nameEn": "Dala Puja (Chhath)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -6998,14 +6734,8 @@
     },
     {
       "day": 27,
-      "nameNp": "हरिबोधनी एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 27,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
@@ -7042,7 +6772,7 @@
   "2081-8": [
     {
       "day": 4,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -7072,8 +6802,8 @@
     },
     {
       "day": 11,
-      "nameNp": "उत्पतिका एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7108,14 +6838,8 @@
     },
     {
       "day": 21,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
-      "publicHoliday": false
-    },
-    {
-      "day": 21,
-      "nameNp": "जनकपुरमा सीता विवाह पञ्चमी मेला",
-      "nameEn": "Janakpur Vivaha Panchami Mela",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -7132,20 +6856,14 @@
     },
     {
       "day": 26,
-      "nameNp": "मोक्षदा एकादशी व्रत",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameNp": "मोक्षदा एकादशी",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 30,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Yomari Punhi",
-      "publicHoliday": true
-    },
-    {
-      "day": 30,
-      "nameNp": "उधौलीपर्व",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     }
   ],
@@ -7171,7 +6889,7 @@
     {
       "day": 11,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7200,7 +6918,7 @@
     },
     {
       "day": 21,
-      "nameNp": "गुरू गोविन्दसिंह जयन्ती",
+      "nameNp": "गुरु गोविन्दसिंह जयन्ती",
       "nameEn": "Guru Gobind Singh Jayanti",
       "publicHoliday": false
     },
@@ -7236,7 +6954,7 @@
     },
     {
       "day": 29,
-      "nameNp": "श्रीस्वस्थानीव्रत सुरू",
+      "nameNp": "स्वस्थानी व्रत प्रारम्भ",
       "nameEn": "Swasthani Brata Begins",
       "publicHoliday": false
     },
@@ -7275,20 +6993,20 @@
     {
       "day": 12,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 16,
-      "nameNp": "शहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
+      "nameNp": "सहिद दिवस",
+      "nameEn": "Martyrs Day (Sahid Diwas)",
       "publicHoliday": true
     },
     {
       "day": 16,
       "nameNp": "माधव नारायण मेला",
       "nameEn": "Madhav Narayan Mela",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 17,
@@ -7300,24 +7018,18 @@
       "day": 17,
       "nameNp": "श्रीवल्लभ जयन्ती",
       "nameEn": "Shri Vallabhacharya Jayanti",
-      "publicHoliday": true
-    },
-    {
-      "day": 21,
-      "nameNp": "वसन्तपञ्यमी",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
       "publicHoliday": false
     },
     {
       "day": 21,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
       "day": 26,
       "nameNp": "भीमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Bhima Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7329,7 +7041,7 @@
     {
       "day": 30,
       "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Concludes",
+      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
@@ -7368,7 +7080,7 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 8,
@@ -7385,7 +7097,7 @@
     {
       "day": 12,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7398,12 +7110,12 @@
       "day": 14,
       "nameNp": "नेपाली सेना दिवस",
       "nameEn": "Nepali Army Day (Maha Shivaratri)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
@@ -7427,13 +7139,13 @@
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 26,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7488,8 +7200,8 @@
     },
     {
       "day": 16,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -7519,12 +7231,12 @@
     {
       "day": 23,
       "nameNp": "सेतो मच्छेन्द्रनाथ रथयात्रा आरम्भ",
-      "nameEn": "Seto Machhendranath Rath Jatra Begins",
+      "nameEn": "Seto Machhendranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
       "day": 24,
-      "nameNp": "राम नवमी",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
       "publicHoliday": true
     },
@@ -7536,8 +7248,8 @@
     },
     {
       "day": 26,
-      "nameNp": "कामदा एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "कामदा एकादशी",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -7560,8 +7272,8 @@
     },
     {
       "day": 31,
-      "nameNp": "ल.पु. रातो मच्छिन्द्रनाथ स्नान",
-      "nameEn": "Rato Machhendranath Snan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
       "publicHoliday": false
     },
     {
@@ -7581,8 +7293,8 @@
     {
       "day": 1,
       "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
-      "nameEn": "Rato Machhendranath Snan",
-      "publicHoliday": true
+      "nameEn": "Lalitpur Rato Machhindranath Snan",
+      "publicHoliday": false
     },
     {
       "day": 2,
@@ -7592,19 +7304,19 @@
     },
     {
       "day": 3,
-      "nameNp": "भक्तपुर ब्रम्हायणी यात्रा",
+      "nameNp": "भक्तपुर ब्रह्मायणी जात्रा",
       "nameEn": "Bhaktapur Brahmayani Jatra",
       "publicHoliday": false
     },
     {
       "day": 3,
-      "nameNp": "स्वामी शशीधर जयन्ती",
+      "nameNp": "स्वामी शशिधर जयन्ती",
       "nameEn": "Swami Shashidhar Jayanti",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "रविसप्तमी",
+      "nameNp": "रवि सप्तमी",
       "nameEn": "Ravi Saptami",
       "publicHoliday": false
     },
@@ -7653,13 +7365,13 @@
     {
       "day": 14,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 15,
-      "nameNp": "ललितपुर मच्छिन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
       "publicHoliday": false
     },
     {
@@ -7683,14 +7395,14 @@
     {
       "day": 18,
       "nameNp": "विश्व श्रमिक दिवस",
-      "nameEn": "International Labour Day",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
       "day": 18,
-      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथ यात्रा आरम्भ",
-      "nameEn": "Rato Machhendranath Rath Jatra Begins",
-      "publicHoliday": true
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
+      "publicHoliday": false
     },
     {
       "day": 19,
@@ -7760,14 +7472,8 @@
     },
     {
       "day": 29,
-      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
-      "nameEn": "Buddha Jayanti & Ubhauli Parva",
-      "publicHoliday": true
-    },
-    {
-      "day": 29,
-      "nameNp": "स्वाँया पून्हिः",
-      "nameEn": "Swanya Punhi (Buddha Jayanti)",
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व (स्वाँया पुन्हि)",
+      "nameEn": "Buddha Jayanti & Ubhauli Parva (Swaya Punhi)",
       "publicHoliday": true
     }
   ],
@@ -7787,13 +7493,13 @@
     {
       "day": 9,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "सिथिःचःह्रे",
-      "nameEn": "Sithi Chahre",
+      "nameNp": "सिथिचह्रे पूजा",
+      "nameEn": "Sithi Chahre Puja",
       "publicHoliday": false
     },
     {
@@ -7811,7 +7517,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
@@ -7853,7 +7559,7 @@
     {
       "day": 22,
       "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
@@ -7864,14 +7570,8 @@
     },
     {
       "day": 24,
-      "nameNp": "निर्जला एकादशी",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 24,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
-      "nameEn": "Nirjala Ekadashi",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
@@ -7920,20 +7620,20 @@
     },
     {
       "day": 5,
-      "nameNp": "देउपाटनमा त्रिशुल जात्रा",
-      "nameEn": "Deopatan Trishul Jatra",
+      "nameNp": "देउपाटनमा त्रिशूल जात्रा",
+      "nameEn": "Deupatan Trishul Jatra",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "स्मार्तहरूको योगिनी एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी (स्मार्त)",
+      "nameEn": "Yogini Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "वैष्णवहरुको योगिनी एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी (वैष्णव)",
+      "nameEn": "Yogini Ekadashi (Vaishnav)",
       "publicHoliday": false
     },
     {
@@ -7950,13 +7650,13 @@
     },
     {
       "day": 11,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
       "day": 11,
-      "nameNp": "भूमिपूजा",
+      "nameNp": "भूमि पूजा",
       "nameEn": "Bhumi Puja",
       "publicHoliday": false
     },
@@ -7969,13 +7669,7 @@
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
-      "nameNp": "राष्ट्रिय धान दिवस",
-      "nameEn": "National Paddy Day (Ropain Diwas)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -7992,20 +7686,14 @@
     },
     {
       "day": 22,
-      "nameNp": "हरिशयनी एकादशीव्रत",
-      "nameEn": "Harishayani Ekadashi",
-      "publicHoliday": false
-    },
-    {
-      "day": 22,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
       "day": 26,
-      "nameNp": "गुरू पूर्णिमा",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameNp": "गुरु पूर्णिमा",
+      "nameEn": "Guru Purnima",
       "publicHoliday": false
     },
     {
@@ -8031,13 +7719,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "लुतो फाल्ने एवं राँको बाल्ने",
-      "nameEn": "Saune Sankranti (Luto Phalne)",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -8049,13 +7731,13 @@
     {
       "day": 5,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 7,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -8109,7 +7791,7 @@
     {
       "day": 20,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -8127,13 +7809,13 @@
     {
       "day": 24,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 25,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -8150,22 +7832,22 @@
     },
     {
       "day": 29,
-      "nameNp": "ललितपुर नृसिंह यात्रा",
-      "nameEn": "Lalitpur Narsimha Jatra",
+      "nameNp": "ललितपुर नृसिंह जात्रा",
+      "nameEn": "Lalitpur Narsingh Jatra",
       "publicHoliday": false
     },
     {
       "day": 31,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     }
   ],
   "2082-5": [
     {
       "day": 3,
-      "nameNp": "अजा एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "अजा एकादशी",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
@@ -8182,7 +7864,7 @@
     },
     {
       "day": 5,
-      "nameNp": "यें पञ्चदान",
+      "nameNp": "येँ पञ्चदान",
       "nameEn": "Yen Panchadan (Kathmandu)",
       "publicHoliday": false
     },
@@ -8195,7 +7877,7 @@
     {
       "day": 7,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -8206,14 +7888,14 @@
     },
     {
       "day": 9,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 10,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
@@ -8224,7 +7906,7 @@
     },
     {
       "day": 12,
-      "nameNp": "ऋषिपञ्चमी",
+      "nameNp": "ऋषि पञ्चमी",
       "nameEn": "Rishi Panchami",
       "publicHoliday": false
     },
@@ -8242,9 +7924,9 @@
     },
     {
       "day": 15,
-      "nameNp": "गौरा पर्व (काय अष्टमी)",
-      "nameEn": "Gaura Parva (Aya Ashtami)",
-      "publicHoliday": false
+      "nameNp": "गौरा पर्व",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
+      "publicHoliday": true
     },
     {
       "day": 15,
@@ -8254,38 +7936,38 @@
     },
     {
       "day": 18,
-      "nameNp": "हरिपरिवर्तनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "हरिपरिवर्तिनी एकादशी",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 19,
-      "nameNp": "इन्द्रध्वजोत्थान",
-      "nameEn": "Indra Dhwaja Utthan (Indra Jatra Begins)",
+      "nameNp": "इन्द्रध्वज उत्थान",
+      "nameEn": "Indradhwoj Utthan (Erection of Indra's Flag)",
       "publicHoliday": false
     },
     {
       "day": 19,
       "nameNp": "वामन द्वादशी",
       "nameEn": "Vamana Dwadashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 20,
-      "nameNp": "मानव वेचविखन विरुद्धको राष्ट्रिय दिवस",
+      "nameNp": "मानव बेचबिखन विरुद्धको राष्ट्रिय दिवस",
       "nameEn": "National Anti-Human Trafficking Day",
       "publicHoliday": false
     },
     {
       "day": 21,
-      "nameNp": "ईन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
-      "publicHoliday": false
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
+      "publicHoliday": true
     },
     {
       "day": 22,
-      "nameNp": "यैँया पुन्हिः",
-      "nameEn": "Yenya Punhi (Indra Jatra Day)",
+      "nameNp": "यँन्या पुन्हिः",
+      "nameEn": "Yenya Punhi (Indra Jatra Full Moon)",
       "publicHoliday": false
     },
     {
@@ -8296,8 +7978,8 @@
     },
     {
       "day": 23,
-      "nameNp": "सोह्रश्राद्ध आरम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameNp": "सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -8326,8 +8008,8 @@
     },
     {
       "day": 26,
-      "nameNp": "इन्द्रध्वजपातन",
-      "nameEn": "Indra Dhwaja Patan (Indra Jatra Ends)",
+      "nameNp": "इन्द्रध्वज पातन",
+      "nameEn": "Indradhwoj Patan (Lowering of Indra's Flag)",
       "publicHoliday": false
     },
     {
@@ -8382,21 +8064,21 @@
     },
     {
       "day": 1,
-      "nameNp": "इन्दिरा एकादशीव्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "इन्दिरा एकादशी",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 2,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 3,
       "nameNp": "त्रयोदशी श्राद्ध",
       "nameEn": "Trayodashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 3,
@@ -8418,20 +8100,14 @@
     },
     {
       "day": 5,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
       "day": 6,
       "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
       "nameEn": "Ghatasthapana (Dashain Begins)",
-      "publicHoliday": true
-    },
-    {
-      "day": 6,
-      "nameNp": "नवरात्र आरम्भ",
-      "nameEn": "Navaratri Begins",
       "publicHoliday": true
     },
     {
@@ -8443,31 +8119,19 @@
     {
       "day": 13,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
-      "publicHoliday": true
-    },
-    {
-      "day": 13,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
-      "publicHoliday": true
-    },
-    {
-      "day": 14,
-      "nameNp": "कालरात्रि",
-      "nameEn": "Kalaratri (Maha Ashtami)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 15,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -8478,32 +8142,32 @@
     },
     {
       "day": 17,
-      "nameNp": "पापाङकुशा एकादशीव्रत",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 17,
       "nameNp": "अन्नपूर्णा यात्रा",
-      "nameEn": "Annapurna Jatra (Asan)",
-      "publicHoliday": true
+      "nameEn": "Annapurna Jatra",
+      "publicHoliday": false
     },
     {
       "day": 18,
       "nameNp": "द्वादशी",
       "nameEn": "Dwadashi Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 20,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Vrata",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
       "day": 21,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -8539,7 +8203,7 @@
     {
       "day": 31,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -8547,7 +8211,7 @@
     {
       "day": 1,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -8559,7 +8223,7 @@
     {
       "day": 2,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -8572,19 +8236,13 @@
       "day": 3,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
-    },
-    {
-      "day": 4,
-      "nameNp": "औंसी",
-      "nameEn": "Aunsi (Amavasya)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 4,
       "nameNp": "दर्श श्राद्ध",
       "nameEn": "Darsha Shraddha / Aunsi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 4,
@@ -8594,38 +8252,32 @@
     },
     {
       "day": 5,
-      "nameNp": "गाई पूजा",
-      "nameEn": "Gai Puja",
+      "nameNp": "गाई पूजा (तिहार)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
       "day": 5,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Goru Puja",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 6,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 7,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 10,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 10,
-      "nameNp": "डाला पूजा",
-      "nameEn": "Dala Puja (Chhath)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -8654,14 +8306,8 @@
     },
     {
       "day": 15,
-      "nameNp": "हरिबोधिनी एकादशी",
-      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
-      "publicHoliday": false
-    },
-    {
-      "day": 15,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
@@ -8714,8 +8360,8 @@
     },
     {
       "day": 29,
-      "nameNp": "उत्पतिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "उत्पत्तिका एकादशी",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -8740,14 +8386,8 @@
     },
     {
       "day": 9,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
-      "publicHoliday": false
-    },
-    {
-      "day": 9,
-      "nameNp": "जनकपुरमा सीता विवाह पञ्चमी मेला",
-      "nameEn": "Janakpur Vivaha Panchami Mela",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -8765,7 +8405,7 @@
     {
       "day": 15,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -8777,13 +8417,7 @@
     {
       "day": 18,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Yomari Punhi",
-      "publicHoliday": true
-    },
-    {
-      "day": 18,
-      "nameNp": "उधौलीपर्व",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
@@ -8807,7 +8441,7 @@
     {
       "day": 29,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -8839,8 +8473,8 @@
     {
       "day": 15,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": true
+      "nameEn": "Putrada Ekadashi",
+      "publicHoliday": false
     },
     {
       "day": 15,
@@ -8862,14 +8496,8 @@
     },
     {
       "day": 19,
-      "nameNp": "श्रीस्वस्थानीव्रत आरम्भ",
-      "nameEn": "Swasthani Brata Begins",
-      "publicHoliday": false
-    },
-    {
-      "day": 19,
-      "nameNp": "मिला पुन्हिः",
-      "nameEn": "Mila Punhi (Swasthani Concludes)",
+      "nameNp": "स्वस्थानी व्रत प्रारम्भ (मिला पुन्हि)",
+      "nameEn": "Swasthani Brata Begins (Mila Punhi)",
       "publicHoliday": false
     },
     {
@@ -8904,8 +8532,8 @@
     },
     {
       "day": 30,
-      "nameNp": "षट्तिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "षटतिला एकादशी",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     }
   ],
@@ -8942,14 +8570,8 @@
     },
     {
       "day": 9,
-      "nameNp": "वसन्तपञ्यमी",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
-      "publicHoliday": false
-    },
-    {
-      "day": 9,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
@@ -8985,20 +8607,20 @@
     {
       "day": 15,
       "nameNp": "जया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Jaya Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
+      "nameEn": "Martyrs Day (Sahid Diwas)",
       "publicHoliday": true
     },
     {
       "day": 16,
       "nameNp": "चाँगुमा माधव नारायण मेला",
       "nameEn": "Changu Madhav Narayan Mela",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 17,
@@ -9008,14 +8630,8 @@
     },
     {
       "day": 18,
-      "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Ends",
-      "publicHoliday": false
-    },
-    {
-      "day": 18,
-      "nameNp": "सि पुन्हिः",
-      "nameEn": "Si Punhi",
+      "nameNp": "स्वस्थानी व्रत समाप्ति (सि पुन्हि)",
+      "nameEn": "Swasthani Brata Ends (Si Punhi)",
       "publicHoliday": false
     },
     {
@@ -9040,8 +8656,8 @@
   "2082-11": [
     {
       "day": 1,
-      "nameNp": "विजया एकादशी व्रत",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "विजया एकादशी",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
@@ -9058,20 +8674,14 @@
     },
     {
       "day": 3,
-      "nameNp": "महाशिवरात्रि",
-      "nameEn": "Maha Shivaratri",
-      "publicHoliday": true
-    },
-    {
-      "day": 3,
-      "nameNp": "सिलाचह्रे:",
-      "nameEn": "Silachahre (Maha Shivaratri)",
+      "nameNp": "महाशिवरात्रि (सिलाचह्रे)",
+      "nameEn": "Maha Shivaratri (Silachahre)",
       "publicHoliday": true
     },
     {
       "day": 6,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
@@ -9084,7 +8694,7 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 12,
@@ -9101,13 +8711,13 @@
     {
       "day": 15,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 18,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
@@ -9115,12 +8725,6 @@
       "nameNp": "चीरदाह",
       "nameEn": "Chir Daha (Holi Bonfire)",
       "publicHoliday": false
-    },
-    {
-      "day": 19,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
-      "publicHoliday": true
     },
     {
       "day": 19,
@@ -9143,7 +8747,7 @@
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
@@ -9163,7 +8767,7 @@
     {
       "day": 1,
       "nameNp": "पापमोचिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Papamochani Ekadashi",
       "publicHoliday": false
     },
     {
@@ -9174,8 +8778,8 @@
     },
     {
       "day": 4,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -9199,8 +8803,8 @@
     {
       "day": 10,
       "nameNp": "चैती छठ",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
+      "nameEn": "Chaiti Chhath",
+      "publicHoliday": false
     },
     {
       "day": 12,
@@ -9211,25 +8815,19 @@
     {
       "day": 12,
       "nameNp": "सेतो मच्छेन्द्रनाथ रथयात्रा आरम्भ",
-      "nameEn": "Seto Machhendranath Rath Jatra Begins",
+      "nameEn": "Seto Machhendranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
       "day": 13,
-      "nameNp": "राम नवमी",
+      "nameNp": "रामनवमी",
       "nameEn": "Ram Navami",
-      "publicHoliday": true
-    },
-    {
-      "day": 13,
-      "nameNp": "श्रीराम जयन्ती",
-      "nameEn": "Shri Ram Jayanti",
       "publicHoliday": true
     },
     {
       "day": 15,
       "nameNp": "कामदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -9298,7 +8896,7 @@
       "day": 1,
       "nameNp": "भक्तपुर विश्वध्वजपातन",
       "nameEn": "Biska Jatra (Pole Lowering)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 2,
@@ -9308,7 +8906,7 @@
     },
     {
       "day": 3,
-      "nameNp": "भक्तपुर ब्रम्हायणी यात्रा",
+      "nameNp": "भक्तपुर ब्रह्मायणी जात्रा",
       "nameEn": "Bhaktapur Brahmayani Jatra",
       "publicHoliday": false
     },
@@ -9321,13 +8919,13 @@
     {
       "day": 4,
       "nameNp": "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)",
-      "nameEn": "Mother's Day (Matatirtha Aunsi)",
+      "nameEn": "Matatirtha Aunsi (Mothers Day)",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "ललितपुर मच्छिन्द्रनाथ रथारोहण",
-      "nameEn": "Rato Machhendranath Ratharohan",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथारोहण",
+      "nameEn": "Lalitpur Rato Machhindranath Ratharohan",
       "publicHoliday": false
     },
     {
@@ -9350,8 +8948,8 @@
     },
     {
       "day": 8,
-      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथ यात्रा आरम्भ",
-      "nameEn": "Rato Machhendranath Rath Jatra Begins",
+      "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
+      "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
       "publicHoliday": false
     },
     {
@@ -9362,7 +8960,7 @@
     },
     {
       "day": 9,
-      "nameNp": "आद्यगुरू शंखराचार्य जयन्ती",
+      "nameNp": "आद्यगुरु शङ्कराचार्य जयन्ती",
       "nameEn": "Adi Shankaracharya Jayanti",
       "publicHoliday": false
     },
@@ -9404,14 +9002,8 @@
     },
     {
       "day": 18,
-      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व",
-      "nameEn": "Buddha Jayanti & Ubhauli Parva",
-      "publicHoliday": true
-    },
-    {
-      "day": 18,
-      "nameNp": "स्वाँया पून्हिः",
-      "nameEn": "Swanya Punhi (Buddha Jayanti)",
+      "nameNp": "बुद्ध जयन्ती तथा उभौली पर्व (स्वाँया पुन्हि)",
+      "nameEn": "Buddha Jayanti & Ubhauli Parva (Swaya Punhi)",
       "publicHoliday": true
     },
     {
@@ -9422,7 +9014,7 @@
     },
     {
       "day": 22,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -9447,15 +9039,15 @@
     {
       "day": 30,
       "nameNp": "अपरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Apara Ekadashi",
       "publicHoliday": false
     }
   ],
   "2083-2": [
     {
       "day": 1,
-      "nameNp": "सिथिः चःह्रे",
-      "nameEn": "Sithi Chahre",
+      "nameNp": "सिथिचह्रे पूजा",
+      "nameEn": "Sithi Chahre Puja",
       "publicHoliday": false
     },
     {
@@ -9491,7 +9083,7 @@
     {
       "day": 12,
       "nameNp": "गोसाइँकुण्ड स्नान समाप्ति",
-      "nameEn": "Gosaikunda Snan Ends",
+      "nameEn": "Gosaikunda Snan Concludes",
       "publicHoliday": false
     },
     {
@@ -9515,7 +9107,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     },
     {
@@ -9574,8 +9166,8 @@
     },
     {
       "day": 31,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     }
   ],
@@ -9606,7 +9198,7 @@
     },
     {
       "day": 7,
-      "nameNp": "रवी सप्तमी",
+      "nameNp": "रवि सप्तमी",
       "nameEn": "Ravi Saptami",
       "publicHoliday": false
     },
@@ -9630,14 +9222,8 @@
     },
     {
       "day": 11,
-      "nameNp": "निर्जला एकादशी",
-      "nameEn": "Ekadashi Vrata",
-      "publicHoliday": false
-    },
-    {
-      "day": 11,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
-      "nameEn": "Nirjala Ekadashi",
+      "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
       "publicHoliday": false
     },
     {
@@ -9672,20 +9258,20 @@
     },
     {
       "day": 24,
-      "nameNp": "देउपाटनमा त्रिशुल जात्रा",
-      "nameEn": "Deopatan Trishul Jatra",
+      "nameNp": "देउपाटनमा त्रिशूल जात्रा",
+      "nameEn": "Deupatan Trishul Jatra",
       "publicHoliday": false
     },
     {
       "day": 26,
-      "nameNp": "स्मार्तहरूको योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी (स्मार्त)",
+      "nameEn": "Yogini Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
       "day": 27,
-      "nameNp": "वैष्णवहरुको योगिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "योगिनी एकादशी (वैष्णव)",
+      "nameEn": "Yogini Ekadashi (Vaishnav)",
       "publicHoliday": false
     },
     {
@@ -9708,8 +9294,8 @@
     },
     {
       "day": 30,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
@@ -9723,13 +9309,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
-      "publicHoliday": false
-    },
-    {
-      "day": 1,
-      "nameNp": "लुतो फाल्ने एवं राँको बाल्ने",
-      "nameEn": "Saune Sankranti (Luto Phalne)",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -9740,20 +9320,14 @@
     },
     {
       "day": 9,
-      "nameNp": "हरिशयनी एकादशी",
-      "nameEn": "Harishayani Ekadashi",
-      "publicHoliday": false
-    },
-    {
-      "day": 9,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Tulsi Ropne Din",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     },
     {
       "day": 13,
-      "nameNp": "गुरू पूर्णिमा",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameNp": "गुरु पूर्णिमा",
+      "nameEn": "Guru Purnima",
       "publicHoliday": false
     },
     {
@@ -9777,13 +9351,13 @@
     {
       "day": 24,
       "nameNp": "कामिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Kamika Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 26,
       "nameNp": "गठेमंगल (घण्टाकर्ण चतुर्दशी)",
-      "nameEn": "Gathamuga (Ghantakarna Chaturdashi)",
+      "nameEn": "Gathamangal (Ghantakarna Chaturdashi)",
       "publicHoliday": false
     },
     {
@@ -9839,7 +9413,7 @@
     {
       "day": 7,
       "nameNp": "पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Putrada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -9857,13 +9431,13 @@
     {
       "day": 12,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 13,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -9880,38 +9454,38 @@
     },
     {
       "day": 16,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
     {
       "day": 16,
-      "nameNp": "ललितपुर नृसिंह यात्रा",
-      "nameEn": "Lalitpur Narsimha Jatra",
+      "nameNp": "ललितपुर नृसिंह जात्रा",
+      "nameEn": "Lalitpur Narsingh Jatra",
       "publicHoliday": false
     },
     {
       "day": 19,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 19,
       "nameNp": "गौरा पर्व",
-      "nameEn": "Gaura Parva",
+      "nameEn": "Gaura Parva (Far-Western Festival)",
       "publicHoliday": true
     },
     {
       "day": 20,
-      "nameNp": "मानव वेचविखन विरुद्धको राष्ट्रिय दिवस",
+      "nameNp": "मानव बेचबिखन विरुद्धको राष्ट्रिय दिवस",
       "nameEn": "National Anti-Human Trafficking Day",
       "publicHoliday": false
     },
     {
       "day": 22,
       "nameNp": "अजा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Aja Ekadashi",
       "publicHoliday": false
     },
     {
@@ -9934,7 +9508,7 @@
     },
     {
       "day": 24,
-      "nameNp": "यें पञ्चदान",
+      "nameNp": "येँ पञ्चदान",
       "nameEn": "Yen Panchadan (Kathmandu)",
       "publicHoliday": false
     },
@@ -9947,7 +9521,7 @@
     {
       "day": 26,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
@@ -9958,19 +9532,19 @@
     },
     {
       "day": 28,
-      "nameNp": "दर खाने दिन",
-      "nameEn": "Dar Khane Din",
+      "nameNp": "तीजको दर खाने दिन",
+      "nameEn": "Dar Khane Din (Eve of Hartalika Teej)",
       "publicHoliday": false
     },
     {
       "day": 29,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
       "day": 30,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -10015,25 +9589,25 @@
     {
       "day": 6,
       "nameNp": "हरिपरिवर्तिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Hariparivartini Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "इन्द्रध्वजोत्थान",
-      "nameEn": "Indra Dhwaja Utthan (Indra Jatra Begins)",
+      "nameNp": "इन्द्रध्वज उत्थान",
+      "nameEn": "Indradhwoj Utthan (Erection of Indra's Flag)",
       "publicHoliday": false
     },
     {
       "day": 7,
       "nameNp": "वामन द्वादशी",
       "nameEn": "Vamana Dwadashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 9,
-      "nameNp": "कुमारी ईन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
+      "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Kumari Indra Jatra (Valley Holiday)",
       "publicHoliday": false
     },
     {
@@ -10044,8 +9618,8 @@
     },
     {
       "day": 10,
-      "nameNp": "यँया पुन्हिः",
-      "nameEn": "Yenya Punhi (Indra Jatra Day)",
+      "nameNp": "यँन्या पुन्हिः",
+      "nameEn": "Yenya Punhi (Indra Jatra Full Moon)",
       "publicHoliday": false
     },
     {
@@ -10056,8 +9630,8 @@
     },
     {
       "day": 11,
-      "nameNp": "सोह्रश्राद्ध आरम्भ",
-      "nameEn": "Sohra Shraddha Begins",
+      "nameNp": "सोह्र श्राद्ध प्रारम्भ",
+      "nameEn": "Sohra Shraddha Begins (Pitri Paksha)",
       "publicHoliday": false
     },
     {
@@ -10086,8 +9660,8 @@
     },
     {
       "day": 14,
-      "nameNp": "इन्द्रध्वजपातन",
-      "nameEn": "Indra Dhwaja Patan (Indra Jatra Ends)",
+      "nameNp": "इन्द्रध्वज पातन",
+      "nameEn": "Indradhwoj Patan (Lowering of Indra's Flag)",
       "publicHoliday": false
     },
     {
@@ -10141,14 +9715,14 @@
     {
       "day": 20,
       "nameNp": "इन्दिरा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Indira Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "द्वादशी श्राद्ध",
       "nameEn": "Dwadashi Shraddha",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 22,
@@ -10182,20 +9756,14 @@
     },
     {
       "day": 24,
-      "nameNp": "दर्शश्राद्ध",
-      "nameEn": "Darsha Shraddha",
+      "nameNp": "दर्श श्राद्ध",
+      "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
     },
     {
       "day": 25,
       "nameNp": "घटस्थापना (बडा दशैं प्रारम्भ)",
       "nameEn": "Ghatasthapana (Dashain Begins)",
-      "publicHoliday": true
-    },
-    {
-      "day": 25,
-      "nameNp": "नवरात्र आरम्भ",
-      "nameEn": "Navaratri Begins",
       "publicHoliday": true
     },
     {
@@ -10206,14 +9774,8 @@
     },
     {
       "day": 31,
-      "nameNp": "नवपत्रिका प्रवेश",
-      "nameEn": "Phulpati (Navapatrika)",
-      "publicHoliday": false
-    },
-    {
-      "day": 31,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain Day 7)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     }
   ],
@@ -10221,25 +9783,19 @@
     {
       "day": 1,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
-      "publicHoliday": true
-    },
-    {
-      "day": 1,
-      "nameNp": "कालरात्रि",
-      "nameEn": "Kalaratri (Maha Ashtami)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 2,
       "nameNp": "जनबहाः कुछि भ्वय्",
       "nameEn": "Janabaha Kuchi Bhway",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 3,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain Day 9)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -10251,25 +9807,25 @@
     {
       "day": 5,
       "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 5,
       "nameNp": "अन्नपूर्णा यात्रा",
-      "nameEn": "Annapurna Jatra (Asan)",
-      "publicHoliday": true
+      "nameEn": "Annapurna Jatra",
+      "publicHoliday": false
     },
     {
       "day": 6,
       "nameNp": "द्वादशी",
       "nameEn": "Dwadashi Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 8,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Vrata",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -10281,7 +9837,7 @@
     {
       "day": 9,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Ends)",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     },
     {
@@ -10311,13 +9867,13 @@
     {
       "day": 19,
       "nameNp": "रमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Rama Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 20,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -10329,7 +9885,7 @@
     {
       "day": 21,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
@@ -10342,18 +9898,12 @@
       "day": 22,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 23,
-      "nameNp": "औंसी",
-      "nameEn": "Aunsi (Amavasya)",
-      "publicHoliday": true
-    },
-    {
-      "day": 23,
-      "nameNp": "गाई पूजा",
-      "nameEn": "Gai Puja",
+      "nameNp": "गाई पूजा (तिहार)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
@@ -10365,31 +9915,25 @@
     {
       "day": 24,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 26,
       "nameNp": "तृतीया",
       "nameEn": "Tritiya Tithi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 29,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 29,
-      "nameNp": "डाला पूजा",
-      "nameEn": "Dala Puja (Chhath)",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     }
   ],
@@ -10420,14 +9964,8 @@
     },
     {
       "day": 4,
-      "nameNp": "हरिबोधिनी एकादशी",
-      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
-      "publicHoliday": false
-    },
-    {
-      "day": 4,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Tulsi Vivah",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
@@ -10450,7 +9988,7 @@
     },
     {
       "day": 8,
-      "nameNp": "चतुर्मासव्रत समाप्ति",
+      "nameNp": "चतुर्मास व्रत समाप्ति",
       "nameEn": "Chaturmas Vrata Concludes",
       "publicHoliday": false
     },
@@ -10475,7 +10013,7 @@
     {
       "day": 18,
       "nameNp": "उत्पत्तिका एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Utpattika Ekadashi",
       "publicHoliday": false
     },
     {
@@ -10498,14 +10036,8 @@
     },
     {
       "day": 28,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
-      "publicHoliday": false
-    },
-    {
-      "day": 28,
-      "nameNp": "जनकपुरमा सीता विवाह पञ्चमी मेला",
-      "nameEn": "Janakpur Vivaha Panchami Mela",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     }
   ],
@@ -10525,7 +10057,7 @@
     {
       "day": 5,
       "nameNp": "मोक्षदा एकादशी",
-      "nameEn": "Mokshada Ekadashi / Gita Jayanti",
+      "nameEn": "Mokshada Ekadashi",
       "publicHoliday": false
     },
     {
@@ -10536,14 +10068,8 @@
     },
     {
       "day": 9,
-      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Yomari Punhi",
-      "publicHoliday": true
-    },
-    {
-      "day": 9,
-      "nameNp": "थिंला पुन्हीः",
-      "nameEn": "Thinla Punhi",
+      "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस (थिंला पुन्हि)",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas (Thinla Punhi)",
       "publicHoliday": true
     },
     {
@@ -10579,7 +10105,7 @@
     {
       "day": 19,
       "nameNp": "सफला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Saphala Ekadashi",
       "publicHoliday": false
     },
     {
@@ -10620,7 +10146,7 @@
     },
     {
       "day": 28,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     }
@@ -10646,31 +10172,25 @@
     },
     {
       "day": 4,
-      "nameNp": "स्मार्तहरूको पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "पुत्रदा एकादशी (स्मार्त)",
+      "nameEn": "Putrada Ekadashi (Smarta)",
       "publicHoliday": false
     },
     {
       "day": 5,
-      "nameNp": "वैष्णवहरुको पुत्रदा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameNp": "पुत्रदा एकादशी (वैष्णव)",
+      "nameEn": "Putrada Ekadashi (Vaishnav)",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "श्रीस्वस्थानीव्रत आरम्भ",
-      "nameEn": "Swasthani Brata Begins",
-      "publicHoliday": false
-    },
-    {
-      "day": 8,
-      "nameNp": "मिला पुन्हिः",
-      "nameEn": "Mila Punhi (Swasthani Concludes)",
+      "nameNp": "स्वस्थानी व्रत प्रारम्भ (मिला पुन्हि)",
+      "nameEn": "Swasthani Brata Begins (Mila Punhi)",
       "publicHoliday": false
     },
     {
       "day": 12,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -10689,13 +10209,13 @@
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 19,
       "nameNp": "षटतिला एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Shattila Ekadashi",
       "publicHoliday": false
     },
     {
@@ -10724,14 +10244,8 @@
     },
     {
       "day": 28,
-      "nameNp": "वसन्तपञ्यमी",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
-      "publicHoliday": false
-    },
-    {
-      "day": 28,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     }
   ],
@@ -10763,7 +10277,7 @@
     {
       "day": 5,
       "nameNp": "भीमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Bhima Ekadashi",
       "publicHoliday": false
     },
     {
@@ -10782,18 +10296,12 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": true
-    },
-    {
-      "day": 8,
-      "nameNp": "स्वस्थानी व्रत समाप्ति",
-      "nameEn": "Swasthani Brata Ends",
       "publicHoliday": false
     },
     {
       "day": 8,
-      "nameNp": "सि पुन्हिः",
-      "nameEn": "Si Punhi",
+      "nameNp": "स्वस्थानी व्रत समाप्ति (सि पुन्हि)",
+      "nameEn": "Swasthani Brata Ends (Si Punhi)",
       "publicHoliday": false
     },
     {
@@ -10817,31 +10325,25 @@
     {
       "day": 20,
       "nameNp": "विजया एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Vijaya Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 22,
-      "nameNp": "महाशिवरात्रि",
-      "nameEn": "Maha Shivaratri",
+      "nameNp": "महाशिवरात्रि (सिलाचह्रे)",
+      "nameEn": "Maha Shivaratri (Silachahre)",
       "publicHoliday": true
-    },
-    {
-      "day": 22,
-      "nameNp": "सिलाचह्रे:",
-      "nameEn": "Silachahre (Maha Shivaratri)",
-      "publicHoliday": false
     },
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     }
   ],
@@ -10861,13 +10363,13 @@
     {
       "day": 4,
       "nameNp": "आमलकी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Amalaki Ekadashi",
       "publicHoliday": false
     },
     {
       "day": 7,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
+      "nameNp": "फागु पूर्णिमा (होली - पहाड)",
+      "nameEn": "Holi Festival (Hilly Regions)",
       "publicHoliday": true
     },
     {
@@ -10875,12 +10377,6 @@
       "nameNp": "चीरदाह",
       "nameEn": "Chir Daha (Holi Bonfire)",
       "publicHoliday": false
-    },
-    {
-      "day": 8,
-      "nameNp": "फागु पूर्णिमा (होली)",
-      "nameEn": "Holi Festival (Fagu Purnima)",
-      "publicHoliday": true
     },
     {
       "day": 8,
@@ -10932,8 +10428,8 @@
     },
     {
       "day": 23,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra (Horse Festival)",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -10957,8 +10453,8 @@
     {
       "day": 29,
       "nameNp": "चैती छठ",
-      "nameEn": "Chhath Puja (Sun Festival)",
-      "publicHoliday": true
+      "nameEn": "Chaiti Chhath",
+      "publicHoliday": false
     },
     {
       "day": 30,
@@ -10982,8 +10478,8 @@
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
@@ -11003,7 +10499,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     }
   ],
@@ -11011,13 +10507,13 @@
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
       "day": 29,
       "nameNp": "हरिशयनी एकादशी (तुलसी रोप्ने दिन)",
-      "nameEn": "Harishayani Ekadashi",
+      "nameEn": "Harishayani Ekadashi (Tulsi Plantation Day)",
       "publicHoliday": false
     }
   ],
@@ -11025,13 +10521,13 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
       "day": 3,
-      "nameNp": "गुरु पूर्णिमा / ब्यास जयन्ती",
-      "nameEn": "Guru Purnima / Vyas Jayanti",
+      "nameNp": "गुरु पूर्णिमा तथा व्यास जयन्ती",
+      "nameEn": "Guru Purnima & Vyasa Jayanti",
       "publicHoliday": false
     },
     {
@@ -11057,42 +10553,36 @@
     {
       "day": 1,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 2,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
       "day": 8,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "कुशे औंसी (बाबुको मुख हेर्ने दिन)",
-      "nameEn": "Father's Day (Kushe Aunsi)",
+      "nameEn": "Kushe Aunsi (Fathers Day)",
       "publicHoliday": false
     },
     {
       "day": 17,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "गणेश चतुर्थी",
-      "nameEn": "Ganesh Chaturthi",
-      "publicHoliday": false
-    },
-    {
-      "day": 18,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -11110,8 +10600,8 @@
     },
     {
       "day": 28,
-      "nameNp": "इन्द्रजात्रा",
-      "nameEn": "Indra Jatra",
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -11137,19 +10627,19 @@
     {
       "day": 19,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 20,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 21,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -11161,13 +10651,13 @@
     {
       "day": 23,
       "nameNp": "पापाङ्कुशा एकादशी (दशैं टीका)",
-      "nameEn": "Dashain Tika (Papankusha Ekadashi)",
+      "nameEn": "Papankusha Ekadashi (Dashain Tika)",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     }
   ],
@@ -11175,14 +10665,14 @@
     {
       "day": 10,
       "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kaag Tihar & Dhanteras",
+      "nameEn": "Kag Tihar & Dhanteras",
       "publicHoliday": false
     },
     {
       "day": 11,
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 12,
@@ -11192,32 +10682,26 @@
     },
     {
       "day": 13,
-      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
-      "nameEn": "Govardhan Puja / Mha Puja",
-      "publicHoliday": true
-    },
-    {
-      "day": 13,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 14,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
       "day": 23,
       "nameNp": "हरिबोधिनी एकादशी (तुलसी विवाह)",
-      "nameEn": "Haribodhini Ekadashi",
+      "nameEn": "Haribodhini Ekadashi (Tulsi Vivah)",
       "publicHoliday": false
     },
     {
@@ -11230,8 +10714,8 @@
   "2084-8": [
     {
       "day": 11,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Vivaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
@@ -11243,13 +10727,13 @@
     {
       "day": 26,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     }
   ],
@@ -11269,7 +10753,7 @@
     {
       "day": 15,
       "nameNp": "तमु ल्होसार",
-      "nameEn": "Tamu Lhosar",
+      "nameEn": "Tamu Lhosar (Gurung New Year)",
       "publicHoliday": true
     },
     {
@@ -11289,25 +10773,19 @@
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     },
     {
       "day": 18,
       "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja",
-      "publicHoliday": false
-    },
-    {
-      "day": 18,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
       "day": 21,
       "nameNp": "सोनाम ल्होसार",
-      "nameEn": "Sonam Lhosar",
+      "nameEn": "Sonam Lhosar (Tamang New Year)",
       "publicHoliday": true
     }
   ],
@@ -11327,33 +10805,27 @@
     {
       "day": 20,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar",
-      "publicHoliday": true
-    },
-    {
-      "day": 24,
-      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
       "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     },
     {
       "day": 27,
       "nameNp": "फागु पूर्णिमा (होली)",
       "nameEn": "Holi Festival (Fagu Purnima)",
-      "publicHoliday": true
+      "publicHoliday": false
     }
   ],
   "2084-12": [
     {
       "day": 12,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -11396,8 +10868,8 @@
     },
     {
       "day": 18,
-      "nameNp": "अन्तर्राष्ट्रिय मजदुर दिवस",
-      "nameEn": "International Labour Day",
+      "nameNp": "विश्व श्रमिक दिवस",
+      "nameEn": "International Workers Day (May Day)",
       "publicHoliday": true
     },
     {
@@ -11411,7 +10883,7 @@
     {
       "day": 15,
       "nameNp": "गणतन्त्र दिवस",
-      "nameEn": "Republic Day",
+      "nameEn": "Republic Day (Ganatantra Diwas)",
       "publicHoliday": true
     }
   ],
@@ -11419,7 +10891,7 @@
     {
       "day": 15,
       "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
-      "nameEn": "National Paddy Day",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     }
   ],
@@ -11427,7 +10899,7 @@
     {
       "day": 1,
       "nameNp": "साउने सङ्क्रान्ति (लुतो फाल्ने दिन)",
-      "nameEn": "Saune Sankranti",
+      "nameEn": "Saune Sankranti (Luto Falne Din)",
       "publicHoliday": false
     },
     {
@@ -11439,13 +10911,13 @@
     {
       "day": 21,
       "nameNp": "जनै पूर्णिमा तथा रक्षाबन्धन (क्वाँटी खाने दिन)",
-      "nameEn": "Janai Purnima & Raksha Bandhan",
+      "nameEn": "Janai Purnima & Raksha Bandhan (Kwati Feast)",
       "publicHoliday": true
     },
     {
       "day": 22,
-      "nameNp": "गाईजात्रा",
-      "nameEn": "Gai Jatra",
+      "nameNp": "गाईजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Gai Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     }
   ],
@@ -11453,12 +10925,12 @@
     {
       "day": 6,
       "nameNp": "हरितालिका तीज",
-      "nameEn": "Hartalika Teej",
+      "nameEn": "Hartalika Teej (Womens Fasting Festival)",
       "publicHoliday": true
     },
     {
       "day": 7,
-      "nameNp": "गणेश चतुर्थी (मंगल चौथी)",
+      "nameNp": "गणेश चतुर्थी",
       "nameEn": "Ganesh Chaturthi",
       "publicHoliday": false
     },
@@ -11470,8 +10942,8 @@
     },
     {
       "day": 17,
-      "nameNp": "इन्द्रजात्रा",
-      "nameEn": "Kumari Indra Jatra",
+      "nameNp": "इन्द्रजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Indra Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
@@ -11489,15 +10961,15 @@
     {
       "day": 27,
       "nameNp": "श्रीकृष्ण जन्माष्टमी",
-      "nameEn": "Krishna Janmashtami",
+      "nameEn": "Shree Krishna Janmashtami",
       "publicHoliday": true
     }
   ],
   "2085-6": [
     {
       "day": 2,
-      "nameNp": "सोह्र श्राद्ध समापन (महालया)",
-      "nameEn": "Mahalaya (Sohra Shraddha End)",
+      "nameNp": "सोह्र श्राद्ध समापन",
+      "nameEn": "Sohra Shraddha Concludes (Mahalaya Amavasya)",
       "publicHoliday": false
     },
     {
@@ -11515,19 +10987,19 @@
     {
       "day": 9,
       "nameNp": "फूलपाती (दशैं)",
-      "nameEn": "Phulpati (Dashain)",
+      "nameEn": "Phulpati (Saptami / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 10,
       "nameNp": "महाअष्टमी (कालरात्रि)",
-      "nameEn": "Maha Ashtami (Kalaratri)",
+      "nameEn": "Maha Ashtami (Kalaratri / Dashain Holiday)",
       "publicHoliday": true
     },
     {
       "day": 11,
       "nameNp": "महानवमी (दशैं)",
-      "nameEn": "Maha Navami (Dashain)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
       "publicHoliday": true
     },
     {
@@ -11539,7 +11011,7 @@
     {
       "day": 17,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima",
+      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
       "publicHoliday": true
     }
   ],
@@ -11552,26 +11024,20 @@
     },
     {
       "day": 2,
-      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत्",
-      "nameEn": "Govardhan Puja / Mha Puja",
-      "publicHoliday": true
-    },
-    {
-      "day": 2,
       "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja / Mha Puja / Nepal Sambat",
+      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
       "day": 3,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar)",
+      "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
     },
     {
       "day": 7,
       "nameNp": "छठ पर्व (सूर्य पूजा)",
-      "nameEn": "Chhath Puja",
+      "nameEn": "Chhath Puja (Sun Worship Festival)",
       "publicHoliday": true
     },
     {
@@ -11590,14 +11056,14 @@
   "2085-8": [
     {
       "day": 6,
-      "nameNp": "विवाह पञ्चमी",
-      "nameEn": "Bibaha Panchami",
+      "nameNp": "सीता विवाह पञ्चमी (जनकपुर मेला)",
+      "nameEn": "Sita Vivaha Panchami (Janakpur Mela)",
       "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस",
-      "nameEn": "Udhauli Parva & Yomari Punhi",
+      "nameEn": "Udhauli Parva, Yomari Punhi & Jyapu Diwas",
       "publicHoliday": true
     },
     {
@@ -11623,7 +11089,7 @@
     {
       "day": 15,
       "nameNp": "तमु ल्होसार",
-      "nameEn": "Tamu Lhosar",
+      "nameEn": "Tamu Lhosar (Gurung New Year)",
       "publicHoliday": true
     },
     {
@@ -11648,15 +11114,15 @@
     },
     {
       "day": 14,
-      "nameNp": "श्रीपञ्चमी (सरस्वती पूजा)",
-      "nameEn": "Saraswati Puja (Basanta Panchami)",
+      "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
+      "nameEn": "Basanta Panchami / Saraswati Puja",
       "publicHoliday": false
     },
     {
       "day": 16,
       "nameNp": "सहिद दिवस",
-      "nameEn": "Martyrs' Day",
-      "publicHoliday": false
+      "nameEn": "Martyrs Day (Sahid Diwas)",
+      "publicHoliday": true
     }
   ],
   "2085-11": [
@@ -11675,7 +11141,7 @@
     {
       "day": 10,
       "nameNp": "ग्याल्पो ल्होसार",
-      "nameEn": "Gyalpo Lhosar (Sherpa New Year)",
+      "nameEn": "Gyalpo Lhosar (Tibetan/Sherpa New Year)",
       "publicHoliday": true
     },
     {
@@ -11692,22 +11158,16 @@
     },
     {
       "day": 24,
-      "nameNp": "अन्तर्राष्ट्रिय नारी दिवस",
-      "nameEn": "International Women's Day",
-      "publicHoliday": true
-    },
-    {
-      "day": 24,
       "nameNp": "अन्तर्राष्ट्रिय महिला दिवस",
-      "nameEn": "International Women's Day",
+      "nameEn": "International Womens Day",
       "publicHoliday": true
     }
   ],
   "2085-12": [
     {
       "day": 1,
-      "nameNp": "घोडेजात्रा",
-      "nameEn": "Ghode Jatra",
+      "nameNp": "घोडेजात्रा (काठमाडौँ उपत्यका)",
+      "nameEn": "Ghode Jatra (Kathmandu Valley Holiday)",
       "publicHoliday": true
     },
     {
