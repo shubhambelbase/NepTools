@@ -17,7 +17,10 @@ data class Panchang(
     val nakshatraName: String,
     val nakshatraNameEn: String = "",
     val yogaName: String,
-    val yogaNameEn: String = ""
+    val yogaNameEn: String = "",
+    val lunarMasaIndex: Int = 0,
+    val lunarMasaName: String = "",
+    val lunarMasaNameEn: String = ""
 )
 
 object PanchangCalc {
@@ -53,6 +56,14 @@ object PanchangCalc {
         "Dhriti", "Shula", "Ganda", "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra",
         "Siddhi", "Vyatipata", "Variyan", "Parigha", "Shiva", "Siddha", "Sadhya", "Shubha",
         "Shukla", "Brahma", "Indra", "Vaidhriti"
+    )
+    private val masaNames = listOf(
+        "वैशाख", "ज्येष्ठ", "आषाढ", "श्रावण", "भाद्रपद", "आश्विन",
+        "कार्तिक", "मार्गशीर्ष", "पौष", "माघ", "फाल्गुन", "चैत्र"
+    )
+    private val masaNamesEn = listOf(
+        "Vaishakha", "Jyeshtha", "Ashadha", "Shravana", "Bhadrapada", "Ashvina",
+        "Kartika", "Margashirsha", "Pausha", "Magha", "Phalguna", "Chaitra"
     )
 
     private val ephemeris = HighPrecisionEphemeris()
@@ -92,6 +103,15 @@ object PanchangCalc {
         val yogaRaw = HighPrecisionEphemeris.normalizeDeg(sunSid + moonSid)
         val yogaIdx = floor(yogaRaw / (360.0 / 27.0)).toInt().coerceIn(0, 26)
 
+        // Lunar Masa (Amanta for Shukla, Purnimanta for Krishna Paksha)
+        val daysOffset = if (tithiIdx < 15) {
+            -(elong / 12.190749)
+        } else {
+            (360.0 - elong) / 12.190749
+        }
+        val sunAtNewMoon = HighPrecisionEphemeris.normalizeDeg(sunSid + daysOffset * 0.9856)
+        val masaIdx = floor(sunAtNewMoon / 30.0).toInt().coerceIn(0, 11)
+
         return Panchang(
             tithiName = tithiName,
             tithiNameEn = tithiNameEn,
@@ -101,7 +121,10 @@ object PanchangCalc {
             nakshatraName = nakshatraNames[naksIdx],
             nakshatraNameEn = nakshatraNamesEn[naksIdx],
             yogaName = yogaNames[yogaIdx],
-            yogaNameEn = yogaNamesEn[yogaIdx]
+            yogaNameEn = yogaNamesEn[yogaIdx],
+            lunarMasaIndex = masaIdx,
+            lunarMasaName = masaNames[masaIdx],
+            lunarMasaNameEn = masaNamesEn[masaIdx]
         )
     }
 }

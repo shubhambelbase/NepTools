@@ -129,8 +129,8 @@ object DynamicFestivalEngine {
         // =====================================================================
         // 2. ASTRONOMICAL / TITHI-BASED RELIGIOUS & CULTURAL FESTIVALS
         // =====================================================================
-        when (bsMonth) {
-            1 -> { // बैशाख (Baisakh)
+        when (panchang.lunarMasaIndex) {
+            0 -> { // वैशाख (Vaishakha)
                 if (isShukla && tName == "तृतीया") {
                     list.add(Festival(bsDay, "अक्षय तृतीया", "Akshaya Tritiya", false))
                 } else if (isShukla && tName == "पूर्णिमा") {
@@ -139,28 +139,28 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "मातातीर्थ औंसी (आमाको मुख हेर्ने दिन)", "Mother's Day (Matatirtha Aunsi)", false))
                 }
             }
-            2 -> { // जेठ (Jestha)
+            1 -> { // ज्येष्ठ (Jyeshtha)
                 if (isShukla && tName == "दशमी") {
                     list.add(Festival(bsDay, "गङ्गा दशहरा", "Ganga Dussehra", false))
                 } else if (isShukla && tName == "पूर्णिमा") {
                     list.add(Festival(bsDay, "ज्येष्ठ पूर्णिमा / पनौती जात्रा", "Jyeshtha Purnima", false))
                 }
             }
-            3 -> { // असार (Ashadh)
+            2 -> { // आषाढ (Ashadha)
                 if (isShukla && tName == "एकादशी") {
                     list.add(Festival(bsDay, "हरिशयनी एकादशी (तुलसी रोप्ने दिन)", "Harishayani Ekadashi", false))
                 } else if (isShukla && tName == "पूर्णिमा") {
                     list.add(Festival(bsDay, "गुरु पूर्णिमा / ब्यास जयन्ती", "Guru Purnima / Vyas Jayanti", false))
                 }
             }
-            4 -> { // साउन (Shrawan)
+            3 -> { // श्रावण (Shravana)
                 if (isShukla && tName == "पञ्चमी") {
                     list.add(Festival(bsDay, "नाग पञ्चमी", "Nag Panchami", false))
                 } else if (isShukla && tName == "पूर्णिमा") {
                     list.add(Festival(bsDay, "जनै पूर्णिमा / रक्षाबन्धन / क्वाँटी खाने दिन", "Janai Purnima / Raksha Bandhan", true))
                 }
             }
-            5 -> { // भदौ (Bhadra)
+            4 -> { // भाद्रपद (Bhadrapada)
                 if (isKrishna && tName == "प्रतिपदा") {
                     list.add(Festival(bsDay, "गाईजात्रा", "Gai Jatra", true))
                 } else if (isKrishna && tName == "अष्टमी") {
@@ -179,7 +179,7 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "अनन्त चतुर्दशी / सोह्र श्राद्ध प्रारम्भ", "Sohra Shraddha Begins", false))
                 }
             }
-            6 -> { // असोज (Ashoj) - बडा दशैं (Bada Dashain)
+            5 -> { // आश्विन (Ashvina) - बडा दशैं (Bada Dashain)
                 if (isKrishna && tName == "औंसी") {
                     list.add(Festival(bsDay, "सोह्र श्राद्ध समापन (महालया)", "Mahalaya (Sohra Shraddha End)", false))
                 } else if (isShukla && tName == "प्रतिपदा") {
@@ -200,7 +200,7 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "कोजाग्रत पूर्णिमा (दशैं समापन)", "Kojagrat Purnima (Dashain Ends)", true))
                 }
             }
-            7 -> { // कात्तिक (Kartik) - यमपञ्चक / तिहार र छठ (Tihar & Chhath)
+            6 -> { // कार्तिक (Kartika) - यमपञ्चक / तिहार र छठ (Tihar & Chhath)
                 if (isKrishna && tName == "त्रयोदशी") {
                     list.add(Festival(bsDay, "काग तिहार तथा धनतेरस", "Kag Tihar & Dhanteras", false))
                 } else if (isKrishna && tName == "चतुर्दशी") {
@@ -219,19 +219,19 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "कार्तिक पूर्णिमा / गुरु नानक जयन्ती", "Kartik Purnima", false))
                 }
             }
-            8 -> { // मंसिर (Mangsir)
+            7 -> { // मार्गशीर्ष (Margashirsha)
                 if (isShukla && tName == "पूर्णिमा") {
                     list.add(Festival(bsDay, "उधौली पर्व / योमरी पुन्ही / ज्यापू दिवस", "Udhauli Parva & Yomari Punhi", true))
                 } else if (isShukla && tName == "एकादशी") {
                     list.add(Festival(bsDay, "मोक्षदा एकादशी / गीता जयन्ती", "Mokshada Ekadashi / Gita Jayanti", false))
                 }
             }
-            9 -> { // पुस (Poush)
+            8 -> { // पौष (Pausha)
                 if (isShukla && tName == "पूर्णिमा") {
                     list.add(Festival(bsDay, "श्री स्वस्थानी व्रत प्रारम्भ / पूर्णिमा व्रत", "Swasthani Brata Begins", false))
                 }
             }
-            10 -> { // माघ (Magh)
+            9 -> { // माघ (Magha)
                 if (isShukla && tName == "पञ्चमी") {
                     list.add(Festival(bsDay, "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)", "Saraswati Puja / Basanta Panchami", false))
                 } else if (isShukla && tName == "प्रतिपदा") {
@@ -240,7 +240,7 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "माघ पूर्णिमा", "Magh Purnima", false))
                 }
             }
-            11 -> { // फागुन (Falgun)
+            10 -> { // फाल्गुन (Phalguna)
                 if (isKrishna && tName == "चतुर्दशी") {
                     list.add(Festival(bsDay, "महाशिवरात्रि", "Maha Shivaratri", true))
                 } else if (isShukla && tName == "प्रतिपदा") {
@@ -249,7 +249,7 @@ object DynamicFestivalEngine {
                     list.add(Festival(bsDay, "फागु पूर्णिमा / होली", "Holi Festival (Fagu Purnima)", true))
                 }
             }
-            12 -> { // चैत्र (Chaitra)
+            11 -> { // चैत्र (Chaitra)
                 if (isKrishna && tName == "औंसी") {
                     list.add(Festival(bsDay, "घोडेजात्रा", "Ghode Jatra", true))
                 } else if (isShukla && tName == "अष्टमी") {

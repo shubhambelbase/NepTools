@@ -94,9 +94,9 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
 
     val cellDescription = if (isEn) {
-        "${cell.dayOfMonth} ${com.neptools.app.core.calendar.NepaliNames.monthsEn[cell.nepaliDate.month - 1]}${if (isToday) ", Today" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull() ?: ""}" else ""}${if (cell.isSaturday) ", Saturday" else ""}"
+        "${cell.dayOfMonth} ${com.neptools.app.core.calendar.NepaliNames.monthsEn[cell.nepaliDate.month - 1]}${if (isToday) ", Today" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameEn ?: ""}" else ""}${if (cell.isSaturday) ", Saturday" else ""}"
     } else {
-        "${npNum(cell.dayOfMonth)} ${com.neptools.app.core.calendar.NepaliNames.monthsNp[cell.nepaliDate.month - 1]}${if (isToday) ", आज" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull() ?: ""}" else ""}${if (cell.isSaturday) ", शनिबार" else ""}"
+        "${npNum(cell.dayOfMonth)} ${com.neptools.app.core.calendar.NepaliNames.monthsNp[cell.nepaliDate.month - 1]}${if (isToday) ", आज" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameNp ?: ""}" else ""}${if (cell.isSaturday) ", शनिबार" else ""}"
     }
 
     val interactionSource = remember { MutableInteractionSource() }

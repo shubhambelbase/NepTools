@@ -101,4 +101,62 @@ class BsCalendarEngineTest {
         assertEquals(engine.monthLength(2083, 5), flat.size)
         assertEquals(NepaliDate(2083, 5, 1), flat.first().nepaliDate)
     }
+
+    @Test
+    fun `panchang lunar masa calculation is accurate across normal and adhik maas years`() {
+        val engine = realEngine()
+
+        // 2081 Normal Year: Dashain Vijaya Dashami (Ashoj 26 / 2024-10-12)
+        val p2081Dashain = com.neptools.app.core.calendar.PanchangCalc.compute(engine.bsToAd(NepaliDate(2081, 6, 26)))
+        assertEquals(5, p2081Dashain.lunarMasaIndex) // 5 = Ashwin
+
+        // 2081 Normal Year: Tihar Bhai Tika (Kartik 18 / 2024-11-03)
+        val p2081Tihar = com.neptools.app.core.calendar.PanchangCalc.compute(engine.bsToAd(NepaliDate(2081, 7, 18)))
+        assertEquals(6, p2081Tihar.lunarMasaIndex) // 6 = Kartik
+
+        // 2080 Adhik Maas Year: Vijaya Dashami shifted to Kartik 7 (2023-10-24)
+        val p2080Dashain = com.neptools.app.core.calendar.PanchangCalc.compute(engine.bsToAd(NepaliDate(2080, 7, 7)))
+        assertEquals(5, p2080Dashain.lunarMasaIndex) // Ashvina masa even in Kartik solar month
+
+        // 2083 Adhik Maas Year: Vijaya Dashami shifted to Kartik 4 (2026-10-20)
+        val p2083Dashain = com.neptools.app.core.calendar.PanchangCalc.compute(engine.bsToAd(NepaliDate(2083, 7, 4)))
+        assertEquals(5, p2083Dashain.lunarMasaIndex) // Ashvina masa
+    }
+
+    @Test
+    fun `dynamic festival engine places festivals in correct lunar masa`() {
+        val engine = realEngine()
+
+        // 2083 Ashoj 5 should NOT have Vijaya Dashami
+        val d2083Ashoj5 = NepaliDate(2083, 6, 5)
+        val ad2083Ashoj5 = engine.bsToAd(d2083Ashoj5)
+        val p2083Ashoj5 = com.neptools.app.core.calendar.PanchangCalc.compute(ad2083Ashoj5)
+        val f2083Ashoj5 = com.neptools.app.core.calendar.DynamicFestivalEngine.computeForDay(
+            2083, 6, 5, ad2083Ashoj5, p2083Ashoj5
+        )
+        assertTrue(f2083Ashoj5.none { it.nameNp.contains("विजया दशमी") })
+
+        // 2083 Kartik 4 should have Vijaya Dashami
+        val d2083Kartik4 = NepaliDate(2083, 7, 4)
+        val ad2083Kartik4 = engine.bsToAd(d2083Kartik4)
+        val p2083Kartik4 = com.neptools.app.core.calendar.PanchangCalc.compute(ad2083Kartik4)
+        val f2083Kartik4 = com.neptools.app.core.calendar.DynamicFestivalEngine.computeForDay(
+            2083, 7, 4, ad2083Kartik4, p2083Kartik4
+        )
+        assertTrue(f2083Kartik4.any { it.nameNp.contains("विजया दशमी") })
+    }
+
+    @Test
+    fun `static festival dataset loads and covers verified years 2075 through 2085`() {
+        val file = File("src/main/assets/festivals_sample.json")
+        assertTrue("Festivals dataset missing at ${file.absolutePath}", file.exists())
+        val root = JSONObject(file.readText())
+
+        for (year in 2075..2085) {
+            for (m in 1..12) {
+                val key = "$year-$m"
+                assertTrue("Month $key missing from festivals_sample.json", root.has(key))
+            }
+        }
+    }
 }
