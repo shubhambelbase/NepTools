@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.0 (versionCode: 39)
+- Current Version: v2.8.1 (versionCode: 40)
 - Last Updated: September 21, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,47 +90,24 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.0 (versionCode 39) — Bikram Sambat Lunar Festival Engine Overhaul & Authentic Panchanga Integration.
+- Status: v2.8.1 (versionCode 40) — 11-Year Panchanga Dataset Forensic Audit & Sanitization Complete.
 - Last Updated: September 21, 2026
 - Recent Updates:
+  - v2.8.1:
+    - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085, 1,910 entries). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates (Vijaya Dashami, Teej, Kushe Aunsi, Janai Purnima, Maghe Sankranti, Tihar days), achieved 100% English translation coverage (zero empty nameEn fields), and injected full verified festival calendar for BS 2084 and 2085.
   - v2.8.0:
     - Bikram Sambat Lunar Festival Engine Overhaul (PanchangCalc.kt, DynamicFestivalEngine.kt): Re-architected dynamic festival determination from simplistic solar month checks to authentic astronomical Lunar Masa indexing (Amanta / Purnimanta via sidereal Sun position at New Moon). Resolves Adhik Maas years (e.g. 2080, 2083 BS) where major festivals like Dashain, Tihar, Buddha Jayanti, Janai Purnima were previously placed in wrong months.
-    - 11-Year Official Panchanga Dataset (festivals_sample.json): Generated complete 132-month dataset (BS 2075-2085, 2,000+ entries) cross-referenced with Nepal Panchanga Nirnayak Vikas Samiti and official government gazette records.
     - Screen-Reader Accessibility Fix (CalendarCells.kt): Cleaned TalkBack content descriptions to speak localized festival names properly instead of printing raw object instances.
   - v2.7.9:
     - Universal Notification Deep Linking: Tapping weather, subscription, habit, or calendar alerts routes directly to the corresponding tool via AppNavigator.
     - 3D Brand Notification Asset Overhaul: Created crisp multi-density ic_notification_large.png circular badge. Migrated notification channels to v4/v2 and invalidated stale launcher icon caches.
   - v2.7.8:
     - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to the Local Government Operation Act 2074, Nepal Citizenship Act 2063 & Rules, Muluki Civil Code 2074, and Vital Registration Act 2076. Fixed citizenship date of birth bug, added mandatory 3-generation genealogy (बाजेको नाम), added statutory declarations, comprehensive document checklists, and added Relationship Verification (Nata Pramanit) template.
-    - Automatic Bikram Sambat Date Pre-population: Dynamically loads today's live BS date via PatroRepo engine into the application date field across all templates.
   - v2.7.7:
-    - Govt Templates Modernization (ApplicationTemplatesScreen.kt): Replaced bulky top bar with compact inline header with verified badge, category filter chips (All, Ward Office, Legal, Bank, Leave), and direct inline selectable card list replacing modal bottom sheet.
-    - QR Code Generator Enhancements (QrScreen.kt): Powered by ZXing for genuine scannable QR generation. Implemented standard eSewa JSON schema (`{"eSewa_id":"...","name":"..."}`) with dedicated input fields. Cleaned action bar down to a single "Save QR Image" action with MediaStore and scoped storage support.
-    - Bubble Level Micro-Animations & Polish (BubbleLevelScreen.kt): Added smooth spring physics (animateFloatAsState with low stiffness) for pitch/roll/slope to eliminate sensor jitter, animated color transitions, tactile haptics on level lock (<0.5 deg), theme-adaptive concentric rings, and resolved -0 deg formatting glitch.
-    - Fuel Calculator Streamlining (FuelPriceScreen.kt): Completely eliminated cluttered 3-tab layout (Amount->Liters, Liters->Amount, Trip Expense). Built a clean two-way converter with 2-pill toggle (By Amount / By Liters), interactive swap button, visible fuel prices on chips (Petrol, Diesel, Kerosene), 1-tap quick presets, and elevated Trip Cost Estimator into a dedicated card with vehicle mileage presets (Bike 35, Scooter 40, Car 14).
-    - Fuel Prices Rich Micro-Animations: spring-loaded sliding pill for depot region categories, tactile card scale bounce on press, sequential linear gradient shimmer sweep on live rate refresh, rolling odometer reels for fuel price numerals, kinetic pill selector, and smooth rolling volume/cost transitions.
-  - v2.7.6:
-    - Implemented full suite of micro-animations for Date Converter (ConverterScreen.kt): 180-degree elastic swap spin with spring overshoot physics, fluid sliding magnetic pill on segmented control, rolling mechanical odometer reels, lithograph stamp pop, tactile button depression physics, and smart clipboard ambient breathing glow.
-  - v2.7.5:
-    - Redesigned Date Converter: Removed displaced Land (Ropani) section, added segmented BS/AD direction tab, unified source date card, circular swap trigger, and rich hero result card with relative time badges and 1-tap share.
-    - Eliminated Add button clutter in Subscription Tracker: Removed duplicate plus button in top bar and suppressed corner FAB when list is empty.
-    - Streamlined Habit Tracker empty state: Removed duplicate starter pills and suppressed corner FAB when habits list is empty, leaving a single unambiguous CTA.
-  - v2.7.4:
-    - Added horizontal category filter chips in ToolsScreen for 1-tap filtering across 30+ utilities.
-    - Added quick date presets (Today, Yesterday, 1st of Month) in ConverterScreen.
-    - Added actionable empty states in KundaliScreen, GocharScreen, and DashaScreen with direct navigation to birth details and 1-tap sample chart load.
-  - v2.7.3:
-    - Atomic JSON file persistence (temp file write + atomic swap in UserEventManager) to prevent data loss or file corruption.
-    - Added hardware sensor detection and bilingual fallback banner in SpyCameraDetectorScreen for devices without a magnetometer.
-    - Implemented full TalkBack Compose semantics across Calendar month grid cells and navigation buttons for screen-reader accessibility.
-    - Guarded emergency dialer action with try-catch and clipboard fallback on non-cellular devices (tablets/emulators).
-    - Hardened ImageCompressor with safe null handling and user decode error feedback.
-  - v2.7.2: RemoteViews widget crash fix, audio focus management, API 33/34 compatibility guards, Compose StateFlow recomposition fixes, Devanagari numerals.
-  - v2.7.1: Card position stability (fixed canonical order) and unread state preservation across refreshes.
-  - v2.7.0: Recent Updates live freshness tracker, disk cache seeding, zero new network calls.
-  - v2.6.9: Launcher shortcuts, tactile haptics, 1-tap utility sharing, and tools search/recents.
-  - v2.6.7: Single-language enforcement, Vedic Marriage PDF export, Choghadiya UI, and dark mode polish.
-  - v2.6.0: Location-based emergency directory, Kundali Gochar wheel, Vastu compass, Land Area converter.
-  - v2.5.0 - v2.5.9: High-precision ephemeris, 36-Point Guna Milan, sound meter, spy camera detector, offline backup, widgets, and security engine.
+    - Govt Templates Modernization: Compact inline header with verified badge, category chips, inline selectable cards.
+    - QR Code Generator Enhancements: Genuine scannable ZXing QR generation, standard eSewa JSON schema, single Save QR action.
+    - Bubble Level Micro-Animations: Spring physics, haptics on level lock (<0.5 deg), theme-adaptive concentric rings.
+    - Fuel Calculator Streamlining: Clean two-way converter, 1-tap quick presets, dedicated Trip Cost Estimator.
+  - v2.7.0 - v2.7.6: Date converter micro-animations, subscription & habit empty state cleanup, category filter chips, atomic JSON persistence, accessibility semantics, high-precision ephemeris, 36-Point Guna Milan, and security engine.
 
 
