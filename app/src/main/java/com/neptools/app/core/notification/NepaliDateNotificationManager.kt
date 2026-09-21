@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.neptools.app.MainActivity
@@ -13,6 +14,8 @@ import com.neptools.app.R
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.calendar.PanchangCalc
 import com.neptools.app.core.data.PatroRepo
+import com.neptools.app.core.radio.RadioService
+import com.neptools.app.ui.navigation.Routes
 import com.neptools.app.ui.theme.ThemePrefs
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -26,16 +29,23 @@ import java.util.Locale
 object NepaliDateNotificationManager {
 
     const val NOTIFICATION_ID = 1001
-    private const val CHANNEL_ID = "nepali_date_status_channel_v3"
+    private const val CHANNEL_ID = "nepali_date_status_channel_v4"
 
     fun createNotificationChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            // Delete old channel to clear stale lockscreen system icon cache
-            try {
-                manager.deleteNotificationChannel("nepali_date_status_channel")
-            } catch (e: Exception) {
-                // Ignore
+            // Delete old channels to clear stale lockscreen system icon cache
+            val staleChannels = listOf(
+                "nepali_date_status_channel",
+                "nepali_date_status_channel_v2",
+                "nepali_date_status_channel_v3"
+            )
+            for (ch in staleChannels) {
+                try {
+                    manager.deleteNotificationChannel(ch)
+                } catch (_: Exception) {
+                    // Ignore
+                }
             }
 
             val name = "दैनिक नेपाली मिति / Daily Nepali Date"
@@ -140,6 +150,7 @@ object NepaliDateNotificationManager {
 
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(RadioService.EXTRA_NAVIGATE_ROUTE, Routes.CALENDAR)
         }
         val pendingIntent = PendingIntent.getActivity(
             context,
@@ -181,7 +192,13 @@ object NepaliDateNotificationManager {
             setTextViewText(R.id.notif_panchang_exp, contentText)
         }
 
-        NotificationCompat.Builder(context, CHANNEL_ID)
+        val largeIcon = try {
+            BitmapFactory.decodeResource(context.resources, R.drawable.ic_notification_large)
+        } catch (_: Exception) {
+            null
+        }
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_stat_notify)
             .setColor(0xFFE11D48.toInt())
             .setCustomContentView(collapsedView)
@@ -192,7 +209,12 @@ object NepaliDateNotificationManager {
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setShowWhen(false)
             .setAutoCancel(false)
-            .build()
+
+        if (largeIcon != null) {
+            builder.setLargeIcon(largeIcon)
+        }
+
+        builder.build()
     } catch (e: Exception) {
         e.printStackTrace()
         null

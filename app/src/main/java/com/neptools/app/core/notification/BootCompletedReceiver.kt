@@ -23,6 +23,15 @@ class BootCompletedReceiver : BroadcastReceiver() {
                 com.neptools.app.core.reminder.ReminderHelper.rescheduleAll(context)
                 com.neptools.app.core.work.WorkScheduler.scheduleAll(context)
             }
+            "com.neptools.app.action.TEST_WEATHER" -> {
+                SmartAlertNotificationManager.sendTestAlert(context, "weather")
+            }
+            "com.neptools.app.action.TEST_SUBS" -> {
+                SmartAlertNotificationManager.sendTestAlert(context, "subs")
+            }
+            "com.neptools.app.action.TEST_HABITS" -> {
+                SmartAlertNotificationManager.sendTestAlert(context, "habits")
+            }
         }
     }
 }

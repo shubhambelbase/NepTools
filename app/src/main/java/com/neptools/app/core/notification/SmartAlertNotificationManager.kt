@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -13,7 +14,9 @@ import com.neptools.app.MainActivity
 import com.neptools.app.R
 import com.neptools.app.core.data.WeatherRepo
 import com.neptools.app.core.habit.HabitRepository
+import com.neptools.app.core.radio.RadioService
 import com.neptools.app.core.subscription.SubscriptionRepository
+import com.neptools.app.ui.navigation.Routes
 import com.neptools.app.ui.theme.ThemePrefs
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -132,7 +135,8 @@ object SmartAlertNotificationManager {
                         channelId = CHANNEL_SUBSCRIPTIONS,
                         notificationId = NOTIF_ID_SUBS + sub.id.hashCode() % 1000,
                         title = title,
-                        message = message
+                        message = message,
+                        targetRoute = Routes.SUBSCRIPTION_TRACKER
                     )
 
                     prefs.edit().putBoolean(dedupeKey, true).apply()
@@ -176,7 +180,8 @@ object SmartAlertNotificationManager {
                     channelId = CHANNEL_HABITS,
                     notificationId = NOTIF_ID_HABITS,
                     title = title,
-                    message = message
+                    message = message,
+                    targetRoute = Routes.HABIT_TRACKER
                 )
 
                 prefs.edit().putBoolean(dedupeKey, true).apply()
@@ -226,7 +231,8 @@ object SmartAlertNotificationManager {
                     channelId = CHANNEL_WEATHER,
                     notificationId = NOTIF_ID_WEATHER,
                     title = title,
-                    message = message
+                    message = message,
+                    targetRoute = Routes.WEATHER
                 )
 
                 prefs.edit().putBoolean(dedupeKey, true).apply()
@@ -250,7 +256,8 @@ object SmartAlertNotificationManager {
                     channelId = CHANNEL_SUBSCRIPTIONS,
                     notificationId = NOTIF_ID_SUBS + 999,
                     title = if (isEn) "Test: Netflix Renewal Reminder" else "परीक्षण: Netflix नवीकरण रिमाइन्डर",
-                    message = if (isEn) "Netflix renews tomorrow for NPR 1,500." else "Netflix भोलि रु १,५०० मा नवीकरण हुनेछ।"
+                    message = if (isEn) "Netflix renews tomorrow for NPR 1,500." else "Netflix भोलि रु १,५०० मा नवीकरण हुनेछ।",
+                    targetRoute = Routes.SUBSCRIPTION_TRACKER
                 )
             }
             "habits" -> {
@@ -259,7 +266,8 @@ object SmartAlertNotificationManager {
                     channelId = CHANNEL_HABITS,
                     notificationId = NOTIF_ID_HABITS + 999,
                     title = if (isEn) "Test: Daily Habit Nudge" else "परीक्षण: दैनिक बानी रिमाइन्डर",
-                    message = if (isEn) "Morning Walk & 3L Water remaining today. 5-day streak active!" else "बिहानी हिँडाइ तथा पानी पिउन बाँकी छ। ५ दिने स्ट्रिक जारी छ!"
+                    message = if (isEn) "Morning Walk & 3L Water remaining today. 5-day streak active!" else "बिहानी हिँडाइ तथा पानी पिउन बाँकी छ। ५ दिने स्ट्रिक जारी छ!",
+                    targetRoute = Routes.HABIT_TRACKER
                 )
             }
             "weather" -> {
@@ -268,7 +276,8 @@ object SmartAlertNotificationManager {
                     channelId = CHANNEL_WEATHER,
                     notificationId = NOTIF_ID_WEATHER + 999,
                     title = if (isEn) "Test: Rain Alert (Kathmandu)" else "परीक्षण: वर्षाको सूचना (काठमाडौँ)",
-                    message = if (isEn) "Light to moderate rain expected (70% chance). Carry an umbrella!" else "हल्का देखि मध्यम वर्षाको सम्भावना (७०%)। छाता साथमा राख्नुहोस्!"
+                    message = if (isEn) "Light to moderate rain expected (70% chance). Carry an umbrella!" else "हल्का देखि मध्यम वर्षाको सम्भावना (७०%)। छाता साथमा राख्नुहोस्!",
+                    targetRoute = Routes.WEATHER
                 )
             }
         }
@@ -279,12 +288,16 @@ object SmartAlertNotificationManager {
         channelId: String,
         notificationId: Int,
         title: String,
-        message: String
+        message: String,
+        targetRoute: String? = null
     ) {
         createNotificationChannels(context)
 
         val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            if (targetRoute != null) {
+                putExtra(RadioService.EXTRA_NAVIGATE_ROUTE, targetRoute)
+            }
         }
 
         val pendingIntent = PendingIntent.getActivity(
@@ -294,14 +307,25 @@ object SmartAlertNotificationManager {
             PendingIntent.FLAG_UPDATE_CURRENT or (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0)
         )
 
+        val largeIcon = try {
+            BitmapFactory.decodeResource(context.resources, R.drawable.ic_notification_large)
+        } catch (_: Exception) {
+            null
+        }
+
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_stat_notify)
+            .setColor(0xFFE11D48.toInt())
             .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
+
+        if (largeIcon != null) {
+            builder.setLargeIcon(largeIcon)
+        }
 
         try {
             NotificationManagerCompat.from(context).notify(notificationId, builder.build())

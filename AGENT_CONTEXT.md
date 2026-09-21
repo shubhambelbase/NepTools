@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.7.8 (versionCode: 37)
-- Last Updated: September 20, 2026
+- Current Version: v2.7.9 (versionCode: 38)
+- Last Updated: September 21, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -90,9 +90,14 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.7.8 (versionCode 37) — Official Nepal Govt Application Templates Compliance & Standardization.
-- Last Updated: September 20, 2026
+- Status: v2.7.9 (versionCode 38) — Notification Brand Identity Modernization & Universal Deep Linking.
+- Last Updated: September 21, 2026
 - Recent Updates:
+  - v2.7.9:
+    - Universal Notification Deep Linking (SmartAlertNotificationManager.kt, NepaliDateNotificationManager.kt, Reminder.kt): Tapping any notification now deep-links directly to its dedicated tool (Weather alert -> Weather, Subscription alert -> Subscription Tracker, Habit alert -> Habit Tracker, Nepali Date / Reminder -> Calendar / Patro). Bypasses splash and routes cleanly via AppNavigator.
+    - 3D Brand Notification Asset Overhaul: Created crisp multi-density `ic_notification_large.png` (mdpi through xxxhdpi) circular badge featuring the 3D toolbox brand. Set `.setLargeIcon(...)` across all system notifications.
+    - Notification Channel Cache Invalidation: Migrated daily date channel to `v4` and radio to `v2`, programmatically purging stale system/OEM notification channels (`v1..v3`, `patro_reminders`).
+    - Launcher Icon Cache Purge: Added `ic_neptools_launcher` and `ic_neptools_launcher_round` aliases in AndroidManifest.xml and mipmap resources to force OEM launchers (MIUI/HyperOS) to evict stale icon caches. Purged obsolete legacy PNG drawables (`ic_stat_nepal_patro`, `ic_stat_calendar_pagoda`).
   - v2.7.8:
     - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to the Local Government Operation Act 2074, Nepal Citizenship Act 2063 & Rules, Muluki Civil Code 2074, and Vital Registration Act 2076. Fixed citizenship date of birth bug, added mandatory 3-generation genealogy (बाजेको नाम), added statutory declarations, comprehensive document checklists, and added Relationship Verification (Nata Pramanit) template.
     - Automatic Bikram Sambat Date Pre-population: Dynamically loads today's live BS date via PatroRepo engine into the application date field across all templates.

@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.graphics.BitmapFactory
 import android.media.AudioAttributes
 import android.media.AudioFocusRequest
 import android.media.AudioManager
@@ -25,7 +26,7 @@ import com.neptools.app.ui.theme.ThemePrefs
 class RadioService : Service() {
 
     companion object {
-        const val CHANNEL_ID = "neptools_radio_channel"
+        const val CHANNEL_ID = "neptools_radio_channel_v2"
         const val NOTIFICATION_ID = 9610
 
         const val ACTION_PLAY = "com.neptools.app.radio.ACTION_PLAY"
@@ -349,7 +350,13 @@ class RadioService : Service() {
         val playPauseIcon = if (isPlaying) android.R.drawable.ic_media_pause else android.R.drawable.ic_media_play
         val playPauseTitle = if (isPlaying) (if (isEn) "Pause" else "रोक्नुहोस्") else (if (isEn) "Play" else "बजाउनुहोस्")
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        val largeIcon = try {
+            BitmapFactory.decodeResource(resources, R.drawable.ic_notification_large)
+        } catch (_: Exception) {
+            null
+        }
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_stat_notify)
             .setColor(0xFFE11D48.toInt())
             .setContentTitle(if (isEn) station.nameEn else station.nameNp)
@@ -366,20 +373,29 @@ class RadioService : Service() {
             )
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .build()
+
+        if (largeIcon != null) {
+            builder.setLargeIcon(largeIcon)
+        }
+
+        return builder.build()
     }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            try {
+                manager.deleteNotificationChannel("neptools_radio_channel")
+            } catch (_: Exception) {
+            }
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Nepal Patro Live FM Radio",
+                "NepTools Live FM Radio",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Background streaming and playback controls for Live FM Radio"
                 setShowBadge(false)
             }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
     }
