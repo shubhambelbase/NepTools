@@ -1232,14 +1232,14 @@
     },
     {
       "day": 8,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
       "day": 9,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -1270,12 +1270,6 @@
       "day": 11,
       "nameNp": "गाई पूजा (तिहार)",
       "nameEn": "Gai Puja (Cow Worship / Tihar)",
-      "publicHoliday": true
-    },
-    {
-      "day": 12,
-      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
       "publicHoliday": true
     },
     {
@@ -1952,14 +1946,14 @@
     },
     {
       "day": 27,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
       "day": 28,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -1996,18 +1990,6 @@
   "2077-8": [
     {
       "day": 1,
-      "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
-      "nameEn": "Bhai Tika (Main Tihar Festival)",
-      "publicHoliday": true
-    },
-    {
-      "day": 1,
-      "nameNp": "गोवर्धन पूजा / म्ह: पूजा / नेपाल संवत् नयाँ वर्ष",
-      "nameEn": "Govardhan Puja, Mha Puja & Nepal Sambat New Year",
-      "publicHoliday": true
-    },
-    {
-      "day": 2,
       "nameNp": "भाइटीका (तिहारको मुख्य दिन)",
       "nameEn": "Bhai Tika (Main Tihar Festival)",
       "publicHoliday": true
@@ -3775,6 +3757,12 @@
       "publicHoliday": false
     },
     {
+      "day": 7,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
       "day": 8,
       "nameNp": "गाई पूजा (तिहार)",
       "nameEn": "Gai Puja (Cow Worship / Tihar)",
@@ -5174,14 +5162,14 @@
     },
     {
       "day": 24,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
       "day": 25,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -6392,7 +6380,7 @@
       "day": 1,
       "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
       "nameEn": "Kumari Indra Jatra (Valley Holiday)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 2,
@@ -6545,6 +6533,12 @@
       "publicHoliday": true
     },
     {
+      "day": 25,
+      "nameNp": "महानवमी (दशैं)",
+      "nameEn": "Maha Navami (Dashain Holiday)",
+      "publicHoliday": true
+    },
+    {
       "day": 26,
       "nameNp": "विजया दशमी (दशैंको मुख्य टीका)",
       "nameEn": "Vijaya Dashami (Main Dashain Tika)",
@@ -6590,12 +6584,6 @@
   "2081-7": [
     {
       "day": 1,
-      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
-      "publicHoliday": true
-    },
-    {
-      "day": 1,
       "nameNp": "कतिं पुन्हिः",
       "nameEn": "Katin Punhi (Kartik Purnima)",
       "publicHoliday": false
@@ -6626,8 +6614,8 @@
     },
     {
       "day": 13,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
@@ -6638,8 +6626,8 @@
     },
     {
       "day": 14,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -6653,6 +6641,12 @@
       "nameNp": "कुकुर तिहार तथा नरक चतुर्दशी",
       "nameEn": "Kukur Tihar & Narak Chaturdashi",
       "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
     },
     {
       "day": 16,
@@ -8166,12 +8160,6 @@
     },
     {
       "day": 21,
-      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
-      "publicHoliday": true
-    },
-    {
-      "day": 21,
       "nameNp": "कतिं पुन्हिः",
       "nameEn": "Katin Punhi (Kartik Purnima)",
       "publicHoliday": false
@@ -8210,8 +8198,8 @@
   "2082-7": [
     {
       "day": 1,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
@@ -8222,8 +8210,8 @@
     },
     {
       "day": 2,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -8239,16 +8227,16 @@
       "publicHoliday": false
     },
     {
+      "day": 3,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
+      "publicHoliday": true
+    },
+    {
       "day": 4,
       "nameNp": "दर्श श्राद्ध",
       "nameEn": "Darsha Shraddha / Aunsi",
       "publicHoliday": false
-    },
-    {
-      "day": 4,
-      "nameNp": "लक्ष्मी पूजा (दीपावली)",
-      "nameEn": "Laxmi Puja (Deepawali)",
-      "publicHoliday": true
     },
     {
       "day": 5,
@@ -9095,7 +9083,7 @@
     {
       "day": 13,
       "nameNp": "पद्मिनी एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Padmini Ekadashi (Adhik Maas)",
       "publicHoliday": false
     },
     {
@@ -9149,7 +9137,7 @@
     {
       "day": 28,
       "nameNp": "परमा एकादशी",
-      "nameEn": "Ekadashi Vrata",
+      "nameEn": "Parama Ekadashi (Adhik Maas)",
       "publicHoliday": false
     },
     {
@@ -9236,6 +9224,12 @@
       "day": 15,
       "nameNp": "पनौती स्नान",
       "nameEn": "Panauti Makar Snan",
+      "publicHoliday": false
+    },
+    {
+      "day": 15,
+      "nameNp": "राष्ट्रिय धान दिवस (दही चिउरा खाने दिन)",
+      "nameEn": "National Paddy Day (Dahi Chiura Feasting)",
       "publicHoliday": false
     },
     {
@@ -9608,7 +9602,7 @@
       "day": 9,
       "nameNp": "कुमारी इन्द्रजात्रा (काठमाडौँ उपत्यका)",
       "nameEn": "Kumari Indra Jatra (Valley Holiday)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 9,
@@ -9836,12 +9830,6 @@
     },
     {
       "day": 9,
-      "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
-      "nameEn": "Kojagrat Purnima (Dashain Concludes)",
-      "publicHoliday": true
-    },
-    {
-      "day": 9,
       "nameNp": "कतिं पुन्हिः",
       "nameEn": "Katin Punhi (Kartik Purnima)",
       "publicHoliday": false
@@ -9872,8 +9860,8 @@
     },
     {
       "day": 20,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "धनतेरस (धनत्रयोदशी)",
+      "nameEn": "Dhanteras (Dhan Trayodashi)",
       "publicHoliday": false
     },
     {
@@ -9884,8 +9872,8 @@
     },
     {
       "day": 21,
-      "nameNp": "काग तिहार तथा धनतेरस",
-      "nameEn": "Kag Tihar & Dhanteras",
+      "nameNp": "काग तिहार",
+      "nameEn": "Kag Tihar",
       "publicHoliday": false
     },
     {
@@ -9901,15 +9889,15 @@
       "publicHoliday": false
     },
     {
-      "day": 23,
-      "nameNp": "गाई पूजा (तिहार)",
-      "nameEn": "Gai Puja (Cow Worship / Tihar)",
+      "day": 22,
+      "nameNp": "लक्ष्मी पूजा (दीपावली)",
+      "nameEn": "Laxmi Puja (Deepawali)",
       "publicHoliday": true
     },
     {
       "day": 23,
-      "nameNp": "लक्ष्मी पूजा (दीपावली)",
-      "nameEn": "Laxmi Puja (Deepawali)",
+      "nameNp": "गाई पूजा (तिहार)",
+      "nameEn": "Gai Puja (Cow Worship / Tihar)",
       "publicHoliday": true
     },
     {
@@ -10468,6 +10456,18 @@
       "day": 1,
       "nameNp": "नयाँ वर्ष",
       "nameEn": "Nepali New Year",
+      "publicHoliday": true
+    },
+    {
+      "day": 1,
+      "nameNp": "चैते दशैं",
+      "nameEn": "Chaite Dashain",
+      "publicHoliday": false
+    },
+    {
+      "day": 2,
+      "nameNp": "रामनवमी",
+      "nameEn": "Ram Navami",
       "publicHoliday": true
     },
     {

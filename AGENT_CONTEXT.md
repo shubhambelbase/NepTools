@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.2 (versionCode: 41)
+- Current Version: v2.8.3 (versionCode: 42)
 - Last Updated: September 21, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,11 +90,13 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.2 (versionCode 41) — Full 11-Year Festival Deduplication & Gazette Holiday Enforcement Complete.
+- Status: v2.8.3 (versionCode 42) — Full BS 2083 & 11-Year Authentic Source Verification Complete.
 - Last Updated: September 21, 2026
 - Recent Updates:
+  - v2.8.3:
+    - Full BS 2083 Month-by-Month Verification & Authentic Source Cross-Check: Verified all 12 months of BS 2083 (Adhik Maas / Malmaas intercalary year) against Hamro Patro and Nepal Panchanga Nirnayak Vikas Samiti. Aligned Padmini & Parama Ekadashis, restored Ashadh 15 National Paddy Day, aligned Tihar sequence (Dhanteras, Kag Tihar, Kukur Tihar & Laxmi Puja on Kartik 22, Gai Puja on Kartik 23, Govardhan on Kartik 24, Bhai Tika on Kartik 25). Corrected multi-year Laxmi Puja/Kukur Tihar shared days (2079, 2081, 2082), removed duplicate Kojagrat Purnima entries, added same-day Maha Navami in 2081, and added Chaite Dashain & Ram Navami in 2084.
   - v2.8.2:
-    - Full 11-Year Festival Deduplication & Gazette Holiday Enforcement (festivals_sample.json): Eliminated all same-day substring and constituent overlaps (Buddha Jayanti, Swasthani Start/End, Maha Shivaratri, Udhauli, Chhath, Gai/Laxmi Puja, Dhan Diwas, Teej, Ekadashis). Standardized all spelling variations and abbreviations across 132 months into 1,820 canonical entries. Strictly aligned all publicHoliday flags with the official Nepal Gazette (purged non-holidays like shraddhas, melas, and awareness days). 100% Devanagari-free English translations.
+    - Full 11-Year Festival Deduplication & Gazette Holiday Enforcement (festivals_sample.json): Eliminated all same-day substring and constituent overlaps across 132 months. Strictly aligned all publicHoliday flags with the official Nepal Gazette. 100% Devanagari-free English translations.
   - v2.8.1:
     - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates, achieved 100% English translation coverage, and injected full verified festival calendar for BS 2084 and 2085.
   - v2.8.0:
