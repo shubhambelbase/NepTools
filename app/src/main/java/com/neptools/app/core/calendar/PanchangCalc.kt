@@ -70,8 +70,9 @@ object PanchangCalc {
 
     fun compute(date: LocalDate): Panchang {
         // High-precision VSOP87 + NOVAS C 3.1 + ELP-2000 calculations
-        // Sampled at 06:00 NPT (00:15 UT) near sunrise for Nepal standard observation
-        val jdUt = ephemeris.julianDay(date, LocalTime.of(6, 0), 5.75)
+        // Sampled at authentic local sunrise in Nepal for canonical Udaya Tithi
+        val sunrise = SolarCalc.compute(date, 27.7172, 85.3240).sunrise ?: LocalTime.of(6, 0)
+        val jdUt = ephemeris.julianDay(date, sunrise, 5.75)
         val ayanamsa = ephemeris.ayanamsa(jdUt, AyanamsaType.LAHIRI)
         val tropical = ephemeris.tropicalLongitudes(jdUt)
 

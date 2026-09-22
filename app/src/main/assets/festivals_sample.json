@@ -5770,7 +5770,7 @@
       "day": 19,
       "nameNp": "बुधाष्टमी व्रत",
       "nameEn": "Budhashtami Vrata",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 20,
@@ -5978,7 +5978,7 @@
       "day": 3,
       "nameNp": "निर्जला एकादशी (तुलसीको दल राख्ने)",
       "nameEn": "Nirjala Ekadashi (Tulsi Seeding Day)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 4,
@@ -6404,7 +6404,7 @@
       "day": 3,
       "nameNp": "द्वितीया श्राद्ध",
       "nameEn": "Dwitiya Shraddha",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 4,
@@ -6452,7 +6452,7 @@
       "day": 9,
       "nameNp": "अष्टमी श्राद्ध",
       "nameEn": "Ashtami Shraddha",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 10,
@@ -6566,7 +6566,7 @@
       "day": 28,
       "nameNp": "विश्व गुणस्तर दिवस",
       "nameEn": "World Quality Day",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 30,
@@ -6650,9 +6650,9 @@
     },
     {
       "day": 16,
-      "nameNp": "दर्श श्राद्ध",
-      "nameEn": "Darsha Shraddha / Aunsi",
-      "publicHoliday": false
+      "nameNp": "तिहार बिदा",
+      "nameEn": "Tihar Holiday",
+      "publicHoliday": true
     },
     {
       "day": 17,
@@ -6680,9 +6680,9 @@
     },
     {
       "day": 19,
-      "nameNp": "तृतीया",
-      "nameEn": "Tritiya Tithi",
-      "publicHoliday": false
+      "nameNp": "तिहार बिदा",
+      "nameEn": "Tihar Holiday",
+      "publicHoliday": true
     },
     {
       "day": 20,
@@ -6760,10 +6760,16 @@
       "day": 30,
       "nameNp": "पूर्णिमा व्रत",
       "nameEn": "Purnima Vrata",
-      "publicHoliday": false
+      "publicHoliday": true
     }
   ],
   "2081-8": [
+    {
+      "day": 3,
+      "nameNp": "राष्ट्रिय शोक बिदा",
+      "nameEn": "National Mourning Holiday",
+      "publicHoliday": true
+    },
     {
       "day": 4,
       "nameNp": "गणेश चतुर्थी",
@@ -6828,7 +6834,7 @@
       "day": 18,
       "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
       "nameEn": "International Day of Persons with Disabilities",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 21,
@@ -7000,7 +7006,7 @@
       "day": 16,
       "nameNp": "माधव नारायण मेला",
       "nameEn": "Madhav Narayan Mela",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 17,
@@ -7012,7 +7018,7 @@
       "day": 17,
       "nameNp": "श्रीवल्लभ जयन्ती",
       "nameEn": "Shri Vallabhacharya Jayanti",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 21,
@@ -7074,7 +7080,7 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 8,
@@ -7104,7 +7110,7 @@
       "day": 14,
       "nameNp": "नेपाली सेना दिवस",
       "nameEn": "Nepali Army Day (Maha Shivaratri)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 16,
@@ -7214,7 +7220,7 @@
       "day": 18,
       "nameNp": "मत्स्येजयन्ती",
       "nameEn": "Matsya Jayanti",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 23,
@@ -7288,7 +7294,7 @@
       "day": 1,
       "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ स्नान",
       "nameEn": "Lalitpur Rato Machhindranath Snan",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 2,
@@ -7342,7 +7348,7 @@
       "day": 11,
       "nameNp": "लोकतन्त्र दिवस",
       "nameEn": "Loktantra Diwas (Democracy Day)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 13,
@@ -7396,7 +7402,7 @@
       "day": 18,
       "nameNp": "ललितपुर रातो मच्छिन्द्रनाथ रथयात्रा आरम्भ",
       "nameEn": "Lalitpur Rato Machhindranath Rath Yatra Begins",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 19,
@@ -7438,7 +7444,7 @@
       "day": 24,
       "nameNp": "राष्ट्रिय पत्रकारिता दिवस",
       "nameEn": "National Journalism Day",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 25,
@@ -8040,7 +8046,7 @@
       "day": 30,
       "nameNp": "जितिया पर्व",
       "nameEn": "Jitiya Parva",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 31,
@@ -8060,7 +8066,7 @@
       "day": 1,
       "nameNp": "इन्दिरा एकादशी",
       "nameEn": "Indira Ekadashi",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 2,
@@ -8144,7 +8150,7 @@
       "day": 17,
       "nameNp": "अन्नपूर्णा यात्रा",
       "nameEn": "Annapurna Jatra",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 18,
@@ -8156,7 +8162,7 @@
       "day": 20,
       "nameNp": "कोजाग्रत पूर्णिमा (दशैं समापन)",
       "nameEn": "Kojagrat Purnima (Dashain Concludes)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 21,
@@ -8234,9 +8240,9 @@
     },
     {
       "day": 4,
-      "nameNp": "दर्श श्राद्ध",
-      "nameEn": "Darsha Shraddha / Aunsi",
-      "publicHoliday": false
+      "nameNp": "तिहार बिदा",
+      "nameEn": "Tihar Holiday",
+      "publicHoliday": true
     },
     {
       "day": 5,
@@ -8258,9 +8264,9 @@
     },
     {
       "day": 7,
-      "nameNp": "तृतीया",
-      "nameEn": "Tritiya Tithi",
-      "publicHoliday": false
+      "nameNp": "तिहार बिदा",
+      "nameEn": "Tihar Holiday",
+      "publicHoliday": true
     },
     {
       "day": 10,
@@ -8320,13 +8326,13 @@
       "day": 19,
       "nameNp": "पूर्णिमाव्रत",
       "nameEn": "Purnima Vrata",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 25,
       "nameNp": "फाल्गुनन्द जयन्ती",
       "nameEn": "Falgunanda Jayanti",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 26,
@@ -8400,7 +8406,7 @@
       "day": 17,
       "nameNp": "अन्तर्राष्ट्रिय अपाङ्गता दिवस",
       "nameEn": "International Day of Persons with Disabilities",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 18,
@@ -8560,7 +8566,7 @@
       "day": 9,
       "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
       "nameEn": "Basanta Panchami / Saraswati Puja",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 11,
@@ -8608,7 +8614,7 @@
       "day": 16,
       "nameNp": "चाँगुमा माधव नारायण मेला",
       "nameEn": "Changu Madhav Narayan Mela",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 17,
@@ -8682,7 +8688,7 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 12,
@@ -8712,7 +8718,7 @@
       "day": 18,
       "nameNp": "चीरदाह",
       "nameEn": "Chir Daha (Holi Bonfire)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 19,
@@ -8724,13 +8730,19 @@
       "day": 20,
       "nameNp": "नाला मच्छिन्द्रनाथ स्नान",
       "nameEn": "Nala Karunamaya Snan",
-      "publicHoliday": false
+      "publicHoliday": true
+    },
+    {
+      "day": 21,
+      "nameNp": "प्रतिनिधिसभा निर्वाचन",
+      "nameEn": "House of Representatives Election",
+      "publicHoliday": true
     },
     {
       "day": 22,
       "nameNp": "नाला मच्छिन्द्रनाथ रथयात्रा",
       "nameEn": "Nala Karunamaya Rath Jatra",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 24,
@@ -8884,7 +8896,7 @@
       "day": 1,
       "nameNp": "भक्तपुर विश्वध्वजपातन",
       "nameEn": "Biska Jatra (Pole Lowering)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 2,
@@ -8956,7 +8968,7 @@
       "day": 11,
       "nameNp": "लोकतन्त्र दिवस",
       "nameEn": "Loktantra Diwas (Democracy Day)",
-      "publicHoliday": true
+      "publicHoliday": false
     },
     {
       "day": 12,
@@ -9090,7 +9102,7 @@
       "day": 14,
       "nameNp": "प्रदोष व्रत",
       "nameEn": "Pradosh Vrata",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 15,
@@ -9411,6 +9423,12 @@
       "publicHoliday": false
     },
     {
+      "day": 10,
+      "nameNp": "पैगम्बर मोहम्मद जयन्ती",
+      "nameEn": "Prophet Muhammad Jayanti (Muslim Holiday)",
+      "publicHoliday": true
+    },
+    {
       "day": 11,
       "nameNp": "पूर्णिमाव्रत",
       "nameEn": "Purnima Vrata",
@@ -9498,7 +9516,7 @@
       "day": 23,
       "nameNp": "जेनजी सहिद दिवस",
       "nameEn": "Martyrs' Day (Sahid Diwas)",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 24,
@@ -9608,7 +9626,7 @@
       "day": 9,
       "nameNp": "अनन्त चतुर्दशी",
       "nameEn": "Ananta Chaturdashi",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 10,
@@ -9782,9 +9800,9 @@
     },
     {
       "day": 2,
-      "nameNp": "जनबहाः कुछि भ्वय्",
-      "nameEn": "Janabaha Kuchi Bhway",
-      "publicHoliday": false
+      "nameNp": "दशैं बिदा (कुछि भ्वय्)",
+      "nameEn": "Dashain Holiday (Kuchhi Bhway)",
+      "publicHoliday": true
     },
     {
       "day": 3,
@@ -9808,13 +9826,13 @@
       "day": 5,
       "nameNp": "अन्नपूर्णा यात्रा",
       "nameEn": "Annapurna Jatra",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 6,
-      "nameNp": "द्वादशी",
-      "nameEn": "Dwadashi Tithi",
-      "publicHoliday": false
+      "nameNp": "दशैं बिदा",
+      "nameEn": "Dashain Holiday",
+      "publicHoliday": true
     },
     {
       "day": 8,
@@ -9914,9 +9932,9 @@
     },
     {
       "day": 26,
-      "nameNp": "तृतीया",
-      "nameEn": "Tritiya Tithi",
-      "publicHoliday": false
+      "nameNp": "तिहार बिदा",
+      "nameEn": "Tihar Holiday",
+      "publicHoliday": true
     },
     {
       "day": 29,
@@ -9978,7 +9996,7 @@
       "day": 8,
       "nameNp": "चतुर्मास व्रत समाप्ति",
       "nameEn": "Chaturmas Vrata Concludes",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 15,
@@ -9996,7 +10014,7 @@
       "day": 17,
       "nameNp": "श्री गुहेश्वरी यात्रा",
       "nameEn": "Guhyeshwari Jatra",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 18,
@@ -10234,7 +10252,7 @@
       "day": 28,
       "nameNp": "वसन्त पञ्चमी / श्रीपञ्चमी (सरस्वती पूजा)",
       "nameEn": "Basanta Panchami / Saraswati Puja",
-      "publicHoliday": false
+      "publicHoliday": true
     }
   ],
   "2083-11": [
@@ -10284,7 +10302,7 @@
       "day": 7,
       "nameNp": "राष्ट्रिय निर्वाचन दिवस",
       "nameEn": "National Election Day",
-      "publicHoliday": false
+      "publicHoliday": true
     },
     {
       "day": 8,

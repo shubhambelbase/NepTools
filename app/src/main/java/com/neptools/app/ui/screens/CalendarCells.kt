@@ -88,15 +88,17 @@ internal fun NavArrow(
 
 @Composable
 internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
+    val isHoliday = cell.isHoliday
     val hasFest = cell.festivals.isNotEmpty()
     val isToday = cell.isToday
     val adDay = cell.adDate.dayOfMonth
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
+    val tithiDisplay = if (isEn) cell.tithiNameEn.ifBlank { cell.tithiName } else cell.tithiName
 
     val cellDescription = if (isEn) {
-        "${cell.dayOfMonth} ${com.neptools.app.core.calendar.NepaliNames.monthsEn[cell.nepaliDate.month - 1]}${if (isToday) ", Today" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameEn ?: ""}" else ""}${if (cell.isSaturday) ", Saturday" else ""}"
+        "${cell.dayOfMonth} ${com.neptools.app.core.calendar.NepaliNames.monthsEn[cell.nepaliDate.month - 1]}${if (isToday) ", Today" else ""}${if (tithiDisplay.isNotBlank()) ", $tithiDisplay" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameEn ?: ""}" else ""}${if (isHoliday) ", Public Holiday" else ""}"
     } else {
-        "${npNum(cell.dayOfMonth)} ${com.neptools.app.core.calendar.NepaliNames.monthsNp[cell.nepaliDate.month - 1]}${if (isToday) ", आज" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameNp ?: ""}" else ""}${if (cell.isSaturday) ", शनिबार" else ""}"
+        "${npNum(cell.dayOfMonth)} ${com.neptools.app.core.calendar.NepaliNames.monthsNp[cell.nepaliDate.month - 1]}${if (isToday) ", आज" else ""}${if (tithiDisplay.isNotBlank()) ", $tithiDisplay" else ""}${if (hasFest) ", ${cell.festivals.firstOrNull()?.nameNp ?: ""}" else ""}${if (isHoliday) ", सार्वजनिक बिदा" else ""}"
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -131,63 +133,85 @@ internal fun DayCell(cell: CalendarCell, onOpenDay: (Int, Int, Int) -> Unit) {
             .background(
                 when {
                     isToday -> MaterialTheme.colorScheme.tertiary
-                    hasFest -> MaterialTheme.colorScheme.primaryContainer
+                    isHoliday -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.45f)
                     else -> MaterialTheme.colorScheme.surface
                 },
                 MaterialTheme.shapes.small
             )
-            .padding(vertical = 3.dp, horizontal = 2.dp),
+            .padding(vertical = 2.dp, horizontal = 1.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize().padding(horizontal = 1.dp, vertical = 2.dp)
         ) {
             Text(
                 npNum(cell.dayOfMonth),
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                    fontSize = 14.sp
                 ),
                 color = when {
                     isToday -> MaterialTheme.colorScheme.onTertiary
-                    hasFest || cell.isSaturday -> MaterialTheme.colorScheme.primary
+                    isHoliday -> MaterialTheme.colorScheme.primary
                     else -> MaterialTheme.colorScheme.onSurface
                 }
             )
+            if (tithiDisplay.isNotBlank()) {
+                Text(
+                    tithiDisplay,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontSize = 8.sp,
+                        fontWeight = if (isHoliday) FontWeight.SemiBold else FontWeight.Normal
+                    ),
+                    maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                    color = when {
+                        isToday -> MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.9f)
+                        isHoliday -> MaterialTheme.colorScheme.primary.copy(alpha = 0.85f)
+                        else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.85f)
+                    }
+                )
+            }
             Spacer(Modifier.height(1.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
                 Text(
                     if (isEn) adDay.toString() else com.neptools.app.core.calendar.NepaliNames.toDevanagari(adDay),
                     style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 10.sp,
+                        fontSize = 9.sp,
                         fontWeight = FontWeight.Medium
                     ),
                     color = when {
                         isToday -> MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.85f)
-                        hasFest -> MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
-                        cell.isSaturday -> MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
+                        isHoliday -> MaterialTheme.colorScheme.primary.copy(alpha = 0.75f)
                         else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
                     }
                 )
                 if (hasFest && !isToday) {
-                    Spacer(Modifier.width(3.dp))
+                    Spacer(Modifier.width(2.5.dp))
                     Box(
                         Modifier
-                            .size(4.dp)
-                            .background(MaterialTheme.colorScheme.primary, androidx.compose.foundation.shape.CircleShape)
+                            .size(3.5.dp)
+                            .background(
+                                if (isHoliday) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.secondary,
+                                androidx.compose.foundation.shape.CircleShape
+                            )
                     )
                 }
                 if (cell.hasUserEvent && !isToday) {
                     Spacer(Modifier.width(2.dp))
                     Box(
                         Modifier
-                            .size(4.dp)
-                            .background(MaterialTheme.colorScheme.secondary, androidx.compose.foundation.shape.CircleShape)
+                            .size(3.5.dp)
+                            .background(
+                                MaterialTheme.colorScheme.tertiary,
+                                androidx.compose.foundation.shape.CircleShape
+                            )
                     )
                 }
             }
@@ -259,21 +283,22 @@ internal fun FestivalRow(day: Int, nameNp: String, nameEn: String, publicHoliday
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        TagChip(if (publicHoliday) (if (isEn) "Holiday" else "बिदा") else (if (isEn) "Festival" else "पर्व"))
+        TagChip(
+            text = if (publicHoliday) (if (isEn) "Public Holiday" else "सार्वजनिक बिदा") else (if (isEn) "Festival" else "पर्व"),
+            isHoliday = publicHoliday
+        )
     }
 }
 
 @Composable
-private fun TagChip(text: String) {
+private fun TagChip(text: String, isHoliday: Boolean = false) {
+    val bg = if (isHoliday) MaterialTheme.colorScheme.primary.copy(alpha = 0.12f) else MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f)
+    val fg = if (isHoliday) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     Box(
         Modifier
-            .background(
-                MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f),
-                MaterialTheme.shapes.extraSmall
-            )
+            .background(bg, MaterialTheme.shapes.extraSmall)
             .padding(horizontal = 10.dp, vertical = 5.dp)
     ) {
-        Text(text, style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.secondary)
+        Text(text, style = MaterialTheme.typography.labelMedium, color = fg)
     }
 }

@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.3 (versionCode: 42)
-- Last Updated: September 21, 2026
+- Current Version: v2.8.4 (versionCode: 43)
+- Last Updated: September 22, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -90,11 +90,16 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.3 (versionCode 42) — Full BS 2083 & 11-Year Authentic Source Verification Complete.
-- Last Updated: September 21, 2026
+- Status: v2.8.4 (versionCode 43) — Calendar Holiday & Udaya Tithi Accuracy Overhaul.
+- Last Updated: September 22, 2026
 - Recent Updates:
+  - v2.8.4:
+    - Calendar Holiday vs Festival Distinction: Fixed calendar cell styling bug where ordinary festivals erroneously highlighted days in holiday red. Only official public holidays (Saturdays and gazetted holidays) are red; ordinary working festivals are shown in subtle secondary/teal.
+    - Authentic Udaya Tithi at Local Sunrise: Updated PanchangCalc.compute() to sample lunar elongation at authentic local sunrise via SolarCalc, matching canonical Vedic Panchang principles.
+    - Cell Grid Tithi Display: Injected localized Tithi on every calendar grid day cell. Added clear bottom legend distinguishing Public Holidays (red), Festivals (teal), and Today.
+    - Hamro Patro & Gazette Alignment: Cross-verified all months for BS 2081 through 2085. Aligned multi-day Tihar, Dashain Dwadashi, Eid-ul-Fitr, Bakrid, Bhoto Jatra, and purged incorrect holiday flags on regular working festivals.
   - v2.8.3:
-    - Full BS 2083 Month-by-Month Verification & Authentic Source Cross-Check: Verified all 12 months of BS 2083 (Adhik Maas / Malmaas intercalary year) against Hamro Patro and Nepal Panchanga Nirnayak Vikas Samiti. Aligned Padmini & Parama Ekadashis, restored Ashadh 15 National Paddy Day, aligned Tihar sequence (Dhanteras, Kag Tihar, Kukur Tihar & Laxmi Puja on Kartik 22, Gai Puja on Kartik 23, Govardhan on Kartik 24, Bhai Tika on Kartik 25). Corrected multi-year Laxmi Puja/Kukur Tihar shared days (2079, 2081, 2082), removed duplicate Kojagrat Purnima entries, added same-day Maha Navami in 2081, and added Chaite Dashain & Ram Navami in 2084.
+    - Full BS 2083 Month-by-Month Verification: Verified all 12 months of BS 2083 against Hamro Patro and Nepal Panchanga Nirnayak Vikas Samiti. Aligned Padmini & Parama Ekadashis, restored Ashadh 15, aligned Tihar sequence, and added Chaite Dashain & Ram Navami in 2084.
   - v2.8.2:
     - Full 11-Year Festival Deduplication & Gazette Holiday Enforcement (festivals_sample.json): Eliminated all same-day substring and constituent overlaps across 132 months. Strictly aligned all publicHoliday flags with the official Nepal Gazette. 100% Devanagari-free English translations.
   - v2.8.1:

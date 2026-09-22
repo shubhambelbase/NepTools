@@ -142,7 +142,8 @@ fun CalendarScreen(
 
         Spacer(Modifier.height(6.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-            LegendDot(MaterialTheme.colorScheme.primary, if (isEn) "Festival / Holiday" else "पर्व / बिदा")
+            LegendDot(MaterialTheme.colorScheme.primary, if (isEn) "Public Holiday" else "सार्वजनिक बिदा")
+            LegendDot(MaterialTheme.colorScheme.secondary, if (isEn) "Festival / Event" else "पर्व / उत्सव")
             LegendDot(MaterialTheme.colorScheme.tertiary, if (isEn) "Today" else "आज")
         }
 

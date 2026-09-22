@@ -12,7 +12,10 @@ data class CalendarCell(
     val isToday: Boolean,
     val isSaturday: Boolean,
     val festivals: List<Festival>,
-    val hasUserEvent: Boolean = false
+    val hasUserEvent: Boolean = false,
+    val tithiName: String = "",
+    val tithiNameEn: String = "",
+    val isHoliday: Boolean = isSaturday || festivals.any { it.isPublicHoliday }
 )
 
 class BsCalendarEngine(
@@ -101,6 +104,10 @@ class BsCalendarEngine(
         for (d in 1..total) {
             val np = NepaliDate(year, month, d)
             val ad = bsToAd(np)
+            val dayFestivals = festivalsByDay[d] ?: emptyList()
+            val isSat = ad.dayOfWeek == DayOfWeek.SATURDAY
+            val isHol = isSat || dayFestivals.any { it.isPublicHoliday }
+            val panchang = PanchangCalc.compute(ad)
             cells.add(
                 CalendarCell(
                     nepaliDate = np,
@@ -108,9 +115,12 @@ class BsCalendarEngine(
                     dayOfMonth = d,
                     weekdayIndex = WeekdayMapper.fromJava(ad.dayOfWeek),
                     isToday = todayNp != null && np == todayNp,
-                    isSaturday = ad.dayOfWeek == DayOfWeek.SATURDAY,
-                    festivals = festivalsByDay[d] ?: emptyList(),
-                    hasUserEvent = userEventDays.contains(d)
+                    isSaturday = isSat,
+                    festivals = dayFestivals,
+                    hasUserEvent = userEventDays.contains(d),
+                    tithiName = panchang.tithiName,
+                    tithiNameEn = panchang.tithiNameEn,
+                    isHoliday = isHol
                 )
             )
         }

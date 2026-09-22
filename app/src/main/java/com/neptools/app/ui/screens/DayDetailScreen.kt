@@ -154,7 +154,7 @@ fun DayDetailScreen(
                 Text(
                     fName + holidayTag,
                     style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = if (f.isPublicHoliday) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(vertical = 3.dp)
                 )
             }
