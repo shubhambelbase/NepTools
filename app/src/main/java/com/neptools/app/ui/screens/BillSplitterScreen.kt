@@ -89,6 +89,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -137,31 +138,11 @@ fun BillSplitterScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Top Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "Bill & Tip Splitter" else "बिल तथा टिप बाँडफाँड",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "Bill & Tip Splitter" else "बिल तथा टिप बाँडफाँड",
+            subtitle = if (isEn) "Split restaurant bills, tip & itemized shares" else "व्यक्तिगत हिस्सा, टिप तथा समूह खर्च हिसाब",
+            onBack = onBack
+        )
             TabRow(
                 selectedTabIndex = currentMode.ordinal,
                 containerColor = MaterialTheme.colorScheme.surface,

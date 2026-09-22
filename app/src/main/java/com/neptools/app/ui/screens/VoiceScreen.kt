@@ -79,6 +79,7 @@ import androidx.core.app.ActivityCompat
 import com.neptools.app.core.notes.Note
 import com.neptools.app.core.notes.NotesStore
 import com.neptools.app.ui.components.InkButton
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.text.SimpleDateFormat
@@ -253,41 +254,12 @@ fun VoiceScreen(onBack: () -> Unit) {
     ) {
         // App Bar & Title
         item {
-            Spacer(Modifier.height(10.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(38.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
-                        .clickable(onClick = onBack),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = PIcons.ChevronLeft,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-
-                Spacer(Modifier.width(12.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = if (isEn) "Voice Notes" else "नेपाली भ्वाइस नोट",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                    Text(
-                        text = if (isEn) "Speech-to-Text Transcription" else "आवाजबाट पाठ रूपान्तरण",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
+            ToolTopBar(
+                title = if (isEn) "Voice Notes" else "नेपाली भ्वाइस नोट",
+                subtitle = if (isEn) "Speech-to-text live transcription" else "नेपाली आवाजबाट पाठ रूपान्तरण",
+                onBack = onBack,
+                modifier = Modifier.padding(horizontal = 0.dp)
+            )
         }
 
         // Language Mode Selector Card

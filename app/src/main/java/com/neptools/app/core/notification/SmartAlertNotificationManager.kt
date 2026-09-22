@@ -33,12 +33,15 @@ object SmartAlertNotificationManager {
     const val CHANNEL_SUBSCRIPTIONS = "neptools_subs_channel"
     const val CHANNEL_HABITS = "neptools_habits_channel"
     const val CHANNEL_WEATHER = "neptools_weather_channel"
+    const val CHANNEL_FESTIVALS = "neptools_festivals_channel"
 
     private const val NOTIF_PREFS = "smart_alerts_prefs"
 
     private const val NOTIF_ID_SUBS = 2001
     private const val NOTIF_ID_HABITS = 2002
     private const val NOTIF_ID_WEATHER = 2003
+    private const val NOTIF_ID_FESTIVALS = 2004
+    private const val NOTIF_ID_PARANA = 2005
 
     fun createNotificationChannels(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -79,9 +82,22 @@ object SmartAlertNotificationManager {
                 enableVibration(true)
             }
 
+            // 4. Festival & Fasting Channel (High Priority)
+            val festivalChannel = NotificationChannel(
+                CHANNEL_FESTIVALS,
+                "Festival & Fasting Reminders",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Alerts for upcoming Ekadashi, sacred fasts, Parana timing & festivals"
+                enableLights(true)
+                lightColor = Color.parseColor("#F59E0B")
+                enableVibration(true)
+            }
+
             nm.createNotificationChannel(subChannel)
             nm.createNotificationChannel(habitChannel)
             nm.createNotificationChannel(weatherChannel)
+            nm.createNotificationChannel(festivalChannel)
         }
     }
 
@@ -243,6 +259,125 @@ object SmartAlertNotificationManager {
     }
 
     /**
+     * Checks upcoming Ekadashi, Purnima, Aunsi, Parana timing, and major festivals.
+     * Triggers notifications:
+     * 1. Evening prior: Reminds user about tomorrow's sacred fast or festival so they can prepare.
+     * 2. Morning of Dwadashi: Reminds user about Parana fast breaking guidelines.
+     */
+    fun checkAndNotifyFestivalsAndFasting(context: Context) {
+        val prefs = context.getSharedPreferences(NOTIF_PREFS, Context.MODE_PRIVATE)
+        val isEnabled = prefs.getBoolean("notif_festivals", true) && ThemePrefs.festivalNotification.value
+        if (!isEnabled) return
+
+        try {
+            val engine = com.neptools.app.core.data.PatroRepo.d.engine
+            val today = LocalDate.now()
+            val tomorrow = today.plusDays(1)
+            val isEn = ThemePrefs.lang.value == "en"
+
+            // 1. Tomorrow's Fasting / Sacred Observance Reminder
+            val tomorrowPanchang = com.neptools.app.core.calendar.PanchangCalc.compute(tomorrow)
+            val tomorrowBs = runCatching { engine.adToBs(tomorrow) }.getOrNull()
+            val tomorrowFestivals = if (tomorrowBs != null) {
+                com.neptools.app.core.data.PatroRepo.d.festivalsFor(tomorrowBs.year, tomorrowBs.month)[tomorrowBs.day].orEmpty()
+            } else emptyList()
+
+            val dedupeKeyTomorrow = "fest_notified_tomorrow_$tomorrow"
+            if (!prefs.getBoolean(dedupeKeyTomorrow, false)) {
+                val tithi = tomorrowPanchang.tithiName
+                val isShukla = tomorrowPanchang.paksha == "शुक्ल पक्ष"
+
+                var reminderTitle: String? = null
+                var reminderMessage: String? = null
+                var targetRoute: String = Routes.CALENDAR
+
+                if (tithi == "एकादशी") {
+                    val info = com.neptools.app.core.calendar.SacredTithiResolver.resolveEkadashi(tomorrowPanchang.lunarMasaIndex, isShukla)
+                    val name = if (isEn) info.canonicalNameEn else info.canonicalNameNp
+                    reminderTitle = if (isEn) "Tomorrow: $name Fast" else "भोलि: $name (एकादशी व्रत)"
+                    reminderMessage = if (isEn) {
+                        "Prepare for sacred Ekadashi fasting tomorrow. Abstain from grains and prepare for fasting."
+                    } else {
+                        "भोलि पवित्र एकादशी व्रत परेको छ। अन्न त्याग, फलाहार एवं व्रतको तयारी गर्नुहोला।"
+                    }
+                    targetRoute = Routes.EKADASHI
+                } else if (tithi == "औंसी") {
+                    val info = com.neptools.app.core.calendar.SacredTithiResolver.resolveAunsi(tomorrowPanchang.lunarMasaIndex)
+                    val name = if (isEn) info.canonicalNameEn else info.canonicalNameNp
+                    reminderTitle = if (isEn) "Tomorrow: $name" else "भोलि: $name (औंसी)"
+                    reminderMessage = if (isEn) {
+                        "Sacred lunar phase tomorrow for ancestral prayers, charity, and meditation."
+                    } else {
+                        "भोलि पवित्र औंसी तिथि परेको छ। पितृ तर्पण, श्राद्ध तथा दान-पुण्यको दिन।"
+                    }
+                    targetRoute = Routes.EKADASHI
+                } else if (tithi == "पूर्णिमा") {
+                    val info = com.neptools.app.core.calendar.SacredTithiResolver.resolvePurnima(tomorrowPanchang.lunarMasaIndex)
+                    val name = if (isEn) info.canonicalNameEn else info.canonicalNameNp
+                    reminderTitle = if (isEn) "Tomorrow: $name" else "भोलि: $name (पूर्णिमा व्रत)"
+                    reminderMessage = if (isEn) {
+                        "Full moon observance tomorrow. Ideal day for Satyanarayan Puja and spiritual discipline."
+                    } else {
+                        "भोलि पवित्र पूर्णिमा व्रत परेको छ। सत्यनारायण पूजा एवं चन्द्र उपासनाको दिन।"
+                    }
+                    targetRoute = Routes.EKADASHI
+                } else if (tomorrowFestivals.isNotEmpty()) {
+                    val f = tomorrowFestivals.first()
+                    val fName = if (isEn) f.nameEn.ifBlank { f.nameNp } else f.nameNp
+                    reminderTitle = if (isEn) "Tomorrow: $fName" else "भोलि: $fName"
+                    reminderMessage = if (isEn) {
+                        "Special festive observance tomorrow in the Bikram Sambat calendar."
+                    } else {
+                        "भोलि नेपाली पात्रो अनुसार विशेष चाडपर्व परेको छ।"
+                    }
+                }
+
+                if (reminderTitle != null && reminderMessage != null) {
+                    sendNotification(
+                        context = context,
+                        channelId = CHANNEL_FESTIVALS,
+                        notificationId = NOTIF_ID_FESTIVALS,
+                        title = reminderTitle,
+                        message = reminderMessage,
+                        targetRoute = targetRoute
+                    )
+                    prefs.edit().putBoolean(dedupeKeyTomorrow, true).apply()
+                }
+            }
+
+            // 2. Today's Parana Morning Alert (If today is Dwadashi and yesterday was Ekadashi)
+            val dedupeKeyParana = "parana_notified_today_$today"
+            if (!prefs.getBoolean(dedupeKeyParana, false)) {
+                val todayPanchang = com.neptools.app.core.calendar.PanchangCalc.compute(today)
+                if (todayPanchang.tithiName == "द्वादशी") {
+                    val yesterday = today.minusDays(1)
+                    val yesterdayPanchang = com.neptools.app.core.calendar.PanchangCalc.compute(yesterday)
+                    if (yesterdayPanchang.tithiName == "एकादशी") {
+                        val title = if (isEn) "Ekadashi Parana Morning" else "एकादशी व्रत पारणा समय"
+                        val message = if (isEn) {
+                            "Today is Dwadashi. Conclude your Ekadashi fast after sunrise with pure satvik offerings."
+                        } else {
+                            "आज द्वादशी तिथि हो। स्थानीय सूर्योदय पश्चात् सात्विक प्रसाद तथा जल ग्रहण गरी व्रत पारणा गर्नुहोला।"
+                        }
+
+                        sendNotification(
+                            context = context,
+                            channelId = CHANNEL_FESTIVALS,
+                            notificationId = NOTIF_ID_PARANA,
+                            title = title,
+                            message = message,
+                            targetRoute = Routes.EKADASHI
+                        )
+                        prefs.edit().putBoolean(dedupeKeyParana, true).apply()
+                    }
+                }
+            }
+        } catch (_: Exception) {
+            // Ignore background check errors
+        }
+    }
+
+    /**
      * Sends a test alert for a specific channel to verify notification sound and appearance.
      */
     fun sendTestAlert(context: Context, channelType: String) {
@@ -278,6 +413,16 @@ object SmartAlertNotificationManager {
                     title = if (isEn) "Test: Rain Alert (Kathmandu)" else "परीक्षण: वर्षाको सूचना (काठमाडौँ)",
                     message = if (isEn) "Light to moderate rain expected (70% chance). Carry an umbrella!" else "हल्का देखि मध्यम वर्षाको सम्भावना (७०%)। छाता साथमा राख्नुहोस्!",
                     targetRoute = Routes.WEATHER
+                )
+            }
+            "festivals" -> {
+                sendNotification(
+                    context = context,
+                    channelId = CHANNEL_FESTIVALS,
+                    notificationId = NOTIF_ID_FESTIVALS + 999,
+                    title = if (isEn) "Test: Harishayani Ekadashi Fast Tomorrow" else "परीक्षण: भोलि हरिशयनी एकादशी व्रत (तुलसी रोप्ने दिन)",
+                    message = if (isEn) "Prepare for sacred fast tomorrow. Abstain from grains and prepare satvik food." else "भोलि चतुर्मास प्रारम्भ तथा एकादशी व्रत परेको छ। अन्न त्याग एवं व्रतको तयारी गर्नुहोला।",
+                    targetRoute = Routes.EKADASHI
                 )
             }
         }

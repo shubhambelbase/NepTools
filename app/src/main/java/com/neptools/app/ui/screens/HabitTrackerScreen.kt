@@ -97,6 +97,7 @@ import com.neptools.app.core.habit.HabitLog
 import com.neptools.app.core.habit.HabitRepository
 import com.neptools.app.core.habit.HabitStats
 import com.neptools.app.core.habit.HabitType
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -185,48 +186,33 @@ fun HabitTrackerScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Habit Tracker" else "बानी ट्र्याकर",
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = "Back", modifier = Modifier.size(24.dp))
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Habit Tracker" else "बानी ट्र्याकर",
+                subtitle = if (isEn) "Daily routine, streaks & consistency" else "दैनिक बानी, निरन्तरता तथा वार्षिक ट्र्याकिङ",
+                onBack = onBack,
                 actions = {
                     // BS / AD Toggle chip
                     Surface(
                         shape = RoundedCornerShape(18.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
                         modifier = Modifier
-                            .padding(end = 8.dp)
                             .clickable {
                                 isBsMode = !isBsMode
                                 currentYear = if (isBsMode) todayBs.year else todayAd.year
                             }
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
                                 text = if (isBsMode) "विक्रम संवत्" else "AD Calendar",
-                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 11.sp),
                                 color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
+                }
             )
         },
         floatingActionButton = {

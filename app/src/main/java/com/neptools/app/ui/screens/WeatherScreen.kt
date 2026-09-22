@@ -60,6 +60,7 @@ import com.neptools.app.core.data.DailyForecast
 import com.neptools.app.core.data.HourlyForecast
 import com.neptools.app.core.data.WeatherRepo
 import com.neptools.app.core.util.WeatherLocationManager
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -113,65 +114,47 @@ fun WeatherScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, if (isEn) "Back" else "फिर्ता", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "Weather & Forecast" else "मौसम तथा पूर्वानुमान",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Box(
-                Modifier
-                    .background(Color(0xFFE0F2FE), RoundedCornerShape(10.dp))
-                    .border(1.dp, Color(0xFF38BDF8), RoundedCornerShape(10.dp))
-                    .clickable { showCitySheet = true }
-                    .padding(horizontal = 10.dp, vertical = 6.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(PIcons.Pin, contentDescription = null, tint = Color(0xFF0284C7), modifier = Modifier.size(14.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text(
-                        if (isEn) currentWeather.nameEn else currentWeather.nameNp,
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = Color(0xFF0369A1)
+        ToolTopBar(
+            title = if (isEn) "Weather & Forecast" else "मौसम तथा पूर्वानुमान",
+            subtitle = if (isEn) "Real-time satellite & live forecast" else "प्रत्यक्ष उपग्रह तथा २४ घण्टे पूर्वानुमान",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .background(Color(0xFFE0F2FE), RoundedCornerShape(10.dp))
+                        .border(1.dp, Color(0xFF38BDF8), RoundedCornerShape(10.dp))
+                        .clickable { showCitySheet = true }
+                        .padding(horizontal = 10.dp, vertical = 6.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(PIcons.Pin, contentDescription = null, tint = Color(0xFF0284C7), modifier = Modifier.size(14.dp))
+                        Spacer(Modifier.width(4.dp))
+                        Text(
+                            if (isEn) currentWeather.nameEn else currentWeather.nameNp,
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = Color(0xFF0369A1)
+                        )
+                    }
+                }
+                Spacer(Modifier.width(8.dp))
+                Box(
+                    Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    com.neptools.app.ui.components.AnimatedRefreshIconButton(
+                        onClick = { WeatherLocationManager.requestLocationWeather(context, force = true) },
+                        isRefreshing = isLocating,
+                        iconSize = 18.dp,
+                        tint = if (isLocating) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(36.dp)
                     )
                 }
             }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                com.neptools.app.ui.components.AnimatedRefreshIconButton(
-                    onClick = { WeatherLocationManager.requestLocationWeather(context, force = true) },
-                    isRefreshing = isLocating,
-                    iconSize = 18.dp,
-                    tint = if (isLocating) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(36.dp)
-                )
-            }
-        }
+        )
 
         LazyColumn(
             Modifier.fillMaxSize(),

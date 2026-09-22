@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import com.neptools.app.core.data.ApplicationTemplatesRepo
 import com.neptools.app.core.data.PatroRepo
 import com.neptools.app.core.util.PdfExporter
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 
@@ -120,49 +121,12 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Compact inline header (matches QR/Level screen pattern)
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "पछाडि",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Text(
-                text = if (isEn) "Govt Templates" else "सरकारी ढाँचा",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(Modifier.weight(1f))
-            // Verified badge
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(Color(0xFF2E7D32).copy(alpha = 0.12f))
-                    .padding(horizontal = 8.dp, vertical = 3.dp)
-            ) {
-                Text(
-                    text = if (isEn) "Verified" else "प्रमाणित",
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                    color = Color(0xFF4CAF50)
-                )
-            }
-        }
+        // Compact inline header
+        ToolTopBar(
+            title = if (isEn) "Application Templates" else "सरकारी निवेदन ढाँचा",
+            subtitle = if (isEn) "Ward office, legal, banking & leave samples" else "वडा कार्यालय, कानुनी, बैंक तथा बिदाका ढाँचाहरू",
+            onBack = onBack
+        )
 
         // Category filter chips (horizontal scroll)
         Row(

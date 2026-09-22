@@ -57,6 +57,7 @@ import com.neptools.app.core.calendar.ChoghadiyaType
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.calendar.PanchangCalc
 import com.neptools.app.core.data.PatroRepo
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.delay
@@ -87,26 +88,33 @@ fun MuhuratFinderScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        if (isEn) "Muhurat & Choghadiya" else "शुभ साइत तथा चौघडिया",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = "Back")
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Muhurat & Choghadiya" else "शुभ साइत तथा चौघडिया",
+                subtitle = if (isEn) "Vedic auspicious timings & daily Choghadiya" else "वैदिक शुभ साइत तथा दैनिक चौघडिया समय",
+                onBack = onBack,
                 actions = {
-                    IconButton(onClick = { selectedTab = 2 }) {
-                        Icon(PIcons.Info, contentDescription = if (isEn) "Choghadiya Guide" else "चौघडिया निर्देशिका")
+                    val interaction = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surface)
+                            .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                            .clickable(
+                                interactionSource = interaction,
+                                indication = androidx.compose.material3.ripple(bounded = true, radius = 18.dp),
+                                onClick = { selectedTab = 2 }
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = PIcons.Info,
+                            contentDescription = if (isEn) "Choghadiya Guide" else "चौघडिया निर्देशिका",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(18.dp)
+                        )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
+                }
             )
         }
     ) { padding ->

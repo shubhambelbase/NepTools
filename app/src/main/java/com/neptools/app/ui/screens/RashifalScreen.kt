@@ -31,10 +31,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.data.PatroRepo
 import com.neptools.app.ui.components.HairLabel
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import java.time.LocalDate
 import kotlin.random.Random
@@ -148,45 +150,41 @@ fun RashifalScreen(onBack: () -> Unit) {
     val healthPct = remember(seed) { 45 + rng.nextInt(51) }
     val luckPct = remember(seed) { 45 + rng.nextInt(51) }
 
+    val context = LocalContext.current
+
     Column(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp)
     ) {
-        Spacer(Modifier.height(12.dp))
-        Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.size(width = 14.dp, height = 0.dp))
-            Column(Modifier.weight(1f)) {
-                Text(T("daily_rashifal"), style = MaterialTheme.typography.titleLarge)
-                Text(
-                    if (isEn) "${today.day} ${NepaliNames.monthsEn[today.month - 1]} ${today.year} BS · ${T("today")}"
-                    else "${NepaliNames.monthsNp[today.month - 1]} ${npNum(today.day)}, ${npNum(today.year)} · ${T("today")}",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
+        ToolTopBar(
+            title = T("daily_rashifal"),
+            subtitle = if (isEn) "${today.day} ${NepaliNames.monthsEn[today.month - 1]} ${today.year} BS · Today's Horoscope"
+            else "${npNum(today.day)} ${NepaliNames.monthsNp[today.month - 1]} ${npNum(today.year)} · आजको राशिफल",
+            onBack = onBack,
+            actions = {
+                androidx.compose.material3.IconButton(onClick = {
+                    val luckyColor = if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size]
+                    val luckyNo = if (isEn) "${selected % 9 + 1}" else NepaliNames.toDevanagari(selected % 9 + 1)
+                    val goodHours = if (isEn) enTimeWindow(selected) else npTimeWindow(selected)
+
+                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createRashifalCard(
+                        context = context,
+                        rashiNameNp = rashi.nameNp,
+                        rashiNameEn = rashi.nameEn,
+                        glyph = rashi.glyph,
+                        reading = reading,
+                        luckyColor = luckyColor,
+                        luckyNo = luckyNo,
+                        goodHours = goodHours,
+                        isEn = isEn
+                    )
+                    val title = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
+                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, title)
+                }) {
+                    Icon(PIcons.Share, contentDescription = "Share Horoscope Card", tint = MaterialTheme.colorScheme.onSurface)
+                }
                 com.neptools.app.ui.components.AnimatedRefreshIconButton(
                     onClick = { refreshKey++ },
                     iconSize = 18.dp,
@@ -194,7 +192,7 @@ fun RashifalScreen(onBack: () -> Unit) {
                     modifier = Modifier.size(36.dp)
                 )
             }
-        }
+        )
         Spacer(Modifier.height(14.dp))
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -246,6 +244,39 @@ fun RashifalScreen(onBack: () -> Unit) {
                 LuckyChip(if (isEn) "Lucky Color" else "शुभ रङ", if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size], Modifier.weight(1.3f))
                 LuckyChip(if (isEn) "Lucky No." else "शुभ अङ्क", if (isEn) "${selected % 9 + 1}" else npNum(selected % 9 + 1), Modifier.weight(0.7f))
                 LuckyChip(if (isEn) "Good Hours" else "शुभ समय", if (isEn) enTimeWindow(selected) else npTimeWindow(selected), Modifier.weight(1f))
+            }
+            Spacer(Modifier.height(14.dp))
+            androidx.compose.material3.OutlinedButton(
+                onClick = {
+                    val luckyColor = if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size]
+                    val luckyNo = if (isEn) "${selected % 9 + 1}" else NepaliNames.toDevanagari(selected % 9 + 1)
+                    val goodHours = if (isEn) enTimeWindow(selected) else npTimeWindow(selected)
+
+                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createRashifalCard(
+                        context = context,
+                        rashiNameNp = rashi.nameNp,
+                        rashiNameEn = rashi.nameEn,
+                        glyph = rashi.glyph,
+                        reading = reading,
+                        luckyColor = luckyColor,
+                        luckyNo = luckyNo,
+                        goodHours = goodHours,
+                        isEn = isEn
+                    )
+                    val title = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
+                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, title)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
+            ) {
+                Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.primary)
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = if (isEn) "Share Horoscope Card (WhatsApp / Viber)" else "तस्बिर कार्ड सेयर गर्नुहोस् (व्हाट्सएप / भाइबर)",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
         }
         Spacer(Modifier.height(110.dp))

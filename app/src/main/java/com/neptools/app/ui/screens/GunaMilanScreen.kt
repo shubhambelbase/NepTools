@@ -54,6 +54,7 @@ import com.neptools.app.astrology.data.Planet
 import com.neptools.app.astrology.vedic.AshtakootaGunaMilan
 import com.neptools.app.astrology.vedic.NakshatraCalc
 import com.neptools.app.ui.components.SoftCard
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 
@@ -98,40 +99,37 @@ fun GunaMilanScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Column {
-                        Text(
-                            if (isEn) "Vedic Marriage Compatibility (36 Gun)" else "विवाह गुण मिलान (३६ गुण)",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                        )
-                        Text(
-                            if (isEn) "Authentic Ashta Koota & Dosha Analysis" else "प्रामाणिक अष्टकूट गणना तथा दोष विश्लेषण",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = "Back")
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Marriage Compatibility" else "विवाह गुण मिलान (३६ गुण)",
+                subtitle = if (isEn) "Authentic Ashta Koota & Dosha analysis" else "प्रामाणिक अष्टकूट गणना तथा दोष विश्लेषण",
+                onBack = onBack,
                 actions = {
-                    IconButton(onClick = {
-                        com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
-                            context = context,
-                            milan = milan,
-                            boyDetails = boyDetailsStr,
-                            girlDetails = girlDetailsStr,
-                            isShare = false,
-                            isEn = isEn
-                        )
-                    }) {
-                        Icon(PIcons.Share, contentDescription = "Export PDF")
+                    val interaction = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surface)
+                            .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                            .clickable(
+                                interactionSource = interaction,
+                                indication = androidx.compose.material3.ripple(bounded = true, radius = 18.dp),
+                                onClick = {
+                                    com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
+                                        context = context,
+                                        milan = milan,
+                                        boyDetails = boyDetailsStr,
+                                        girlDetails = girlDetailsStr,
+                                        isShare = false,
+                                        isEn = isEn
+                                    )
+                                }
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(PIcons.Share, contentDescription = "Export PDF", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(18.dp))
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+                }
             )
         }
     ) { padding ->

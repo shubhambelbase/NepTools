@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.neptools.app.core.audio.DecibelMeterEngine
 import com.neptools.app.core.calendar.NepaliNames
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.util.Locale
@@ -107,58 +108,29 @@ fun SoundMeterScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = PIcons.ChevronLeft,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
+        ToolTopBar(
+            title = if (isEn) "Sound Level Meter" else "ध्वनि स्तर मिटर",
+            subtitle = if (isEn) "Calibrated decibel (dBA) noise meter" else "डेसिबल (dBA) ध्वनि मापन तथा विश्लेषण",
+            onBack = onBack,
+            actions = {
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                        .clickable { engine.reset() },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = PIcons.Refresh,
+                        contentDescription = "Reset",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
-            Spacer(Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Sound Level Meter" else "ध्वनि मापक (डेसिबल मिटर)",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = if (isEn) "Real-time Acoustic Noise Detector" else "प्रत्यक्ष ध्वनिको तीव्रता मापक",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .size(38.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
-                    .clickable { engine.reset() },
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = PIcons.Refresh,
-                    contentDescription = "Reset",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-        }
+        )
 
         if (!hasPermission) {
             Box(

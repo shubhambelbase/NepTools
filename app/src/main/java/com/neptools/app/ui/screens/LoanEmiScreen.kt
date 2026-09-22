@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.data.LoanEmiRepo
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -63,31 +64,11 @@ fun LoanEmiScreen(onBack: () -> Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "Loan EMI & FD Calculator" else "बैंक ऋण ईएमआई तथा मुद्दती",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "Loan EMI & FD Calculator" else "बैंक ऋण ईएमआई तथा मुद्दती",
+            subtitle = if (isEn) "Monthly installment, interest & fixed deposit" else "मासिक किस्ता, ब्याज तथा मुद्दती हिसाब",
+            onBack = onBack
+        )
 
         // Modern Segmented Pill Selector
         Row(

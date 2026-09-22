@@ -31,7 +31,7 @@
 
 ## 3. Technology Stack & Key Engines
 
-- UI & Theme: Jetpack Compose + Material 3. Custom NepToolsTheme (Newari Ink / Rice Paper palette) with light and dark mode.
+- UI & Theme: Jetpack Compose + Material 3. Custom NepToolsTheme (Newari Ink / Rice Paper palette) with light and dark mode. ToolTopBar in PatroComponents.kt establishes unified typography (titleMedium 16.5sp, bold, -0.2sp tracking + 11sp onSurfaceVariant subtitle), 36dp surface action pill back navigation, zero emojis.
 - Navigation: Compose Navigation (PatroNavHost.kt) with animated transitions.
 - Calendar & Astronomy:
   - BsCalendarEngine.kt: Bikram Sambat date math (BS 1970 to BS 2100+).
@@ -90,14 +90,21 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.4 (versionCode 43) — Calendar Holiday & Udaya Tithi Accuracy Overhaul.
+- Status: v2.8.4 (versionCode 43) — Calendar Holiday, UI/UX Overhaul & Tool Enhancements.
 - Last Updated: September 22, 2026
 - Recent Updates:
   - v2.8.4:
-    - Calendar Holiday vs Festival Distinction: Fixed calendar cell styling bug where ordinary festivals erroneously highlighted days in holiday red. Only official public holidays (Saturdays and gazetted holidays) are red; ordinary working festivals are shown in subtle secondary/teal.
-    - Authentic Udaya Tithi at Local Sunrise: Updated PanchangCalc.compute() to sample lunar elongation at authentic local sunrise via SolarCalc, matching canonical Vedic Panchang principles.
-    - Cell Grid Tithi Display: Injected localized Tithi on every calendar grid day cell. Added clear bottom legend distinguishing Public Holidays (red), Festivals (teal), and Today.
-    - Hamro Patro & Gazette Alignment: Cross-verified all months for BS 2081 through 2085. Aligned multi-day Tihar, Dashain Dwadashi, Eid-ul-Fitr, Bakrid, Bhoto Jatra, and purged incorrect holiday flags on regular working festivals.
+    - Daily Patro & Rashifal Card Generator (PatroGraphicGenerator.kt): 1080x1440 high-resolution social card generator in Newari Ink / Rice Paper styling with BS/AD dates, Tithi, Nakshatra, Yoga, Sunrise/Sunset, Rahu Kaal, festive banners, and Subhashita blessing with 1-tap WhatsApp/Viber sharing from Home, Day Detail, Rashifal, and Ekadashi screens.
+    - Automated Festival & Fasting Reminders (SmartAlertNotificationManager.kt, SacredTithiResolver.kt): Added background notification engine alerting the evening prior for upcoming Ekadashis, Aunsi, Purnima, and major festivals, plus morning Dwadashi Parana timing alerts with Settings and in-screen toggles.
+    - Universal Tool Header & Typography Standardization (PatroComponents.kt): Created reusable ToolTopBar unifying all 35+ tool screens with sleek typography (16.5sp bold title, -0.2sp tracking, and 11sp onSurfaceVariant subtitle) alongside 36dp surface pill back actions. Enforced zero emojis across all tools.
+    - Govt Templates Modernization (ApplicationTemplatesScreen.kt): Removed redundant verified tag from header for cleaner layout.
+    - Subscription Tracker Overhaul (SubscriptionTrackerScreen.kt): Added quick utility presets (NTC, WorldLink, NEA, Khanepani), comprehensive outflow dashboard with category distribution, 1-tap quick paid buttons, and foreign currency NPR conversion estimates.
+    - Vedic Astrology Tool UI/UX Elevation (AstrologyHomeScreen.kt): Integrated ToolTopBar, added Vedic Identity Card (Lagna, Moon sign, Nakshatra, Mahadasha) and unified Material 3 Newari Ink / Rice Paper palette with quick links to Kundali charts, daily guidance, and 36 Guna Milan.
+    - Ekadashi List Screen Enhancement (EkadashiListScreen.kt): Added canonical 24 Ekadashi names, upcoming observance hero card with live countdown, Dwadashi Parana timing rules, and expandable Vrata guidelines.
+    - Home Screen Panchang Micro-Cards Centering (HomeScreen.kt): Centered icon, label, and value inside Sunrise, Sunset, and Rahu Kaal tiles for balanced, polished appearance.
+    - Calendar Holiday vs Festival Distinction: Fixed calendar cell styling bug where ordinary festivals highlighted days in holiday red. Only official public holidays are red; ordinary working festivals are shown in subtle secondary/teal.
+    - Authentic Udaya Tithi at Local Sunrise: Updated PanchangCalc.compute() to sample lunar elongation at authentic local sunrise via SolarCalc.
+    - Cell Grid Tithi Display & Gazette Alignment: Localized Tithi on every calendar grid day cell and cross-verified BS 2081 through 2085.
   - v2.8.3:
     - Full BS 2083 Month-by-Month Verification: Verified all 12 months of BS 2083 against Hamro Patro and Nepal Panchanga Nirnayak Vikas Samiti. Aligned Padmini & Parama Ekadashis, restored Ashadh 15, aligned Tihar sequence, and added Chaite Dashain & Ram Navami in 2084.
   - v2.8.2:
@@ -105,18 +112,12 @@ app/src/main/
   - v2.8.1:
     - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates, achieved 100% English translation coverage, and injected full verified festival calendar for BS 2084 and 2085.
   - v2.8.0:
-    - Bikram Sambat Lunar Festival Engine Overhaul (PanchangCalc.kt, DynamicFestivalEngine.kt): Re-architected dynamic festival determination from simplistic solar month checks to authentic astronomical Lunar Masa indexing (Amanta / Purnimanta via sidereal Sun position at New Moon). Resolves Adhik Maas years (e.g. 2080, 2083 BS) where major festivals like Dashain, Tihar, Buddha Jayanti, Janai Purnima were previously placed in wrong months.
-    - Screen-Reader Accessibility Fix (CalendarCells.kt): Cleaned TalkBack content descriptions to speak localized festival names properly instead of printing raw object instances.
+    - Bikram Sambat Lunar Festival Engine Overhaul (PanchangCalc.kt, DynamicFestivalEngine.kt): Re-architected dynamic festival determination from simplistic solar month checks to authentic astronomical Lunar Masa indexing.
+    - Screen-Reader Accessibility Fix (CalendarCells.kt): Cleaned TalkBack content descriptions to speak localized festival names properly.
   - v2.7.9:
-    - Universal Notification Deep Linking: Tapping weather, subscription, habit, or calendar alerts routes directly to the corresponding tool via AppNavigator.
-    - 3D Brand Notification Asset Overhaul: Created crisp multi-density ic_notification_large.png circular badge. Migrated notification channels to v4/v2 and invalidated stale launcher icon caches.
+    - Universal Notification Deep Linking & 3D Brand Notification Asset Overhaul: Created crisp multi-density ic_notification_large.png circular badge. Migrated notification channels to v4/v2.
   - v2.7.8:
-    - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to the Local Government Operation Act 2074, Nepal Citizenship Act 2063 & Rules, Muluki Civil Code 2074, and Vital Registration Act 2076. Fixed citizenship date of birth bug, added mandatory 3-generation genealogy (बाजेको नाम), added statutory declarations, comprehensive document checklists, and added Relationship Verification (Nata Pramanit) template.
-  - v2.7.7:
-    - Govt Templates Modernization: Compact inline header with verified badge, category chips, inline selectable cards.
-    - QR Code Generator Enhancements: Genuine scannable ZXing QR generation, standard eSewa JSON schema, single Save QR action.
-    - Bubble Level Micro-Animations: Spring physics, haptics on level lock (<0.5 deg), theme-adaptive concentric rings.
-    - Fuel Calculator Streamlining: Clean two-way converter, 1-tap quick presets, dedicated Trip Cost Estimator.
-  - v2.7.0 - v2.7.6: Date converter micro-animations, subscription & habit empty state cleanup, category filter chips, atomic JSON persistence, accessibility semantics, high-precision ephemeris, 36-Point Guna Milan, and security engine.
+    - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to official Nepal Acts & Rules with 3-generation genealogy and statutory checklists.
+  - v2.7.0 - v2.7.7: Govt templates modernization, QR code generator enhancements, bubble level micro-animations, fuel calculator streamlining, date converter micro-animations, subscription & habit empty state cleanup, and high-precision ephemeris.
 
 

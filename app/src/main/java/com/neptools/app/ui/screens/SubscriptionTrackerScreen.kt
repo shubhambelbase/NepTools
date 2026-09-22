@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -86,6 +87,7 @@ import com.neptools.app.core.subscription.Subscription
 import com.neptools.app.core.subscription.SubscriptionCategory
 import com.neptools.app.core.subscription.SubscriptionRepository
 import com.neptools.app.core.subscription.SubscriptionSummary
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -113,6 +115,28 @@ private enum class SubSortOrder(val labelNp: String, val labelEn: String) {
     PRICE_HIGH("उच्च खर्च", "Highest Price"),
     NAME("नाम (A-Z)", "Name")
 }
+
+private data class SubPreset(
+    val nameNp: String,
+    val nameEn: String,
+    val price: Double,
+    val currency: CurrencyType,
+    val cycle: BillingCycle,
+    val category: SubscriptionCategory,
+    val paymentMethod: PaymentMethod,
+    val colorHex: Long
+)
+
+private val SUB_PRESETS = listOf(
+    SubPreset("वर्ल्डलिङ्क इन्टरनेट", "WorldLink Fiber", 1250.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.INTERNET_MOBILE, PaymentMethod.ESEWA, 0xFF0284C7),
+    SubPreset("नेपाल टेलिकम फाइबर", "NTC FTTH", 1100.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.INTERNET_MOBILE, PaymentMethod.ESEWA, 0xFF0284C7),
+    SubPreset("विद्युत महसुल", "NEA Electricity", 600.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.UTILITIES, PaymentMethod.ESEWA, 0xFFEA580C),
+    SubPreset("खानेपानी महसुल", "Khanepani Water", 350.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.UTILITIES, PaymentMethod.ESEWA, 0xFF0284C7),
+    SubPreset("नेटफ्लिक्स", "Netflix", 9.99, CurrencyType.USD, BillingCycle.MONTHLY, SubscriptionCategory.STREAMING, PaymentMethod.DOLLAR_CARD, 0xFFE11D48),
+    SubPreset("स्पटीफाई", "Spotify Premium", 2.99, CurrencyType.USD, BillingCycle.MONTHLY, SubscriptionCategory.STREAMING, PaymentMethod.DOLLAR_CARD, 0xFF16A34A),
+    SubPreset("जिम सदस्यता", "Gym Membership", 2000.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.FITNESS_HEALTH, PaymentMethod.BANK_TRANSFER, 0xFF16A34A),
+    SubPreset("घरभाडा", "House Rent", 15000.0, CurrencyType.NPR, BillingCycle.MONTHLY, SubscriptionCategory.HOUSING_RENT, PaymentMethod.BANK_TRANSFER, 0xFFD97706)
+)
 
 private fun getCategoryIcon(cat: SubscriptionCategory): ImageVector {
     return when (cat) {
@@ -186,36 +210,10 @@ fun SubscriptionTrackerScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Column {
-                        Text(
-                            text = if (isEn) "Subscription & Bill Tracker" else "सदस्यता तथा बिल ट्र्याकर",
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = if (isEn) "Recurring expenses & renewals" else "नियमित खर्च तथा नवीकरण व्यवस्थापक",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = PIcons.ChevronLeft,
-                            contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
+            ToolTopBar(
+                title = if (isEn) "Subscription & Bill Tracker" else "सदस्यता तथा बिल ट्र्याकर",
+                subtitle = if (isEn) "Recurring expenses & renewals" else "नियमित खर्च तथा नवीकरण व्यवस्थापक",
+                onBack = onBack
             )
         },
         floatingActionButton = {
@@ -419,8 +417,10 @@ private fun CleanExpenseCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            // Main Top Title & Active Badge
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -437,7 +437,8 @@ private fun CleanExpenseCard(
                         text = "रू $formattedMonthly",
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.ExtraBold,
-                            fontSize = 26.sp
+                            fontSize = 28.sp,
+                            letterSpacing = (-0.5).sp
                         ),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -445,42 +446,165 @@ private fun CleanExpenseCard(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
                 ) {
                     Text(
                         text = "${npNum(summary.activeCount)} " + (if (isEn) "Active" else "सक्रिय"),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
                     )
                 }
             }
 
-            Spacer(Modifier.height(10.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
-            Spacer(Modifier.height(10.dp))
-
+            // Metric Tiles Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = (if (isEn) "Annual estimate: " else "वार्षिक अनुमान: ") + "रू $formattedYearly",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-
-                if (summary.dueIn7DaysCount > 0) {
-                    Surface(
-                        shape = RoundedCornerShape(6.dp),
-                        color = MaterialTheme.colorScheme.error.copy(alpha = 0.12f)
-                    ) {
+                // Annual Estimate
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f), RoundedCornerShape(10.dp))
+                        .padding(horizontal = 10.dp, vertical = 8.dp)
+                ) {
+                    Column {
                         Text(
-                            text = "${npNum(summary.dueIn7DaysCount)} " + (if (isEn) "due this week" else "यस हप्ता नवीकरण"),
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            text = if (isEn) "Annual Projected" else "वार्षिक अनुमान",
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            text = "रू $formattedYearly",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+
+                // Average Per Day
+                val perDay = if (summary.totalMonthlyNpr > 0) (summary.totalMonthlyNpr / 30.0).toInt() else 0
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f), RoundedCornerShape(10.dp))
+                        .padding(horizontal = 10.dp, vertical = 8.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = if (isEn) "Daily Avg" else "दैनिक औसत",
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            text = "रू ${formatter.format(perDay)}",
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+
+                // Due soon
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f), RoundedCornerShape(10.dp))
+                        .padding(horizontal = 10.dp, vertical = 8.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = if (isEn) "Due Soon" else "नवीकरण बाँकी",
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            text = "${npNum(summary.dueIn7DaysCount)} " + (if (isEn) "bills" else "वटा"),
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = if (summary.dueIn7DaysCount > 0) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                            ),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+            }
+
+            // Category Breakdown Bar (if present)
+            if (summary.totalMonthlyNpr > 0 && summary.categoryBreakdown.isNotEmpty()) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(6.dp)
+                            .clip(RoundedCornerShape(3.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f))
+                    ) {
+                        summary.categoryBreakdown.forEach { (cat, cost) ->
+                            val weight = (cost / summary.totalMonthlyNpr).toFloat().coerceAtLeast(0.01f)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .weight(weight)
+                                    .background(Color(cat.colorHex))
+                            )
+                        }
+                    }
+
+                    val sortedCats = summary.categoryBreakdown.entries.sortedByDescending { it.value }.take(3)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        sortedCats.forEach { (cat, cost) ->
+                            val pct = ((cost / summary.totalMonthlyNpr) * 100).toInt()
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(6.dp)
+                                        .background(Color(cat.colorHex), CircleShape)
+                                )
+                                Spacer(Modifier.width(4.dp))
+                                Text(
+                                    text = "${if (isEn) cat.labelEn.split(" ").first() else cat.labelNp.split(" ").first()} ($pct%)",
+                                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Due this week alert banner
+            if (summary.dueIn7DaysCount > 0) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(MaterialTheme.colorScheme.error.copy(alpha = 0.1f))
+                        .padding(horizontal = 10.dp, vertical = 7.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = PIcons.Timer,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(Modifier.width(6.dp))
+                        Text(
+                            text = "${npNum(summary.dueIn7DaysCount)} " + (if (isEn) "subscription(s) due within 7 days" else "वटा सदस्यताको ७ दिनभित्र नवीकरण मिति छ"),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
+                            color = MaterialTheme.colorScheme.error
                         )
                     }
                 }
@@ -601,6 +725,32 @@ private fun CleanSubscriptionCard(
                             modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
                         )
                     }
+
+                    if (daysLeft <= 7 && !sub.isPaused) {
+                        Surface(
+                            shape = RoundedCornerShape(5.dp),
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                            modifier = Modifier.clickable(onClick = onMarkPaid)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = PIcons.Check,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(10.dp)
+                                )
+                                Spacer(Modifier.width(2.dp))
+                                Text(
+                                    text = if (isEn) "Paid" else "तिरेँ",
+                                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 10.sp),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -619,6 +769,15 @@ private fun CleanSubscriptionCard(
                     ),
                     color = MaterialTheme.colorScheme.onSurface
                 )
+
+                if (sub.currency != CurrencyType.NPR) {
+                    val nprEquiv = (sub.monthlyCostInNpr()).toInt()
+                    Text(
+                        text = "≈ रू ${DecimalFormat("#,##,###").format(nprEquiv)}",
+                        style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                    )
+                }
 
                 Text(
                     text = if (isEn) sub.billingCycle.labelEn else sub.billingCycle.labelNp,
@@ -805,6 +964,42 @@ private fun CleanSubscriptionEditorModal(
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurface
             )
+
+            if (sub == null) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(
+                        text = if (isEn) "Quick Presets" else "द्रुत छनोट (प्रचलित सेवाहरू)",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        items(SUB_PRESETS) { preset ->
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                                border = androidx.compose.foundation.BorderStroke(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+                                modifier = Modifier.clickable {
+                                    nameNp = preset.nameNp
+                                    nameEn = preset.nameEn
+                                    priceStr = if (preset.price % 1.0 == 0.0) preset.price.toInt().toString() else preset.price.toString()
+                                    selectedCurrency = preset.currency
+                                    selectedCycle = preset.cycle
+                                    selectedCategory = preset.category
+                                    selectedPaymentMethod = preset.paymentMethod
+                                    selectedColor = preset.colorHex
+                                }
+                            ) {
+                                Text(
+                                    text = if (isEn) preset.nameEn else preset.nameNp,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
 
             // Name inputs
             OutlinedTextField(

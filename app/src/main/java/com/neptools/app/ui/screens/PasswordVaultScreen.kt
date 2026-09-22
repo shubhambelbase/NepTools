@@ -76,6 +76,7 @@ import com.neptools.app.core.vault.PasswordToolkit
 import com.neptools.app.core.vault.VaultCrypto
 import com.neptools.app.core.vault.VaultEntry
 import com.neptools.app.core.vault.VaultStore
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.delay
@@ -154,59 +155,37 @@ fun PasswordVaultScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "फिर्ता",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Password Vault" else "पासवर्ड भल्ट",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = when (stage) {
-                        2 -> if (isEn) "Unlocked - AES-256 encrypted, on-device only" else "खुल्यो — यन्त्रमै सुरक्षित"
-                        else -> if (isEn) "Encrypted on this device only" else "यो यन्त्रमै गोप्य राखिएको"
-                    },
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            if (stage == 2) {
-                Box(
-                    Modifier
-                        .size(40.dp)
-                        .background(MaterialTheme.colorScheme.surface, CircleShape)
-                        .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                        .clickable {
-                            store.lock()
-                            stage = 1
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(PIcons.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+        ToolTopBar(
+            title = if (isEn) "Password Vault" else "पासवर्ड भल्ट",
+            subtitle = when (stage) {
+                2 -> if (isEn) "Unlocked · AES-256 encrypted, on-device only" else "खुल्यो — यन्त्रमै सुरक्षित"
+                else -> if (isEn) "Encrypted on this device only" else "यो यन्त्रमै गोप्य राखिएको"
+            },
+            onBack = onBack,
+            actions = if (stage == 2) {
+                {
+                    val interaction = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                    Box(
+                        Modifier
+                            .size(36.dp)
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surface)
+                            .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                            .clickable(
+                                interactionSource = interaction,
+                                indication = androidx.compose.material3.ripple(bounded = true, radius = 18.dp),
+                                onClick = {
+                                    store.lock()
+                                    stage = 1
+                                }
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(PIcons.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
+                    }
                 }
-            }
-        }
+            } else null
+        )
 
         key(tick) {
             when (stage) {

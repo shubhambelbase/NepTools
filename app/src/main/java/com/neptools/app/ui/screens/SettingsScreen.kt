@@ -51,6 +51,7 @@ import com.neptools.app.core.data.RatesRepo
 import com.neptools.app.core.security.NepToolsSecurityGuard
 import kotlinx.coroutines.launch
 import com.neptools.app.ui.components.HairLabel
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.theme.ThemePrefs
@@ -112,31 +113,12 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
         Spacer(Modifier.height(8.dp))
 
         // Top Bar
-        Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            androidx.compose.material3.IconButton(
-                onClick = onBack,
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f), CircleShape)
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = T("back"),
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(22.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Text(
-                text = T("settings"),
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
+        ToolTopBar(
+            title = T("settings"),
+            subtitle = if (isEn) "Preferences, theme, backup & notifications" else "प्राथमिकता, थिम, ब्याकअप तथा सूचना सेटिङ",
+            onBack = onBack,
+            modifier = Modifier.padding(horizontal = 0.dp)
+        )
 
         Spacer(Modifier.height(14.dp))
 
@@ -213,6 +195,13 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
                 onToggle = { ThemePrefs.saveWeatherNotification(context, it) }
             )
 
+            Spacer(Modifier.height(10.dp))
+            SettingRow(
+                title = if (isEn) "Festival & Fasting Alerts" else "चाडपर्व तथा एकादशी व्रत अलर्ट",
+                subtitle = if (isEn) "Reminders for Ekadashi fasts, Parana timings & major festivals" else "एकादशी व्रत, पारणा समय तथा मुख्य चाडपर्वको पूर्व सूचना",
+                checked = ThemePrefs.festivalNotification.value,
+                onToggle = { ThemePrefs.saveFestivalNotification(context, it) }
+            )
         }
 
         Spacer(Modifier.height(14.dp))

@@ -45,6 +45,7 @@ import com.neptools.app.core.reminder.UserCalendarEvent
 import com.neptools.app.core.reminder.UserEventManager
 import com.neptools.app.ui.components.InkButton
 import com.neptools.app.ui.components.StampBadge
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import java.time.LocalDate
@@ -91,21 +92,32 @@ fun DayDetailScreen(
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                if (isEn) "‹ Back" else "‹ पछाडि",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.clickable(onClick = onBack)
-            )
-            Text(T("day_detail"), style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.size(24.dp))
-        }
-        Spacer(Modifier.height(10.dp))
+        ToolTopBar(
+            title = T("day_detail"),
+            subtitle = if (isEn) "Panchang, tithi & daily events" else "पञ्चाङ्ग, तिथि तथा दैनिक विवरण",
+            onBack = onBack,
+            actions = {
+                IconButton(onClick = {
+                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createDailyPatroCard(
+                        context = context,
+                        date = date,
+                        adDate = adDate,
+                        panchang = panchang,
+                        solar = solar,
+                        festivals = festival.orEmpty(),
+                        isEn = isEn
+                    )
+                    val shareTitle = if (isEn)
+                        "Nepali Patro - ${date.year}/${date.month}/${date.day}"
+                    else
+                        "दैनिक पञ्चाङ्ग - वि.सं. ${date.year}/${date.month}/${date.day}"
+                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, shareTitle)
+                }) {
+                    Icon(PIcons.Share, contentDescription = "Share Patro Card", tint = MaterialTheme.colorScheme.onSurface)
+                }
+            },
+            modifier = Modifier.padding(horizontal = 0.dp)
+        )
 
         Box(Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.Bottom) {

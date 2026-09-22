@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 
@@ -44,33 +45,11 @@ fun TermsOfServiceScreen(onBack: () -> Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Top Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(
-                onClick = onBack,
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f), CircleShape)
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "पछाडि",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(22.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Text(
-                text = if (isEn) "Terms of Service" else "सेवाका सर्तहरू",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
+        ToolTopBar(
+            title = if (isEn) "Terms of Service" else "सेवाका सर्तहरू",
+            subtitle = if (isEn) "Usage terms, offline utility & policies" else "प्रयोगका नियम तथा सर्तहरू",
+            onBack = onBack
+        )
 
         Column(
             Modifier

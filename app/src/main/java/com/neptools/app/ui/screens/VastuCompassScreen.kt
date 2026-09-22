@@ -58,6 +58,7 @@ import com.neptools.app.core.compass.CompassEngine
 import com.neptools.app.core.vastu.VastuDirection
 import com.neptools.app.core.vastu.VastuEngine
 import com.neptools.app.core.vastu.VastuRoomRule
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlin.math.cos
@@ -104,56 +105,28 @@ fun VastuCompassScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Top App Bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "फिर्ता",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(12.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Vastu Shastra Compass" else "वास्तु शास्त्र कम्पास",
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = if (isEn) "Vedic Architecture & Room Directions" else "वैदिक दिशा सूचक तथा गृह निर्माण नियम",
-                    style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            if (onOpenStandardCompass != null) {
-                Box(
-                    Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
-                        .clickable(onClick = onOpenStandardCompass)
-                        .padding(horizontal = 10.dp, vertical = 6.dp)
-                ) {
-                    Text(
-                        text = if (isEn) "Standard" else "साधारण",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
+        ToolTopBar(
+            title = if (isEn) "Vastu Shastra Compass" else "वास्तु शास्त्र कम्पास",
+            subtitle = if (isEn) "Vedic architecture & room directions" else "वैदिक दिशा सूचक तथा गृह निर्माण नियम",
+            onBack = onBack,
+            actions = if (onOpenStandardCompass != null) {
+                {
+                    Box(
+                        Modifier
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f))
+                            .clickable(onClick = onOpenStandardCompass)
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                    ) {
+                        Text(
+                            text = if (isEn) "Standard" else "साधारण",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 11.sp),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
-            }
-        }
+            } else null
+        )
 
         if (!hasSensor) {
             Column(

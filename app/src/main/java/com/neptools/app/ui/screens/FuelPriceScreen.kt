@@ -76,6 +76,7 @@ import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.data.FuelRepo
 import com.neptools.app.ui.components.InkButton
 import com.neptools.app.ui.components.SoftCard
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
@@ -201,59 +202,41 @@ fun FuelPriceScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar Header
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
+        ToolTopBar(
+            title = T("fuel_title"),
+            subtitle = if (isEn) "Nepal Oil Corporation daily rates" else "नेपाल आयल निगमको खुद्रा दर सूची",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .background(Color(0xFFE8F5E9), RoundedCornerShape(12.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        if (isEn) "● LIVE" else "● लाइभ",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = Color(0xFF2E7D32)
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Box(
+                    Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    com.neptools.app.ui.components.AnimatedRefreshIconButton(
+                        onClick = { refreshRates() },
+                        isRefreshing = loading,
+                        iconSize = 18.dp,
+                        tint = if (loading) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
             }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    T("fuel_title"),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Box(
-                Modifier
-                    .background(Color(0xFFE8F5E9), RoundedCornerShape(12.dp))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
-                Text(
-                    if (isEn) "● LIVE" else "● लाइभ",
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                    color = Color(0xFF2E7D32)
-                )
-            }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                com.neptools.app.ui.components.AnimatedRefreshIconButton(
-                    onClick = { refreshRates() },
-                    isRefreshing = loading,
-                    iconSize = 18.dp,
-                    tint = if (loading) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(36.dp)
-                )
-            }
-        }
+        )
 
         LazyColumn(
             Modifier.fillMaxSize(),

@@ -78,6 +78,7 @@ import com.neptools.app.core.data.license.SignCategory
 import com.neptools.app.core.data.license.TrafficSignItem
 import com.neptools.app.core.data.license.TrialGuide
 import com.neptools.app.core.util.LicenseStorageManager
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -106,18 +107,10 @@ fun DrivingLicenseScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Driving License Prep" else "लाइसेन्स परीक्षा तयारी",
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = if (isEn) "Back" else "पछाडि")
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Driving License Prep" else "लाइसेन्स परीक्षा तयारी",
+                subtitle = if (isEn) "DOTM question bank, signs & mock test" else "यातायात व्यवस्था विभाग प्रश्नोत्तर तथा नमुना परीक्षा",
+                onBack = onBack,
                 actions = {
                     // Clean 1-Tap Language Switcher
                     androidx.compose.material3.FilledTonalButton(
@@ -127,18 +120,14 @@ fun DrivingLicenseScreen(onBack: () -> Unit) {
                             ThemePrefs.saveLang(context, nextLang)
                         },
                         shape = RoundedCornerShape(10.dp),
-                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
-                        modifier = Modifier.padding(end = 12.dp)
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
                     ) {
                         Text(
                             text = if (isEn) "नेपाली" else "English",
-                            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 11.5.sp)
                         )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
+                }
             )
         }
     ) { padding ->

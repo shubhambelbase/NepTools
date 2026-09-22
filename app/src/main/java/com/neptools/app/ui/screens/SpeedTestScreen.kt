@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import com.neptools.app.core.network.NetworkAnalyzerEngine
 import com.neptools.app.core.network.NetworkDetails
 import com.neptools.app.core.network.TestStage
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.launch
@@ -86,53 +87,34 @@ fun SpeedTestScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, if (isEn) "Back" else "फिर्ता", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
+        ToolTopBar(
+            title = if (isEn) "Speed Test" else "इन्टरनेट गति मापन",
+            subtitle = if (isEn) "Download, upload, latency & Wi-Fi diagnostics" else "डाउनलोड, अपलोड, पिंग तथा नेटवर्क विवरण",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    com.neptools.app.ui.components.AnimatedRefreshIconButton(
+                        onClick = {
+                            scope.launch {
+                                netDetails = NetworkAnalyzerEngine.getNetworkDetails(context)
+                                val (ip, isp) = NetworkAnalyzerEngine.fetchPublicIp()
+                                netDetails = netDetails.copy(publicIp = ip, ispName = isp)
+                            }
+                        },
+                        iconSize = 18.dp,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
             }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "Speed Test & Diagnostics" else "स्पीड टेस्ट तथा नेटवर्क विवरण",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                com.neptools.app.ui.components.AnimatedRefreshIconButton(
-                    onClick = {
-                        scope.launch {
-                            netDetails = NetworkAnalyzerEngine.getNetworkDetails(context)
-                            val (ip, isp) = NetworkAnalyzerEngine.fetchPublicIp()
-                            netDetails = netDetails.copy(publicIp = ip, ispName = isp)
-                        }
-                    },
-                    iconSize = 18.dp,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(36.dp)
-                )
-            }
-        }
+        )
 
         // Tabs
         Row(

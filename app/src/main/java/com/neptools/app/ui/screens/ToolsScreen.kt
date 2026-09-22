@@ -501,12 +501,27 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 2.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(
-                    text = if (isEn) "Services & Tools" else "सेवा तथा टूल्स",
-                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
-                )
+                Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
+                    Text(
+                        text = if (isEn) "Services & Tools" else "सेवा तथा टूल्स",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp,
+                            letterSpacing = (-0.3).sp
+                        ),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Text(
+                        text = if (isEn) "Utilities, finance calculators & civic services" else "दैनिक उपयोगिता, क्यालकुलेटर र नागरिक सेवाहरू",
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 11.sp,
+                            lineHeight = 14.sp
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
+                    )
+                }
 
                 OutlinedTextField(
                     value = searchQuery,
@@ -812,20 +827,24 @@ private fun ToolSectionHeader(
         ) {
             Box(
                 modifier = Modifier
-                    .size(22.dp)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f), CircleShape),
+                    .size(20.dp)
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.10f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(12.dp)
+                    modifier = Modifier.size(11.dp)
                 )
             }
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold, fontSize = 14.sp),
+                style = MaterialTheme.typography.titleSmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp,
+                    letterSpacing = (-0.1).sp
+                ),
                 color = MaterialTheme.colorScheme.onSurface
             )
         }
@@ -909,8 +928,8 @@ private fun ToolGridCard(
                 scaleX = scale
                 scaleY = scale
             }
-            .height(58.dp)
-            .clip(RoundedCornerShape(13.dp))
+            .height(54.dp)
+            .clip(RoundedCornerShape(12.dp))
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(
@@ -919,7 +938,7 @@ private fun ToolGridCard(
                 ),
                 onClick = onClick
             ),
-        shape = RoundedCornerShape(13.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
@@ -932,14 +951,14 @@ private fun ToolGridCard(
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 8.dp, end = 26.dp, top = 6.dp, bottom = 6.dp),
+                    .padding(start = 7.dp, end = 24.dp, top = 4.dp, bottom = 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Icon in soft circular badge
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                        .size(32.dp)
+                        .clip(RoundedCornerShape(9.dp))
                         .background(item.iconBgColor),
                     contentAlignment = Alignment.Center
                 ) {
@@ -947,7 +966,7 @@ private fun ToolGridCard(
                         imageVector = item.icon,
                         contentDescription = null,
                         tint = item.iconTint,
-                        modifier = Modifier.size(19.dp)
+                        modifier = Modifier.size(17.dp)
                     )
                 }
 
@@ -957,8 +976,8 @@ private fun ToolGridCard(
                     text = if (isEn) item.titleEn else item.titleNp,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 11.5.sp,
-                        lineHeight = 14.5.sp
+                        fontSize = 11.sp,
+                        lineHeight = 13.5.sp
                     ),
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 2,

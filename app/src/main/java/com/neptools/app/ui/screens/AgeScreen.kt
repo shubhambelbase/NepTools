@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import com.neptools.app.core.calendar.NepaliDate
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.data.PatroRepo
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -130,19 +131,10 @@ fun AgeScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Age Calculator" else "उमेर क्यालकुलेटर",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = if (isEn) "Back" else "पछाडि")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+            ToolTopBar(
+                title = if (isEn) "Age Calculator" else "उमेर क्यालकुलेटर",
+                subtitle = if (isEn) "Precise age in years, months & days" else "वर्ष, महिना, दिन तथा आगामी जन्मदिन गणना",
+                onBack = onBack
             )
         }
     ) { padding ->

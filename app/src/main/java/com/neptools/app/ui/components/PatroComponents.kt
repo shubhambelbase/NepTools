@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ripple
@@ -101,12 +102,23 @@ fun SectionTitle(
 ) {
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Column(Modifier.weight(1f)) {
-            Text(title, style = MaterialTheme.typography.titleLarge)
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                    fontSize = 15.sp,
+                    letterSpacing = (-0.15).sp
+                ),
+                color = MaterialTheme.colorScheme.onSurface
+            )
             if (subtitleEn != null) {
                 Text(
-                    subtitleEn,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    text = subtitleEn,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontSize = 11.sp,
+                        lineHeight = 14.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
                 )
             }
         }
@@ -115,9 +127,88 @@ fun SectionTitle(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.clickable(onClick = onAction).padding(4.dp)
             ) {
-                Text(actionLabel, style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary)
+                Text(
+                    text = actionLabel,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold,
+                        fontSize = 11.5.sp
+                    ),
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
+        }
+    }
+}
+
+@Composable
+fun ToolTopBar(
+    title: String,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    subtitle: String? = null,
+    actions: @Composable (androidx.compose.foundation.layout.RowScope.() -> Unit)? = null
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        val interaction = remember { MutableInteractionSource() }
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surface)
+                .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                .clickable(
+                    interactionSource = interaction,
+                    indication = ripple(bounded = true, radius = 18.dp),
+                    onClick = onBack
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = com.neptools.app.ui.icons.PIcons.ChevronLeft,
+                contentDescription = if (ThemePrefs.lang.value == "en") "Back" else "फिर्ता",
+                tint = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+
+        Spacer(Modifier.width(12.dp))
+
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                    fontSize = 16.5.sp,
+                    letterSpacing = (-0.2).sp
+                ),
+                color = MaterialTheme.colorScheme.onBackground,
+                maxLines = 1,
+                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+            )
+            if (!subtitle.isNullOrBlank()) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontSize = 11.sp,
+                        lineHeight = 14.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
+                    maxLines = 1,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+                )
+            }
+        }
+
+        if (actions != null) {
+            Spacer(Modifier.width(8.dp))
+            actions()
         }
     }
 }

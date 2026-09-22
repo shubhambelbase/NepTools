@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.data.KalimatiRepo
 import com.neptools.app.core.data.VegetablePrice
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -91,65 +92,42 @@ fun KalimatiScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
+        ToolTopBar(
+            title = if (isEn) "Kalimati Market" else "कालिमाटी तरकारी तथा फलफूल",
+            subtitle = if (isEn) "Daily wholesale & retail rates" else "दैनिक थोक तथा खुद्रा मूल्य सूची",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .background(Color(0xFFE8F5E9), RoundedCornerShape(10.dp))
+                        .border(1.dp, Color(0xFF81C784), RoundedCornerShape(10.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        if (isEn) kalimatiData.dateEn else kalimatiData.dateNp,
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 10.sp),
+                        color = Color(0xFF2E7D32)
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+                Box(
+                    Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    com.neptools.app.ui.components.AnimatedRefreshIconButton(
+                        onClick = { refresh() },
+                        isRefreshing = isRefreshing,
+                        iconSize = 18.dp,
+                        tint = if (isRefreshing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
             }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "Kalimati Vegetable Market" else "कालिमाटी तरकारी तथा फलफूल",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    if (isEn) kalimatiData.marketNameEn else kalimatiData.marketNameNp,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            Box(
-                Modifier
-                    .background(Color(0xFFE8F5E9), RoundedCornerShape(10.dp))
-                    .border(1.dp, Color(0xFF81C784), RoundedCornerShape(10.dp))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
-                Text(
-                    if (isEn) kalimatiData.dateEn else kalimatiData.dateNp,
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 10.sp),
-                    color = Color(0xFF2E7D32)
-                )
-            }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                com.neptools.app.ui.components.AnimatedRefreshIconButton(
-                    onClick = { refresh() },
-                    isRefreshing = isRefreshing,
-                    iconSize = 18.dp,
-                    tint = if (isRefreshing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(36.dp)
-                )
-            }
-        }
+        )
 
         // Search Bar
         val focusManager = androidx.compose.ui.platform.LocalFocusManager.current

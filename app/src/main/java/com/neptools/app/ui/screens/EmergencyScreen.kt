@@ -70,6 +70,7 @@ import com.neptools.app.core.util.DistrictItem
 import com.neptools.app.core.util.EmergencyLocationResolver
 import com.neptools.app.core.util.EmergencySyncManager
 import com.neptools.app.core.util.ResolvedEmergencyLocation
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.strings.tt
@@ -145,89 +146,70 @@ fun EmergencyScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    T("emg_title"),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            // Dynamic API Sync Button
-            Box(
-                Modifier
-                    .size(36.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(enabled = !isSyncing) {
-                        coroutineScope.launch {
-                            EmergencySyncManager.sync(context, force = true) { success, count, msg ->
-                                val toastMsg = if (success) {
-                                    if (msg.contains("Already", ignoreCase = true)) {
-                                        tt("emg_sync_latest")
+        ToolTopBar(
+            title = T("emg_title"),
+            subtitle = if (isEn) "Nationwide emergency helplines & SOS" else "देशभरका आपतकालीन सम्पर्क तथा हटलाइन",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .border(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
+                        .clickable(enabled = !isSyncing) {
+                            coroutineScope.launch {
+                                EmergencySyncManager.sync(context, force = true) { success, count, msg ->
+                                    val toastMsg = if (success) {
+                                        if (msg.contains("Already", ignoreCase = true)) {
+                                            tt("emg_sync_latest")
+                                        } else {
+                                            "${tt("emg_sync_success")} ($count)"
+                                        }
                                     } else {
-                                        "${tt("emg_sync_success")} ($count)"
+                                        tt("emg_sync_failed")
                                     }
-                                } else {
-                                    tt("emg_sync_failed")
+                                    Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show()
                                 }
-                                Toast.makeText(context, toastMsg, Toast.LENGTH_SHORT).show()
                             }
-                        }
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                val rotation = rememberInfiniteTransition(label = "sync_rot")
-                    .animateFloat(
-                        initialValue = 0f,
-                        targetValue = 360f,
-                        animationSpec = infiniteRepeatable(
-                            animation = tween(1000, easing = LinearEasing),
-                            repeatMode = RepeatMode.Restart
-                        ),
-                        label = "sync_spin"
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    val rotation = rememberInfiniteTransition(label = "sync_rot")
+                        .animateFloat(
+                            initialValue = 0f,
+                            targetValue = 360f,
+                            animationSpec = infiniteRepeatable(
+                                animation = tween(1000, easing = LinearEasing),
+                                repeatMode = RepeatMode.Restart
+                            ),
+                            label = "sync_spin"
+                        )
+                    Icon(
+                        PIcons.Refresh,
+                        contentDescription = T("emg_sync_btn"),
+                        tint = if (isSyncing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier
+                            .size(17.dp)
+                            .graphicsLayer {
+                                if (isSyncing) rotationZ = rotation.value
+                            }
                     )
-                Icon(
-                    PIcons.Refresh,
-                    contentDescription = T("emg_sync_btn"),
-                    tint = if (isSyncing) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier
-                        .size(17.dp)
-                        .graphicsLayer {
-                            if (isSyncing) rotationZ = rotation.value
-                        }
-                )
+                }
+                Spacer(Modifier.width(8.dp))
+                Box(
+                    Modifier
+                        .background(Color(0xFFFFEBEE), RoundedCornerShape(12.dp))
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Text(
+                        "24/7",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = Color(0xFFD32F2F)
+                    )
+                }
             }
-            Spacer(Modifier.width(8.dp))
-            Box(
-                Modifier
-                    .background(Color(0xFFFFEBEE), RoundedCornerShape(12.dp))
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
-                Text(
-                    "24/7",
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                    color = Color(0xFFD32F2F)
-                )
-            }
-        }
+        )
 
         // Location Selector Card
         LocationStatusBanner(

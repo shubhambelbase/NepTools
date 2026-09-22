@@ -101,6 +101,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -150,36 +151,11 @@ fun DecisionMakerScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Top Navigation Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f), CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Decision Wheel & Dice" else "निर्णय चक्र, सिक्का तथा पासा",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "Decision Wheel & Dice" else "निर्णय चक्र, सिक्का तथा पासा",
+            subtitle = if (isEn) "Spin wheel, coin flip & 3D dice rolls" else "भाग्य चक्र, सिक्का टस तथा पासा रोल",
+            onBack = onBack
+        )
 
         // Mode Switcher Tabs
         TabRow(

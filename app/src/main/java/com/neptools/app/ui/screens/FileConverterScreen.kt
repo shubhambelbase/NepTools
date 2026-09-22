@@ -79,6 +79,7 @@ import com.neptools.app.core.converter.FileConverterMode
 import com.neptools.app.core.converter.ImageToPdfEngine
 import com.neptools.app.core.converter.PdfImageFormat
 import com.neptools.app.core.converter.PdfToImageEngine
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.Dispatchers
@@ -307,67 +308,41 @@ fun FileConverterScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Top Bar: Clean title, back button, NO subtitle
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.surface)
-                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f), CircleShape)
-                    .clickable {
-                        haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                        onBack()
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "फिर्ता",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-
-            Spacer(Modifier.width(14.dp))
-
-            Text(
-                text = if (isEn) "File Converter" else "फाइल कन्भर्टर",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f)
-            )
-
-            // On-Device status pill
-            Box(
-                Modifier
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f))
-                    .padding(horizontal = 10.dp, vertical = 5.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+        // App Top Bar
+        ToolTopBar(
+            title = if (isEn) "File Converter" else "फाइल कन्भर्टर",
+            subtitle = if (isEn) "PDF & image conversion offline" else "अफलाइन पीडीएफ तथा तस्बिर रूपान्तरण",
+            onBack = {
+                haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                onBack()
+            },
+            actions = {
+                // On-Device status pill
+                Box(
+                    Modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f))
+                        .padding(horizontal = 9.dp, vertical = 4.dp)
                 ) {
-                    Icon(
-                        PIcons.Shield,
-                        null,
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(13.dp)
-                    )
-                    Text(
-                        text = if (isEn) "Offline" else "अफलाइन",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.primary
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(
+                            PIcons.Shield,
+                            null,
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(12.dp)
+                        )
+                        Text(
+                            text = if (isEn) "Offline" else "अफलाइन",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 11.sp),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
             }
-        }
+        )
 
         // Mode Switcher Tabs
         Box(

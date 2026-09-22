@@ -73,6 +73,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.audio.PetWhistleEngine
 import com.neptools.app.core.audio.WhistlePulsePattern
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -203,34 +204,14 @@ fun PetWhistleScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         // Top Header
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = {
-                        PetWhistleEngine.stopPlayback()
-                        onBack()
-                    }),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
+        ToolTopBar(
+            title = if (isEn) "High-Frequency Whistle" else "उच्च-फ्रिक्वेन्सी सिट्टी",
+            subtitle = if (isEn) "Dog recall, repellent & frequency generator" else "कुकुर तालिम, लामखुट्टे तथा अडियो फ्रिक्वेन्सी",
+            onBack = {
+                PetWhistleEngine.stopPlayback()
+                onBack()
             }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "High-Frequency Whistle" else "उच्च-फ्रिक्वेन्सी सिट्टी",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
+        )
 
         Column(
             Modifier

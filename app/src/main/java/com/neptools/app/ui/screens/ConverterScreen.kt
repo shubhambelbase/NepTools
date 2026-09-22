@@ -87,6 +87,7 @@ import com.neptools.app.core.calendar.SmartDateParser
 import com.neptools.app.core.data.PatroRepo
 import com.neptools.app.ui.components.DayPickerDialog
 import com.neptools.app.ui.components.MonthPickerDialog
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.YearPickerDialog
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
@@ -249,56 +250,10 @@ fun ConverterScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Date Converter" else "मिति रूपान्तरण",
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 20.sp,
-                            letterSpacing = (-0.3).sp
-                        ),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                },
-                navigationIcon = {
-                    val backInteractionSource = remember { MutableInteractionSource() }
-                    val isBackPressed by backInteractionSource.collectIsPressedAsState()
-                    val backScale by animateFloatAsState(
-                        targetValue = if (isBackPressed) 0.90f else 1f,
-                        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium),
-                        label = "backPress"
-                    )
-
-                    Box(modifier = Modifier.padding(start = 12.dp, end = 4.dp)) {
-                        Surface(
-                            shape = CircleShape,
-                            color = MaterialTheme.colorScheme.surface,
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)),
-                            modifier = Modifier
-                                .size(38.dp)
-                                .graphicsLayer {
-                                    scaleX = backScale
-                                    scaleY = backScale
-                                }
-                                .clip(CircleShape)
-                                .clickable(
-                                    interactionSource = backInteractionSource,
-                                    indication = null,
-                                    onClick = onBack
-                                )
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Icon(
-                                    imageVector = PIcons.ChevronLeft,
-                                    contentDescription = if (isEn) "Back" else "पछाडि",
-                                    tint = MaterialTheme.colorScheme.onSurface,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
-                        }
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Date Converter" else "मिति रूपान्तरण",
+                subtitle = if (isEn) "Bi-directional B.S. & A.D. conversion" else "वि.सं. तथा ई.सं. दुईतर्फी मिति रूपान्तरण",
+                onBack = onBack,
                 actions = {
                     val todayInteractionSource = remember { MutableInteractionSource() }
                     val isTodayPressed by todayInteractionSource.collectIsPressedAsState()
@@ -308,50 +263,45 @@ fun ConverterScreen(onBack: () -> Unit) {
                         label = "todayPress"
                     )
 
-                    Box(modifier = Modifier.padding(end = 14.dp)) {
-                        Surface(
-                            shape = CircleShape,
-                            color = MaterialTheme.colorScheme.surface,
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.7f)),
-                            modifier = Modifier
-                                .size(38.dp)
-                                .graphicsLayer {
-                                    scaleX = todayScale
-                                    scaleY = todayScale
-                                }
-                                .clip(CircleShape)
-                                .clickable(
-                                    interactionSource = todayInteractionSource,
-                                    indication = null
-                                ) {
-                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    bsYear = todayNp.year
-                                    bsMonth = todayNp.month
-                                    bsDay = todayNp.day
-                                    adYear = todayAd.year
-                                    adMonth = todayAd.monthValue
-                                    adDay = todayAd.dayOfMonth
-                                    Toast.makeText(
-                                        context,
-                                        if (isEn) "Reset to Today" else "आजको मितिमा रिसेट गरियो",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Icon(
-                                    imageVector = PIcons.Calendar,
-                                    contentDescription = if (isEn) "Today" else "आज",
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(18.dp)
-                                )
+                    Surface(
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surface,
+                        border = BorderStroke(0.75.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+                        modifier = Modifier
+                            .size(36.dp)
+                            .graphicsLayer {
+                                scaleX = todayScale
+                                scaleY = todayScale
                             }
+                            .clip(CircleShape)
+                            .clickable(
+                                interactionSource = todayInteractionSource,
+                                indication = androidx.compose.material3.ripple(bounded = true, radius = 18.dp)
+                            ) {
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                bsYear = todayNp.year
+                                bsMonth = todayNp.month
+                                bsDay = todayNp.day
+                                adYear = todayAd.year
+                                adMonth = todayAd.monthValue
+                                adDay = todayAd.dayOfMonth
+                                Toast.makeText(
+                                    context,
+                                    if (isEn) "Reset to Today" else "आजको मितिमा रिसेट गरियो",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = PIcons.Calendar,
+                                contentDescription = if (isEn) "Today" else "आज",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(17.dp)
+                            )
                         }
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
+                }
             )
         },
         containerColor = MaterialTheme.colorScheme.background

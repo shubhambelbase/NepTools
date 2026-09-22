@@ -44,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.theme.ThemePrefs
@@ -100,56 +101,37 @@ fun RadioScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // App Bar Header
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, "Back", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    T("radio_title"),
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Box(
-                Modifier
-                    .background(
-                        if (isPlaying) Color(0xFFE8F5E9) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
-                        RoundedCornerShape(12.dp)
-                    )
-                    .padding(horizontal = 10.dp, vertical = 5.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (isPlaying) {
-                        Box(
-                            Modifier
-                                .size(6.dp)
-                                .background(Color(0xFF2E7D32), CircleShape)
+        ToolTopBar(
+            title = T("radio_title"),
+            subtitle = if (isEn) "Live FM streaming & national broadcast" else "प्रत्यक्ष अनलाइन प्रसारण तथा राष्ट्रिय एफएम",
+            onBack = onBack,
+            actions = {
+                Box(
+                    Modifier
+                        .background(
+                            if (isPlaying) Color(0xFFE8F5E9) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                            RoundedCornerShape(12.dp)
                         )
-                        Spacer(Modifier.width(5.dp))
+                        .padding(horizontal = 10.dp, vertical = 5.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (isPlaying) {
+                            Box(
+                                Modifier
+                                    .size(6.dp)
+                                    .background(Color(0xFF2E7D32), CircleShape)
+                            )
+                            Spacer(Modifier.width(5.dp))
+                        }
+                        Text(
+                            if (isPlaying) "ON AIR" else "FM LIVE",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = if (isPlaying) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
-                    Text(
-                        if (isPlaying) "ON AIR" else "FM LIVE",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = if (isPlaying) Color(0xFF2E7D32) else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                 }
             }
-        }
+        )
 
         // Category Filter Row
         LazyRow(

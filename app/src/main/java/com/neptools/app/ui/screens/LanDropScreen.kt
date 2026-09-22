@@ -69,6 +69,7 @@ import androidx.core.content.FileProvider
 import com.neptools.app.core.server.LanDropServer
 import com.neptools.app.core.server.SharedFileInfo
 import com.neptools.app.core.util.QrCodeGenerator
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.io.File
@@ -123,31 +124,11 @@ fun LanDropScreen(onBack: () -> Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // App Bar
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(PIcons.ChevronLeft, if (isEn) "Back" else "फिर्ता", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    if (isEn) "High-Speed LAN File Drop" else "द्रुत वाईफाई फाइल ट्रान्सफर",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "High-Speed LAN Drop" else "द्रुत वाईफाई फाइल ट्रान्सफर",
+            subtitle = if (isEn) "Direct browser & local network transfer" else "समान वाईफाई नेटवर्कमा सिधै फाइल साझेदारी",
+            onBack = onBack
+        )
 
         // Mode Tabs
         Row(

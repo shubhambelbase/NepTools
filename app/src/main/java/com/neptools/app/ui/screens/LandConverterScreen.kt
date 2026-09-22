@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.converter.LandConverter
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.util.Locale
@@ -186,41 +187,11 @@ fun LandConverterScreen(onBack: () -> Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // App Bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "फिर्ता",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(12.dp))
-            Column {
-                Text(
-                    text = if (isEn) "Land Area Converter" else "जग्गा नाप रूपान्तरण",
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = if (isEn) "Ropani, Bigha, Sq. Ft & Sq. Metre" else "रोपनी, आना, पैसा, दाम र बिघा, कठ्ठा, धुर",
-                    style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "Land Area Converter" else "जग्गा नाप रूपान्तरण",
+            subtitle = if (isEn) "Ropani, Bigha, Sq. Ft & Sq. Metre" else "रोपनी, आना, पैसा, दाम र बिघा, कठ्ठा, धुर",
+            onBack = onBack
+        )
 
         // Tabs
         TabRow(

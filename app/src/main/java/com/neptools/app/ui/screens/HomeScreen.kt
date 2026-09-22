@@ -57,6 +57,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -378,11 +379,56 @@ fun HomeScreen(
                 Spacer(Modifier.height(10.dp))
                 val tName = if (isEn) panchang.tithiNameEn.ifBlank { panchang.tithiName } else panchang.tithiName
                 val pName = if (isEn) panchang.pakshaEn.ifBlank { pakshaNp(panchang.paksha) } else pakshaNp(panchang.paksha)
-                Text(
-                    "${pName} · ${tName} ${T("tithi_word")}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        "${pName} · ${tName} ${T("tithi_word")}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+
+                    androidx.compose.material3.Surface(
+                        shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.85f),
+                        border = androidx.compose.foundation.BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+                        modifier = Modifier.clickable {
+                            val fList = dataset.festivalsFor(today.year, today.month)[today.day].orEmpty()
+                            val file = com.neptools.app.core.util.PatroGraphicGenerator.createDailyPatroCard(
+                                context = ctx,
+                                date = today,
+                                adDate = todayAd,
+                                panchang = panchang,
+                                solar = solar,
+                                festivals = fList,
+                                isEn = isEn
+                            )
+                            val shareTitle = if (isEn) "Daily Nepali Patro" else "नेपाली दैनिक पञ्चाङ्ग"
+                            com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(ctx, file, shareTitle)
+                        }
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Icon(
+                                PIcons.Share,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(13.dp)
+                            )
+                            Text(
+                                text = if (isEn) "Share Card" else "पात्रो सेयर",
+                                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 10.sp),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
             }
         }
 
@@ -763,35 +809,41 @@ private fun PanchangCard(
             }
             .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(14.dp))
             .border(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f), RoundedCornerShape(14.dp))
-            .padding(horizontal = 10.dp, vertical = 12.dp)
+            .padding(horizontal = 8.dp, vertical = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Box(
             Modifier
-                .size(32.dp)
+                .size(34.dp)
                 .background(iconBg, CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Icon(icon, contentDescription = label, tint = iconTint, modifier = Modifier.size(17.dp))
+            Icon(icon, contentDescription = label, tint = iconTint, modifier = Modifier.size(18.dp))
         }
-        Spacer(Modifier.height(10.dp))
+        Spacer(Modifier.height(8.dp))
         Text(
             label,
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, fontSize = 11.sp),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(3.dp))
         Text(
             value,
             style = MaterialTheme.typography.titleSmall.copy(
                 fontWeight = FontWeight.Bold,
-                fontSize = if (isLong) 12.5.sp else 15.sp,
-                lineHeight = if (isLong) 14.sp else 18.sp
+                fontSize = if (isLong) 12.5.sp else 14.5.sp,
+                lineHeight = if (isLong) 15.sp else 18.sp
             ),
             color = if (tintWarn) androidx.compose.ui.graphics.Color(0xFFE11D48) else MaterialTheme.colorScheme.onSurface,
             maxLines = if (isLong) 2 else 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

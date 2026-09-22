@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.neptools.app.BuildConfig
 import com.neptools.app.R
 import com.neptools.app.ui.components.HairLabel
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 
@@ -57,31 +58,12 @@ fun AboutScreen(onBack: () -> Unit) {
         Spacer(Modifier.height(8.dp))
 
         // Top Bar
-        Row(
-            Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(
-                onClick = onBack,
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f), CircleShape)
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "पछाडि",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(22.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Text(
-                text = if (isEn) "About NepTools" else "NepTools को बारेमा",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
+        ToolTopBar(
+            title = if (isEn) "About NepTools" else "NepTools को बारेमा",
+            subtitle = if (isEn) "Version, developer & open-source licenses" else "संस्करण, विकासकर्ता तथा खुला स्रोत विवरण",
+            onBack = onBack,
+            modifier = Modifier.padding(horizontal = 0.dp)
+        )
 
         Spacer(Modifier.height(18.dp))
 

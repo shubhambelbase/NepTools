@@ -40,7 +40,10 @@ class NepToolsSmartBackgroundWorker(
             // 4. Rain & weather alert check
             SmartAlertNotificationManager.checkAndNotifyWeather(ctx)
 
-            // 5. Background Rates Sync
+            // 5. Festival & Fasting reminder check (Ekadashi, Aunsi, Purnima, Parana)
+            SmartAlertNotificationManager.checkAndNotifyFestivalsAndFasting(ctx)
+
+            // 6. Background Rates Sync
             try {
                 RatesRepo.refresh(ctx) {}
             } catch (_: Exception) {

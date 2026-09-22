@@ -58,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.data.RateSet
 import com.neptools.app.core.data.RatesRepo
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.text.DecimalFormat
@@ -107,25 +108,16 @@ fun CurrencyScreen(onBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "Currency Converter" else "मुद्रा विनिमय दर",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(PIcons.ChevronLeft, contentDescription = if (isEn) "Back" else "पछाडि")
-                    }
-                },
+            ToolTopBar(
+                title = if (isEn) "Currency Converter" else "मुद्रा विनिमय दर",
+                subtitle = if (isEn) "NRB daily foreign exchange rates" else "नेपाल राष्ट्र बैंकको दैनिक विदेशी विनिमय दर",
+                onBack = onBack,
                 actions = {
                     com.neptools.app.ui.components.AnimatedRefreshIconButton(
                         onClick = { refresh() },
                         isRefreshing = loading
                     )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+                }
             )
         }
     ) { padding ->

@@ -51,6 +51,7 @@ import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.updates.RecentUpdateRecord
 import com.neptools.app.core.updates.RecentUpdatesManager
 import com.neptools.app.core.updates.RelativeTimeFormatter
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.delay
@@ -84,54 +85,26 @@ fun RecentUpdatesScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
         // App Bar Header
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    PIcons.ChevronLeft,
-                    contentDescription = if (isEn) "Back" else "पछाडि",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Recent Updates" else "हालै अद्यावधिक",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = if (isEn) "Live data freshness log" else "सजीव डाटा अद्यावधिक विवरण",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            if (updateList.isNotEmpty()) {
-                Box(
-                    Modifier
-                        .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f), RoundedCornerShape(12.dp))
-                        .padding(horizontal = 10.dp, vertical = 4.dp)
-                ) {
-                    Text(
-                        text = if (isEn) "${updateList.size} updates" else "${NepaliNames.toDevanagari(updateList.size)} अद्यावधिक",
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+        ToolTopBar(
+            title = if (isEn) "Recent Updates" else "हालै अद्यावधिक",
+            subtitle = if (isEn) "Live data freshness & sync log" else "सजीव डाटा अद्यावधिक विवरण",
+            onBack = onBack,
+            actions = if (updateList.isNotEmpty()) {
+                {
+                    Box(
+                        Modifier
+                            .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f), RoundedCornerShape(12.dp))
+                            .padding(horizontal = 9.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = if (isEn) "${updateList.size} updates" else "${NepaliNames.toDevanagari(updateList.size)} अद्यावधिक",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, fontSize = 11.sp),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                 }
-            }
-        }
+            } else null
+        )
 
         if (updateList.isEmpty()) {
             Box(

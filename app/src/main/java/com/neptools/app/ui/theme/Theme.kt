@@ -59,6 +59,7 @@ object ThemePrefs {
     val habitNotification: MutableState<Boolean> = mutableStateOf(true)
     val subNotification: MutableState<Boolean> = mutableStateOf(true)
     val weatherNotification: MutableState<Boolean> = mutableStateOf(true)
+    val festivalNotification: MutableState<Boolean> = mutableStateOf(true)
     private const val PREFS = "patro_prefs"
 
     fun load(context: Context) {
@@ -70,6 +71,7 @@ object ThemePrefs {
         habitNotification.value = p.getBoolean("notif_habit", true)
         subNotification.value = p.getBoolean("notif_sub", true)
         weatherNotification.value = p.getBoolean("notif_weather", true)
+        festivalNotification.value = p.getBoolean("notif_festivals", true)
     }
 
     fun saveDark(context: Context, v: Boolean) {
@@ -126,6 +128,12 @@ object ThemePrefs {
         weatherNotification.value = v
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit().putBoolean("notif_weather", v).apply()
+    }
+
+    fun saveFestivalNotification(context: Context, v: Boolean) {
+        festivalNotification.value = v
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit().putBoolean("notif_festivals", v).apply()
     }
 }
 

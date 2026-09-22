@@ -61,6 +61,7 @@ import androidx.core.content.ContextCompat
 import com.neptools.app.core.calendar.NepaliNames
 import com.neptools.app.core.sensor.EmfThreatLevel
 import com.neptools.app.core.sensor.SpyCameraDetectorEngine
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import java.util.Locale
@@ -88,41 +89,11 @@ fun SpyCameraDetectorScreen(onBack: () -> Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         // App Bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(MaterialTheme.colorScheme.surface, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape)
-                    .clickable(onClick = onBack),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = PIcons.ChevronLeft,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-            Spacer(Modifier.width(14.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = if (isEn) "Spy Camera Detector" else "गोप्य क्यामेरा डिटेक्टर",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = if (isEn) "Hotel & Privacy Inspection Suite" else "गोपनीयता तथा सुरक्षा जाँच",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
+        ToolTopBar(
+            title = if (isEn) "Spy Camera Detector" else "गोप्य क्यामेरा डिटेक्टर",
+            subtitle = if (isEn) "Hotel & privacy inspection suite" else "गोपनीयता तथा सुरक्षा जाँच",
+            onBack = onBack
+        )
 
         // Segmented Tab Selector
         Row(

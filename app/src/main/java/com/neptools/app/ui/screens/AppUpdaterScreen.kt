@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.sp
 import com.neptools.app.core.updater.GitHubReleaseInfo
 import com.neptools.app.core.updater.GitHubUpdateManager
 import com.neptools.app.core.updater.UpdateDownloadState
+import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
 import kotlinx.coroutines.launch
@@ -135,27 +136,10 @@ fun AppUpdaterScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = if (isEn) "App Updates" else "एप अपडेट",
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = PIcons.ChevronLeft,
-                            contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
+            ToolTopBar(
+                title = if (isEn) "App Updates" else "एप अपडेट",
+                subtitle = if (isEn) "Official releases & version check" else "नवीनतम संस्करण तथा अद्यावधिक जाँच",
+                onBack = onBack
             )
         },
         containerColor = MaterialTheme.colorScheme.background
