@@ -1,5 +1,6 @@
 package com.neptools.app.core.util
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,6 +26,8 @@ import com.neptools.app.core.data.PatroRepo
 import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object PatroGraphicGenerator {
 
@@ -586,8 +589,81 @@ object PatroGraphicGenerator {
             type = "image/png"
             putExtra(Intent.EXTRA_STREAM, uri)
             putExtra(Intent.EXTRA_TEXT, "$title\nShared via NepTools — 100% Ad-Free Nepali Toolkit\nhttps://github.com/shubhambelbase/NepTools")
+            clipData = ClipData.newRawUri(title, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        context.startActivity(Intent.createChooser(intent, title))
+        val chooser = Intent.createChooser(intent, title).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(chooser)
+    }
+
+    /**
+     * Renders the card off the main thread and then opens the share sheet on the main thread.
+     *
+     * Rendering a 1080x1440 bitmap plus PNG compression is far too expensive to run inside a
+     * click handler, so callers must invoke this from a coroutine scope.
+     */
+    suspend fun createAndShareDailyPatroCard(
+        context: Context,
+        date: NepaliDate,
+        adDate: LocalDate,
+        panchang: Panchang,
+        solar: SolarDay,
+        festivals: List<Festival>,
+        isEn: Boolean,
+        title: String
+    ) {
+        val appContext = context.applicationContext
+        val file = withContext(Dispatchers.IO) {
+            createDailyPatroCard(
+                context = appContext,
+                date = date,
+                adDate = adDate,
+                panchang = panchang,
+                solar = solar,
+                festivals = festivals,
+                isEn = isEn
+            )
+        }
+        withContext(Dispatchers.Main) {
+            shareCardImage(context, file, title)
+        }
+    }
+
+    /**
+     * Renders the rashifal card off the main thread and hands it to the share sheet.
+     *
+     * Coroutine form of [createRashifalCard] + [shareCardImage] for click handlers.
+     */
+    suspend fun createAndShareRashifalCard(
+        context: Context,
+        rashiNameNp: String,
+        rashiNameEn: String,
+        glyph: String,
+        reading: String,
+        luckyColor: String,
+        luckyNo: String,
+        goodHours: String,
+        isEn: Boolean,
+        title: String
+    ) {
+        val appContext = context.applicationContext
+        val rashifalFile = withContext(Dispatchers.IO) {
+            createRashifalCard(
+                context = appContext,
+                rashiNameNp = rashiNameNp,
+                rashiNameEn = rashiNameEn,
+                glyph = glyph,
+                reading = reading,
+                luckyColor = luckyColor,
+                luckyNo = luckyNo,
+                goodHours = goodHours,
+                isEn = isEn
+            )
+        }
+        withContext(Dispatchers.Main) {
+            shareCardImage(context, rashifalFile, title)
+        }
     }
 }

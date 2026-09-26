@@ -215,7 +215,7 @@ object RatesRepo {
                 put("source", "Nepal Rastra Bank (NRB)")
             }
 
-            File(context.filesDir, FILE).writeText(cacheJson.toString())
+            com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, FILE), cacheJson.toString())
             com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
                 context = context,
                 serviceId = "rates",
@@ -269,7 +269,7 @@ object RatesRepo {
                 put("fetchedAt", now)
                 put("source", "Exchange Rates API")
             }
-            File(context.filesDir, FILE).writeText(cacheJson.toString())
+            com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, FILE), cacheJson.toString())
             com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
                 context = context,
                 serviceId = "rates",

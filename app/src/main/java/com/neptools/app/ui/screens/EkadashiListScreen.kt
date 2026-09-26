@@ -39,6 +39,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,6 +63,8 @@ import com.neptools.app.ui.theme.ThemePrefs
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private data class TithiEvent(
     val ad: LocalDate,
@@ -84,6 +87,7 @@ private data class TithiEvent(
 fun EkadashiListScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
+    val scope = rememberCoroutineScope()
     val engine = PatroRepo.d.engine
     var filter by remember { mutableStateOf("Ekadashi") } // Ekadashi, Aunsi, Purnima, All
     var selectedYear by remember {
@@ -220,21 +224,24 @@ fun EkadashiListScreen(onBack: () -> Unit) {
                             today = today,
                             isEn = isEn,
                             onShare = {
-                                val npDate = NepaliDate(nextUpcoming.bsYear, nextUpcoming.bsMonth, nextUpcoming.bsDay)
-                                val panchang = PanchangCalc.compute(nextUpcoming.ad)
-                                val solar = SolarCalc.compute(nextUpcoming.ad, 27.7172, 85.3240)
-                                val fList = PatroRepo.d.festivalsFor(nextUpcoming.bsYear, nextUpcoming.bsMonth)[nextUpcoming.bsDay].orEmpty()
-                                val file = PatroGraphicGenerator.createDailyPatroCard(
-                                    context = context,
-                                    date = npDate,
-                                    adDate = nextUpcoming.ad,
-                                    panchang = panchang,
-                                    solar = solar,
-                                    festivals = fList,
-                                    isEn = isEn
-                                )
-                                val title = if (isEn) "${nextUpcoming.canonicalNameEn} - Sacred Observance" else "${nextUpcoming.canonicalNameNp} - पवित्र व्रत"
-                                PatroGraphicGenerator.shareCardImage(context, file, title)
+                                val hero = nextUpcoming
+                                val heroTitle = if (isEn) "${hero.canonicalNameEn} - Sacred Observance" else "${hero.canonicalNameNp} - पवित्र व्रत"
+                                scope.launch(Dispatchers.Default) {
+                                    val npDate = NepaliDate(hero.bsYear, hero.bsMonth, hero.bsDay)
+                                    val panchang = PanchangCalc.compute(hero.ad)
+                                    val solar = SolarCalc.compute(hero.ad, 27.7172, 85.3240)
+                                    val fList = PatroRepo.d.festivalsFor(hero.bsYear, hero.bsMonth)[hero.bsDay].orEmpty()
+                                    PatroGraphicGenerator.createAndShareDailyPatroCard(
+                                        context = context,
+                                        date = npDate,
+                                        adDate = hero.ad,
+                                        panchang = panchang,
+                                        solar = solar,
+                                        festivals = fList,
+                                        isEn = isEn,
+                                        title = heroTitle
+                                    )
+                                }
                             }
                         )
                     }
@@ -322,21 +329,24 @@ fun EkadashiListScreen(onBack: () -> Unit) {
                         isToday = event.ad == today,
                         isEn = isEn,
                         onShare = {
-                            val npDate = NepaliDate(event.bsYear, event.bsMonth, event.bsDay)
-                            val panchang = PanchangCalc.compute(event.ad)
-                            val solar = SolarCalc.compute(event.ad, 27.7172, 85.3240)
-                            val fList = PatroRepo.d.festivalsFor(event.bsYear, event.bsMonth)[event.bsDay].orEmpty()
-                            val file = PatroGraphicGenerator.createDailyPatroCard(
-                                context = context,
-                                date = npDate,
-                                adDate = event.ad,
-                                panchang = panchang,
-                                solar = solar,
-                                festivals = fList,
-                                isEn = isEn
-                            )
-                            val title = if (isEn) "${event.canonicalNameEn} - Sacred Tithi" else "${event.canonicalNameNp} - पवित्र तिथि"
-                            PatroGraphicGenerator.shareCardImage(context, file, title)
+                            val ev = event
+                            val evTitle = if (isEn) "${ev.canonicalNameEn} - Sacred Tithi" else "${ev.canonicalNameNp} - पवित्र तिथि"
+                            scope.launch(Dispatchers.Default) {
+                                val npDate = NepaliDate(ev.bsYear, ev.bsMonth, ev.bsDay)
+                                val panchang = PanchangCalc.compute(ev.ad)
+                                val solar = SolarCalc.compute(ev.ad, 27.7172, 85.3240)
+                                val fList = PatroRepo.d.festivalsFor(ev.bsYear, ev.bsMonth)[ev.bsDay].orEmpty()
+                                PatroGraphicGenerator.createAndShareDailyPatroCard(
+                                    context = context,
+                                    date = npDate,
+                                    adDate = ev.ad,
+                                    panchang = panchang,
+                                    solar = solar,
+                                    festivals = fList,
+                                    isEn = isEn,
+                                    title = evTitle
+                                )
+                            }
                         }
                     )
                 }

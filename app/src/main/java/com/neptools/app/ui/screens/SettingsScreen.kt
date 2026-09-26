@@ -47,7 +47,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.neptools.app.BuildConfig
 import com.neptools.app.core.backup.BackupManager
 import com.neptools.app.core.backup.BackupSummary
-import com.neptools.app.core.data.RatesRepo
 import com.neptools.app.core.security.NepToolsSecurityGuard
 import kotlinx.coroutines.launch
 import com.neptools.app.ui.components.HairLabel
@@ -59,29 +58,29 @@ import com.neptools.app.ui.theme.ThemePrefs
 @Composable
 fun SettingsScreen(onBack: () -> Unit = {}) {
     val context = LocalContext.current
-    val cached = remember { RatesRepo.loadCached(context) }
     val isEn = ThemePrefs.lang.value == "en"
 
     var restoreSummary by remember { mutableStateOf<BackupSummary?>(null) }
     var restoreError by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
 
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/json")
     ) { uri ->
         if (uri != null) {
-            val ok = context.contentResolver.openOutputStream(uri)?.use { stream ->
-                BackupManager.exportToStream(context, stream)
-            } ?: false
-            if (ok) {
+            scope.launch {
+                val ok = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    context.contentResolver.openOutputStream(uri)?.use { stream ->
+                        BackupManager.exportToStream(context, stream)
+                    } ?: false
+                }
                 Toast.makeText(
                     context,
-                    if (isEn) "Backup saved successfully" else "ब्याकअप सफलतापूर्वक सुरक्षित भयो",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    context,
-                    if (isEn) "Failed to export backup" else "ब्याकअप सुरक्षित गर्न सकिएन",
+                    if (ok) {
+                        if (isEn) "Backup saved successfully" else "ब्याकअप सफलतापूर्वक सुरक्षित भयो"
+                    } else {
+                        if (isEn) "Failed to export backup" else "ब्याकअप सुरक्षित गर्न सकिएन"
+                    },
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -92,14 +91,18 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
         contract = ActivityResultContracts.OpenDocument()
     ) { uri ->
         if (uri != null) {
-            val result = context.contentResolver.openInputStream(uri)?.use { stream ->
-                BackupManager.restoreFromStream(context, stream)
-            } ?: Result.failure(Exception("Unable to open file"))
+            scope.launch {
+                val result = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    context.contentResolver.openInputStream(uri)?.use { stream ->
+                        BackupManager.restoreFromStream(context, stream)
+                    } ?: Result.failure(Exception("Unable to open file"))
+                }
 
-            result.onSuccess { summary ->
-                restoreSummary = summary
-            }.onFailure { error ->
-                restoreError = error.localizedMessage ?: "Unknown error"
+                result.onSuccess { summary ->
+                    restoreSummary = summary
+                }.onFailure { error ->
+                    restoreError = error.localizedMessage ?: "Unknown error"
+                }
             }
         }
     }

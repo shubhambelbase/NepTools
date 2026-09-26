@@ -29,7 +29,7 @@ object NotesStore {
         all.take(200).forEach { n ->
             arr.put(JSONObject().put("text", n.text).put("at", n.createdAt).put("kind", n.kind))
         }
-        java.io.File(context.filesDir, FILE).writeText(arr.toString())
+        com.neptools.app.core.util.SafeFileWriter.writeAtomic(java.io.File(context.filesDir, FILE), arr.toString())
     }
 
     fun delete(context: Context, createdAt: Long) {
@@ -38,6 +38,6 @@ object NotesStore {
         all.forEach { n ->
             arr.put(JSONObject().put("text", n.text).put("at", n.createdAt).put("kind", n.kind))
         }
-        java.io.File(context.filesDir, FILE).writeText(arr.toString())
+        com.neptools.app.core.util.SafeFileWriter.writeAtomic(java.io.File(context.filesDir, FILE), arr.toString())
     }
 }

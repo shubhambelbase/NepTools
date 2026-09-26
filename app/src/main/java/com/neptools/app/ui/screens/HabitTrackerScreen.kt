@@ -129,8 +129,13 @@ fun HabitTrackerScreen(
     val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
     val repo = remember { HabitRepository.get(context) }
+    val scope = rememberCoroutineScope()
 
-    var habits by remember { mutableStateOf(repo.getHabits()) }
+    var habits by remember { mutableStateOf<List<Habit>>(emptyList()) }
+
+    LaunchedEffect(repo) {
+        habits = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { repo.getHabits() }
+    }
     var selectedHabitFilter by remember { mutableStateOf<String?>(null) } // null = All Habits
     var isBsMode by remember { mutableStateOf(true) }
 
@@ -180,8 +185,10 @@ fun HabitTrackerScreen(
     var inspectingDay by remember { mutableStateOf<DayHeatmapCell?>(null) }
 
     fun refresh() {
-        habits = repo.getHabits()
-        updateTick++
+        scope.launch {
+            habits = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { repo.getHabits() }
+            updateTick++
+        }
     }
 
     Scaffold(

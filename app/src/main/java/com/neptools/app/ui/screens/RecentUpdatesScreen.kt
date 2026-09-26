@@ -65,8 +65,10 @@ fun RecentUpdatesScreen(
     val isEn = ThemePrefs.lang.value == "en"
 
     LaunchedEffect(Unit) {
-        RecentUpdatesManager.load(context)
-        RecentUpdatesManager.markAllSeen(context)
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            RecentUpdatesManager.load(context)
+            RecentUpdatesManager.markAllSeen(context)
+        }
     }
 
     var nowMillis by remember { mutableLongStateOf(System.currentTimeMillis()) }

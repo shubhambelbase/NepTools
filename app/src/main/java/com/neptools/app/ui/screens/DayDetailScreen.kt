@@ -27,10 +27,12 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +51,9 @@ import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import com.neptools.app.ui.icons.PIcons
 import java.time.LocalDate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun DayDetailScreen(
@@ -76,10 +81,15 @@ fun DayDetailScreen(
     val festival = PatroRepo.d.festivalsFor(date.year, date.month)[date.day]
 
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
+    val scope = rememberCoroutineScope()
 
-    var userEvents by remember(date) {
-        mutableStateOf(UserEventManager.getEventsForDate(context, date.year, date.month, date.day))
+    var userEvents by remember { mutableStateOf<List<UserCalendarEvent>>(emptyList()) }
+    suspend fun reloadEvents() {
+        userEvents = withContext(Dispatchers.IO) {
+            UserEventManager.getEventsForDate(context, date.year, date.month, date.day)
+        }
     }
+    LaunchedEffect(context, date) { reloadEvents() }
 
     var showAddEventDialog by remember { mutableStateOf(false) }
     var newEventTitle by remember { mutableStateOf("") }
@@ -98,20 +108,22 @@ fun DayDetailScreen(
             onBack = onBack,
             actions = {
                 IconButton(onClick = {
-                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createDailyPatroCard(
-                        context = context,
-                        date = date,
-                        adDate = adDate,
-                        panchang = panchang,
-                        solar = solar,
-                        festivals = festival.orEmpty(),
-                        isEn = isEn
-                    )
                     val shareTitle = if (isEn)
                         "Nepali Patro - ${date.year}/${date.month}/${date.day}"
                     else
                         "दैनिक पञ्चाङ्ग - वि.सं. ${date.year}/${date.month}/${date.day}"
-                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, shareTitle)
+                    scope.launch {
+                        com.neptools.app.core.util.PatroGraphicGenerator.createAndShareDailyPatroCard(
+                            context = context,
+                            date = date,
+                            adDate = adDate,
+                            panchang = panchang,
+                            solar = solar,
+                            festivals = festival.orEmpty(),
+                            isEn = isEn,
+                            title = shareTitle
+                        )
+                    }
                 }) {
                     Icon(PIcons.Share, contentDescription = "Share Patro Card", tint = MaterialTheme.colorScheme.onSurface)
                 }
@@ -243,8 +255,10 @@ fun DayDetailScreen(
                         }
                         IconButton(
                             onClick = {
-                                UserEventManager.deleteEvent(context, ev.id)
-                                userEvents = UserEventManager.getEventsForDate(context, date.year, date.month, date.day)
+                                scope.launch {
+                                    withContext(Dispatchers.IO) { UserEventManager.deleteEvent(context, ev.id) }
+                                    reloadEvents()
+                                }
                             }
                         ) {
                             Icon(
@@ -344,8 +358,10 @@ fun DayDetailScreen(
                                     note = newEventNote.trim(),
                                     hasReminder = newEventReminder
                                 )
-                                UserEventManager.saveEvent(context, ev)
-                                userEvents = UserEventManager.getEventsForDate(context, date.year, date.month, date.day)
+                                scope.launch {
+                                    withContext(Dispatchers.IO) { UserEventManager.saveEvent(context, ev) }
+                                    reloadEvents()
+                                }
                                 showAddEventDialog = false
                             }
                         },

@@ -54,6 +54,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
@@ -123,7 +124,9 @@ fun HomeScreen(
 
     // Auto-refresh market rates & daily services whenever user lands on HomeScreen
     LaunchedEffect(Unit) {
-        RecentUpdatesManager.load(ctx)
+        kotlinx.coroutines.withContext(Dispatchers.IO) {
+            RecentUpdatesManager.load(ctx)
+        }
         com.neptools.app.core.data.FuelRepo.refresh(ctx) {}
         com.neptools.app.core.data.KalimatiRepo.refresh(ctx) {}
         com.neptools.app.core.data.RatesRepo.refresh(ctx) {}
@@ -397,17 +400,19 @@ fun HomeScreen(
                         border = androidx.compose.foundation.BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
                         modifier = Modifier.clickable {
                             val fList = dataset.festivalsFor(today.year, today.month)[today.day].orEmpty()
-                            val file = com.neptools.app.core.util.PatroGraphicGenerator.createDailyPatroCard(
-                                context = ctx,
-                                date = today,
-                                adDate = todayAd,
-                                panchang = panchang,
-                                solar = solar,
-                                festivals = fList,
-                                isEn = isEn
-                            )
                             val shareTitle = if (isEn) "Daily Nepali Patro" else "नेपाली दैनिक पञ्चाङ्ग"
-                            com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(ctx, file, shareTitle)
+                            scope.launch {
+                                com.neptools.app.core.util.PatroGraphicGenerator.createAndShareDailyPatroCard(
+                                    context = ctx,
+                                    date = today,
+                                    adDate = todayAd,
+                                    panchang = panchang,
+                                    solar = solar,
+                                    festivals = fList,
+                                    isEn = isEn,
+                                    title = shareTitle
+                                )
+                            }
                         }
                     ) {
                         Row(
@@ -1014,7 +1019,7 @@ private fun HomeFuelPriceCard(
     modifier: Modifier = Modifier
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
-    var fuelRates by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(com.neptools.app.core.data.FuelRepo.loadCached(context)) }
+    var fuelRates by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(com.neptools.app.core.data.FuelRepo.defaultRates) }
     val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -1029,6 +1034,9 @@ private fun HomeFuelPriceCard(
     )
 
     androidx.compose.runtime.LaunchedEffect(Unit) {
+        fuelRates = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            com.neptools.app.core.data.FuelRepo.loadCached(context)
+        }
         com.neptools.app.core.data.FuelRepo.refresh(context) { data ->
             fuelRates = data
         }

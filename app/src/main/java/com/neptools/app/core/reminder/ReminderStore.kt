@@ -62,7 +62,7 @@ object ReminderStore {
                 put("createdAt", r.createdAt)
             })
         }
-        file(context).writeText(arr.toString())
+        com.neptools.app.core.util.SafeFileWriter.writeAtomic(file(context), arr.toString())
     }
 
     fun nextId(title: String, triggerAtMillis: Long): Int {

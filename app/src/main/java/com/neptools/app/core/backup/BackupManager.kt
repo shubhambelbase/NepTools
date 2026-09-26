@@ -148,14 +148,14 @@ object BackupManager {
             // Restore Notes
             if (root.has("notes")) {
                 val notesArr = root.getJSONArray("notes")
-                File(context.filesDir, "notes_store.json").writeText(notesArr.toString())
+                com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, "notes_store.json"), notesArr.toString())
                 notesCount = notesArr.length()
             }
 
             // Restore User Events
             if (root.has("userEvents")) {
                 val eventsArr = root.getJSONArray("userEvents")
-                File(context.filesDir, "user_calendar_events.json").writeText(eventsArr.toString())
+                com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, "user_calendar_events.json"), eventsArr.toString())
                 eventCount = eventsArr.length()
             }
 

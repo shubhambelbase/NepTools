@@ -119,13 +119,7 @@ object UserEventManager {
                     }
                 )
             }
-            val target = File(context.filesDir, FILE)
-            val tmp = File(context.filesDir, "$FILE.tmp")
-            tmp.writeText(arr.toString())
-            if (tmp.exists()) {
-                if (target.exists()) target.delete()
-                tmp.renameTo(target)
-            }
+            com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, FILE), arr.toString())
         } catch (_: Exception) {
         }
     }

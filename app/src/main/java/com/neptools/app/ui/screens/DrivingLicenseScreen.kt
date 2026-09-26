@@ -884,9 +884,15 @@ private fun PracticeQuestionsScreen(category: LicenseCategory, isEn: Boolean) {
     var searchQuery by remember { mutableStateOf("") }
     var showOnlyBookmarks by remember { mutableStateOf(false) }
 
-    var bookmarkedIds by remember { mutableStateOf(LicenseStorageManager.getBookmarks(context)) }
+    var bookmarkedIds by remember { mutableStateOf<Set<Int>>(emptySet()) }
     val revealedExplanations = remember { mutableStateMapOf<Int, Boolean>() }
     val selectedOptions = remember { mutableStateMapOf<Int, Int>() }
+
+    LaunchedEffect(context) {
+        bookmarkedIds = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            LicenseStorageManager.getBookmarks(context)
+        }
+    }
 
     val allQuestions = remember(category) { DrivingLicenseQuestionBank.getAllQuestions(context) }
 

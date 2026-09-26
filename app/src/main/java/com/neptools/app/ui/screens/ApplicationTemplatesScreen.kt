@@ -40,6 +40,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,6 +57,7 @@ import com.neptools.app.core.util.PdfExporter
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
+import kotlinx.coroutines.launch
 
 // Category color map for visual distinction
 private val CATEGORY_COLORS = mapOf(
@@ -69,6 +71,7 @@ private val CATEGORY_COLORS = mapOf(
 fun ApplicationTemplatesScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
+    val scope = rememberCoroutineScope()
 
     var selectedTemplate by remember { mutableStateOf(ApplicationTemplatesRepo.templates.first()) }
     var selectedCategory by remember { mutableStateOf("all") }
@@ -422,12 +425,17 @@ fun ApplicationTemplatesScreen(onBack: () -> Unit) {
                             ) {
                                 OutlinedButton(
                                     onClick = {
-                                        PdfExporter.generateAndOpenPdf(
-                                            context = context,
-                                            title = if (isEn) selectedTemplate.titleEn else selectedTemplate.titleNp,
-                                            bodyText = activeLetter,
-                                            isShare = true
-                                        )
+                                        val templateTitle =
+                                            if (isEn) selectedTemplate.titleEn else selectedTemplate.titleNp
+                                        val body = activeLetter
+                                        scope.launch {
+                                            PdfExporter.generateAndOpenPdfSuspend(
+                                                context = context,
+                                                title = templateTitle,
+                                                bodyText = body,
+                                                isShare = true
+                                            )
+                                        }
                                     },
                                     modifier = Modifier
                                         .weight(1f)

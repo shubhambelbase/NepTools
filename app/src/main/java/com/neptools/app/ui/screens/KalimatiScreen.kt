@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.neptools.app.core.data.KalimatiData
 import com.neptools.app.core.data.KalimatiRepo
 import com.neptools.app.core.data.VegetablePrice
 import com.neptools.app.ui.components.ToolTopBar
@@ -54,8 +55,26 @@ fun KalimatiScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf("all") }
-    var kalimatiData by remember { mutableStateOf(KalimatiRepo.loadCached(context)) }
+    var kalimatiData by remember {
+        mutableStateOf(
+            KalimatiData(
+                dateNp = "",
+                dateEn = "",
+                marketNameNp = KalimatiRepo.DEFAULT_MARKET_NP,
+                marketNameEn = KalimatiRepo.DEFAULT_MARKET_EN,
+                items = emptyList(),
+                fetchedAtMillis = 0L,
+                isStale = true
+            )
+        )
+    }
     var isRefreshing by remember { mutableStateOf(false) }
+
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        kalimatiData = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            KalimatiRepo.loadCached(context)
+        }
+    }
 
     fun refresh() {
         isRefreshing = true

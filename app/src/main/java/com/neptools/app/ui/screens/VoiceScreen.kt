@@ -76,6 +76,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
+import kotlinx.coroutines.launch
 import com.neptools.app.core.notes.Note
 import com.neptools.app.core.notes.NotesStore
 import com.neptools.app.ui.components.InkButton
@@ -113,12 +114,13 @@ fun VoiceScreen(onBack: () -> Unit) {
     var confirmClear by remember { mutableStateOf(false) }
 
     // Saved voice notes list
-    var savedNotes by remember {
-        mutableStateOf(NotesStore.load(context).filter { it.kind == "voice" })
-    }
+    var savedNotes by remember { mutableStateOf<List<Note>>(emptyList()) }
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
 
-    fun refreshSavedNotes() {
-        savedNotes = NotesStore.load(context).filter { it.kind == "voice" }
+    LaunchedEffect(context) {
+        savedNotes = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            NotesStore.load(context).filter { it.kind == "voice" }
+        }
     }
 
     LaunchedEffect(copyNotice) {
@@ -668,12 +670,15 @@ fun VoiceScreen(onBack: () -> Unit) {
                             isSaved = savedNotice,
                             onClick = {
                                 if (transcript.isNotBlank()) {
-                                    NotesStore.save(
-                                        context,
-                                        Note(transcript.trim(), System.currentTimeMillis(), "voice")
-                                    )
-                                    refreshSavedNotes()
-                                    savedNotice = true
+                                    val text = transcript.trim()
+                                    scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                                        NotesStore.save(context, Note(text, System.currentTimeMillis(), "voice"))
+                                        val list = NotesStore.load(context).filter { it.kind == "voice" }
+                                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                            savedNotes = list
+                                            savedNotice = true
+                                        }
+                                    }
                                 }
                             },
                             modifier = Modifier.fillMaxWidth()
@@ -760,8 +765,13 @@ fun VoiceScreen(onBack: () -> Unit) {
                         copyNotice = if (isEn) "Note copied to clipboard" else "नोट प्रतिलिपि गरियो"
                     },
                     onDelete = {
-                        NotesStore.delete(context, note.createdAt)
-                        refreshSavedNotes()
+                        scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                            NotesStore.delete(context, note.createdAt)
+                            val list = NotesStore.load(context).filter { it.kind == "voice" }
+                            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                                savedNotes = list
+                            }
+                        }
                     }
                 )
             }

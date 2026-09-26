@@ -19,26 +19,37 @@ object RecentUpdatesManager {
     val updates = mutableStateListOf<RecentUpdateRecord>()
     private var isLoaded = false
 
-    fun load(context: Context) {
-        if (isLoaded) return
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        val raw = prefs.getString(KEY_UPDATES, "") ?: ""
-        updates.clear()
+    /**
+     * Guards every read-modify-write of [updates].
+     *
+     * Repository refresh callbacks invoke [recordSuccessfulUpdate] from background executor
+     * threads while the UI observes the same list, so the compound sequences in this object
+     * must be serialized or a refresh can interleave with a UI-triggered mutation.
+     */
+    private val lock = Any()
 
-        if (raw.isNotBlank()) {
-            runCatching {
-                val arr = JSONArray(raw)
-                for (i in 0 until arr.length()) {
-                    updates.add(RecentUpdateRecord.fromJson(arr.getJSONObject(i)))
+    fun load(context: Context) {
+        synchronized(lock) {
+            if (isLoaded) return
+            val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            val raw = prefs.getString(KEY_UPDATES, "") ?: ""
+            updates.clear()
+
+            if (raw.isNotBlank()) {
+                runCatching {
+                    val arr = JSONArray(raw)
+                    for (i in 0 until arr.length()) {
+                        updates.add(RecentUpdateRecord.fromJson(arr.getJSONObject(i)))
+                    }
                 }
             }
+
+            // Seed with genuine timestamps from existing repository disk caches if available
+            seedFromExistingCachesIfMissing(context)
+
+            sortUpdates()
+            isLoaded = true
         }
-
-        // Seed with genuine timestamps from existing repository disk caches if available
-        seedFromExistingCachesIfMissing(context)
-
-        sortUpdates()
-        isLoaded = true
     }
 
     private fun seedFromExistingCachesIfMissing(context: Context) {
@@ -144,86 +155,94 @@ object RecentUpdatesManager {
         statusEn: String? = null
     ) {
         if (timestampMillis <= 0L) return
-        load(context)
+        synchronized(lock) {
+            load(context)
 
-        // Find existing record
-        val existingIndex = updates.indexOfFirst { it.serviceId == serviceId }
-        var isUnread = true
-        if (existingIndex >= 0) {
-            val existing = updates[existingIndex]
-            if (existing.timestampMillis >= timestampMillis) {
-                // Not newer than existing verified timestamp, do not create duplicate
-                return
-            }
-            // If user already viewed this update, preserve the read status (do not show red dot again)
-            // unless the new timestamp is genuinely from a different refresh cycle (> 1 hour later)
-            // or the status text actually changed.
-            if (!existing.isUnread) {
-                val timeDifference = timestampMillis - existing.timestampMillis
-                val statusChanged = (statusEn != null && statusEn != existing.statusEn) ||
-                        (statusNp != null && statusNp != existing.statusNp)
-                if (!statusChanged && timeDifference < 60 * 60 * 1000L) {
-                    isUnread = false
+            // Find existing record
+            val existingIndex = updates.indexOfFirst { it.serviceId == serviceId }
+            var isUnread = true
+            if (existingIndex >= 0) {
+                val existing = updates[existingIndex]
+                if (existing.timestampMillis >= timestampMillis) {
+                    // Not newer than existing verified timestamp, do not create duplicate
+                    return
                 }
+                // If user already viewed this update, preserve the read status (do not show red dot again)
+                // unless the new timestamp is genuinely from a different refresh cycle (> 1 hour later)
+                // or the status text actually changed.
+                if (!existing.isUnread) {
+                    val timeDifference = timestampMillis - existing.timestampMillis
+                    val statusChanged = (statusEn != null && statusEn != existing.statusEn) ||
+                            (statusNp != null && statusNp != existing.statusNp)
+                    if (!statusChanged && timeDifference < 60 * 60 * 1000L) {
+                        isUnread = false
+                    }
+                }
+                updates.removeAt(existingIndex)
             }
-            updates.removeAt(existingIndex)
+
+            val record = RecentUpdateRecord(
+                serviceId = serviceId,
+                nameNp = nameNp,
+                nameEn = nameEn,
+                route = route,
+                iconType = iconType,
+                timestampMillis = timestampMillis,
+                statusNp = statusNp,
+                statusEn = statusEn,
+                isUnread = isUnread
+            )
+
+            updates.add(record)
+            while (updates.size > MAX_RECORDS) {
+                updates.removeAt(updates.lastIndex)
+            }
+
+            sortUpdates()
+            persist(context)
         }
-
-        val record = RecentUpdateRecord(
-            serviceId = serviceId,
-            nameNp = nameNp,
-            nameEn = nameEn,
-            route = route,
-            iconType = iconType,
-            timestampMillis = timestampMillis,
-            statusNp = statusNp,
-            statusEn = statusEn,
-            isUnread = isUnread
-        )
-
-        updates.add(record)
-        while (updates.size > MAX_RECORDS) {
-            updates.removeAt(updates.lastIndex)
-        }
-
-        sortUpdates()
-        persist(context)
     }
 
     fun markSeen(context: Context, serviceIds: List<String>) {
-        load(context)
-        var changed = false
-        for (i in 0 until updates.size) {
-            val item = updates[i]
-            if (item.serviceId in serviceIds && item.isUnread) {
-                updates[i] = item.copy(isUnread = false)
-                changed = true
+        synchronized(lock) {
+            load(context)
+            var changed = false
+            for (i in 0 until updates.size) {
+                val item = updates[i]
+                if (item.serviceId in serviceIds && item.isUnread) {
+                    updates[i] = item.copy(isUnread = false)
+                    changed = true
+                }
             }
-        }
-        if (changed) {
-            persist(context)
+            if (changed) {
+                persist(context)
+            }
         }
     }
 
     fun markAllSeen(context: Context) {
-        load(context)
-        var changed = false
-        for (i in 0 until updates.size) {
-            val item = updates[i]
-            if (item.isUnread) {
-                updates[i] = item.copy(isUnread = false)
-                changed = true
+        synchronized(lock) {
+            load(context)
+            var changed = false
+            for (i in 0 until updates.size) {
+                val item = updates[i]
+                if (item.isUnread) {
+                    updates[i] = item.copy(isUnread = false)
+                    changed = true
+                }
             }
-        }
-        if (changed) {
-            persist(context)
+            if (changed) {
+                persist(context)
+            }
         }
     }
 
     fun clearOldUpdates(context: Context) {
-        updates.clear()
-        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        prefs.edit().remove(KEY_UPDATES).apply()
+        synchronized(lock) {
+            updates.clear()
+            val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            prefs.edit().remove(KEY_UPDATES).apply()
+        }
     }
 
     private fun sortUpdates() {

@@ -71,7 +71,7 @@ fun CurrencyScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
 
-    var rates by remember { mutableStateOf<RateSet?>(RatesRepo.loadCached(context)) }
+    var rates by remember { mutableStateOf<RateSet?>(null) }
     var loading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
 
@@ -92,6 +92,10 @@ fun CurrencyScreen(onBack: () -> Unit) {
     }
 
     androidx.compose.runtime.LaunchedEffect(Unit) {
+        // Seed from the on-disk cache off the main thread so the first frame never blocks on I/O.
+        rates = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            RatesRepo.loadCached(context)
+        }
         refresh()
     }
 

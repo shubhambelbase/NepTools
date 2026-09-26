@@ -228,7 +228,7 @@ object EmergencySyncManager {
                 val merge = EmergencyRepo.mergeRemoteContacts(feed.contacts)
 
                 // Only persist payloads that passed validation and the merge.
-                File(context.filesDir, CACHE_FILE).writeText(body)
+                com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, CACHE_FILE), body)
 
                 prefs.edit()
                     .putLong(KEY_LAST_SYNC, now)

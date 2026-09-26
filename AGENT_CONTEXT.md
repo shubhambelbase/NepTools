@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.4 (versionCode: 43)
-- Last Updated: September 22, 2026
+- Current Version: v2.8.5 (versionCode: 44)
+- Last Updated: September 26, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -90,9 +90,13 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.4 (versionCode 43) — Calendar Holiday, UI/UX Overhaul & Tool Enhancements.
-- Last Updated: September 22, 2026
+- Status: v2.8.5 (versionCode 44) — Crash-Safe Atomic File IO, Thread Safety & Async UI Performance.
+- Last Updated: September 26, 2026
 - Recent Updates:
+  - v2.8.5:
+    - Crash-Safe File IO (SafeFileWriter.kt): Implemented atomic write-flush-sync-rename pattern across all JSON cache stores (NotesStore, ReminderStore, BackupManager, FuelRepo, KalimatiRepo, RatesRepo, WeatherRepo) preventing cache corruption on abrupt process kills.
+    - Concurrency & Thread-Safety: Added reentrant lock synchronization in RecentUpdatesManager to protect shared list mutations against background worker interleaving.
+    - Main-Thread IO Offloading: Migrated heavy operations (social card rasterization, PDF rendering, Password Vault AES re-encryption, initial repository cache reads) to Dispatchers.IO and Default coroutines.
   - v2.8.4:
     - Daily Patro & Rashifal Card Generator (PatroGraphicGenerator.kt): 1080x1440 high-resolution social card generator in Newari Ink / Rice Paper styling with BS/AD dates, Tithi, Nakshatra, Yoga, Sunrise/Sunset, Rahu Kaal, festive banners, and Subhashita blessing with 1-tap WhatsApp/Viber sharing from Home, Day Detail, Rashifal, and Ekadashi screens.
     - Automated Festival & Fasting Reminders (SmartAlertNotificationManager.kt, SacredTithiResolver.kt): Added background notification engine alerting the evening prior for upcoming Ekadashis, Aunsi, Purnima, and major festivals, plus morning Dwadashi Parana timing alerts with Settings and in-screen toggles.

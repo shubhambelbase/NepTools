@@ -1,6 +1,7 @@
 package com.neptools.app.core.util
 
 import android.app.Activity
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -8,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.net.Uri
 import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
@@ -23,6 +25,8 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.neptools.app.ui.theme.ThemePrefs
 import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.FileOutputStream
 import java.io.FileInputStream
 
@@ -159,6 +163,92 @@ object PdfExporter {
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(context, if (isEn) "Error creating PDF: ${e.localizedMessage}" else "PDF बनाउन त्रुटि भयो: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    /**
+     * Renders the PDF on an IO dispatcher, then opens the chooser and shows the toast on the
+     * main thread.
+     *
+     * [generateAndOpenPdf] does all of its canvas drawing and file writing inline, so calling it
+     * from a click handler janks the UI. This is the coroutine form callers should prefer.
+     */
+    suspend fun generateAndOpenPdfSuspend(
+        context: Context,
+        title: String,
+        bodyText: String,
+        isShare: Boolean = false,
+        isEn: Boolean = ThemePrefs.lang.value == "en"
+    ) {
+        val appContext = context.applicationContext
+        val built = withContext(Dispatchers.IO) {
+            runCatching { renderPdf(appContext, title, bodyText, isEn) }
+        }
+        built.onSuccess { uri ->
+            withContext(Dispatchers.Main) {
+                openPdf(appContext, uri, title, isShare, isEn)
+                Toast.makeText(
+                    appContext,
+                    if (isEn) "PDF successfully generated!" else "PDF सफलतापूर्वक बनाइयो!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }.onFailure { e ->
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    appContext,
+                    if (isEn) "Error creating PDF: ${e.localizedMessage}" else "PDF बनाउन त्रुटि भयो: ${e.localizedMessage}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private fun renderPdf(context: Context, title: String, bodyText: String, isEn: Boolean): Uri {
+        val pdfDoc = PdfDocument()
+        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // Standard A4 (595x842 pt)
+        val page = pdfDoc.startPage(pageInfo)
+        drawLetterPage(page.canvas, title, bodyText, isEn)
+        pdfDoc.finishPage(page)
+
+        // Must live under cache/exports/ so FileProvider can resolve a URI for it
+        val cacheDir = File(ExportDirs.cacheExports(context), "documents")
+        if (!cacheDir.exists()) cacheDir.mkdirs()
+
+        val pdfFile = File(cacheDir, "Nepali_Application_${System.currentTimeMillis()}.pdf")
+        FileOutputStream(pdfFile).use { out ->
+            pdfDoc.writeTo(out)
+            out.flush()
+        }
+        pdfDoc.close()
+
+        return FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", pdfFile)
+    }
+
+    private fun openPdf(context: Context, uri: Uri, title: String, isShare: Boolean, isEn: Boolean) {
+        if (isShare) {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "application/pdf"
+                putExtra(Intent.EXTRA_STREAM, uri)
+                putExtra(Intent.EXTRA_SUBJECT, title)
+                clipData = ClipData.newRawUri(title, uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            val chooser = Intent.createChooser(shareIntent, if (isEn) "Share Document" else "कागजात सेयर गर्नुहोस्").apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(chooser)
+        } else {
+            val viewIntent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/pdf")
+                clipData = ClipData.newRawUri(title, uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            val chooser = Intent.createChooser(viewIntent, if (isEn) "Open PDF with..." else "PDF खोल्नुहोस्...").apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(chooser)
         }
     }
 

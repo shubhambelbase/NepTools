@@ -134,8 +134,10 @@ fun ToolsScreen(onOpenTool: (String) -> Unit) {
     }
 
     LaunchedEffect(Unit) {
-        FavoriteToolsManager.load(context)
-        RecentToolsManager.load(context)
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            FavoriteToolsManager.load(context)
+            RecentToolsManager.load(context)
+        }
     }
 
     val handleOpenTool: (String) -> Unit = { route ->

@@ -376,7 +376,8 @@ object WeatherRepo {
             val result = fetchLive(city)
             if (result != null) {
                 runCatching {
-                    File(context.filesDir, LIVE_CACHE_FILE).writeText(
+                    com.neptools.app.core.util.SafeFileWriter.writeAtomic(
+                        File(context.filesDir, LIVE_CACHE_FILE),
                         JSONObject()
                             .put("fetchedAt", result.fetchedAtMillis)
                             .put("weather", cityToJson(result.weather))

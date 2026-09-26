@@ -329,7 +329,7 @@ object KalimatiRepo {
                 put("items", jsonItemsArr)
             }
 
-            File(context.filesDir, FILE).writeText(cacheObj.toString())
+            com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, FILE), cacheObj.toString())
             com.neptools.app.core.updates.RecentUpdatesManager.recordSuccessfulUpdate(
                 context = context,
                 serviceId = "kalimati",

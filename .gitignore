@@ -28,3 +28,5 @@ keystore.properties
 .tmp/
 .DS_Store
 ses.txt
+video/
+*.env*

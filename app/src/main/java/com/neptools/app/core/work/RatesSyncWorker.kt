@@ -29,9 +29,17 @@ class RatesSyncWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(
             val keys = ratesJson.keys()
             while (keys.hasNext()) { val k = keys.next(); map[k] = ratesJson.getDouble(k) }
             val now = System.currentTimeMillis()
-            java.io.File(context.filesDir, "rates_cache.json").writeText(
-                org.json.JSONObject().put("fetchedAt", now).put("rates", org.json.JSONObject(map)).toString()
-            )
+            // Merge into whatever is already cached so a background sync never drops the NRB
+            // detail rows, effective date or source label that only the in-app fetch writes.
+            val target = java.io.File(context.filesDir, "rates_cache.json")
+            val merged = if (target.exists()) {
+                runCatching { org.json.JSONObject(target.readText()) }.getOrNull()
+            } else {
+                null
+            } ?: org.json.JSONObject()
+            merged.put("fetchedAt", now)
+            merged.put("rates", org.json.JSONObject(map))
+            com.neptools.app.core.util.SafeFileWriter.writeAtomic(target, merged.toString())
             map
         } catch (e: Exception) { null } finally { conn?.disconnect() }
     }

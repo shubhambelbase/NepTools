@@ -40,6 +40,7 @@ import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.components.npNum
 import java.time.LocalDate
 import kotlin.random.Random
+import kotlinx.coroutines.launch
 
 private data class Rashi(val glyph: String, val nameNp: String, val nameEn: String)
 
@@ -151,6 +152,7 @@ fun RashifalScreen(onBack: () -> Unit) {
     val luckPct = remember(seed) { 45 + rng.nextInt(51) }
 
     val context = LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
 
     Column(
         Modifier
@@ -168,20 +170,23 @@ fun RashifalScreen(onBack: () -> Unit) {
                     val luckyColor = if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size]
                     val luckyNo = if (isEn) "${selected % 9 + 1}" else NepaliNames.toDevanagari(selected % 9 + 1)
                     val goodHours = if (isEn) enTimeWindow(selected) else npTimeWindow(selected)
-
-                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createRashifalCard(
-                        context = context,
-                        rashiNameNp = rashi.nameNp,
-                        rashiNameEn = rashi.nameEn,
-                        glyph = rashi.glyph,
-                        reading = reading,
-                        luckyColor = luckyColor,
-                        luckyNo = luckyNo,
-                        goodHours = goodHours,
-                        isEn = isEn
-                    )
-                    val title = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
-                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, title)
+                    val cardTitle = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
+                    val cardRashi = rashi
+                    val cardReading = reading
+                    scope.launch(kotlinx.coroutines.Dispatchers.Default) {
+                        com.neptools.app.core.util.PatroGraphicGenerator.createAndShareRashifalCard(
+                            context = context,
+                            rashiNameNp = cardRashi.nameNp,
+                            rashiNameEn = cardRashi.nameEn,
+                            glyph = cardRashi.glyph,
+                            reading = cardReading,
+                            luckyColor = luckyColor,
+                            luckyNo = luckyNo,
+                            goodHours = goodHours,
+                            isEn = isEn,
+                            title = cardTitle
+                        )
+                    }
                 }) {
                     Icon(PIcons.Share, contentDescription = "Share Horoscope Card", tint = MaterialTheme.colorScheme.onSurface)
                 }
@@ -251,20 +256,23 @@ fun RashifalScreen(onBack: () -> Unit) {
                     val luckyColor = if (isEn) luckyColorsEn[selected % luckyColorsEn.size] else luckyColorsNp[selected % luckyColorsNp.size]
                     val luckyNo = if (isEn) "${selected % 9 + 1}" else NepaliNames.toDevanagari(selected % 9 + 1)
                     val goodHours = if (isEn) enTimeWindow(selected) else npTimeWindow(selected)
-
-                    val file = com.neptools.app.core.util.PatroGraphicGenerator.createRashifalCard(
-                        context = context,
-                        rashiNameNp = rashi.nameNp,
-                        rashiNameEn = rashi.nameEn,
-                        glyph = rashi.glyph,
-                        reading = reading,
-                        luckyColor = luckyColor,
-                        luckyNo = luckyNo,
-                        goodHours = goodHours,
-                        isEn = isEn
-                    )
-                    val title = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
-                    com.neptools.app.core.util.PatroGraphicGenerator.shareCardImage(context, file, title)
+                    val cardTitle = if (isEn) "Daily Horoscope - ${rashi.nameEn}" else "दैनिक राशिफल - ${rashi.nameNp}"
+                    val cardRashi = rashi
+                    val cardReading = reading
+                    scope.launch(kotlinx.coroutines.Dispatchers.Default) {
+                        com.neptools.app.core.util.PatroGraphicGenerator.createAndShareRashifalCard(
+                            context = context,
+                            rashiNameNp = cardRashi.nameNp,
+                            rashiNameEn = cardRashi.nameEn,
+                            glyph = cardRashi.glyph,
+                            reading = cardReading,
+                            luckyColor = luckyColor,
+                            luckyNo = luckyNo,
+                            goodHours = goodHours,
+                            isEn = isEn,
+                            title = cardTitle
+                        )
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 shape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp),

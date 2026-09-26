@@ -36,6 +36,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -79,8 +80,10 @@ import com.neptools.app.core.vault.VaultStore
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 private const val CLIPBOARD_CLEAR_MS = 45_000L
@@ -203,6 +206,8 @@ private fun SetupStage(store: VaultStore, isEn: Boolean, onCreated: () -> Unit) 
     var confirm by remember { mutableStateOf("") }
     var show by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -250,16 +255,30 @@ private fun SetupStage(store: VaultStore, isEn: Boolean, onCreated: () -> Unit) 
                 when {
                     pw.length < 6 -> error = if (isEn) "Use at least 6 characters" else "कम्तीमा ६ अक्षर प्रयोग गर्नुहोस्"
                     pw != confirm -> error = if (isEn) "Passwords do not match" else "पासवर्ड मिलेनन्"
+                    busy -> {}
                     else -> {
-                        store.createVault(pw.toCharArray())
-                        onCreated()
+                        busy = true
+                        val chars = pw.toCharArray()
+                        scope.launch(Dispatchers.Default) {
+                            val ok = runCatching { store.createVault(chars) }.getOrDefault(false)
+                            withContext(Dispatchers.Main) {
+                                busy = false
+                                if (ok) onCreated()
+                            }
+                        }
                     }
                 }
             },
+            enabled = !busy,
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
-            Text(if (isEn) "Create Vault" else "भल्ट बनाउनुहोस्", fontWeight = FontWeight.SemiBold)
+            Text(
+                if (busy) {
+                    if (isEn) "Encrypting..." else "गोप्य बनाउँदै..."
+                } else if (isEn) "Create Vault" else "भल्ट बनाउनुहोस्",
+                fontWeight = FontWeight.SemiBold
+            )
         }
         Spacer(Modifier.height(24.dp))
     }
@@ -271,6 +290,8 @@ private fun LockedStage(store: VaultStore, isEn: Boolean, onUnlocked: () -> Unit
     var pw by remember { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
     var bioBusy by remember { mutableStateOf(false) }
+    var unlockBusy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
     var lockoutRemaining by remember { mutableStateOf(store.lockoutRemainingMs()) }
 
     // Live countdown while the vault is rate limited after repeated wrong passwords.
@@ -349,24 +370,38 @@ private fun LockedStage(store: VaultStore, isEn: Boolean, onUnlocked: () -> Unit
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Button(
                 onClick = {
-                    if (store.unlockWithPassword(pw.toCharArray())) {
-                        onUnlocked()
-                    } else {
-                        lockoutRemaining = store.lockoutRemainingMs()
-                        error = if (lockoutRemaining > 0L) {
-                            val seconds = ((lockoutRemaining + 999L) / 1000L)
-                            if (isEn) "Too many attempts. Try again in ${seconds}s"
-                            else "धेरै पटक गलत भयो। ${seconds} सेकेण्डपछि प्रयास गर्नुहोस्"
-                        } else {
-                            if (isEn) "Wrong password" else "गलत पासवर्ड"
+                    if (unlockBusy) return@Button
+                    unlockBusy = true
+                    val chars = pw.toCharArray()
+                    scope.launch(Dispatchers.Default) {
+                        val ok = runCatching { store.unlockWithPassword(chars) }.getOrDefault(false)
+                        withContext(Dispatchers.Main) {
+                            unlockBusy = false
+                            if (ok) {
+                                onUnlocked()
+                            } else {
+                                lockoutRemaining = store.lockoutRemainingMs()
+                                error = if (lockoutRemaining > 0L) {
+                                    val seconds = ((lockoutRemaining + 999L) / 1000L)
+                                    if (isEn) "Too many attempts. Try again in ${seconds}s"
+                                    else "धेरै पटक गलत भयो। ${seconds} सेकेण्डपछि प्रयास गर्नुहोस्"
+                                } else {
+                                    if (isEn) "Wrong password" else "गलत पासवर्ड"
+                                }
+                            }
                         }
                     }
                 },
-                enabled = pw.isNotEmpty() && lockoutRemaining == 0L,
+                enabled = pw.isNotEmpty() && lockoutRemaining == 0L && !unlockBusy,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 modifier = Modifier.weight(1f)
             ) {
-                Text(if (isEn) "Unlock" else "खोल्नुहोस्", fontWeight = FontWeight.SemiBold)
+                Text(
+                    if (unlockBusy) {
+                        if (isEn) "Unlocking..." else "खोल्दै..."
+                    } else if (isEn) "Unlock" else "खोल्नुहोस्",
+                    fontWeight = FontWeight.SemiBold
+                )
             }
             if (store.biometricEnabled() && bioAvailable) {
                 OutlinedButton(
@@ -400,10 +435,15 @@ private fun VaultListStage(
     var settingsOpen by remember { mutableStateOf(false) }
     var deleteTarget by remember { mutableStateOf<VaultEntry?>(null) }
 
-    fun reload() {
-        entries = runCatching { store.loadEntries() }.getOrDefault(emptyList())
+    var loaded by remember { mutableStateOf(false) }
+    suspend fun reloadAsync() {
+        val list = withContext(Dispatchers.IO) {
+            runCatching { store.loadEntries() }.getOrDefault(emptyList())
+        }
+        entries = list
+        loaded = true
     }
-    remember { reload(); true }
+    LaunchedEffect(store) { reloadAsync() }
 
     val filtered = entries.filter {
         query.isBlank() ||
@@ -473,23 +513,31 @@ private fun VaultListStage(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(
-                    PIcons.Key,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.outline,
-                    modifier = Modifier.size(42.dp)
-                )
-                Spacer(Modifier.height(12.dp))
-                Text(
-                    text = if (entries.isEmpty()) {
-                        if (isEn) "No saved passwords yet.\nTap + to add your first entry." else "अझै पासवर्ड सुरक्षित छैन।\n+ थिचेर पहिलो प्रविष्टि थप्नुहोस्।"
-                    } else {
-                        if (isEn) "No matches found." else "कुनै मिल्ने भेटिएन।"
-                    },
-                    textAlign = TextAlignCenter,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 14.sp
-                )
+                if (!loaded) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(30.dp),
+                        strokeWidth = 3.dp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                } else {
+                    Icon(
+                        PIcons.Key,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.outline,
+                        modifier = Modifier.size(42.dp)
+                    )
+                    Spacer(Modifier.height(12.dp))
+                    Text(
+                        text = if (entries.isEmpty()) {
+                            if (isEn) "No saved passwords yet.\nTap + to add your first entry." else "अझै पासवर्ड सुरक्षित छैन।\n+ थिचेर पहिलो प्रविष्टि थप्नुहोस्।"
+                        } else {
+                            if (isEn) "No matches found." else "कुनै मिल्ने भेटिएन।"
+                        },
+                        textAlign = TextAlignCenter,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 14.sp
+                    )
+                }
             }
         } else {
             LazyColumn(
@@ -519,19 +567,23 @@ private fun VaultListStage(
             nonce = editorNonce,
             onDismiss = { editorNew = false; editorTarget = null },
             onSave = { e ->
-                val now = System.currentTimeMillis()
-                val list = store.loadEntries().toMutableList()
-                if (e.id.isBlank()) {
-                    list.add(e.copy(id = UUID.randomUUID().toString(), createdMs = now, updatedMs = now))
-                } else {
-                    val idx = list.indexOfFirst { it.id == e.id }
-                    if (idx >= 0) list[idx] = e.copy(updatedMs = now) else list.add(e)
+                scope.launch(Dispatchers.IO) {
+                    val now = System.currentTimeMillis()
+                    val list = store.loadEntries().toMutableList()
+                    if (e.id.isBlank()) {
+                        list.add(e.copy(id = UUID.randomUUID().toString(), createdMs = now, updatedMs = now))
+                    } else {
+                        val idx = list.indexOfFirst { it.id == e.id }
+                        if (idx >= 0) list[idx] = e.copy(updatedMs = now) else list.add(e)
+                    }
+                    store.persistEntries(list)
+                    withContext(Dispatchers.Main) {
+                        editorNew = false
+                        editorTarget = null
+                        onChanged()
+                    }
+                    reloadAsync()
                 }
-                store.persistEntries(list)
-                editorNew = false
-                editorTarget = null
-                reload()
-                onChanged()
             },
             onOpenGenerator = { generatorFor = if (editorNew) "__new__" else editorTarget?.id }
         )
@@ -560,10 +612,14 @@ private fun VaultListStage(
             text = { Text("\"${target.title}\" " + if (isEn) "will be removed permanently." else "स्थायी रूपमा हट्नेछ।") },
             confirmButton = {
                 TextButton(onClick = {
-                    store.persistEntries(store.loadEntries().filterNot { it.id == target.id })
-                    deleteTarget = null
-                    reload()
-                    onChanged()
+                    scope.launch(Dispatchers.IO) {
+                        store.persistEntries(store.loadEntries().filterNot { it.id == target.id })
+                        withContext(Dispatchers.Main) {
+                            deleteTarget = null
+                            onChanged()
+                        }
+                        reloadAsync()
+                    }
                 }) {
                     Text(if (isEn) "Delete" else "मेट्नुहोस्", color = MaterialTheme.colorScheme.error)
                 }
@@ -1313,6 +1369,8 @@ private fun ChangeMasterDialog(
     var newPw by remember { mutableStateOf("") }
     var confirmPw by remember { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -1350,18 +1408,40 @@ private fun ChangeMasterDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = {
-                when {
-                    newPw.length < 6 -> error = if (isEn) "Use at least 6 characters" else "कम्तीमा ६ अक्षर"
-                    newPw != confirmPw -> error = if (isEn) "Passwords do not match" else "पासवर्ड मिलेनन्"
-                    !VaultStore.Session.unlocked -> {
-                        onDismiss()
-                        onFailedAuth()
+            TextButton(
+                enabled = !busy,
+                onClick = {
+                    when {
+                        newPw.length < 6 -> error = if (isEn) "Use at least 6 characters" else "कम्तीमा ६ अक्षर"
+                        newPw != confirmPw -> error = if (isEn) "Passwords do not match" else "पासवर्ड मिलेनन्"
+                        !VaultStore.Session.unlocked -> {
+                            onDismiss()
+                            onFailedAuth()
+                        }
+                        busy -> {}
+                        else -> {
+                            busy = true
+                            val oldChars = oldPw.toCharArray()
+                            val newChars = newPw.toCharArray()
+                            scope.launch(Dispatchers.Default) {
+                                val ok = runCatching {
+                                    store.changeMasterPassword(oldChars, newChars)
+                                }.getOrDefault(false)
+                                withContext(Dispatchers.Main) {
+                                    busy = false
+                                    onDone(ok)
+                                }
+                            }
+                        }
                     }
-                    else -> onDone(store.changeMasterPassword(oldPw.toCharArray(), newPw.toCharArray()))
                 }
-            }) {
-                Text(if (isEn) "Change" else "परिवर्तन", fontWeight = FontWeight.SemiBold)
+            ) {
+                Text(
+                    if (busy) {
+                        if (isEn) "Working..." else "गर्दै..."
+                    } else if (isEn) "Change" else "परिवर्तन",
+                    fontWeight = FontWeight.SemiBold
+                )
             }
         },
         dismissButton = {

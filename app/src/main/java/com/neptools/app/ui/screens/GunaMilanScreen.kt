@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -57,6 +58,7 @@ import com.neptools.app.ui.components.SoftCard
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,6 +87,8 @@ fun GunaMilanScreen(onBack: () -> Unit) {
     val userMoonPos = savedAstroResult?.chart?.positions?.get(Planet.MOON)
 
     val context = androidx.compose.ui.platform.LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var pdfBusy by remember { mutableStateOf(false) }
 
     val boyDetailsStr = if (isEn) {
         "${AshtakootaGunaMilan.RASHIS_EN[boyRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_EN[boyNakIdx]}"
@@ -95,6 +99,24 @@ fun GunaMilanScreen(onBack: () -> Unit) {
         "${AshtakootaGunaMilan.RASHIS_EN[girlRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_EN[girlNakIdx]}"
     } else {
         "${AshtakootaGunaMilan.RASHIS_NP[girlRashiIdx]} • ${AshtakootaGunaMilan.NAKSHATRAS_NP[girlNakIdx]}"
+    }
+
+    // PrintManager.print requires invocation from the main UI thread; print adapter handles background write.
+    fun exportPdf() {
+        if (pdfBusy) return
+        pdfBusy = true
+        try {
+            com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
+                context = context,
+                milan = milan,
+                boyDetails = boyDetailsStr,
+                girlDetails = girlDetailsStr,
+                isShare = false,
+                isEn = isEn
+            )
+        } finally {
+            pdfBusy = false
+        }
     }
 
     Scaffold(
@@ -114,20 +136,24 @@ fun GunaMilanScreen(onBack: () -> Unit) {
                             .clickable(
                                 interactionSource = interaction,
                                 indication = androidx.compose.material3.ripple(bounded = true, radius = 18.dp),
-                                onClick = {
-                                    com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
-                                        context = context,
-                                        milan = milan,
-                                        boyDetails = boyDetailsStr,
-                                        girlDetails = girlDetailsStr,
-                                        isShare = false,
-                                        isEn = isEn
-                                    )
-                                }
+                                onClick = { exportPdf() }
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(PIcons.Share, contentDescription = "Export PDF", tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(18.dp))
+                        if (pdfBusy) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        } else {
+                            Icon(
+                                PIcons.Share,
+                                contentDescription = "Export PDF",
+                                tint = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 }
             )
@@ -372,23 +398,25 @@ fun GunaMilanScreen(onBack: () -> Unit) {
             }
 
             OutlinedButton(
-                onClick = {
-                    com.neptools.app.core.util.AstroPdfExporter.exportGunaMilanPdf(
-                        context = context,
-                        milan = milan,
-                        boyDetails = boyDetailsStr,
-                        girlDetails = girlDetailsStr,
-                        isShare = false,
-                        isEn = isEn
-                    )
-                },
+                onClick = { exportPdf() },
+                enabled = !pdfBusy,
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(18.dp))
+                if (pdfBusy) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                } else {
+                    Icon(PIcons.Share, contentDescription = null, modifier = Modifier.size(18.dp))
+                }
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    if (isEn) "Export Vedic Marriage Compatibility PDF" else "विवाह गुण मिलान PDF प्रतिवेदन छाप्नुहोस् / सेयर",
+                    if (pdfBusy) {
+                        if (isEn) "Generating PDF..." else "PDF बनाउँदै..."
+                    } else if (isEn) "Export Vedic Marriage Compatibility PDF" else "विवाह गुण मिलान PDF प्रतिवेदन छाप्नुहोस् / सेयर",
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
                 )
             }

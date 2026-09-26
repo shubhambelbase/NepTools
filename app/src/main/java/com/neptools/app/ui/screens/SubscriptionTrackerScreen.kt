@@ -54,6 +54,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -160,9 +163,15 @@ fun SubscriptionTrackerScreen(
     val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
     val repo = remember { SubscriptionRepository.get(context) }
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
 
     var updateTick by remember { mutableIntStateOf(0) }
-    var subscriptions by remember { mutableStateOf(repo.getAllSubscriptions()) }
+    var subscriptions by remember { mutableStateOf<List<Subscription>>(emptyList()) }
+    LaunchedEffect(repo) {
+        subscriptions = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            repo.getAllSubscriptions()
+        }
+    }
 
     var selectedTab by remember { mutableStateOf(SubFilterTab.ALL) }
     var selectedSort by remember { mutableStateOf(SubSortOrder.DUE_DATE) }
@@ -176,8 +185,12 @@ fun SubscriptionTrackerScreen(
     var editingSubscription by remember { mutableStateOf<Subscription?>(null) }
 
     fun refresh() {
-        subscriptions = repo.getAllSubscriptions()
-        updateTick++
+        scope.launch {
+            subscriptions = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                repo.getAllSubscriptions()
+            }
+            updateTick++
+        }
     }
 
     val filteredList by remember(subscriptions, selectedTab, selectedSort, searchQuery) {

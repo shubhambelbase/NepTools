@@ -23,8 +23,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -52,8 +57,18 @@ fun CalendarScreen(
 
     val context = androidx.compose.ui.platform.LocalContext.current
     val festivals = remember(year, month) { PatroRepo.d.festivalsFor(year, month) }
-    val userEvents = remember(year, month) {
-        com.neptools.app.core.reminder.UserEventManager.getEventDaysForMonth(context, year, month)
+    val scope = rememberCoroutineScope()
+    var userEvents by remember { mutableStateOf<Set<Int>>(emptySet()) }
+    androidx.lifecycle.compose.LifecycleResumeEffect(year, month) {
+        val job = scope.launch(Dispatchers.IO) {
+            val events = com.neptools.app.core.reminder.UserEventManager.getEventDaysForMonth(context, year, month)
+            withContext(Dispatchers.Main) {
+                userEvents = events
+            }
+        }
+        onPauseOrDispose {
+            job.cancel()
+        }
     }
     val grid = remember(year, month, userEvents) {
         engine.buildMonthGrid(year, month, today, festivals, userEvents)

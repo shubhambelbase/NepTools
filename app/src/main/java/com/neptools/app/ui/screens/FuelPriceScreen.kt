@@ -100,7 +100,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
 
     val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
-    var fuelRates by remember { mutableStateOf(FuelRepo.loadCached(context)) }
+    var fuelRates by remember { mutableStateOf(FuelRepo.defaultRates) }
     
     val gpsResolved = remember(fuelRates, weather) {
         com.neptools.app.core.util.FuelLocationResolver.resolveForCurrentLocation(fuelRates)
@@ -124,6 +124,9 @@ fun FuelPriceScreen(onBack: () -> Unit) {
     }
 
     androidx.compose.runtime.LaunchedEffect(Unit) {
+        fuelRates = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            FuelRepo.loadCached(context)
+        }
         FuelRepo.refresh(context) { rs ->
             fuelRates = rs
         }
