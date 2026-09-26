@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.5 (versionCode: 44)
+- Current Version: v2.8.6 (versionCode: 45)
 - Last Updated: September 26, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -90,16 +90,17 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.5 (versionCode 44) — Crash-Safe Atomic File IO, Thread Safety & Async UI Performance.
+- Status: v2.8.6 (versionCode 45) — Compose Modernization & In-App Updater Synchronization.
 - Last Updated: September 26, 2026
 - Recent Updates:
+  - v2.8.6:
+    - Compose Clipboard Modernization: Replaced deprecated `LocalClipboardManager` with coroutine-backed `LocalClipboard.current` in `ClipboardExtensions.kt` across 5 screen components (`ConverterScreen.kt`, `EmergencyScreen.kt`, `LandConverterScreen.kt`, `PostalCodeScreen.kt`, `VoiceScreen.kt`), achieving 0 compiler warnings.
+    - Studio Commercial Production: Produced sleek 9:16 vertical product showcase video using HyperFrames, Gemini TTS Nepali voiceover, and hardware mockup transitions.
   - v2.8.5:
     - Crash-Safe File IO (SafeFileWriter.kt): Implemented atomic write-flush-sync-rename pattern across all JSON cache stores (NotesStore, ReminderStore, BackupManager, FuelRepo, KalimatiRepo, RatesRepo, WeatherRepo) preventing cache corruption on abrupt process kills.
     - Concurrency & Thread-Safety: Added reentrant lock synchronization in RecentUpdatesManager to protect shared list mutations against background worker interleaving.
     - Main-Thread IO Offloading: Migrated heavy operations (social card rasterization, PDF rendering, Password Vault AES re-encryption, initial repository cache reads) to Dispatchers.IO and Default coroutines.
     - In-App Updater Resiliency (GitHubUpdateManager.kt): Hardened release updater with fallback sha256 checksum resolution via companion asset (app-release.apk.sha256) and web release page parsing to prevent IP rate-limiting errors.
-    - Compose Clipboard Modernization: Replaced deprecated `LocalClipboardManager` with coroutine-backed `LocalClipboard.current` in `ClipboardExtensions.kt` across 5 screen components (`ConverterScreen.kt`, `EmergencyScreen.kt`, `LandConverterScreen.kt`, `PostalCodeScreen.kt`, `VoiceScreen.kt`), achieving 0 compiler warnings.
-    - Studio Commercial Production: Produced sleek 9:16 vertical product showcase video using HyperFrames, Gemini TTS Nepali voiceover, and hardware mockup transitions.
   - v2.8.4:
     - Daily Patro & Rashifal Card Generator (PatroGraphicGenerator.kt): 1080x1440 high-resolution social card generator in Newari Ink / Rice Paper styling with BS/AD dates, Tithi, Nakshatra, Yoga, Sunrise/Sunset, Rahu Kaal, festive banners, and Subhashita blessing with 1-tap WhatsApp/Viber sharing from Home, Day Detail, Rashifal, and Ekadashi screens.
     - Automated Festival & Fasting Reminders (SmartAlertNotificationManager.kt, SacredTithiResolver.kt): Added background notification engine alerting the evening prior for upcoming Ekadashis, Aunsi, Purnima, and major festivals, plus morning Dwadashi Parana timing alerts with Settings and in-screen toggles.
