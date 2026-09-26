@@ -172,6 +172,40 @@ class GitHubUpdateManager private constructor(private val context: Context) {
                 val latestVerClean = tagName.trimStart('v', 'V')
                 val isNewer = isVersionNewer(latestVerClean, currentVer.trimStart('v', 'V'))
                 val downloadUrl = "https://github.com/$DEFAULT_OWNER/$DEFAULT_REPO/releases/download/$tagName/app-release.apk"
+                var fallbackHash = ""
+                try {
+                    val hashUrl = "https://github.com/$DEFAULT_OWNER/$DEFAULT_REPO/releases/download/$tagName/app-release.apk.sha256"
+                    val hashConn = (URL(hashUrl).openConnection() as HttpURLConnection).apply {
+                        instanceFollowRedirects = true
+                        connectTimeout = 6000
+                        readTimeout = 6000
+                        setRequestProperty("User-Agent", "NepTools-Android-App")
+                    }
+                    if (hashConn.responseCode in 200..299) {
+                        val text = hashConn.inputStream.bufferedReader().use { it.readText() }
+                        val hexRegex = Regex("""([a-fA-F0-9]{64})""")
+                        fallbackHash = hexRegex.find(text)?.groupValues?.get(1)?.lowercase() ?: ""
+                    }
+                    hashConn.disconnect()
+                } catch (_: Exception) {}
+
+                if (fallbackHash.isBlank()) {
+                    try {
+                        val pageUrl = "https://github.com/$DEFAULT_OWNER/$DEFAULT_REPO/releases/tag/$tagName"
+                        val pageConn = (URL(pageUrl).openConnection() as HttpURLConnection).apply {
+                            instanceFollowRedirects = true
+                            connectTimeout = 6000
+                            readTimeout = 6000
+                            setRequestProperty("User-Agent", "Mozilla/5.0 (Android; Mobile)")
+                        }
+                        if (pageConn.responseCode in 200..299) {
+                            val text = pageConn.inputStream.bufferedReader().use { it.readText() }
+                            val shaRegex = Regex("""(?:sha-?256|hash)[\s*:`=]+([a-fA-F0-9]{64})""", RegexOption.IGNORE_CASE)
+                            fallbackHash = shaRegex.find(text)?.groupValues?.get(1)?.lowercase() ?: ""
+                        }
+                        pageConn.disconnect()
+                    } catch (_: Exception) {}
+                }
 
                 return@withContext Result.success(
                     GitHubReleaseInfo(
@@ -182,10 +216,11 @@ class GitHubUpdateManager private constructor(private val context: Context) {
                         apkFileName = "app-release.apk",
                         apkDownloadUrl = downloadUrl,
                         apkAssetId = 0L,
-                        apkSize = 6700000L,
+                        apkSize = 9786280L,
                         isNewerVersion = isNewer,
                         currentVersionName = currentVer,
-                        latestVersionName = latestVerClean
+                        latestVersionName = latestVerClean,
+                        sha256Checksum = fallbackHash
                     )
                 )
             }
@@ -226,9 +261,25 @@ class GitHubUpdateManager private constructor(private val context: Context) {
         releaseInfo: GitHubReleaseInfo,
         onProgress: (percent: Int, downloadedBytes: Long, totalBytes: Long) -> Unit
     ): Result<File> = withContext(Dispatchers.IO) {
-        // Refuse to fetch anything we cannot verify. The web-redirect fallback has no access to
-        // the release notes, so no checksum is available for it and auto-install is unsafe.
-        if (releaseInfo.sha256Checksum.isBlank()) {
+        var expectedHash = releaseInfo.sha256Checksum
+        if (expectedHash.isBlank()) {
+            try {
+                val hashUrl = "https://github.com/$DEFAULT_OWNER/$DEFAULT_REPO/releases/download/${releaseInfo.tagName}/app-release.apk.sha256"
+                val hashConn = (URL(hashUrl).openConnection() as HttpURLConnection).apply {
+                    instanceFollowRedirects = true
+                    connectTimeout = 6000
+                    readTimeout = 6000
+                    setRequestProperty("User-Agent", "NepTools-Android-App")
+                }
+                if (hashConn.responseCode in 200..299) {
+                    val text = hashConn.inputStream.bufferedReader().use { it.readText() }
+                    val hexRegex = Regex("""([a-fA-F0-9]{64})""")
+                    expectedHash = hexRegex.find(text)?.groupValues?.get(1)?.lowercase() ?: ""
+                }
+                hashConn.disconnect()
+            } catch (_: Exception) {}
+        }
+        if (expectedHash.isBlank()) {
             return@withContext Result.failure(
                 Exception(
                     "This release does not publish a SHA-256 checksum, so NepTools will not " +
@@ -242,7 +293,7 @@ class GitHubUpdateManager private constructor(private val context: Context) {
 
             // If already fully downloaded & verified, return cached file immediately
             if (outputFile.exists() && outputFile.length() > 500_000) {
-                val cachedIntegrity = verifyApkIntegrity(outputFile, releaseInfo.sha256Checksum)
+                val cachedIntegrity = verifyApkIntegrity(outputFile, expectedHash)
                 if (cachedIntegrity.isSuccess) {
                     onProgress(100, outputFile.length(), outputFile.length())
                     return@withContext Result.success(outputFile)
@@ -303,7 +354,7 @@ class GitHubUpdateManager private constructor(private val context: Context) {
             inputStream.close()
 
             // Verify downloaded temp file before activating
-            val integrity = verifyApkIntegrity(tempFile, releaseInfo.sha256Checksum)
+            val integrity = verifyApkIntegrity(tempFile, expectedHash)
             if (integrity.isFailure) {
                 tempFile.delete()
                 return@withContext Result.failure(integrity.exceptionOrNull() ?: Exception("APK integrity validation failed"))
