@@ -56,10 +56,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
+import com.neptools.app.core.util.setPlainText
+import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -81,7 +82,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun EmergencyScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
     val focusManager = LocalFocusManager.current
     val isEn = ThemePrefs.lang.value == "en"
 
@@ -331,17 +332,21 @@ fun EmergencyScreen(onBack: () -> Unit) {
                             val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.number}"))
                             context.startActivity(dialIntent)
                         } catch (_: Exception) {
-                            clipboardManager.setText(AnnotatedString(contact.number))
-                            Toast.makeText(
-                                context,
-                                if (isEn) "Dialer unavailable. Number copied: ${contact.number}" else "डायलर उपलब्ध छैन। नम्बर कपी भयो: ${contact.number}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            coroutineScope.launch {
+                                clipboard.setPlainText(contact.number)
+                                Toast.makeText(
+                                    context,
+                                    if (isEn) "Dialer unavailable. Number copied: ${contact.number}" else "डायलर उपलब्ध छैन। नम्बर कपी भयो: ${contact.number}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     },
                     onCopy = {
-                        clipboardManager.setText(AnnotatedString(contact.number))
-                        Toast.makeText(context, if (isEn) "Copied: ${contact.number}" else "नम्बर कपी भयो: ${contact.number}", Toast.LENGTH_SHORT).show()
+                        coroutineScope.launch {
+                            clipboard.setPlainText(contact.number)
+                            Toast.makeText(context, if (isEn) "Copied: ${contact.number}" else "नम्बर कपी भयो: ${contact.number}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 )
             }

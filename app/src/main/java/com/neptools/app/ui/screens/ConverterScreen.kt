@@ -73,10 +73,13 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.text.AnnotatedString
+import com.neptools.app.core.util.getPlainText
+import com.neptools.app.core.util.setPlainText
+import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -115,7 +118,8 @@ private val adMonthNamesEn = listOf(
 @Composable
 fun ConverterScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
     val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
 
@@ -471,49 +475,51 @@ fun ConverterScreen(onBack: () -> Unit) {
                             modifier = Modifier
                                 .clip(RoundedCornerShape(6.dp))
                                 .clickable {
-                                    val clipText = clipboardManager.getText()?.text
-                                    if (!clipText.isNullOrBlank()) {
-                                        val detected = SmartDateParser.detectDate(clipText)
-                                        if (detected != null) {
-                                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                            when (detected) {
-                                                is com.neptools.app.core.calendar.DetectedDate.Bs -> {
-                                                    bsToAdMode = true
-                                                    bsYear = detected.date.year
-                                                    bsMonth = detected.date.month
-                                                    val maxD = runCatching { engine.monthLength(bsYear, bsMonth) }.getOrDefault(30)
-                                                    bsDay = detected.date.day.coerceIn(1, maxD)
-                                                    Toast.makeText(
-                                                        context,
-                                                        if (isEn) "Detected: ${detected.description}" else "पत्ता लाग्यो: ${detected.description}",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
+                                    coroutineScope.launch {
+                                        val clipText = clipboard.getPlainText()
+                                        if (!clipText.isNullOrBlank()) {
+                                            val detected = SmartDateParser.detectDate(clipText)
+                                            if (detected != null) {
+                                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                                when (detected) {
+                                                    is com.neptools.app.core.calendar.DetectedDate.Bs -> {
+                                                        bsToAdMode = true
+                                                        bsYear = detected.date.year
+                                                        bsMonth = detected.date.month
+                                                        val maxD = runCatching { engine.monthLength(bsYear, bsMonth) }.getOrDefault(30)
+                                                        bsDay = detected.date.day.coerceIn(1, maxD)
+                                                        Toast.makeText(
+                                                            context,
+                                                            if (isEn) "Detected: ${detected.description}" else "पत्ता लाग्यो: ${detected.description}",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
+                                                    is com.neptools.app.core.calendar.DetectedDate.Ad -> {
+                                                        bsToAdMode = false
+                                                        adYear = detected.date.year
+                                                        adMonth = detected.date.monthValue
+                                                        adDay = detected.date.dayOfMonth
+                                                        Toast.makeText(
+                                                            context,
+                                                            if (isEn) "Detected: ${detected.description}" else "पत्ता लाग्यो: ${detected.description}",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
+                                                    }
                                                 }
-                                                is com.neptools.app.core.calendar.DetectedDate.Ad -> {
-                                                    bsToAdMode = false
-                                                    adYear = detected.date.year
-                                                    adMonth = detected.date.monthValue
-                                                    adDay = detected.date.dayOfMonth
-                                                    Toast.makeText(
-                                                        context,
-                                                        if (isEn) "Detected: ${detected.description}" else "पत्ता लाग्यो: ${detected.description}",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
+                                            } else {
+                                                Toast.makeText(
+                                                    context,
+                                                    if (isEn) "No valid date found in clipboard" else "क्लिपबोर्डमा कुनै मिति भेटिएन",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                             }
                                         } else {
                                             Toast.makeText(
                                                 context,
-                                                if (isEn) "No valid date found in clipboard" else "क्लिपबोर्डमा कुनै मिति भेटिएन",
+                                                if (isEn) "Clipboard is empty" else "क्लिपबोर्ड खाली छ",
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
-                                    } else {
-                                        Toast.makeText(
-                                            context,
-                                            if (isEn) "Clipboard is empty" else "क्लिपबोर्ड खाली छ",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
                                     }
                                 }
                         ) {
@@ -795,13 +801,15 @@ fun ConverterScreen(onBack: () -> Unit) {
 
                         IconButton(
                             onClick = {
-                                clipboardManager.setText(AnnotatedString(resultMainDate))
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                Toast.makeText(
-                                    context,
-                                    if (isEn) "Copied to clipboard" else "क्लिपबोर्डमा प्रतिलिपि गरियो",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                coroutineScope.launch {
+                                    clipboard.setPlainText(resultMainDate)
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    Toast.makeText(
+                                        context,
+                                        if (isEn) "Copied to clipboard" else "क्लिपबोर्डमा प्रतिलिपि गरियो",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             },
                             modifier = Modifier.size(32.dp)
                         ) {
@@ -936,13 +944,15 @@ fun ConverterScreen(onBack: () -> Unit) {
 
                         Button(
                             onClick = {
-                                clipboardManager.setText(AnnotatedString(resultMainDate))
-                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                Toast.makeText(
-                                    context,
-                                    if (isEn) "Copied result date" else "मिति प्रतिलिपि गरियो",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                coroutineScope.launch {
+                                    clipboard.setPlainText(resultMainDate)
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    Toast.makeText(
+                                        context,
+                                        if (isEn) "Copied result date" else "मिति प्रतिलिपि गरियो",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             },
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier

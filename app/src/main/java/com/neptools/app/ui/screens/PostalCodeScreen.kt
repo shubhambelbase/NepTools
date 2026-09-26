@@ -30,29 +30,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.neptools.app.core.data.PostalCodeRepo
 import com.neptools.app.core.data.PostalEntry
+import com.neptools.app.core.util.setPlainText
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.theme.ThemePrefs
+import kotlinx.coroutines.launch
 
 @Composable
 fun PostalCodeScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
     val isEn = ThemePrefs.lang.value == "en"
 
     var query by remember { mutableStateOf("") }
@@ -190,8 +193,10 @@ fun PostalCodeScreen(onBack: () -> Unit) {
                     item = item,
                     isEn = isEn,
                     onCopy = {
-                        clipboardManager.setText(AnnotatedString(item.code))
-                        Toast.makeText(context, if (isEn) "Copied: ${item.code} (${item.postOffice})" else "हुलाक कोड कपी भयो: ${item.code}", Toast.LENGTH_SHORT).show()
+                        coroutineScope.launch {
+                            clipboard.setPlainText(item.code)
+                            Toast.makeText(context, if (isEn) "Copied: ${item.code} (${item.postOffice})" else "हुलाक कोड कपी भयो: ${item.code}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 )
             }

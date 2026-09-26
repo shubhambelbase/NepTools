@@ -67,10 +67,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
+import com.neptools.app.core.util.setPlainText
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.text.AnnotatedString
+//
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -90,7 +91,7 @@ import java.util.Locale
 @Composable
 fun VoiceScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
     val isEn = ThemePrefs.lang.value == "en"
 
     var hasAudioPermission by remember {
@@ -626,7 +627,7 @@ fun VoiceScreen(onBack: () -> Unit) {
                                     MaterialTheme.colorScheme.primary.copy(alpha = 0.22f)
                                 },
                                 onClick = {
-                                    clipboardManager.setText(AnnotatedString(transcript))
+                                    scope.launch { clipboard.setPlainText(transcript) }
                                     copyNotice = if (isEn) "Transcript copied" else "प्रतिलिपि गरियो"
                                 },
                                 modifier = Modifier.weight(1f)
@@ -761,7 +762,7 @@ fun VoiceScreen(onBack: () -> Unit) {
                     note = note,
                     isEn = isEn,
                     onCopy = {
-                        clipboardManager.setText(AnnotatedString(note.text))
+                        scope.launch { clipboard.setPlainText(note.text) }
                         copyNotice = if (isEn) "Note copied to clipboard" else "नोट प्रतिलिपि गरियो"
                     },
                     onDelete = {

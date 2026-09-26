@@ -42,14 +42,16 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
+import com.neptools.app.core.util.setPlainText
+import kotlinx.coroutines.launch
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -73,7 +75,8 @@ private enum class LandInputMode {
 @Composable
 fun LandConverterScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val isEn = ThemePrefs.lang.value == "en"
 
@@ -374,8 +377,10 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             ),
                             accentColor = Color(0xFF0284C7),
                             onCopy = {
-                                clipboardManager.setText(AnnotatedString(calculation.ropaniBreakdown.formatDescriptive(isEn)))
-                                Toast.makeText(context, if (isEn) "Copied Hilly Area" else "पहाडी जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                coroutineScope.launch {
+                                    clipboard.setPlainText(calculation.ropaniBreakdown.formatDescriptive(isEn))
+                                    Toast.makeText(context, if (isEn) "Copied Hilly Area" else "पहाडी जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         )
                     }
@@ -394,8 +399,10 @@ fun LandConverterScreen(onBack: () -> Unit) {
                             ),
                             accentColor = Color(0xFF16A34A),
                             onCopy = {
-                                clipboardManager.setText(AnnotatedString(calculation.bighaBreakdown.formatDescriptive(isEn)))
-                                Toast.makeText(context, if (isEn) "Copied Terai Area" else "तराई जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                coroutineScope.launch {
+                                    clipboard.setPlainText(calculation.bighaBreakdown.formatDescriptive(isEn))
+                                    Toast.makeText(context, if (isEn) "Copied Terai Area" else "तराई जग्गाको विवरण कपी भयो", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         )
                     }
