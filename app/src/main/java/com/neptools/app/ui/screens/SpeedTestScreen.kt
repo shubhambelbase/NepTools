@@ -28,6 +28,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -66,7 +67,7 @@ fun SpeedTestScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
     val scope = rememberCoroutineScope()
 
-    val testState by NetworkAnalyzerEngine.testState.collectAsState()
+    val testState by NetworkAnalyzerEngine.testState.collectAsStateWithLifecycle()
     var netDetails by remember { mutableStateOf(NetworkAnalyzerEngine.getNetworkDetails(context)) }
     var selectedTab by remember { mutableIntStateOf(0) }
 

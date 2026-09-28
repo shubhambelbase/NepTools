@@ -38,6 +38,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -64,7 +65,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun GunaMilanScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
-    val savedAstroResult by AstroRepo.result.collectAsState()
+    val savedAstroResult by AstroRepo.result.collectAsStateWithLifecycle()
 
     var boyNakIdx by remember { mutableIntStateOf(0) } // Ashwini
     var girlNakIdx by remember { mutableIntStateOf(3) } // Rohini

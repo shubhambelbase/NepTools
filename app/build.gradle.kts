@@ -32,18 +32,16 @@ android {
         applicationId = "com.neptools.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 45
-        versionName = "2.8.6"
+        versionCode = 47
+        versionName = "2.8.8"
 
         externalNativeBuild {
             cmake {
-                // Ship the native security library for real device ABIs plus the
-                // x86_64 emulator. It is only a few kilobytes.
                 arguments += listOf("-DANDROID_STL=c++_static")
             }
         }
         ndk {
-            abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
         }
     }
 
@@ -61,7 +59,9 @@ android {
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
                 keyPassword = keystoreProperties.getProperty("keyPassword")
-                enableV1Signing = true
+                // minSdk is 26, so every supported device verifies v2/v3.
+                // V1 (JAR) signing is obsolete and only widens the attack surface.
+                enableV1Signing = false
                 enableV2Signing = true
                 enableV3Signing = true
             }
@@ -69,18 +69,30 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Keep debug and release coexisting on one device, and ship the
+            // emulator-only ABI in debug builds only.
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            ndk {
+                abiFilters += "x86_64"
+            }
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = if (hasReleaseKeystore) {
                 signingConfigs.getByName("release")
             } else {
-                logger.warn(
-                    "NepTools: keystore.properties is missing or incomplete. " +
-                        "Falling back to the DEBUG signing key, which is publicly known " +
-                        "and must never be used for a distributed build."
+                // The Android debug keystore's private key is public and identical on
+                // every developer machine. A release signed with it can be replaced by
+                // anyone holding that key, so refuse to produce the artifact at all
+                // rather than warn and ship it. See RELEASE_SIGNING.md.
+                throw GradleException(
+                    "keystore.properties / release.keystore not found. Refusing to build " +
+                        "a release APK signed with the publicly-known Android debug key. " +
+                        "See RELEASE_SIGNING.md."
                 )
-                signingConfigs.getByName("debug")
             }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

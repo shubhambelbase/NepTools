@@ -25,6 +25,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,9 +52,9 @@ import com.neptools.app.ui.icons.PIcons
 
 @Composable
 fun KundaliScreen(onBack: () -> Unit) {
-    val birth by AstroRepo.birth.collectAsState()
-    val result by AstroRepo.result.collectAsState()
-    val busy by AstroRepo.busy.collectAsState()
+    val birth by AstroRepo.birth.collectAsStateWithLifecycle()
+    val result by AstroRepo.result.collectAsStateWithLifecycle()
+    val busy by AstroRepo.busy.collectAsStateWithLifecycle()
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
 
     Column(

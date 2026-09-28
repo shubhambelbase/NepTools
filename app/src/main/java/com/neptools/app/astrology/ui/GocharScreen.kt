@@ -26,6 +26,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -54,7 +55,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun GocharScreen(onBack: () -> Unit) {
-    val result by AstroRepo.result.collectAsState()
+    val result by AstroRepo.result.collectAsStateWithLifecycle()
     val isEn = ThemePrefs.lang.value == "en"
 
     var selectedTab by remember { mutableIntStateOf(0) }

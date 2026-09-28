@@ -38,6 +38,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import com.neptools.app.ui.navigation.AppNavigator
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -92,8 +93,8 @@ fun HomeScreen(
     val today = remember { engine.today() }
     val todayAd = remember { engine.bsToAd(today) }
     val weekdayIdx = remember { engine.weekdayIndexOf(today) }
-    val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
-    val birthLoc by com.neptools.app.astrology.data.AstroRepo.birth.collectAsState()
+    val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
+    val birthLoc by com.neptools.app.astrology.data.AstroRepo.birth.collectAsStateWithLifecycle()
     val lat = birthLoc?.latitude ?: currentWeather.lat
     val lon = birthLoc?.longitude ?: currentWeather.lon
     val solar = remember(todayAd, lat, lon) { SolarCalc.compute(todayAd, lat, lon) }
@@ -308,7 +309,7 @@ fun HomeScreen(
                     }
 
                     // Right: Compact Weather Widget
-                    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
+                    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
                     val weatherInteraction = remember { MutableInteractionSource() }
                     val weatherPressed by weatherInteraction.collectIsPressedAsState()
                     val weatherScale by animateFloatAsState(
@@ -908,7 +909,7 @@ private fun HomeWeatherCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
+    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
 
     Box(
         modifier
@@ -1020,7 +1021,7 @@ private fun HomeFuelPriceCard(
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
     var fuelRates by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(com.neptools.app.core.data.FuelRepo.defaultRates) }
-    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
+    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
 
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()

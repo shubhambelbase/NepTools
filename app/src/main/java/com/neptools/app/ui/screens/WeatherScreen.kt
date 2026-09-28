@@ -37,6 +37,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -73,8 +74,8 @@ fun WeatherScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
     val scope = rememberCoroutineScope()
 
-    val currentWeather by WeatherLocationManager.currentWeather.collectAsState()
-    val isLocating by WeatherLocationManager.isGpsLocating.collectAsState()
+    val currentWeather by WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
+    val isLocating by WeatherLocationManager.isGpsLocating.collectAsStateWithLifecycle()
 
     var showCitySheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()

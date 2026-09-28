@@ -25,10 +25,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +55,7 @@ import com.neptools.app.ui.components.HairLabel
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
+import com.neptools.app.ui.theme.ThemeMode
 import com.neptools.app.ui.theme.ThemePrefs
 
 @Composable
@@ -149,12 +152,65 @@ fun SettingsScreen(onBack: () -> Unit = {}) {
             }
         }
         Spacer(Modifier.height(8.dp))
-        SettingRow(
-            title = T("dark_t"),
-            subtitle = T("dark_s"),
-            checked = ThemePrefs.darkTheme.value,
-            onToggle = { ThemePrefs.saveDark(context, it) }
-        )
+
+        // Theme mode: System / Light / Dark.
+        // A binary switch cannot express "follow the device", which left every
+        // user on a system-dark phone in a light app until they found this screen.
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.medium)
+                .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.medium)
+                .padding(horizontal = 14.dp, vertical = 11.dp)
+        ) {
+            Text(
+                if (isEn) "Appearance" else "देखावट",
+                style = MaterialTheme.typography.titleSmall
+            )
+            Text(
+                if (isEn) "Follow the system, or force a light or dark theme"
+                else "प्रणाली अनुसार, वा उज्यालो अथवा अँध्यारो रूप स्थायी गर्नुहोस्",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(Modifier.height(9.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ThemeMode.entries.forEach { mode ->
+                    val selected = ThemePrefs.themeMode.value == mode
+                    val label = when {
+                        mode == ThemeMode.System && isEn -> "System"
+                        mode == ThemeMode.System -> "प्रणाली"
+                        mode == ThemeMode.Light -> "उज्यालो"
+                        else -> "अँध्यारो"
+                    }
+                    Surface(
+                        onClick = { ThemePrefs.saveThemeMode(context, mode) },
+                        shape = MaterialTheme.shapes.small,
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant
+                        },
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(40.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(
+                                label,
+                                style = MaterialTheme.typography.labelLarge,
+                                color = if (selected) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                                maxLines = 1
+                            )
+                        }
+                    }
+                }
+            }
+        }
 
         Spacer(Modifier.height(14.dp))
         HairLabel(if (isEn) "Notifications & Smart Alerts" else "सूचना तथा स्मार्ट अलर्टहरू")

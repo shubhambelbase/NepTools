@@ -44,6 +44,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -80,7 +81,7 @@ import kotlinx.coroutines.Dispatchers
 fun LanDropScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
-    val serverState by LanDropServer.state.collectAsState()
+    val serverState by LanDropServer.state.collectAsStateWithLifecycle()
 
     var activeTab by remember { mutableIntStateOf(0) } // 0 = Host/Share, 1 = Received Files
     val scope = androidx.compose.runtime.rememberCoroutineScope()

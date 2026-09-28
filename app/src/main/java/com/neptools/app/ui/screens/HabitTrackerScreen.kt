@@ -38,6 +38,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -58,6 +59,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -182,6 +184,7 @@ fun HabitTrackerScreen(
     // Sheet states
     var showCreateModal by remember { mutableStateOf(false) }
     var editingHabit by remember { mutableStateOf<Habit?>(null) }
+    var habitPendingDelete by remember { mutableStateOf<Habit?>(null) }
     var inspectingDay by remember { mutableStateOf<DayHeatmapCell?>(null) }
 
     fun refresh() {
@@ -367,9 +370,9 @@ fun HabitTrackerScreen(
                             showCreateModal = true
                         },
                         onDelete = {
-                            repo.deleteHabit(habit.id)
-                            if (selectedHabitFilter == habit.id) selectedHabitFilter = null
-                            refresh()
+                            // Deleting a habit also destroys its entire log history,
+                            // so it is never applied straight from the menu.
+                            habitPendingDelete = habit
                         }
                     )
                 }
@@ -416,6 +419,45 @@ fun HabitTrackerScreen(
                 }
                 showCreateModal = false
                 refresh()
+            }
+        )
+    }
+
+    // CONFIRM DELETE: removes the habit and its whole log history, irreversibly.
+    habitPendingDelete?.let { target ->
+        AlertDialog(
+            onDismissRequest = { habitPendingDelete = null },
+            title = {
+                Text(if (isEn) "Delete habit?" else "बानी मेटाउने?")
+            },
+            text = {
+                Text(
+                    if (isEn) {
+                        "\"${target.nameEn}\" and its entire check-in history will be deleted. " +
+                            "This cannot be undone unless you have exported a backup."
+                    } else {
+                        "\"${target.nameNp}\" र यसको सम्पूर्ण चेक-इन इतिहास मेटिनेछ। " +
+                            "यो पूर्वतय सट्टा गर्न मिल्दैन, ब्याकअप लिएको भए मात्र।"
+                    }
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    repo.deleteHabit(target.id)
+                    if (selectedHabitFilter == target.id) selectedHabitFilter = null
+                    habitPendingDelete = null
+                    refresh()
+                }) {
+                    Text(
+                        if (isEn) "Delete" else "मेटाउनुहोस्",
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { habitPendingDelete = null }) {
+                    Text(if (isEn) "Cancel" else "रद्द गर्नुहोस्")
+                }
             }
         )
     }

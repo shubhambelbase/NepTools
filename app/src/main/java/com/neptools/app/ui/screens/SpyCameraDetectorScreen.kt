@@ -34,6 +34,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -148,7 +149,7 @@ private fun EmfSnifferView(
     engine: SpyCameraDetectorEngine,
     isEn: Boolean
 ) {
-    val emfState by engine.emfState.collectAsState()
+    val emfState by engine.emfState.collectAsStateWithLifecycle()
 
     val animatedMag by animateFloatAsState(
         targetValue = emfState.magnitudeUt,

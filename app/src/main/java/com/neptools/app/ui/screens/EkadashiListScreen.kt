@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,6 +59,7 @@ import com.neptools.app.core.calendar.SacredTithiResolver
 import com.neptools.app.core.calendar.SolarCalc
 import com.neptools.app.core.data.PatroRepo
 import com.neptools.app.core.util.PatroGraphicGenerator
+import com.neptools.app.ui.components.PulsingLoader
 import com.neptools.app.ui.components.ToolTopBar
 import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.theme.ThemePrefs
@@ -65,6 +68,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private data class TithiEvent(
     val ad: LocalDate,
@@ -82,6 +86,12 @@ private data class TithiEvent(
     val isMajor: Boolean
 )
 
+/**
+ * Solved tithi events per BS year. Ephemeris results never change for a past or
+ * present year, so they are safe to memoize for the life of the process.
+ */
+private val yearEventCache = java.util.concurrent.ConcurrentHashMap<Int, List<TithiEvent>>()
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EkadashiListScreen(onBack: () -> Unit) {
@@ -95,7 +105,25 @@ fun EkadashiListScreen(onBack: () -> Unit) {
     }
     var showRules by remember { mutableStateOf(false) }
 
-    val events = remember(selectedYear) { generateEventsForYear(engine, selectedYear) }
+    // A full year of tithis means 365 panchang solves, each of which is a
+    // high-precision ephemeris evaluation. Running that inside remember()
+    // blocked the main thread for seconds and could trip an ANR, so it now
+    // happens off the main thread and each year is solved only once.
+    var events by remember { mutableStateOf(yearEventCache[selectedYear] ?: emptyList()) }
+    var eventsLoading by remember { mutableStateOf(yearEventCache[selectedYear] == null) }
+    LaunchedEffect(selectedYear) {
+        val cached = yearEventCache[selectedYear]
+        if (cached != null) {
+            events = cached
+            eventsLoading = false
+            return@LaunchedEffect
+        }
+        eventsLoading = true
+        val computed = withContext(Dispatchers.Default) { generateEventsForYear(engine, selectedYear) }
+        yearEventCache[selectedYear] = computed
+        events = computed
+        eventsLoading = false
+    }
     val filtered = remember(filter, events) {
         when (filter) {
             "Ekadashi" -> events.filter { it.tithiNp == "एकादशी" }
@@ -216,6 +244,19 @@ fun EkadashiListScreen(onBack: () -> Unit) {
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 28.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
+                if (eventsLoading) {
+                    item(key = "loading") {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(160.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            PulsingLoader(if (isEn) "Computing tithis" else "तिथि गणना हुँदैछ")
+                        }
+                    }
+                }
+
                 // Upcoming Hero Card
                 if (nextUpcoming != null) {
                     item(key = "hero_upcoming") {

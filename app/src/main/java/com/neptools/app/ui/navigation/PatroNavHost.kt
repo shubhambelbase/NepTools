@@ -1,7 +1,13 @@
 package com.neptools.app.ui.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -93,9 +99,30 @@ object Routes {
 
     fun calendar(year: Int, month: Int) = "calendar/$year/$month"
     fun day(year: Int, month: Int, day: Int) = "day/$year/$month/$day"
+
+    private val topLevel = setOf(HOME, CALENDAR, TOOLS)
+
+    /**
+     * Destinations that may be entered from outside the app, via the
+     * `navigate_to_route` Intent extra on the exported MainActivity, the
+     * launcher shortcuts, widget taps and notification actions.
+     *
+     * Only literal routes appear here. Parameterized routes such as
+     * `calendar/{year}/{month}` are built by the [calendar] and [day] helpers
+     * and can never arrive as an external string.
+     *
+     * Anything not listed is dropped rather than navigated to, because
+     * Navigation-Compose throws for an unknown destination and that exception
+     * would unwind out of the collector coroutine and kill the process.
+     */
+    val DEEPLINK_TARGETS: Set<String> = topLevel + setOf(
+        RADIO, FUEL, CURRENCY, VOICE, QR, WEATHER, RASHIFAL, EMERGENCY
+    )
 }
 
 private data class TopLevel(val route: String, val key: String, val icon: ImageVector)
+
+private val topLevelRoutes = setOf(Routes.HOME, Routes.CALENDAR, Routes.TOOLS)
 
 private val topLevelItems = listOf(
     TopLevel(Routes.HOME, "nav_home", PIcons.Home),
@@ -109,10 +136,14 @@ fun PatroApp() {
     val backStack by navController.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
 
-    val isTopLevelRoute = currentRoute in setOf(Routes.HOME, Routes.CALENDAR, Routes.TOOLS)
+    val isTopLevelRoute = currentRoute in topLevelRoutes
 
     fun navigateTo(route: String) {
-        if (route in setOf(Routes.HOME, Routes.CALENDAR, Routes.TOOLS)) {
+        // The route arrives from an Intent extra on an exported Activity, so it is
+        // untrusted input. Navigating to a destination that is not in the graph
+        // throws inside the collector coroutine and takes the process down.
+        if (route !in Routes.DEEPLINK_TARGETS) return
+        if (route in topLevelRoutes) {
             navController.navigateTab(route)
         } else {
             navController.navigate(route) {
@@ -170,7 +201,14 @@ fun PatroApp() {
         NavHost(
             navController = navController,
             startDestination = Routes.HOME,
-            modifier = Modifier.padding(padding),
+            // safeDrawing covers the IME as well as the status and navigation
+            // bars, so text fields stay reachable while the keyboard is open.
+            // WindowInsets.systemBars alone let the keyboard cover the bottom of
+            // every form in the app.
+            modifier = Modifier
+                .padding(padding)
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
+                .imePadding(),
             enterTransition = {
                 val isTabSwitch = initialState.destination.route in listOf(Routes.HOME, Routes.CALENDAR, Routes.TOOLS) &&
                                   targetState.destination.route in listOf(Routes.HOME, Routes.CALENDAR, Routes.TOOLS)

@@ -26,6 +26,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -75,7 +76,7 @@ fun DayDetailScreen(
     }
     val adDate = remember(date) { engine.bsToAd(date) }
     val weekdayIdx = remember(date) { engine.weekdayIndexOf(date) }
-    val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
+    val currentWeather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
     val solar = remember(adDate, currentWeather) { SolarCalc.compute(adDate, currentWeather.lat, currentWeather.lon) }
     val panchang = remember(adDate) { PanchangCalc.compute(adDate) }
     val festival = PatroRepo.d.festivalsFor(date.year, date.month)[date.day]

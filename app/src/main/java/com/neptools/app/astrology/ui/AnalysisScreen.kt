@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +40,7 @@ import com.neptools.app.ui.strings.T
 
 @Composable
 fun AnalysisScreen(onBack: () -> Unit, onOpenDasha: () -> Unit) {
-    val result by AstroRepo.result.collectAsState()
+    val result by AstroRepo.result.collectAsStateWithLifecycle()
     var showAll by remember { mutableStateOf(false) }
     var expandedKey by remember { mutableStateOf<String?>(null) }
     var showTimeline by remember { mutableStateOf(false) }

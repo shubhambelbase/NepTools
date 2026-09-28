@@ -8,9 +8,17 @@ val Parchment = Color(0xFFEFE9DA)
 val Ink = Color(0xFF22201B)
 val InkSoft = Color(0xFF4A463D)
 val Vermilion = Color(0xFFC73E2E)
+// Material 3 container roles must be opaque: they are the backdrop for
+// onContainer text and for tonal surfaces. The previous 10%-alpha value
+// composited against the paper background and dropped onPrimaryContainer to
+// roughly 4.3:1, below the WCAG AA 4.5:1 floor.
+val VermilionContainer = Color(0xFFF9E4DC)
 val VermilionSoft = Color(0x1AC73E2E)
 val TealInk = Color(0xFF16697A)
-val Faded = Color(0xFF8D8574)
+// Secondary text. The previous #8D8574 measured 3.6:1 on Paper and 3.25:1 on
+// RicePaper, which fails WCAG AA for body text. This value clears 4.5:1 on
+// RicePaper, Parchment and Paper, so muted text stays legible outdoors.
+val Faded = Color(0xFF6B6455)
 val Hairline = Color(0x293C3426)
 val OnVermilion = Color(0xFFFDF3EC)
 val OnInk = RicePaper

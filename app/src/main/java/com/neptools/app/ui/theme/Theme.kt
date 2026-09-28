@@ -1,18 +1,20 @@
 package com.neptools.app.ui.theme
 
 import android.content.Context
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 
 private val NewariInkScheme = lightColorScheme(
     primary = Vermilion,
     onPrimary = OnVermilion,
-    primaryContainer = VermilionSoft,
+    primaryContainer = VermilionContainer,
     onPrimaryContainer = Vermilion,
     secondary = TealInk,
     onSecondary = Paper,
@@ -51,8 +53,21 @@ private val InkNightScheme = darkColorScheme(
     outlineVariant = Color_NightHairline
 )
 
+/** How the app resolves light vs dark. */
+enum class ThemeMode(val stored: String) {
+    System("system"),
+    Light("light"),
+    Dark("dark");
+
+    companion object {
+        fun from(stored: String?): ThemeMode =
+            entries.firstOrNull { it.stored == stored } ?: System
+    }
+}
+
 object ThemePrefs {
     val darkTheme: MutableState<Boolean> = mutableStateOf(false)
+    val themeMode: MutableState<ThemeMode> = mutableStateOf(ThemeMode.System)
     val nepaliDigits: MutableState<Boolean> = mutableStateOf(true)
     val lang: MutableState<String> = mutableStateOf("np")
     val dailyDateNotification: MutableState<Boolean> = mutableStateOf(true)
@@ -64,21 +79,47 @@ object ThemePrefs {
 
     fun load(context: Context) {
         val p = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        darkTheme.value = p.getBoolean("dark", false)
-        lang.value = p.getString("lang", "np") ?: "np"
+        val storedMode = p.getString("theme_mode", null)
+        // Migrate the old boolean toggle. Existing users who had explicitly turned
+        // dark mode on keep it; everyone else now follows the system.
+        themeMode.value = if (storedMode != null) {
+            ThemeMode.from(storedMode)
+        } else if (p.getBoolean("dark", false)) {
+            ThemeMode.Dark
+        } else {
+            ThemeMode.System
+        }
+        lang.value = p.getString("lang", null) ?: defaultLang()
         nepaliDigits.value = (lang.value == "np")
         dailyDateNotification.value = p.getBoolean("notif_daily_date", true)
         habitNotification.value = p.getBoolean("notif_habit", true)
-        subNotification.value = p.getBoolean("notif_sub", true)
+        subNotification.value = p.getBoolean("notif_subs", true)
         weatherNotification.value = p.getBoolean("notif_weather", true)
         festivalNotification.value = p.getBoolean("notif_festivals", true)
     }
 
-    fun saveDark(context: Context, v: Boolean) {
-        darkTheme.value = v
-        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-            .edit().putBoolean("dark", v).apply()
+    /**
+     * First run has no stored preference, so follow the device language. An
+     * English phone should not open into a Nepali-only UI.
+     */
+    private fun defaultLang(): String {
+        val language = runCatching { java.util.Locale.getDefault().language }.getOrNull()
+        return if (language == "ne") "np" else "en"
     }
+
+    fun saveThemeMode(context: Context, mode: ThemeMode) {
+        themeMode.value = mode
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+            .edit()
+            .putString("theme_mode", mode.stored)
+            .putBoolean("dark", mode == ThemeMode.Dark)
+            .apply()
+    }
+
+    fun saveDark(context: Context, v: Boolean) {
+        saveThemeMode(context, if (v) ThemeMode.Dark else ThemeMode.Light)
+    }
+
 
     fun saveNpDigits(context: Context, v: Boolean) {
         nepaliDigits.value = v
@@ -138,7 +179,20 @@ object ThemePrefs {
 }
 
 @Composable
-fun NepToolsTheme(dark: Boolean = ThemePrefs.darkTheme.value, content: @Composable () -> Unit) {
+fun NepToolsTheme(
+    mode: ThemeMode = ThemePrefs.themeMode.value,
+    content: @Composable () -> Unit
+) {
+    // ThemeMode.System follows the OS setting, so a user on a dark phone gets a
+    // dark app without hunting for an in-app toggle. The resolved boolean is
+    // mirrored into ThemePrefs.darkTheme for the few call sites that still read it.
+    val dark = when (mode) {
+        ThemeMode.System -> isSystemInDarkTheme()
+        ThemeMode.Light -> false
+        ThemeMode.Dark -> true
+    }
+    SideEffect { ThemePrefs.darkTheme.value = dark }
+
     MaterialTheme(
         colorScheme = if (dark) InkNightScheme else NewariInkScheme,
         typography = PatroTypography,
@@ -147,8 +201,8 @@ fun NepToolsTheme(dark: Boolean = ThemePrefs.darkTheme.value, content: @Composab
     )
 }
 
-@Deprecated("Use NepToolsTheme instead", ReplaceWith("NepToolsTheme(dark, content)"))
+@Deprecated("Use NepToolsTheme instead", ReplaceWith("NepToolsTheme(mode, content)"))
 @Composable
 fun NepalPatroTheme(dark: Boolean = ThemePrefs.darkTheme.value, content: @Composable () -> Unit) {
-    NepToolsTheme(dark = dark, content = content)
+    NepToolsTheme(mode = if (dark) ThemeMode.Dark else ThemeMode.Light, content = content)
 }

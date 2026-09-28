@@ -49,7 +49,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -183,6 +185,7 @@ fun SubscriptionTrackerScreen(
 
     var showCreateModal by remember { mutableStateOf(false) }
     var editingSubscription by remember { mutableStateOf<Subscription?>(null) }
+    var subscriptionPendingDelete by remember { mutableStateOf<Subscription?>(null) }
 
     fun refresh() {
         scope.launch {
@@ -348,8 +351,9 @@ fun SubscriptionTrackerScreen(
                             showCreateModal = true
                         },
                         onDelete = {
-                            repo.deleteSubscription(sub.id)
-                            refresh()
+                            // Irreversible removal of a recurring bill the user tracks
+                            // for years, so it is confirmed rather than applied inline.
+                            subscriptionPendingDelete = sub
                         }
                     )
                 }
@@ -359,6 +363,42 @@ fun SubscriptionTrackerScreen(
                 Spacer(Modifier.height(48.dp))
             }
         }
+    }
+
+    // CONFIRM DELETE
+    subscriptionPendingDelete?.let { target ->
+        AlertDialog(
+            onDismissRequest = { subscriptionPendingDelete = null },
+            title = { Text(if (isEn) "Delete subscription?" else "सदस्यता मेटाउने?") },
+            text = {
+                Text(
+                    if (isEn) {
+                        "\"${target.nameEn}\" will be removed from your recurring bill " +
+                            "tracking and monthly total. This cannot be undone."
+                    } else {
+                        "\"${target.nameNp}\" तपाईंको आवर्ती बिल अनुगमन र मासिक जम्माबाट हटाइनेछ। " +
+                            "यो पूर्वतय सट्टा गर्न मिल्दैन।"
+                    }
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    repo.deleteSubscription(target.id)
+                    subscriptionPendingDelete = null
+                    refresh()
+                }) {
+                    Text(
+                        if (isEn) "Delete" else "मेटाउनुहोस्",
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { subscriptionPendingDelete = null }) {
+                    Text(if (isEn) "Cancel" else "रद्द गर्नुहोस्")
+                }
+            }
+        )
     }
 
     // MODAL: ADD / EDIT SUBSCRIPTION

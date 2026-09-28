@@ -49,6 +49,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -99,7 +100,7 @@ fun FuelPriceScreen(onBack: () -> Unit) {
     val haptic = LocalHapticFeedback.current
     val isEn = ThemePrefs.lang.value == "en"
 
-    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsState()
+    val weather by com.neptools.app.core.util.WeatherLocationManager.currentWeather.collectAsStateWithLifecycle()
     var fuelRates by remember { mutableStateOf(FuelRepo.defaultRates) }
     
     val gpsResolved = remember(fuelRates, weather) {

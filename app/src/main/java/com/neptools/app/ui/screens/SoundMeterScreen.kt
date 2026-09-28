@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -71,7 +72,7 @@ fun SoundMeterScreen(onBack: () -> Unit) {
     val isEn = ThemePrefs.lang.value == "en"
 
     val engine = remember { DecibelMeterEngine() }
-    val state by engine.state.collectAsState()
+    val state by engine.state.collectAsStateWithLifecycle()
 
     var hasPermission by remember {
         mutableStateOf(

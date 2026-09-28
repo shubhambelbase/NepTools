@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.6 (versionCode: 45)
-- Last Updated: September 26, 2026
+- Current Version: v2.8.8 (versionCode: 47)
+- Last Updated: September 28, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -26,22 +26,25 @@
 3. Card Design: Single clean title per card; no redundant sub-labels.
 4. Offline-First: 100% offline for calendar, astrology, calculators, habit tracker, and vault. Zero telemetry, tracking, or ads.
 5. Mandatory Version Bump: Every update / release must bump versionCode (+1) and versionName in app/build.gradle.kts, sync AGENT_CONTEXT.md, and verify SHA-256 before publishing release APKs.
+6. Release Signing Is Non-Negotiable: `assembleRelease` throws if `keystore.properties` or `release.keystore` is missing. Never reintroduce a debug-key fallback; the Android debug keystore is public, so a release signed with it can be replaced by anyone holding that key.
+7. Accessibility Floor: Body and secondary text must clear WCAG AA 4.5:1 against its backdrop, and interactive targets must be at least 48dp. Verify contrast before adding a colour to `Color.kt`.
+8. Never Block the Main Thread: Ephemeris solves, JSON dataset parsing, bitmap compression and file IO belong in `Dispatchers.IO` or `Dispatchers.Default`. `remember` is not an offload mechanism.
 
 ---
 
 ## 3. Technology Stack & Key Engines
 
-- UI & Theme: Jetpack Compose + Material 3. Custom NepToolsTheme (Newari Ink / Rice Paper palette) with light and dark mode. ToolTopBar in PatroComponents.kt establishes unified typography (titleMedium 16.5sp, bold, -0.2sp tracking + 11sp onSurfaceVariant subtitle), 36dp surface action pill back navigation, zero emojis.
-- Navigation: Compose Navigation (PatroNavHost.kt) with animated transitions.
+- UI & Theme: Jetpack Compose + Material 3. Custom NepToolsTheme (Newari Ink / Rice Paper palette) with a `ThemeMode` enum (System / Light / Dark) resolved via `isSystemInDarkTheme()`; the window background is painted from the resolved mode in MainActivity to avoid a cold-start colour step. ToolTopBar in PatroComponents.kt establishes unified typography (titleMedium 16.5sp, bold, -0.2sp tracking + 11sp onSurfaceVariant subtitle), 36dp surface action pill back navigation, zero emojis.
+- Navigation: Compose Navigation (PatroNavHost.kt) with animated transitions. External entry points pass a route string via the `navigate_to_route` Intent extra, so `Routes.DEEPLINK_TARGETS` is the allowlist; unknown routes are dropped rather than navigated to.
 - Calendar & Astronomy:
   - BsCalendarEngine.kt: Bikram Sambat date math (BS 1970 to BS 2100+).
   - SolarCalc.kt: NOAA solar engine for live sunrise, sunset, and Rahu Kaal from GPS or selected district coordinates.
-  - PanchangCalc.kt & DynamicFestivalEngine.kt: Tithi, Nakshatra, Yoga, and festive observances.
+  - PanchangCalc.kt & DynamicFestivalEngine.kt: Tithi, Nakshatra, Yoga, and festive observances. A single `compute()` costs roughly 21 ephemeris evaluations, so never call it in a composition body or a loop without caching.
   - SmartDateParser.kt: On-device date detector supporting BS/AD, Devanagari numerals, and text month formats.
 - Homescreen Widget: NepToolsDateWidgetProvider.kt (RemoteViews widget for today's BS date, tithi, and festive events with automatic midnight rollover).
 - User Calendar Events: UserEventManager.kt (custom events, notes, and local alarm notifications on any BS date).
 - Offline Data Backup & Restore: BackupManager.kt (local JSON export/import of habits, subscriptions, notes, and events via SAF).
-- Habit Tracker: 52-week contribution heatmap, dual BS/AD monthly view, streaks, numeric and timer targets.
+- Habit Tracker: 52-week contribution heatmap, dual BS/AD monthly view, streaks, numeric and timer targets. Streak arithmetic lives in the pure, unit-tested `HabitStreakCalculator.kt`; `HabitRepository` holds a memoized date-keyed log index because the log blob is keyed by habit, not date.
 - Subscription Tracker: Multi-currency normalization (NPR, USD, INR, EUR, GBP) to monthly NPR, recurring bill alerts.
 - In-App Updater: GitHub Releases API + web redirect fallback, 32KB streaming buffer, persistent APK disk cache, SHA-256 and PackageArchiveInfo verification.
 - Utilities & Hardware: DecibelMeterEngine (dBA sound level), SpyCameraDetectorEngine (EMF sniffer & strobe), CompassEngine, BubbleLevelEngine, LanDropServer, RadioService, ImageCompressor, PdfDocument converter.
@@ -77,22 +80,42 @@ app/src/main/
 
 ## 6. Build & Run Commands
 
-- Release signing: `keystore.properties` at the repo root plus `release.keystore` (both gitignored). Procedure, fingerprint, and the one-time user migration are in RELEASE_SIGNING.md. A release build without them falls back to the public debug key and warns loudly.
+- Release signing: `keystore.properties` at the repo root plus `release.keystore` (both gitignored). Procedure, fingerprint, and the one-time user migration are in RELEASE_SIGNING.md. `assembleRelease` **fails** if they are absent rather than falling back to the debug key.
 - Unit tests: `.\gradlew.bat testDebugUnitTest`
 - Lint: `.\gradlew.bat lintDebug`
 - Debug Build: `.\gradlew.bat assembleDebug`
 - Install Debug APK: `& "D:\Android\Sdk\platform-tools\adb.exe" install -r -d app\build\outputs\apk\debug\app-debug.apk`
 - Release Build (R8 minified): `.\gradlew.bat assembleRelease`
 - Install Release APK: `& "D:\Android\Sdk\platform-tools\adb.exe" install -r app\build\outputs\apk\release\app-release.apk`
-- Launch App: `& "D:\Android\Sdk\platform-tools\adb.exe" shell monkey -p com.neptools.app -c android.intent.category.LAUNCHER 1`
+- Launch Release App: `& "D:\Android\Sdk\platform-tools\adb.exe" shell monkey -p com.neptools.app -c android.intent.category.LAUNCHER 1`
+- Launch Debug App: same command with `-p com.neptools.app.debug`. The debug build type carries `applicationIdSuffix = ".debug"` so debug and release install side by side instead of forcing a full uninstall on every swap.
 
 ---
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.6 (versionCode 45) — Compose Modernization & In-App Updater Synchronization.
-- Last Updated: September 26, 2026
+- Status: v2.8.8 (versionCode 47) — Correctness, Performance, Release-Safety & Accessibility Audit.
+- Last Updated: September 28, 2026
+- Verification: 50/50 unit tests pass, debug build compiles clean, release-signing guard verified.
 - Recent Updates:
+  - v2.8.8:
+    - Habit Streak Correctness Fix (HabitRepository.kt, HabitStreakCalculator.kt): Fixed a dead ternary in the streak walk (both branches read `today.minusDays(1)`) and a `firstStreakBroken` flag that was only ever set to true and never reset. The current-streak counter read 0 every morning before the user logged the day, and 0 forever on any scheduled rest day. Streak logic extracted to a pure, unit-tested `HabitStreakCalculator`; rest days are now neutral and a pending day no longer breaks the chain. New `HabitStreakTest` (6 cases).
+    - Habit Heatmap Performance (HabitRepository.kt): `getLogsForDate` re-read and re-parsed the entire habits log blob on every call, so the 52-week heatmap and streak loops parsed ~130 KB of JSON roughly 760 times per recomposition. Added a memoized date-keyed index (`allLogsByDate`) invalidated on every write.
+    - Ekadashi Screen Responsiveness (EkadashiListScreen.kt): A year of tithis ran 365 high-precision panchang solves inside `remember`, blocking the main thread for seconds. Moved to `Dispatchers.Default` with a per-year `ConcurrentHashMap` cache and a loading state.
+    - Lifecycle-Aware State Collection: Migrated 28 `collectAsState()` call sites to `collectAsStateWithLifecycle()` so the 20 Hz sound meter and 15 Hz EMF detector stop recomposing once the screen is backgrounded.
+    - System Dark Mode (Theme.kt, SettingsScreen.kt): The app ignored the OS dark setting and defaulted to light. Added a `ThemeMode` enum (System / Light / Dark) resolved via `isSystemInDarkTheme()`, with migration from the old boolean toggle and a segmented control in Settings.
+    - Text Contrast (Color.kt): `Faded` (used as `onSurfaceVariant`) measured 3.6:1 on `Paper` and 3.25:1 on `RicePaper`, failing WCAG AA. Darkened to `#6B6455` (clears 4.5:1). `primaryContainer` was a 10%-alpha value, which M3 container roles must not be; replaced with opaque `VermilionContainer`.
+    - Keyboard Insets (PatroNavHost.kt): No `imePadding` or IME-aware `contentWindowInsets` existed anywhere, so the soft keyboard covered the bottom of every form. Applied `WindowInsets.safeDrawing` plus `imePadding()` at the NavHost.
+    - Destructive Action Confirmation (HabitTrackerScreen.kt, SubscriptionTrackerScreen.kt): Deleting a habit or subscription previously ran straight from the options menu, irreversibly discarding all check-in history. Both now require confirmation.
+    - Deep-Link Route Validation (PatroNavHost.kt): The `navigate_to_route` Intent extra on the exported MainActivity was passed to `navController.navigate` unvalidated, letting any installed app crash NepTools with an unknown route. Added the `Routes.DEEPLINK_TARGETS` allowlist and dropped unknown routes.
+    - Release Signing Hardening (build.gradle.kts): `assembleRelease` silently fell back to the public Android debug key when `keystore.properties` was missing, producing a distributable APK anyone could impersonate. The build now fails. Also disabled obsolete V1 signing (CVE-2017-13156) and moved the emulator-only `x86_64` ABI to the debug build type.
+    - Boot Receiver Main-Thread IO (BootCompletedReceiver.kt): Parsed the calendar and festival datasets and solved a panchang on the broadcast main thread of a cold-started process. Moved to `Dispatchers.IO` with `goAsync()`. Removed three `TEST_*` broadcast branches that any app could trigger on the exported receiver.
+    - Build Memory (gradle.properties): Raised the heap to 4 GB and dropped `kotlin.compiler.execution.strategy=in-process`, which had the Kotlin compiler competing with R8 for the same heap.
+    - Cold-Start Colour Step (values/colors.xml, MainActivity.kt): Window background now follows the resolved app theme instead of the system setting, removing a one-frame flash. First run now seeds language from the device locale instead of always defaulting to Nepali.
+    - Removed the unused `CHANGE_WIFI_MULTICAST_STATE` permission.
+  - v2.8.7:
+    - Clean Graphics & PDF Watermark Purge: Removed promotional footers, "NepTools 100% Ad-Free • Privacy-First", website URLs, and copyright strings from Patro and Rashifal graphic cards (`PatroGraphicGenerator.kt`), bill receipts (`ReceiptGraphicGenerator.kt`), Kundali and Guna Milan astrology reports (`AstroPdfExporter.kt`), and official application letters (`PdfExporter.kt`).
+    - Unbranded Social Sharing: Purged promotional branding, extra marketing text, and GitHub links from `ACTION_SEND` intents across card sharing, bill splitters, land converter, and loan EMI calculators.
   - v2.8.6:
     - Compose Clipboard Modernization: Replaced deprecated `LocalClipboardManager` with coroutine-backed `LocalClipboard.current` in `ClipboardExtensions.kt` across 5 screen components (`ConverterScreen.kt`, `EmergencyScreen.kt`, `LandConverterScreen.kt`, `PostalCodeScreen.kt`, `VoiceScreen.kt`), achieving 0 compiler warnings.
     - Studio Commercial Production: Produced sleek 9:16 vertical product showcase video using HyperFrames, Gemini TTS Nepali voiceover, and hardware mockup transitions.
@@ -105,27 +128,11 @@ app/src/main/
     - Daily Patro & Rashifal Card Generator (PatroGraphicGenerator.kt): 1080x1440 high-resolution social card generator in Newari Ink / Rice Paper styling with BS/AD dates, Tithi, Nakshatra, Yoga, Sunrise/Sunset, Rahu Kaal, festive banners, and Subhashita blessing with 1-tap WhatsApp/Viber sharing from Home, Day Detail, Rashifal, and Ekadashi screens.
     - Automated Festival & Fasting Reminders (SmartAlertNotificationManager.kt, SacredTithiResolver.kt): Added background notification engine alerting the evening prior for upcoming Ekadashis, Aunsi, Purnima, and major festivals, plus morning Dwadashi Parana timing alerts with Settings and in-screen toggles.
     - Universal Tool Header & Typography Standardization (PatroComponents.kt): Created reusable ToolTopBar unifying all 35+ tool screens with sleek typography (16.5sp bold title, -0.2sp tracking, and 11sp onSurfaceVariant subtitle) alongside 36dp surface pill back actions. Enforced zero emojis across all tools.
-    - Govt Templates Modernization (ApplicationTemplatesScreen.kt): Removed redundant verified tag from header for cleaner layout.
     - Subscription Tracker Overhaul (SubscriptionTrackerScreen.kt): Added quick utility presets (NTC, WorldLink, NEA, Khanepani), comprehensive outflow dashboard with category distribution, 1-tap quick paid buttons, and foreign currency NPR conversion estimates.
-    - Vedic Astrology Tool UI/UX Elevation (AstrologyHomeScreen.kt): Integrated ToolTopBar, added Vedic Identity Card (Lagna, Moon sign, Nakshatra, Mahadasha) and unified Material 3 Newari Ink / Rice Paper palette with quick links to Kundali charts, daily guidance, and 36 Guna Milan.
-    - Ekadashi List Screen Enhancement (EkadashiListScreen.kt): Added canonical 24 Ekadashi names, upcoming observance hero card with live countdown, Dwadashi Parana timing rules, and expandable Vrata guidelines.
-    - Home Screen Panchang Micro-Cards Centering (HomeScreen.kt): Centered icon, label, and value inside Sunrise, Sunset, and Rahu Kaal tiles for balanced, polished appearance.
     - Calendar Holiday vs Festival Distinction: Fixed calendar cell styling bug where ordinary festivals highlighted days in holiday red. Only official public holidays are red; ordinary working festivals are shown in subtle secondary/teal.
     - Authentic Udaya Tithi at Local Sunrise: Updated PanchangCalc.compute() to sample lunar elongation at authentic local sunrise via SolarCalc.
     - Cell Grid Tithi Display & Gazette Alignment: Localized Tithi on every calendar grid day cell and cross-verified BS 2081 through 2085.
-  - v2.8.3:
-    - Full BS 2083 Month-by-Month Verification: Verified all 12 months of BS 2083 against Hamro Patro and Nepal Panchanga Nirnayak Vikas Samiti. Aligned Padmini & Parama Ekadashis, restored Ashadh 15, aligned Tihar sequence, and added Chaite Dashain & Ram Navami in 2084.
-  - v2.8.2:
-    - Full 11-Year Festival Deduplication & Gazette Holiday Enforcement (festivals_sample.json): Eliminated all same-day substring and constituent overlaps across 132 months. Strictly aligned all publicHoliday flags with the official Nepal Gazette. 100% Devanagari-free English translations.
-  - v2.8.1:
-    - 11-Year Official Panchanga Dataset Forensic Audit & Sanitization (festivals_sample.json): Conducted comprehensive audit across all 132 months (BS 2075-2085). Decoded 24 mojibake encoding corruptions to clean Devanagari, purged all scraped gazette fragments/noise, unified same-day duplicates, achieved 100% English translation coverage, and injected full verified festival calendar for BS 2084 and 2085.
-  - v2.8.0:
-    - Bikram Sambat Lunar Festival Engine Overhaul (PanchangCalc.kt, DynamicFestivalEngine.kt): Re-architected dynamic festival determination from simplistic solar month checks to authentic astronomical Lunar Masa indexing.
-    - Screen-Reader Accessibility Fix (CalendarCells.kt): Cleaned TalkBack content descriptions to speak localized festival names properly.
-  - v2.7.9:
-    - Universal Notification Deep Linking & 3D Brand Notification Asset Overhaul: Created crisp multi-density ic_notification_large.png circular badge. Migrated notification channels to v4/v2.
-  - v2.7.8:
-    - Official Nepal Govt Templates Compliance (ApplicationTemplatesRepo.kt): Standardized all 9 templates according to official Nepal Acts & Rules with 3-generation genealogy and statutory checklists.
-  - v2.7.0 - v2.7.7: Govt templates modernization, QR code generator enhancements, bubble level micro-animations, fuel calculator streamlining, date converter micro-animations, subscription & habit empty state cleanup, and high-precision ephemeris.
+  - v2.8.0 - v2.8.3: Full BS 2083 and 11-Year Festival Deduplication (BS 2075-2085) with Gazette holiday enforcement across all 132 months; Bikram Sambat Lunar Festival Engine re-architected to authentic astronomical Lunar Masa indexing; Screen-Reader accessibility fix in CalendarCells.kt. Per-version detail in `release_notes_*.md` and git history.
+  - v2.7.0 - v2.7.9: Govt templates modernization against official Acts and Rules, QR code enhancements, notification deep linking, bubble level micro-animations, fuel and date converter refinements, subscription and habit empty state cleanup, high-precision ephemeris.
 
 

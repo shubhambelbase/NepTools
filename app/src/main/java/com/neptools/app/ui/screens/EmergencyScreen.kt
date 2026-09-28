@@ -43,6 +43,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.animation.core.LinearEasing
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -76,7 +77,6 @@ import com.neptools.app.ui.icons.PIcons
 import com.neptools.app.ui.strings.T
 import com.neptools.app.ui.strings.tt
 import com.neptools.app.ui.theme.ThemePrefs
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,10 +91,10 @@ fun EmergencyScreen(onBack: () -> Unit) {
         EmergencySyncManager.init(context)
     }
 
-    val currentLoc by EmergencyLocationResolver.currentLocation.collectAsState()
-    val isLocating by EmergencyLocationResolver.isLocating.collectAsState()
-    val allContacts by EmergencyRepo.liveContacts.collectAsState()
-    val isSyncing by EmergencySyncManager.isSyncing.collectAsState()
+    val currentLoc by EmergencyLocationResolver.currentLocation.collectAsStateWithLifecycle()
+    val isLocating by EmergencyLocationResolver.isLocating.collectAsStateWithLifecycle()
+    val allContacts by EmergencyRepo.liveContacts.collectAsStateWithLifecycle()
+    val isSyncing by EmergencySyncManager.isSyncing.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
 
     var showLocationSheet by remember { mutableStateOf(false) }

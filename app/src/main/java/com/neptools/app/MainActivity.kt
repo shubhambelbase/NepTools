@@ -27,6 +27,8 @@ import com.neptools.app.ui.navigation.PatroApp
 import com.neptools.app.ui.screens.OnboardingScreen
 import com.neptools.app.ui.screens.SplashScreen
 import com.neptools.app.ui.theme.NepToolsTheme
+import com.neptools.app.ui.theme.ThemeMode
+import com.neptools.app.ui.theme.ThemePrefs
 
 class MainActivity : ComponentActivity() {
 
@@ -63,6 +65,22 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // The XML window background follows the *system* dark setting while
+        // Compose follows the app's own theme choice, so a user who forced light
+        // on a dark phone saw a dark frame before the light UI drew. Paint the
+        // window from the resolved mode instead so cold start has no colour step.
+        window.setBackgroundDrawableResource(
+            when (ThemePrefs.themeMode.value) {
+                ThemeMode.Dark -> R.color.rice_paper_dark
+                ThemeMode.Light -> R.color.rice_paper
+                ThemeMode.System -> if (
+                    resources.configuration.uiMode and
+                    android.content.res.Configuration.UI_MODE_NIGHT_MASK ==
+                    android.content.res.Configuration.UI_MODE_NIGHT_YES
+                ) R.color.rice_paper_dark else R.color.rice_paper
+            }
+        )
 
         // Initialize persistent cache & auto-fetch GPS weather in background
         WeatherLocationManager.initAndAutoFetch(applicationContext)

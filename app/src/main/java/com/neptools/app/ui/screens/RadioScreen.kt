@@ -28,6 +28,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -61,7 +62,7 @@ fun RadioScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     val isEn = ThemePrefs.lang.value == "en"
 
-    val playerState by RadioManager.state.collectAsState()
+    val playerState by RadioManager.state.collectAsStateWithLifecycle()
     val activeStation = playerState.activeStation
     val isPlaying = playerState.isPlaying
     val isBuffering = playerState.isBuffering

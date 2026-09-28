@@ -15,6 +15,9 @@ class HabitRepository private constructor(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("patro_habits_prefs", Context.MODE_PRIVATE)
     private val dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 
+    /** Memoized date-keyed view of [KEY_LOGS]; invalidated on every write. */
+    private var logsByDateCache: Map<String, Map<String, HabitLog>>? = null
+
     init {
         val migrated = prefs.getBoolean("presets_cleaned_v2", false)
         if (!migrated) {
@@ -301,6 +304,49 @@ class HabitRepository private constructor(context: Context) {
         return result
     }
 
+    /**
+     * Parses the whole habits log blob exactly once and indexes it by date.
+     *
+     * The blob is keyed habitId -> dateIso -> log, which is the wrong shape for
+     * the heatmap, streak and monthly-rate loops: those ask "what was logged on
+     * date X" hundreds of times per recomposition. Calling [getLogsForDate] in a
+     * loop re-read and re-parsed the entire blob each call, so a year of history
+     * cost hundreds of full JSON parses on the main thread.
+     *
+     * The cache is invalidated by [setHabitLog], the only writer of [KEY_LOGS].
+     */
+    @Synchronized
+    private fun allLogsByDate(): Map<String, Map<String, HabitLog>> {
+        logsByDateCache?.let { return it }
+        val index = mutableMapOf<String, MutableMap<String, HabitLog>>()
+        try {
+            val raw = prefs.getString(KEY_LOGS, null) ?: return emptyMap()
+            val root = JSONObject(raw)
+            val habitIds = root.keys()
+            while (habitIds.hasNext()) {
+                val habitId = habitIds.next()
+                val habitLogs = root.getJSONObject(habitId)
+                val dates = habitLogs.keys()
+                while (dates.hasNext()) {
+                    val dateIso = dates.next()
+                    val obj = habitLogs.getJSONObject(dateIso)
+                    index.getOrPut(dateIso) { mutableMapOf() }[habitId] = HabitLog(
+                        habitId = habitId,
+                        dateIso = dateIso,
+                        value = obj.optDouble("value", 0.0).toFloat(),
+                        completed = obj.optBoolean("completed", false),
+                        updatedAt = obj.optLong("updatedAt", 0L)
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return emptyMap()
+        }
+        logsByDateCache = index
+        return index
+    }
+
     @Synchronized
     fun setHabitLog(habitId: String, dateIso: String, value: Float, completed: Boolean) {
         try {
@@ -320,6 +366,7 @@ class HabitRepository private constructor(context: Context) {
             }
             root.put(habitId, habitLogs)
             prefs.edit().putString(KEY_LOGS, root.toString()).apply()
+            logsByDateCache = null
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -360,6 +407,9 @@ class HabitRepository private constructor(context: Context) {
 
         if (habits.isEmpty()) return emptyList()
 
+        // One parse of the log blob, reused for all 365 day cells.
+        val logIndex = allLogsByDate()
+
         if (isBs) {
             val year = targetYear.coerceIn(engine.supportedRange())
             for (m in 1..12) {
@@ -370,7 +420,7 @@ class HabitRepository private constructor(context: Context) {
                     val iso = adDate.toString()
                     val weekday = engine.weekdayIndexOf(nepDate)
 
-                    val logs = getLogsForDate(iso)
+                    val logs = logIndex[iso].orEmpty()
                     var completedCount = 0
                     var eligibleCount = 0
 
@@ -419,7 +469,7 @@ class HabitRepository private constructor(context: Context) {
                 }
                 val weekday = (curDate.dayOfWeek.value % 7) // 0=Sun..6=Sat
 
-                val logs = getLogsForDate(iso)
+                val logs = logIndex[iso].orEmpty()
                 var completedCount = 0
                 var eligibleCount = 0
 
@@ -469,12 +519,18 @@ class HabitRepository private constructor(context: Context) {
         }
 
         val todayIso = today.toString()
-        val todayLogs = getLogsForDate(todayIso)
+        val logIndex = allLogsByDate()
+        val todayLogs = logIndex[todayIso].orEmpty()
         val todayWeekday = (today.dayOfWeek.value % 7)
         var todayEligible = 0
         var todayDone = 0
 
+        // weekday -> how many habits are scheduled that weekday
+        val scheduledPerWeekday = HashMap<Int, Int>()
         habits.forEach { h ->
+            h.frequencyDays.forEach { day ->
+                scheduledPerWeekday[day] = (scheduledPerWeekday[day] ?: 0) + 1
+            }
             if (h.frequencyDays.contains(todayWeekday)) {
                 todayEligible++
                 if (todayLogs[h.id]?.completed == true) {
@@ -483,61 +539,25 @@ class HabitRepository private constructor(context: Context) {
             }
         }
 
-        // Calculate streaks by walking backwards
-        var currentStreak = 0
-        var longestStreak = 0
-        var tempStreak = 0
-        var totalActiveDays = 0
-
-        // Check if today counts or start from yesterday
-        val isTodayActive = if (todayEligible > 0) (todayDone > 0) else false
-        if (isTodayActive) {
-            currentStreak = 1
-        }
-
-        var checkDate = if (isTodayActive) today.minusDays(1) else today.minusDays(1)
-        var firstStreakBroken = !isTodayActive
-
-        // Look back up to 365 days
-        for (i in 1..365) {
-            val dateIso = checkDate.toString()
-            val weekday = (checkDate.dayOfWeek.value % 7)
-            val logs = getLogsForDate(dateIso)
-
-            var elCount = 0
-            var dnCount = 0
-            habits.forEach { h ->
-                if (h.frequencyDays.contains(weekday)) {
-                    elCount++
-                    if (logs[h.id]?.completed == true) {
-                        dnCount++
+        val streak = HabitStreakCalculator.compute(
+            today = today,
+            scheduledCountFor = { weekday -> scheduledPerWeekday[weekday] ?: 0 },
+            isActiveOn = { date ->
+                val dayWeekday = date.dayOfWeek.value % 7
+                val scheduled = scheduledPerWeekday[dayWeekday] ?: 0
+                if (scheduled == 0) {
+                    false
+                } else {
+                    val logs = logIndex[date.toString()].orEmpty()
+                    habits.any { h ->
+                        h.frequencyDays.contains(dayWeekday) && logs[h.id]?.completed == true
                     }
                 }
             }
-
-            val isActive = if (elCount > 0) (dnCount > 0) else false
-            if (isActive) {
-                totalActiveDays++
-                tempStreak++
-                if (!firstStreakBroken) {
-                    currentStreak++
-                }
-            } else {
-                firstStreakBroken = true
-                if (tempStreak > longestStreak) {
-                    longestStreak = tempStreak
-                }
-                tempStreak = 0
-            }
-
-            checkDate = checkDate.minusDays(1)
-        }
-        if (tempStreak > longestStreak) {
-            longestStreak = tempStreak
-        }
-        if (currentStreak > longestStreak) {
-            longestStreak = currentStreak
-        }
+        )
+        val currentStreak = streak.currentStreak
+        val longestStreak = streak.longestStreak
+        val totalActiveDays = streak.totalActiveDays
 
         // Month completion rate (last 30 days)
         var monthTotal = 0
@@ -546,7 +566,7 @@ class HabitRepository private constructor(context: Context) {
         for (i in 0 until 30) {
             val dateIso = mDate.toString()
             val weekday = (mDate.dayOfWeek.value % 7)
-            val logs = getLogsForDate(dateIso)
+            val logs = logIndex[dateIso].orEmpty()
 
             habits.forEach { h ->
                 if (h.frequencyDays.contains(weekday)) {
@@ -564,7 +584,7 @@ class HabitRepository private constructor(context: Context) {
         return HabitStats(
             currentStreak = currentStreak,
             longestStreak = longestStreak,
-            totalActiveDays = totalActiveDays + (if (isTodayActive) 1 else 0),
+            totalActiveDays = totalActiveDays,
             completionRateMonth = monthRate,
             totalHabitsCount = habits.size,
             todayCompletedCount = todayDone,
