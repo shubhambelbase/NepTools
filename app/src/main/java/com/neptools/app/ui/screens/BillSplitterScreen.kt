@@ -255,8 +255,7 @@ private fun QuickSplitView(isEn: Boolean) {
             if (includeVat) append("${if (isEn) "Govt VAT (13%):" else "सरकारी भ्याट (१३%):"} ${if (isEn) "Rs. ${fmt.format(vatAmount.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(vatAmount.toLong()))}"}\n")
             append("━━━━━━━━━━━━━━━━━━━\n")
             append("${if (isEn) "EACH PERSON PAYS:" else "प्रत्येकले तिर्नुपर्ने रकम:"} ${if (isEn) "Rs. ${fmt.format(perPersonFinal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(perPersonFinal.toLong()))}"}\n")
-            append("━━━━━━━━━━━━━━━━━━━\n")
-            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+            append("━━━━━━━━━━━━━━━━━━━")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -631,8 +630,7 @@ private fun ItemizedSplitView(isEn: Boolean) {
             append("━━━━━━━━━━━━━━━━━━━\n")
             val grandTotal = subtotalAll * totalMultiplier
             append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
-            append("━━━━━━━━━━━━━━━━━━━\n")
-            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+            append("━━━━━━━━━━━━━━━━━━━")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -919,8 +917,7 @@ private fun ItemizedSplitView(isEn: Boolean) {
                             append("━━━━━━━━━━━━━━━━━━━\n")
                             val grandTotal = subtotalAll * totalMultiplier
                             append("${if (isEn) "Grand Total:" else "जम्मा कुल बिल:"} ${if (isEn) "Rs. ${fmt.format(grandTotal.toLong())}" else "रु ${com.neptools.app.core.calendar.NepaliNames.toDevanagari(fmt.format(grandTotal.toLong()))}"}\n")
-                            append("━━━━━━━━━━━━━━━━━━━\n")
-                            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+                            append("━━━━━━━━━━━━━━━━━━━")
                         }
                         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         val clip = ClipData.newPlainText(if (isEn) "Itemized Split" else "व्यक्तिगत बाँडफाँड", summary)

@@ -151,9 +151,7 @@ private fun LoanEmiCalculatorView(isEn: Boolean) {
             append("${if (isEn) "Tenure:" else "ऋण अवधि:"} ${if (isEn) "$years Years ($tenureMonths months)" else "${NepaliNames.toDevanagari(years)} वर्ष (${NepaliNames.toDevanagari(tenureMonths)} महिना)"}\n")
             append("${if (isEn) "Monthly EMI:" else "मासिक किस्ता:"} ${if (isEn) "Rs. ${fmt.format(emiResult.monthlyEmi.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.monthlyEmi.toLong()))}"}\n")
             append("${if (isEn) "Total Interest:" else "जम्मा ब्याज:"} ${if (isEn) "Rs. ${fmt.format(emiResult.totalInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.totalInterest.toLong()))}"}\n")
-            append("${if (isEn) "Total Payable:" else "जम्मा भुक्तानी:"} ${if (isEn) "Rs. ${fmt.format(emiResult.totalPayment.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.totalPayment.toLong()))}"}\n")
-            append("----------------------------------------\n")
-            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+            append("${if (isEn) "Total Payable:" else "जम्मा भुक्तानी:"} ${if (isEn) "Rs. ${fmt.format(emiResult.totalPayment.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(emiResult.totalPayment.toLong()))}"}")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
@@ -353,9 +351,7 @@ private fun FixedDepositCalculatorView(isEn: Boolean) {
             append("${if (isEn) "Gross Interest:" else "कुल आर्जित ब्याज:"} ${if (isEn) "Rs. ${fmt.format(fdResult.grossInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.grossInterest.toLong()))}"}\n")
             append("${if (isEn) "6% TDS Tax:" else "६% सरकारी कर:"} ${if (isEn) "Rs. ${fmt.format(fdResult.taxDeduction.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.taxDeduction.toLong()))}"}\n")
             append("${if (isEn) "Net In-Hand Interest:" else "खुद प्राप्त हुने ब्याज:"} ${if (isEn) "Rs. ${fmt.format(fdResult.netInterest.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.netInterest.toLong()))}"}\n")
-            append("${if (isEn) "Maturity Amount:" else "परिपक्वता रकम:"} ${if (isEn) "Rs. ${fmt.format(fdResult.maturityAmount.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.maturityAmount.toLong()))}"}\n")
-            append("----------------------------------------\n")
-            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
+            append("${if (isEn) "Maturity Amount:" else "परिपक्वता रकम:"} ${if (isEn) "Rs. ${fmt.format(fdResult.maturityAmount.toLong())}" else "रु ${NepaliNames.toDevanagari(fmt.format(fdResult.maturityAmount.toLong()))}"}")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {

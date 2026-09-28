@@ -243,7 +243,7 @@ object AstroPdfExporter {
         paint.textSize = 9f
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         paint.color = Color.rgb(199, 62, 46)
-        val headerSubtitle = if (isEn) "NEPTOOLS • VEDIC ASTROLOGY SUITE" else "नेपटूल्स • वैदिक ज्योतिष सेवा"
+        val headerSubtitle = if (isEn) "VEDIC ASTROLOGY & JYOTISH" else "वैदिक ज्योतिष सेवा"
         canvas.drawText(headerSubtitle, 42f, 48f, paint)
 
         // Title
@@ -368,8 +368,8 @@ object AstroPdfExporter {
         paint.color = Color.rgb(148, 163, 184)
         paint.textSize = 8f
         canvas.drawLine(40f, (PAGE_HEIGHT - 35).toFloat(), (PAGE_WIDTH - 40).toFloat(), (PAGE_HEIGHT - 35).toFloat(), paint)
-        val footerText = if (isEn) "Generated locally by NepTools • 100% Offline & Private • www.neptools.app"
-                         else "नेपटूल्सद्वारा उपकरणमै निर्मित • १००% अफलाइन र सुरक्षित • www.neptools.app"
+        val footerText = if (isEn) "Sidereal Nirayana System • High-Precision Astronomical Ephemeris"
+                         else "निरयण पद्धति • उच्च-सटीक खगोलीय गणना"
         canvas.drawText(footerText, 40f, (PAGE_HEIGHT - 22).toFloat(), paint)
     }
 
@@ -487,7 +487,7 @@ object AstroPdfExporter {
         paint.textSize = 9f
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         paint.color = Color.rgb(199, 62, 46)
-        val headerSubtitle = if (isEn) "NEPTOOLS • VEDIC ASTROLOGY & JYOTISH SUITE" else "नेपटूल्स • वैदिक ज्योतिष सेवा"
+        val headerSubtitle = if (isEn) "VEDIC ASTROLOGY & JYOTISH REPORT" else "वैदिक ज्योतिष प्रतिवेदन"
         canvas.drawText(headerSubtitle, 42f, 46f, paint)
 
         paint.textSize = 16.5f
@@ -931,15 +931,9 @@ object AstroPdfExporter {
         paint.textSize = 8f
         paint.typeface = Typeface.DEFAULT
         paint.color = Color.rgb(148, 163, 184)
-        if (isEn) {
-            canvas.drawText("Generated on-device by NepTools Vedic Astrology Engine • 100% Offline & Private • Sidereal Nirayana System", tableLeft, footY + 13f, paint)
-            paint.textSize = 7.5f
-            canvas.drawText("Based on Brihat Parashara Hora Shastra & Muhurta Chintamani Tradition • www.neptools.app", tableLeft, footY + 24f, paint)
-        } else {
-            canvas.drawText("नेपटूल्स वैदिक ज्योतिष इन्जिनद्वारा उपकरणमै निर्मित • १००% अफलाइन र सुरक्षित • निरयण पद्धति", tableLeft, footY + 13f, paint)
-            paint.textSize = 7.5f
-            canvas.drawText("वृहत् पराशर होरा शास्त्र तथा मुहूर्त चिन्तामणि परम्परामा आधारित • www.neptools.app", tableLeft, footY + 24f, paint)
-        }
+        val footerText = if (isEn) "Sidereal Nirayana System • Brihat Parashara Hora Shastra Tradition"
+                         else "निरयण पद्धति • वृहत् पराशर होरा शास्त्र तथा मुहूर्त चिन्तामणि परम्परा"
+        canvas.drawText(footerText, tableLeft, footY + 16f, paint)
     }
 
     private fun drawMultilineText(

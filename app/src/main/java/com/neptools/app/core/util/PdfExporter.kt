@@ -281,8 +281,8 @@ object PdfExporter {
         }
 
         // Draw Top Document Title
-        canvas.drawText(if (isEn) "NepTools — $title" else "नेपटूल्स — $title", 54f, 64f, titlePaint)
-        canvas.drawText(if (isEn) "Official Document · NepTools" else "आधिकारिक कागजात · नेपटूल्स", 54f, 78f, subPaint)
+        canvas.drawText(title, 54f, 64f, titlePaint)
+        canvas.drawText(if (isEn) "Official Document" else "आधिकारिक कागजात", 54f, 78f, subPaint)
 
         // Separator
         canvas.drawLine(54f, 88f, 541f, 88f, borderPaint)
@@ -308,14 +308,5 @@ object PdfExporter {
         canvas.translate(54f, 105f)
         staticLayout.draw(canvas)
         canvas.restore()
-
-        // Footer
-        val footerPaint = Paint().apply {
-            color = Color.rgb(150, 150, 150)
-            textSize = 8.5f
-            typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC)
-            isAntiAlias = true
-        }
-        canvas.drawText(if (isEn) "Generated via NepTools" else "नेपटूल्सद्वारा निर्मित", 54f, 792f, footerPaint)
     }
 }

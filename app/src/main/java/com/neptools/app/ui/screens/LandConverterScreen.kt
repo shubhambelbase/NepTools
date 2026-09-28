@@ -173,8 +173,6 @@ fun LandConverterScreen(onBack: () -> Unit) {
                 append("  • एकड: ${NepaliNames.toDevanagari(acresStr)} एकड\n")
                 append("  • हेक्टर: ${NepaliNames.toDevanagari(haStr)} हेक्टर\n")
             }
-            append("----------------------------------------\n")
-            append(if (isEn) "Calculated via NepTools" else "नेपटूल्स द्वारा हिसाब गरिएको")
         }
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {

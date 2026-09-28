@@ -89,7 +89,7 @@ object ReceiptGraphicGenerator {
             textSize = 28f
             textAlign = Paint.Align.CENTER
         }
-        canvas.drawText("NepTools • $dateStr", width / 2f, cardRect.top + 145f, datePaint)
+        canvas.drawText(dateStr, width / 2f, cardRect.top + 145f, datePaint)
 
         // Perforated Dashed Line
         var currentY = cardRect.top + 240f
@@ -186,14 +186,6 @@ object ReceiptGraphicGenerator {
         canvas.drawText(if (isEn) "GRAND TOTAL" else "जम्मा कुल बिल", cardRect.left + 50f, currentY, totalLabelPaint)
         canvas.drawText("Rs. ${numberFormat.format(totalBill.toLong())}", cardRect.right - 50f, currentY, totalValPaint)
 
-        // Footer
-        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#94A3B8")
-            textSize = 26f
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText("✓ Verified Bill Split • Nepal Patro NepTools", width / 2f, cardRect.bottom - 40f, footerPaint)
-
         return saveBitmapToCache(context, bitmap, "quick_split_receipt.png")
     }
 
@@ -258,7 +250,7 @@ object ReceiptGraphicGenerator {
             textSize = 28f
             textAlign = Paint.Align.CENTER
         }
-        canvas.drawText("NepTools Group Split • $dateStr", width / 2f, cardRect.top + 140f, datePaint)
+        canvas.drawText(dateStr, width / 2f, cardRect.top + 140f, datePaint)
 
         var currentY = cardRect.top + 230f
         drawDashedLine(canvas, cardRect.left + 30f, cardRect.right - 30f, currentY)
@@ -332,14 +324,6 @@ object ReceiptGraphicGenerator {
         }
         canvas.drawText(if (isEn) "GRAND TOTAL" else "जम्मा कुल रकम", cardRect.left + 50f, currentY, totalLabelPaint)
         canvas.drawText("Rs. ${numberFormat.format((subtotalAll * totalMultiplier).toLong())}", cardRect.right - 50f, currentY, totalValPaint)
-
-        // Footer
-        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#94A3B8")
-            textSize = 26f
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText("✓ Verified Itemized Split • Nepal Patro NepTools", width / 2f, cardRect.bottom - 40f, footerPaint)
 
         return saveBitmapToCache(context, bitmap, "itemized_split_receipt.png")
     }

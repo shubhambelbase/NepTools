@@ -294,29 +294,6 @@ object PatroGraphicGenerator {
             quoteMeaningPaint
         )
 
-        // 8. Footer Watermark & Branding
-        val footerY = innerRect.bottom - 45f
-        val brandPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#0F172A")
-            textSize = 30f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText("NepTools", width / 2f, footerY - 26f, brandPaint)
-
-        val taglinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#64748B")
-            textSize = 21f
-            letterSpacing = 0.05f
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText(
-            if (isEn) "100% Ad-Free • Privacy-First Nepali Toolkit" else "विज्ञापनरहित, गोपनीयता-केन्द्रित नेपाली डिजिटल औजारहरू",
-            width / 2f,
-            footerY + 2f,
-            taglinePaint
-        )
-
         return saveBitmapToCache(context, bitmap, "neptools_patro_${date.year}_${date.month}_${date.day}.png")
     }
 
@@ -496,29 +473,6 @@ object PatroGraphicGenerator {
             goodHours
         )
 
-        // Footer Branding
-        val footerY = innerRect.bottom - 45f
-        val brandPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#0F172A")
-            textSize = 30f
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText("NepTools", width / 2f, footerY - 26f, brandPaint)
-
-        val taglinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.parseColor("#64748B")
-            textSize = 21f
-            letterSpacing = 0.05f
-            textAlign = Paint.Align.CENTER
-        }
-        canvas.drawText(
-            if (isEn) "100% Ad-Free • Privacy-First Nepali Toolkit" else "विज्ञापनरहित, गोपनीयता-केन्द्रित नेपाली डिजिटल औजारहरू",
-            width / 2f,
-            footerY + 2f,
-            taglinePaint
-        )
-
         return saveBitmapToCache(context, bitmap, "neptools_rashifal_${rashiNameEn.lowercase()}.png")
     }
 
@@ -588,7 +542,6 @@ object PatroGraphicGenerator {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "image/png"
             putExtra(Intent.EXTRA_STREAM, uri)
-            putExtra(Intent.EXTRA_TEXT, "$title\nShared via NepTools — 100% Ad-Free Nepali Toolkit\nhttps://github.com/shubhambelbase/NepTools")
             clipData = ClipData.newRawUri(title, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
