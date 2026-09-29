@@ -72,6 +72,7 @@ object NepaliDateNotificationManager {
 
             // Synchronize homescreen widgets
             com.neptools.app.core.widget.NepToolsDateWidgetProvider.updateAllWidgets(context)
+            com.neptools.app.core.widget.NepToolsMonthWidgetProvider.updateAllWidgets(context)
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -121,6 +121,7 @@ object BackupManager {
                     }
                 }
                 editor.apply()
+                com.neptools.app.core.habit.HabitRepository.get(context).invalidateCache()
                 val listRaw = habitsObj.optString("habits_list", "[]")
                 habitCount = try { JSONArray(listRaw).length() } catch (_: Exception) { 0 }
             }
@@ -157,6 +158,7 @@ object BackupManager {
                 val eventsArr = root.getJSONArray("userEvents")
                 com.neptools.app.core.util.SafeFileWriter.writeAtomic(File(context.filesDir, "user_calendar_events.json"), eventsArr.toString())
                 eventCount = eventsArr.length()
+                com.neptools.app.core.reminder.UserEventManager.rescheduleAll(context)
             }
 
             // Restore Saved Birth Profile (Kundali)

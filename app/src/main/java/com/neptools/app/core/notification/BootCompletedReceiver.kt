@@ -39,6 +39,7 @@ class BootCompletedReceiver : BroadcastReceiver() {
                         NepaliDateStickyService.start(appContext)
                         SmartAlertNotificationManager.createNotificationChannels(appContext)
                         ReminderHelper.rescheduleAll(appContext)
+                        com.neptools.app.core.reminder.UserEventManager.rescheduleAll(appContext)
                         WorkScheduler.scheduleAll(appContext)
                     } catch (_: Exception) {
                         // Never let a failed restore crash the boot broadcast; the

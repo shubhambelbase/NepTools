@@ -124,6 +124,19 @@ object UserEventManager {
         }
     }
 
+    @Synchronized
+    fun rescheduleAll(context: Context) {
+        try {
+            val all = getAllEvents(context)
+            for (event in all) {
+                if (event.hasReminder) {
+                    scheduleNotification(context, event)
+                }
+            }
+        } catch (_: Exception) {
+        }
+    }
+
     private fun scheduleNotification(context: Context, event: UserCalendarEvent) {
         try {
             val engine = PatroRepo.d.engine
@@ -134,12 +147,18 @@ object UserEventManager {
 
             if (triggerMillis <= System.currentTimeMillis()) return
 
+            val reqCode = (event.id.hashCode() and 0x7FFFFFFF)
             val intent = Intent(context, ReminderReceiver::class.java).apply {
+                putExtra("id", reqCode)
+                putExtra("title", event.title)
                 putExtra("event_id", event.id)
                 putExtra("event_title", event.title)
                 putExtra("event_note", event.note)
+                putExtra(
+                    com.neptools.app.core.radio.RadioService.EXTRA_NAVIGATE_ROUTE,
+                    com.neptools.app.ui.navigation.Routes.day(event.yearBs, event.monthBs, event.dayBs)
+                )
             }
-            val reqCode = (event.id.hashCode() and 0x7FFFFFFF)
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
                 reqCode,

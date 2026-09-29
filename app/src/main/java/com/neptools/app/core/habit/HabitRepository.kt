@@ -317,6 +317,11 @@ class HabitRepository private constructor(context: Context) {
      * The cache is invalidated by [setHabitLog], the only writer of [KEY_LOGS].
      */
     @Synchronized
+    fun invalidateCache() {
+        logsByDateCache = null
+    }
+
+    @Synchronized
     private fun allLogsByDate(): Map<String, Map<String, HabitLog>> {
         logsByDateCache?.let { return it }
         val index = mutableMapOf<String, MutableMap<String, HabitLog>>()

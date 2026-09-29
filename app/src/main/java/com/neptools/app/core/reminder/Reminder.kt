@@ -73,8 +73,15 @@ object ReminderHelper {
 
 class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val title = intent.getStringExtra("title") ?: "सम्झना"
-        val id = intent.getIntExtra("id", title.hashCode())
+        val title = intent.getStringExtra("event_title")
+            ?: intent.getStringExtra("title")
+            ?: "सम्झना"
+        val note = intent.getStringExtra("event_note")?.trim().orEmpty()
+        val id = intent.getIntExtra("id", -1).takeIf { it != -1 }
+            ?: (intent.getStringExtra("event_id")?.hashCode() ?: title.hashCode())
+        val route = intent.getStringExtra(com.neptools.app.core.radio.RadioService.EXTRA_NAVIGATE_ROUTE)
+            ?: com.neptools.app.ui.navigation.Routes.CALENDAR
+
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= 26) {
             try {
@@ -87,7 +94,7 @@ class ReminderReceiver : BroadcastReceiver() {
         }
         val launchIntent = Intent(context, com.neptools.app.MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            putExtra(com.neptools.app.core.radio.RadioService.EXTRA_NAVIGATE_ROUTE, com.neptools.app.ui.navigation.Routes.CALENDAR)
+            putExtra(com.neptools.app.core.radio.RadioService.EXTRA_NAVIGATE_ROUTE, route)
         }
         val launch = PendingIntent.getActivity(
             context, id, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -101,15 +108,25 @@ class ReminderReceiver : BroadcastReceiver() {
             .setSmallIcon(com.neptools.app.R.drawable.ic_stat_notify)
             .setColor(0xFFE11D48.toInt())
             .setContentTitle(context.getString(com.neptools.app.R.string.app_name))
-            .setContentText(title)
+            .setContentText(if (note.isNotBlank()) "$title — $note" else title)
             .setContentIntent(launch)
             .setAutoCancel(true)
+
+        if (note.isNotBlank()) {
+            notifBuilder.setStyle(
+                NotificationCompat.BigTextStyle()
+                    .setBigContentTitle(title)
+                    .bigText(note)
+            )
+        }
 
         if (largeIcon != null) {
             notifBuilder.setLargeIcon(largeIcon)
         }
         nm.notify(id, notifBuilder.build())
-        // Remove one-shot from store after firing
-        try { ReminderStore.remove(context, id) } catch (e: Exception) { }
+        // Remove one-shot from store after firing if scheduled via ReminderStore
+        if (intent.hasExtra("id")) {
+            try { ReminderStore.remove(context, id) } catch (_: Exception) { }
+        }
     }
 }

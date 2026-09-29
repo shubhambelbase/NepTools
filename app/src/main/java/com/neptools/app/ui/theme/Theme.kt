@@ -90,7 +90,8 @@ object ThemePrefs {
             ThemeMode.System
         }
         lang.value = p.getString("lang", null) ?: defaultLang()
-        nepaliDigits.value = (lang.value == "np")
+        val defaultDigits = (lang.value == "np")
+        nepaliDigits.value = p.getBoolean("np_digits", defaultDigits)
         dailyDateNotification.value = p.getBoolean("notif_daily_date", true)
         habitNotification.value = p.getBoolean("notif_habit", true)
         subNotification.value = if (p.contains("notif_sub")) p.getBoolean("notif_sub", true) else p.getBoolean("notif_subs", true)

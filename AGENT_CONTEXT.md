@@ -9,7 +9,7 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.9 (versionCode: 48)
+- Current Version: v2.9.0 (versionCode: 49)
 - Last Updated: September 29, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
@@ -94,49 +94,19 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.9 (versionCode 48) — Full Tools Navigation Fix, Rashifal Refresh Removal, Cache Invalidation & Setting Keys.
+- Status: v2.9.0 (versionCode 49) — Event Notification Fidelity, Reboot Alarm Recovery, Restore Cache Invalidation & Widget Sync.
 - Last Updated: September 29, 2026
-- Verification: 50/50 unit tests pass, assembleRelease succeeds.
+- Verification: 50/50 unit tests pass, assembleRelease signed build verified (SHA-256: 226102D88C38D43C1688A8335E702F831BE7E83F704D8D69A747959801ED8D66).
 - Recent Updates:
-  - v2.8.9:
-    - Navigation Gate Repair (PatroNavHost.kt): Replaced overly restrictive 8-route allowlist with `ALL_LITERAL_ROUTES` (50+ registered routes) and parameterized route verification (`isValidRoute`), restoring access to all tools from ToolsScreen and HomeScreen.
-    - Daily Horoscope Refresh Removal (RashifalScreen.kt): Removed redundant top bar refresh button and refresh key state; seed now deterministically derives from the selected rashi and current date.
-    - Habit Log Cache Invalidation (HabitRepository.kt): Fixed `deleteHabit` failing to invalidate `logsByDateCache`, preventing deleted habits' logs from persisting in memory.
-    - Subscription Notification Preference Key Sync (Theme.kt): Resolved key mismatch where `saveSubNotification` wrote `notif_sub` while `ThemePrefs.load` read `notif_subs`.
-    - Ekadashi Year-Switch Responsiveness (EkadashiListScreen.kt): Keyed state variables by `selectedYear` for immediate cache resolution and loading state display.
-  - v2.8.8:
-    - Habit Streak Correctness Fix (HabitRepository.kt, HabitStreakCalculator.kt): Fixed dead ternary and firstStreakBroken flag. Extracted pure `HabitStreakCalculator` with neutral rest days.
-    - Habit Heatmap Performance (HabitRepository.kt): Added memoized date-keyed index (`allLogsByDate`) invalidated on write.
-    - Ekadashi Screen Responsiveness (EkadashiListScreen.kt): Ephemeris solves offloaded to Dispatchers.Default with ConcurrentHashMap cache.
-    - Lifecycle State Collection: Migrated 28 collectAsState() to collectAsStateWithLifecycle().
-    - System Dark Mode (Theme.kt, SettingsScreen.kt): Added ThemeMode (System/Light/Dark) resolved via isSystemInDarkTheme.
-    - Text Contrast & Container Colors (Color.kt): Faded darkened to #6B6455 (WCAG AA); replaced translucent container with VermilionContainer.
-    - Keyboard Insets (PatroNavHost.kt): Applied safeDrawing + imePadding().
-    - Destructive Action Confirmation: Added confirmation dialogs for habit and subscription deletion.
-    - Deep-Link Validation & Release Signing Hardening: Checked external routes; required release keystore for assembleRelease.
-    - Boot Receiver IO (BootCompletedReceiver.kt): Offloaded to Dispatchers.IO via goAsync(). Removed test broadcast actions.
-    - Cold-Start Colour Step: Window background matches theme in MainActivity. First-run seeds language from device locale.
-    - Removed the unused `CHANGE_WIFI_MULTICAST_STATE` permission.
-  - v2.8.7:
-    - Clean Graphics & PDF Watermark Purge: Removed promotional footers, "NepTools 100% Ad-Free • Privacy-First", website URLs, and copyright strings from Patro and Rashifal graphic cards (`PatroGraphicGenerator.kt`), bill receipts (`ReceiptGraphicGenerator.kt`), Kundali and Guna Milan astrology reports (`AstroPdfExporter.kt`), and official application letters (`PdfExporter.kt`).
-    - Unbranded Social Sharing: Purged promotional branding, extra marketing text, and GitHub links from `ACTION_SEND` intents across card sharing, bill splitters, land converter, and loan EMI calculators.
-  - v2.8.6:
-    - Compose Clipboard Modernization: Replaced deprecated `LocalClipboardManager` with coroutine-backed `LocalClipboard.current` in `ClipboardExtensions.kt` across 5 screen components (`ConverterScreen.kt`, `EmergencyScreen.kt`, `LandConverterScreen.kt`, `PostalCodeScreen.kt`, `VoiceScreen.kt`), achieving 0 compiler warnings.
-    - Studio Commercial Production: Produced sleek 9:16 vertical product showcase video using HyperFrames, Gemini TTS Nepali voiceover, and hardware mockup transitions.
-  - v2.8.5:
-    - Crash-Safe File IO (SafeFileWriter.kt): Implemented atomic write-flush-sync-rename pattern across all JSON cache stores (NotesStore, ReminderStore, BackupManager, FuelRepo, KalimatiRepo, RatesRepo, WeatherRepo) preventing cache corruption on abrupt process kills.
-    - Concurrency & Thread-Safety: Added reentrant lock synchronization in RecentUpdatesManager to protect shared list mutations against background worker interleaving.
-    - Main-Thread IO Offloading: Migrated heavy operations (social card rasterization, PDF rendering, Password Vault AES re-encryption, initial repository cache reads) to Dispatchers.IO and Default coroutines.
-    - In-App Updater Resiliency (GitHubUpdateManager.kt): Hardened release updater with fallback sha256 checksum resolution via companion asset (app-release.apk.sha256) and web release page parsing to prevent IP rate-limiting errors.
-  - v2.8.4:
-    - Daily Patro & Rashifal Card Generator (PatroGraphicGenerator.kt): 1080x1440 high-resolution social card generator in Newari Ink / Rice Paper styling with BS/AD dates, Tithi, Nakshatra, Yoga, Sunrise/Sunset, Rahu Kaal, festive banners, and Subhashita blessing with 1-tap WhatsApp/Viber sharing from Home, Day Detail, Rashifal, and Ekadashi screens.
-    - Automated Festival & Fasting Reminders (SmartAlertNotificationManager.kt, SacredTithiResolver.kt): Added background notification engine alerting the evening prior for upcoming Ekadashis, Aunsi, Purnima, and major festivals, plus morning Dwadashi Parana timing alerts with Settings and in-screen toggles.
-    - Universal Tool Header & Typography Standardization (PatroComponents.kt): Created reusable ToolTopBar unifying all 35+ tool screens with sleek typography (16.5sp bold title, -0.2sp tracking, and 11sp onSurfaceVariant subtitle) alongside 36dp surface pill back actions. Enforced zero emojis across all tools.
-    - Subscription Tracker Overhaul (SubscriptionTrackerScreen.kt): Added quick utility presets (NTC, WorldLink, NEA, Khanepani), comprehensive outflow dashboard with category distribution, 1-tap quick paid buttons, and foreign currency NPR conversion estimates.
-    - Calendar Holiday vs Festival Distinction: Fixed calendar cell styling bug where ordinary festivals highlighted days in holiday red. Only official public holidays are red; ordinary working festivals are shown in subtle secondary/teal.
-    - Authentic Udaya Tithi at Local Sunrise: Updated PanchangCalc.compute() to sample lunar elongation at authentic local sunrise via SolarCalc.
-    - Cell Grid Tithi Display & Gazette Alignment: Localized Tithi on every calendar grid day cell and cross-verified BS 2081 through 2085.
-  - v2.8.0 - v2.8.3: Full BS 2083 and 11-Year Festival Deduplication (BS 2075-2085) with Gazette holiday enforcement across all 132 months; Bikram Sambat Lunar Festival Engine re-architected to authentic astronomical Lunar Masa indexing; Screen-Reader accessibility fix in CalendarCells.kt. Per-version detail in `release_notes_*.md` and git history.
-  - v2.7.0 - v2.7.9: Govt templates modernization against official Acts and Rules, QR code enhancements, notification deep linking, bubble level micro-animations, fuel and date converter refinements, subscription and habit empty state cleanup, high-precision ephemeris.
+  - v2.9.0:
+    - Event Reminder Fidelity & IDs (Reminder.kt, UserEventManager.kt): Surfaced event title, note, and day deep-link in notifications; assigned distinct IDs to prevent collisions.
+    - Reboot & Restore Alarm Recovery (BootCompletedReceiver.kt, UserEventManager.kt, BackupManager.kt): Added `rescheduleAll` restoring event reminders on boot and backup import.
+    - Cache & Preference Resiliency (HabitRepository.kt, Theme.kt): Invalidated `logsByDateCache` on backup restore; restored persisted `"np_digits"` setting on cold start.
+    - Midnight Widget Synchronization (NepaliDateNotificationManager.kt): Dispatched midnight rollover updates to both Date and Month homescreen widgets.
+  - v2.8.9: Navigation gate repair (ALL_LITERAL_ROUTES), daily horoscope refresh removal, habit delete cache invalidation, subscription preference key sync.
+  - v2.8.8: Habit streak correctness & heatmap indexing, Ekadashi responsiveness with ephemeris cache, lifecycle state collection, System dark mode, WCAG AA contrast, delete dialogs.
+  - v2.8.6 - v2.8.7: Compose clipboard modernization, branding watermark purge in generated PDFs and shares, unbranded intent sharing.
+  - v2.8.4 - v2.8.5: Crash-safe atomic file IO, social card generator, automated sacred tithi alerts, subscription presets, authentic sunrise Udaya Tithi.
+  - v2.7.0 - v2.8.3: BS 2075-2085 festival deduplication, Govt templates, QR enhancements, bubble level, loan EMI, high-precision ephemeris.
 
 
