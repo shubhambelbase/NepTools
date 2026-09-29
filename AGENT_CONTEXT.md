@@ -9,8 +9,8 @@
 - App Name: NepTools (strictly "NepTools", never standalone "Nepal Patro")
 - Package Name / Application ID: com.neptools.app
 - Target Platform: Android (minSdk: 26, targetSdk: 36, compileSdk: 36)
-- Current Version: v2.8.8 (versionCode: 47)
-- Last Updated: September 28, 2026
+- Current Version: v2.8.9 (versionCode: 48)
+- Last Updated: September 29, 2026
 - Languages: Kotlin (JVM 17) + C++20 for native security
 - UI Toolkit: 100% Jetpack Compose (Material 3) with Compose BOM
 - Creator: Shubham Belbase
@@ -94,24 +94,28 @@ app/src/main/
 
 ## 7. Status & Recent Changes
 
-- Status: v2.8.8 (versionCode 47) — Correctness, Performance, Release-Safety & Accessibility Audit.
-- Last Updated: September 28, 2026
-- Verification: 50/50 unit tests pass, debug build compiles clean, release-signing guard verified.
+- Status: v2.8.9 (versionCode 48) — Full Tools Navigation Fix, Rashifal Refresh Removal, Cache Invalidation & Setting Keys.
+- Last Updated: September 29, 2026
+- Verification: 50/50 unit tests pass, assembleRelease succeeds.
 - Recent Updates:
+  - v2.8.9:
+    - Navigation Gate Repair (PatroNavHost.kt): Replaced overly restrictive 8-route allowlist with `ALL_LITERAL_ROUTES` (50+ registered routes) and parameterized route verification (`isValidRoute`), restoring access to all tools from ToolsScreen and HomeScreen.
+    - Daily Horoscope Refresh Removal (RashifalScreen.kt): Removed redundant top bar refresh button and refresh key state; seed now deterministically derives from the selected rashi and current date.
+    - Habit Log Cache Invalidation (HabitRepository.kt): Fixed `deleteHabit` failing to invalidate `logsByDateCache`, preventing deleted habits' logs from persisting in memory.
+    - Subscription Notification Preference Key Sync (Theme.kt): Resolved key mismatch where `saveSubNotification` wrote `notif_sub` while `ThemePrefs.load` read `notif_subs`.
+    - Ekadashi Year-Switch Responsiveness (EkadashiListScreen.kt): Keyed state variables by `selectedYear` for immediate cache resolution and loading state display.
   - v2.8.8:
-    - Habit Streak Correctness Fix (HabitRepository.kt, HabitStreakCalculator.kt): Fixed a dead ternary in the streak walk (both branches read `today.minusDays(1)`) and a `firstStreakBroken` flag that was only ever set to true and never reset. The current-streak counter read 0 every morning before the user logged the day, and 0 forever on any scheduled rest day. Streak logic extracted to a pure, unit-tested `HabitStreakCalculator`; rest days are now neutral and a pending day no longer breaks the chain. New `HabitStreakTest` (6 cases).
-    - Habit Heatmap Performance (HabitRepository.kt): `getLogsForDate` re-read and re-parsed the entire habits log blob on every call, so the 52-week heatmap and streak loops parsed ~130 KB of JSON roughly 760 times per recomposition. Added a memoized date-keyed index (`allLogsByDate`) invalidated on every write.
-    - Ekadashi Screen Responsiveness (EkadashiListScreen.kt): A year of tithis ran 365 high-precision panchang solves inside `remember`, blocking the main thread for seconds. Moved to `Dispatchers.Default` with a per-year `ConcurrentHashMap` cache and a loading state.
-    - Lifecycle-Aware State Collection: Migrated 28 `collectAsState()` call sites to `collectAsStateWithLifecycle()` so the 20 Hz sound meter and 15 Hz EMF detector stop recomposing once the screen is backgrounded.
-    - System Dark Mode (Theme.kt, SettingsScreen.kt): The app ignored the OS dark setting and defaulted to light. Added a `ThemeMode` enum (System / Light / Dark) resolved via `isSystemInDarkTheme()`, with migration from the old boolean toggle and a segmented control in Settings.
-    - Text Contrast (Color.kt): `Faded` (used as `onSurfaceVariant`) measured 3.6:1 on `Paper` and 3.25:1 on `RicePaper`, failing WCAG AA. Darkened to `#6B6455` (clears 4.5:1). `primaryContainer` was a 10%-alpha value, which M3 container roles must not be; replaced with opaque `VermilionContainer`.
-    - Keyboard Insets (PatroNavHost.kt): No `imePadding` or IME-aware `contentWindowInsets` existed anywhere, so the soft keyboard covered the bottom of every form. Applied `WindowInsets.safeDrawing` plus `imePadding()` at the NavHost.
-    - Destructive Action Confirmation (HabitTrackerScreen.kt, SubscriptionTrackerScreen.kt): Deleting a habit or subscription previously ran straight from the options menu, irreversibly discarding all check-in history. Both now require confirmation.
-    - Deep-Link Route Validation (PatroNavHost.kt): The `navigate_to_route` Intent extra on the exported MainActivity was passed to `navController.navigate` unvalidated, letting any installed app crash NepTools with an unknown route. Added the `Routes.DEEPLINK_TARGETS` allowlist and dropped unknown routes.
-    - Release Signing Hardening (build.gradle.kts): `assembleRelease` silently fell back to the public Android debug key when `keystore.properties` was missing, producing a distributable APK anyone could impersonate. The build now fails. Also disabled obsolete V1 signing (CVE-2017-13156) and moved the emulator-only `x86_64` ABI to the debug build type.
-    - Boot Receiver Main-Thread IO (BootCompletedReceiver.kt): Parsed the calendar and festival datasets and solved a panchang on the broadcast main thread of a cold-started process. Moved to `Dispatchers.IO` with `goAsync()`. Removed three `TEST_*` broadcast branches that any app could trigger on the exported receiver.
-    - Build Memory (gradle.properties): Raised the heap to 4 GB and dropped `kotlin.compiler.execution.strategy=in-process`, which had the Kotlin compiler competing with R8 for the same heap.
-    - Cold-Start Colour Step (values/colors.xml, MainActivity.kt): Window background now follows the resolved app theme instead of the system setting, removing a one-frame flash. First run now seeds language from the device locale instead of always defaulting to Nepali.
+    - Habit Streak Correctness Fix (HabitRepository.kt, HabitStreakCalculator.kt): Fixed dead ternary and firstStreakBroken flag. Extracted pure `HabitStreakCalculator` with neutral rest days.
+    - Habit Heatmap Performance (HabitRepository.kt): Added memoized date-keyed index (`allLogsByDate`) invalidated on write.
+    - Ekadashi Screen Responsiveness (EkadashiListScreen.kt): Ephemeris solves offloaded to Dispatchers.Default with ConcurrentHashMap cache.
+    - Lifecycle State Collection: Migrated 28 collectAsState() to collectAsStateWithLifecycle().
+    - System Dark Mode (Theme.kt, SettingsScreen.kt): Added ThemeMode (System/Light/Dark) resolved via isSystemInDarkTheme.
+    - Text Contrast & Container Colors (Color.kt): Faded darkened to #6B6455 (WCAG AA); replaced translucent container with VermilionContainer.
+    - Keyboard Insets (PatroNavHost.kt): Applied safeDrawing + imePadding().
+    - Destructive Action Confirmation: Added confirmation dialogs for habit and subscription deletion.
+    - Deep-Link Validation & Release Signing Hardening: Checked external routes; required release keystore for assembleRelease.
+    - Boot Receiver IO (BootCompletedReceiver.kt): Offloaded to Dispatchers.IO via goAsync(). Removed test broadcast actions.
+    - Cold-Start Colour Step: Window background matches theme in MainActivity. First-run seeds language from device locale.
     - Removed the unused `CHANGE_WIFI_MULTICAST_STATE` permission.
   - v2.8.7:
     - Clean Graphics & PDF Watermark Purge: Removed promotional footers, "NepTools 100% Ad-Free • Privacy-First", website URLs, and copyright strings from Patro and Rashifal graphic cards (`PatroGraphicGenerator.kt`), bill receipts (`ReceiptGraphicGenerator.kt`), Kundali and Guna Milan astrology reports (`AstroPdfExporter.kt`), and official application letters (`PdfExporter.kt`).

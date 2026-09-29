@@ -134,8 +134,7 @@ fun RashifalScreen(onBack: () -> Unit) {
     val today = remember { engine.today() }
     var selected by remember { mutableIntStateOf(0) }
     val rashi = rashis[selected]
-    var refreshKey by remember { mutableIntStateOf(0) }
-    val seed = remember(selected, refreshKey) { LocalDate.now().toEpochDay() * 31 + selected + refreshKey }
+    val seed = remember(selected) { LocalDate.now().toEpochDay() * 31 + selected }
     val rng = remember(seed) { Random(seed) }
     val isEn = com.neptools.app.ui.theme.ThemePrefs.lang.value == "en"
 
@@ -190,12 +189,6 @@ fun RashifalScreen(onBack: () -> Unit) {
                 }) {
                     Icon(PIcons.Share, contentDescription = "Share Horoscope Card", tint = MaterialTheme.colorScheme.onSurface)
                 }
-                com.neptools.app.ui.components.AnimatedRefreshIconButton(
-                    onClick = { refreshKey++ },
-                    iconSize = 18.dp,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(36.dp)
-                )
             }
         )
         Spacer(Modifier.height(14.dp))

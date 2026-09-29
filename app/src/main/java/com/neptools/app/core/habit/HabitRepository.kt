@@ -201,6 +201,7 @@ class HabitRepository private constructor(context: Context) {
                 val json = JSONObject(rawLogs)
                 json.remove(id)
                 prefs.edit().putString(KEY_LOGS, json.toString()).apply()
+                logsByDateCache = null
             }
         } catch (e: Exception) {
             e.printStackTrace()

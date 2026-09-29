@@ -109,8 +109,8 @@ fun EkadashiListScreen(onBack: () -> Unit) {
     // high-precision ephemeris evaluation. Running that inside remember()
     // blocked the main thread for seconds and could trip an ANR, so it now
     // happens off the main thread and each year is solved only once.
-    var events by remember { mutableStateOf(yearEventCache[selectedYear] ?: emptyList()) }
-    var eventsLoading by remember { mutableStateOf(yearEventCache[selectedYear] == null) }
+    var events by remember(selectedYear) { mutableStateOf(yearEventCache[selectedYear] ?: emptyList()) }
+    var eventsLoading by remember(selectedYear) { mutableStateOf(yearEventCache[selectedYear] == null) }
     LaunchedEffect(selectedYear) {
         val cached = yearEventCache[selectedYear]
         if (cached != null) {

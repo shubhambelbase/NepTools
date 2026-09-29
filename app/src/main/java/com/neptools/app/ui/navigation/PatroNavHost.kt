@@ -100,24 +100,26 @@ object Routes {
     fun calendar(year: Int, month: Int) = "calendar/$year/$month"
     fun day(year: Int, month: Int, day: Int) = "day/$year/$month/$day"
 
-    private val topLevel = setOf(HOME, CALENDAR, TOOLS)
-
-    /**
-     * Destinations that may be entered from outside the app, via the
-     * `navigate_to_route` Intent extra on the exported MainActivity, the
-     * launcher shortcuts, widget taps and notification actions.
-     *
-     * Only literal routes appear here. Parameterized routes such as
-     * `calendar/{year}/{month}` are built by the [calendar] and [day] helpers
-     * and can never arrive as an external string.
-     *
-     * Anything not listed is dropped rather than navigated to, because
-     * Navigation-Compose throws for an unknown destination and that exception
-     * would unwind out of the collector coroutine and kill the process.
-     */
-    val DEEPLINK_TARGETS: Set<String> = topLevel + setOf(
-        RADIO, FUEL, CURRENCY, VOICE, QR, WEATHER, RASHIFAL, EMERGENCY
+    val ALL_LITERAL_ROUTES: Set<String> = setOf(
+        HOME, CALENDAR, TOOLS, WEATHER, CONVERTER, CURRENCY, AGE, RASHIFAL,
+        VOICE, EMERGENCY, BILL_CALC, POSTAL, FUEL, RADIO, QR, KALIMATI,
+        TEMPLATES, LOAN_EMI, DRIVING_LICENSE, IMAGE_COMPRESSOR, LAN_DROP,
+        SPEED_TEST, DECISION_MAKER, BILL_SPLITTER, PET_WHISTLE, COMPASS,
+        BUBBLE_LEVEL, VAULT, FILE_CONVERTER, MUHURAT, GUNA_MILAN, EKADASHI,
+        SETTINGS, ABOUT, TERMS, PRIVACY, HABIT_TRACKER, SUBSCRIPTION_TRACKER,
+        UPDATER, SOUND_METER, SPY_CAMERA, ASTRO, ASTRO_BIRTH, ASTRO_KUNDALI,
+        ASTRO_DASHA, ASTRO_GOCHAR, ASTRO_ANALYSIS, VASTU_COMPASS, LAND_CONVERTER,
+        RECENT_UPDATES
     )
+
+    fun isValidRoute(route: String): Boolean {
+        if (route in ALL_LITERAL_ROUTES) return true
+        if (route.startsWith("calendar/")) return true
+        if (route.startsWith("day/")) return true
+        return false
+    }
+
+    val DEEPLINK_TARGETS: Set<String> = ALL_LITERAL_ROUTES
 }
 
 private data class TopLevel(val route: String, val key: String, val icon: ImageVector)
@@ -139,15 +141,14 @@ fun PatroApp() {
     val isTopLevelRoute = currentRoute in topLevelRoutes
 
     fun navigateTo(route: String) {
-        // The route arrives from an Intent extra on an exported Activity, so it is
-        // untrusted input. Navigating to a destination that is not in the graph
-        // throws inside the collector coroutine and takes the process down.
-        if (route !in Routes.DEEPLINK_TARGETS) return
+        if (!Routes.isValidRoute(route)) return
         if (route in topLevelRoutes) {
             navController.navigateTab(route)
         } else {
-            navController.navigate(route) {
-                launchSingleTop = true
+            runCatching {
+                navController.navigate(route) {
+                    launchSingleTop = true
+                }
             }
         }
     }

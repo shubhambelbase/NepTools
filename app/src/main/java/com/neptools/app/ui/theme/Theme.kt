@@ -93,7 +93,7 @@ object ThemePrefs {
         nepaliDigits.value = (lang.value == "np")
         dailyDateNotification.value = p.getBoolean("notif_daily_date", true)
         habitNotification.value = p.getBoolean("notif_habit", true)
-        subNotification.value = p.getBoolean("notif_subs", true)
+        subNotification.value = if (p.contains("notif_sub")) p.getBoolean("notif_sub", true) else p.getBoolean("notif_subs", true)
         weatherNotification.value = p.getBoolean("notif_weather", true)
         festivalNotification.value = p.getBoolean("notif_festivals", true)
     }
