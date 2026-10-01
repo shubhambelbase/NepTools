@@ -1,10 +1,10 @@
 # NepTools — Modern Nepali Calendar & Smart Utility Suite
 
-[![Version](https://img.shields.io/badge/Version-v2.9.0-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
+[![Version](https://img.shields.io/badge/Version-v2.9.5-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
 [![Platform](https://img.shields.io/badge/Platform-Android%208.0%2B-green.svg)](https://github.com/shubhambelbase/NepTools)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](https://github.com/shubhambelbase/NepTools)
 
-**NepTools** is an all-in-one, modern Nepali calendar and smart utility application designed for Android. Combining authentic Nepali astronomical calculations with a modern touch-first design, NepTools provides everything you need in your daily life—from Bikram Sambat dates and festival alerts to finance calculators, habit tracking, encrypted backup, and astrological insights.
+**NepTools** is an all-in-one, modern Nepali calendar and smart utility application designed for Android. Combining authentic Nepali astronomical calculations with a modern touch-first design, NepTools provides everything you need in your daily life—from Bikram Sambat dates, festival alerts, and Google Calendar sync to income tax calculations, habit tracking, encrypted backup, and astrological insights.
 
 ---
 
@@ -12,12 +12,9 @@
 
 You can download the latest official APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v2.9.0)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v2.9.5)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
-Releases from v2.7.0 onward are signed with a dedicated release key, so Android treats them as a
-different signer from the old debug-key builds. If you are upgrading from v2.6.1 or earlier, export a
-backup from Settings before installing, then restore it afterwards, and allow one clean install.
-See RELEASE_SIGNING.md.
+Releases are signed with a dedicated release key and include published SHA-256 checksums for verified package integrity.
 
 ---
 
@@ -27,6 +24,7 @@ See RELEASE_SIGNING.md.
 * **Home Screen Widget**: Clean, lightweight daily patro widget displaying today's BS date, weekday, tithi, and festive events with automatic midnight rollover.
 * **BS <-> AD Date Conversion**: Fast bi-directional conversion spanning BS 1975 to BS 2099 with on-device Smart Date clipboard detection.
 * **Daily Panchang**: Complete Tithi, Nakshatra, Sunrise/Sunset, Rahu Kaal, and Yamaganda timings.
+* **Calendar Sync & RFC 5545 (.ics) Export**: Export Month Festivals, Full Year National Holidays, or personal reminders to standard .ics files. 1-tap direct integration with Google Calendar and smartwatches.
 * **Custom Calendar Events**: Add personal notes, puja schedules, and reminders with local alarm notifications.
 * **Nepali Festivals & Holidays**: Comprehensive list of national holidays, cultural festivals, and bank holidays.
 * **Devanagari & English Support**: Dual monthly matrix with customizable Nepali and English views.
@@ -47,7 +45,7 @@ See RELEASE_SIGNING.md.
 
 ### 5. In-App Updater
 * **One-Tap Updates**: Check, download, and install the latest updates directly inside the app.
-* **Fast Background Streaming**: Live download progress with automatic package installer integration.
+* **Fast Background Streaming**: Live download progress with SHA-256 verification and automatic package installer integration.
 
 ### 6. Vedic Astrology & Jyotish
 * **Kundali Generator**: Authentic Vedic birth chart generation (North & South Indian formats).
@@ -57,12 +55,13 @@ See RELEASE_SIGNING.md.
 * **Auspicious Muhurat**: Favorable timings for weddings, Pasni, Bratabandha, and Griha Pravesh.
 
 ### 7. Smart Financial & Daily Utility Suite
+* **Nepal Income Tax Calculator**: Progressive tax calculation for salaried individuals and married couples, Social Security Fund (SSF) exemptions, allowable deductions, and future-proof fiscal year slabs.
 * **Loan EMI & Fixed Deposit Calculator**: Monthly repayment schedules and interest calculations.
 * **Forex Currency Converter**: Real-time Nepal Rastra Bank exchange rates.
 * **Land Area Converter**: Convert between Ropani-Aana-Paisa-Dam, Bigha-Katha-Dhur, Sq. Feet, and Sq. Meters.
 * **Encrypted Vault**: Secure local storage with biometric authentication for notes and passwords.
 * **Daily Sensors & Utilities**: Compass, Bubble Level, Sound Level Meter (dBA), Spy Camera & Bug Detector, Bilingual Voice Notes, Speed Test, Fuel Rates, Vegetable Market Prices, and Radio streaming.
-* **Personalized Favorites**: Pin frequently used tools right at the top with persistent 1-tap bookmarks.
+* **Starred Favorite Tools**: Pin frequently used tools right at the top of the Home screen with persistent bookmarks.
 
 ---
 
