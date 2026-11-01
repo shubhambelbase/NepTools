@@ -1,6 +1,6 @@
-# NepTools — Modern Nepali Calendar & Smart Utility Suite
+# NepTools - Modern Nepali Calendar & Smart Utility Suite
 
-[![Version](https://img.shields.io/badge/Version-v2.9.5-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
+[![Version](https://img.shields.io/badge/Version-v3.1.0-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
 [![Platform](https://img.shields.io/badge/Platform-Android%208.0%2B-green.svg)](https://github.com/shubhambelbase/NepTools)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](https://github.com/shubhambelbase/NepTools)
 
@@ -12,7 +12,7 @@
 
 You can download the latest official APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v2.9.5)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v3.1.0)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
 Releases are signed with a dedicated release key and include published SHA-256 checksums for verified package integrity.
 
@@ -29,38 +29,47 @@ Releases are signed with a dedicated release key and include published SHA-256 c
 * **Nepali Festivals & Holidays**: Comprehensive list of national holidays, cultural festivals, and bank holidays.
 * **Devanagari & English Support**: Dual monthly matrix with customizable Nepali and English views.
 
-### 2. Habit Tracker
+### 2. QR Studio & Offline Scanner
+* **Multi-Format QR Generation**: Instant generation for Website URLs, Plain Text, Phone numbers, SMS, Wi-Fi networks, eSewa Pay, and Khalti Pay.
+* **Custom Styling Engine**: 3 module dot styles (Rounded, Squircle, Classic Sharp) and 6 high-contrast color palettes.
+* **Offline Scanner & Decoder**: Scan codes directly from device camera, or decode from screenshots / saved photos via offline image picker with instant payload inspection and contextual action triggers.
+
+### 3. Live Nepali FM Radio & Streaming
+* **Real-Time Frequency Scrubbing**: Interactive frequency ruler gesture control with live haptic feedback and snap-to-station tuning.
+* **Popular Station Directory**: Stream high-clarity live broadcasts from Radio Nepal, Image FM, Radio Annapurna, and nationwide stations.
+
+### 4. Habit Tracker
 * **Annual Heatmap Grid**: 52-week horizontal consistency grid showing your daily momentum at a glance.
 * **Streak Analytics**: Live tracking of current streaks, longest streaks, active days, and completion rates.
 * **Flexible Targets**: Simple check-ins, numeric counters (water intake, reading pages), and timers.
 
-### 3. Subscription & Bill Tracker
+### 5. Subscription & Bill Tracker
 * **Multi-Currency Tracking**: Manage subscriptions in NPR, USD, INR, EUR, and GBP.
 * **Flexible Billing Cycles**: Weekly, monthly, quarterly, and annual renewals.
 * **Renewal Reminders**: Upcoming payment countdowns and one-tap paid confirmations.
 
-### 4. Data Backup & Restore
+### 6. Data Backup & Restore
 * **Offline Local Backup**: Export habits, subscriptions, notes, and events into a portable JSON file.
 * **One-Tap Restore**: Restore data safely on any device without cloud dependencies.
 
-### 5. In-App Updater
+### 7. In-App Updater
 * **One-Tap Updates**: Check, download, and install the latest updates directly inside the app.
 * **Fast Background Streaming**: Live download progress with SHA-256 verification and automatic package installer integration.
 
-### 6. Vedic Astrology & Jyotish
+### 8. Vedic Astrology & Jyotish
 * **Kundali Generator**: Authentic Vedic birth chart generation (North & South Indian formats).
 * **Vimshottari Dasha**: Mahadasha and Antardasha timeline breakdown.
 * **Gochar (Transits)**: Real-time planetary transits and astrological movements.
 * **Guna Milan (Horoscope Matching)**: 36-point compatibility scoring.
 * **Auspicious Muhurat**: Favorable timings for weddings, Pasni, Bratabandha, and Griha Pravesh.
 
-### 7. Smart Financial & Daily Utility Suite
+### 9. Smart Financial & Daily Utility Suite
 * **Nepal Income Tax Calculator**: Progressive tax calculation for salaried individuals and married couples, Social Security Fund (SSF) exemptions, allowable deductions, and future-proof fiscal year slabs.
 * **Loan EMI & Fixed Deposit Calculator**: Monthly repayment schedules and interest calculations.
 * **Forex Currency Converter**: Real-time Nepal Rastra Bank exchange rates.
 * **Land Area Converter**: Convert between Ropani-Aana-Paisa-Dam, Bigha-Katha-Dhur, Sq. Feet, and Sq. Meters.
 * **Encrypted Vault**: Secure local storage with biometric authentication for notes and passwords.
-* **Daily Sensors & Utilities**: Compass, Bubble Level, Sound Level Meter (dBA), Spy Camera & Bug Detector, Bilingual Voice Notes, Speed Test, Fuel Rates, Vegetable Market Prices, and Radio streaming.
+* **Daily Sensors & Utilities**: Compass, Bubble Level, Sound Level Meter (dBA), Spy Camera & Bug Detector, Bilingual Voice Notes, Speed Test, Fuel Rates, and Vegetable Market Prices.
 * **Starred Favorite Tools**: Pin frequently used tools right at the top of the Home screen with persistent bookmarks.
 
 ---
