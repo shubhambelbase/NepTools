@@ -1,6 +1,6 @@
 # NepTools - Modern Nepali Calendar & Smart Utility Suite
 
-[![Version](https://img.shields.io/badge/Version-v3.1.3-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
+[![Version](https://img.shields.io/badge/Version-v3.1.4-orange.svg)](https://github.com/shubhambelbase/NepTools/releases)
 [![Platform](https://img.shields.io/badge/Platform-Android%208.0%2B-green.svg)](https://github.com/shubhambelbase/NepTools)
 [![License](https://img.shields.io/badge/License-Proprietary-blue.svg)](https://github.com/shubhambelbase/NepTools)
 
@@ -12,7 +12,7 @@
 
 You can download the latest official APK directly from the Releases page:
 
-**[Download Latest NepTools APK (v3.1.3)](https://github.com/shubhambelbase/NepTools/releases/latest)**
+**[Download Latest NepTools APK (v3.1.4)](https://github.com/shubhambelbase/NepTools/releases/latest)**
 
 Releases are signed with a dedicated release key and include published SHA-256 checksums for verified package integrity.
 
